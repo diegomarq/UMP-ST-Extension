@@ -1,0 +1,23 @@
+========== Primeiro criterio de seleção ==========
+
+Para cada grupo Gn
+	Para cada nó N em Gn
+		Verifica se existe alguma lista de grupos onde N está presente
+			Se não
+				Cria uma lista de grupos onde N está presente
+				Coloca o id de Gn na lista
+				Para cada grupo Gk diferente de Gn
+					Verifica se o nó N está presente em Gk
+						Se estiver, adicione o id do grupo Gk na lista
+				Verifica a quantidade de elementos dentro da lista de grupos
+					Se tiver apenas 1 elemento, então o nó relativo a lista é residente
+					Se for maior que 1, então não podemos afirmar nada.
+	
+Nós residentes em seus grupos
+N = 1 = {1}		livesAtSameAddress = {Personal Information}
+N = 5 = {2}		hasProcurementOwner = {Procurement Information}
+N = 19 = {10}	hasAdministrativeHistory = {Judgement History}
+N = 20 = {10}	hasCriminalHistory = {Judgement History}
+N = 24 = {13}	isSuspendedProcurement = {Suspicious Procurement}
+
+

@@ -1,0 +1,6 @@
+&R1
+{isA(person1,Person)
+isA(person2,Person)}
+{(person1=person2)}
+{livesAtSameAddress(person1,person2)}
+{isRelated(person1,person2)}

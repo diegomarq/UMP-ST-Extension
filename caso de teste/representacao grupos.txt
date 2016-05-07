@@ -1,0 +1,51 @@
+G = {G1, G2, G3, G4, G5, G5, G6, G7, G8, G9, G10, G11, G12, G13}
+<Gn> = ({entidades}, {atributos}, {relacionamentos}, {regra})
+--------------------------------------------------------------------------------------------------------
+
+G1 = ({Person}, {}, {livesAtSameAddress(Person , Person), isRelated(Person , Person), 
+	hasAnnualIncome(Person), hasEducationLevel(Person)}, {1})
+
+G2 = ({Procurement, Person}, {}, {hasProcurementOwner(Procurement), hasWinnerOfProcurement(Procurement),
+	isParticipantIn(Enterprise , Procurement), isMemberOfCommitee(Person , Procurement),
+	hasValue(Procurement), isProcurementFinished(Procurement)}, {})
+
+G3 = ({Enterprise, Person}, {}, {isSupended(Enterprise), isResponsibleFor(Person , Enterprise), {})
+
+G4 = ({Person, Enterprise, Procurement}, {}, {isResponsibleFor(Person , Enterprise),
+	isProcurementFinished(Procurement), hasWinnerOfProcurement(Procurement), hasEducationLevel(Person),	
+	hasValue(Procurement), isFrontFor(Person , Enterprise), hasAnnualIncome(Person)}, {3})
+	
+G5 = ({Person, Enterprise}, {}, {isResponsibleFor(Person , Enterprise), isFrontFor(Person , Enterprise),
+	existsFrontInEnterprise(Enterprise)}, {4})
+	
+G6 = ({Enterprise, Procurement, Person}, {}, {isParticipantIn(Enterprise , Procurement),
+	isResponsibleFor(Person , Enterprise), isRelated(Person , Person), hasRelatedParticipants(Procurement)},
+	{6})
+	
+G7 = ({Person, Enterprise, Procurement}, {}, {isResponsibleFor(Person , Enterprise),
+	isMemberOfCommitee(Person , Procurement), isParticipantIn(Enterprise , Procurement),
+	isRelated(Person , Person), hasMemberRelatedToParticipant(Procurement), {2})
+	
+G8 = ({Enterprise, Procurement}, {}, {isParticipantIn(Enterprise , Procurement),
+	hasRelatedParticipants(Procurement), existsFrontInEnterprise(Enterprise),
+	hasMemberRelatedToParticipant(Procurement), isCompetitionCompromised(Procurement), {7})
+	
+G9 = ({Person, Enterprise}, {}, {isResponsibleFor(Person , Enterprise), isSupended(Enterprise),
+	ownsSuspendedEnterprise(Person)}, {5})
+
+G10 = ({Person}, {}, {hasAdministrativeHistory(Person), hasCriminalHistory(Person),
+	hasCleanHistory(Person), {8})
+	
+G11 = ({Enterprise, Procurement, Person}, {}, {isParticipantIn(Enterprise , Procurement),
+	isResponsibleFor(Person , Enterprise), isMemberOfCommitee(Person , Procurement),
+	isProcurementFinished(Procurement), isRelated(Person , Person), 
+	wasRelatedToPreviousParticipants(Person)}, {9})
+
+G12 = ({Person, Procurement}, {}, {isMemberOfCommitee(Person , Procurement),
+	wasRelatedToPreviousParticipants(Person), hasCleanHistory(Person),
+	hasSuspiciousCommitee(Procurement), {10})
+
+G13 = ({Enterprise, Procurement, Person}, {}, {isParticipantIn(Enterprise , Procurement),
+	isResponsibleFor(Person , Enterprise), ownsSuspendedEnterprise(Person),
+	isCompetitionCompromised(Procurement), hasSuspiciousCommitee(Procurement)
+	isSuspendedProcurement(Procurement)}, {11})

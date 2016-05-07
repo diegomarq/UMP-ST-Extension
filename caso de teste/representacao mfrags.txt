@@ -1,0 +1,86 @@
+M = {MG1, MG2, MG3, MG4, MG5, MG6, MG7, MG8, MG9, MG10, MG11, MG12, MG13}
+<MGk> = ({contexto}, {(Nn, Nj), ...) com Nn residente ou input e Nj residente na Mfrag MGk
+L lista de nós que estão em dúvida
+<L> = {(Nn, Gk), ...} com Nn em duvida e Gk o grupo no qual Nn pertence
+
+----------- Saida após rodar parte do algoritimo principal e a função DefineMfragCausal -------------
+
+L = {(hasValue(procurement), 4), (hasEducationLevel(person), 4),
+	(hasAnnualIncome(person), 4), (isSuspended(enterprise), 9)}
+
+MG1 = ({isA(person1, Person), isA(person2, Person), ¬(person1 = person2)},	
+	{(livesAtSameAddress(person1, person2) res, isRelated(person1, person2) res),
+	(hasAnnualIncome(Person) res), (hasEducationLevel(Person) res)})
+	
+MG7 = ({isA(member, Person), isA(person, Person), ¬(member = person), isA(enterprise, Enterprise),
+	isA(procurement, Procurement), isMemberOfCommitee(member, procurement),
+	isResponsible(member, enterprise), isParticipantIn(enterprise, procurement)},	
+	{(isRelated(member, person) inp, hasMemberRelatedToParticipant(procurement) res)})
+	
+MG4 = ({isA(person, Person), isA(enterprise, Enterprise), isA(procurement, Procurement),
+	isResponsibleFor(person, enterprise), 
+	isProcurementFinished(procurement) ^ (enterprise = hasWinnerOfProcurement(procurement))},	
+	{(hasValue(procurement) duv, isFrontOf(person, enterprise) res),
+	(hasEducationLevel(person) duv, isFrontOf(person, enterprise) res),
+	(hasAnnualIncome(person) duv, isFrontOf(person, enterprise) res)})
+	
+MG5 = ({isA(person, Person), isA(enterprise, Enterprise), isResponsibleFor(person, enterprise)},	
+	{(isFrontOf(person, enterprise) inp, existsFrontInEnterprise(enterprise) res)})
+	
+MG9 = ({isA(person, Person), isA(enterprise, Enterprise), isResponsibleFor(person, enterprise)},	
+	{(isSuspended(enterprise) duv, owsSuspendedEnterprise(person) res)})
+	
+MG6 = ({isA(person1, Person), isA(person2, Person), ¬(person1 = person2), isA(enterprise1, Enterprise),
+	isA(enterprise2, Enterprise), ¬(enterprise1 = enterprise2), isResponsibleFor(person1, enterprise1),
+	isParticipantIn(enterprise1, procurement), isResponsibleFor(person2, enterprise2),
+	isParticipantIn(enterprise2, procurement)},
+	{(isRelated(person, person) inp, hasRelatedParticipants(procurement) res)})
+	
+MG8 = ({isA(person, Person), isA(procurement, Procurement), isA(enterprise, Enterprise),
+	isParticipantIn(Enterprise, Procurement)},	
+	{(hasRelatedParticipants(Procurement) inp, isCompetitionCompromised(Procurement) res),
+ 	(hasMemberRelatedToParticipant(Procurement) inp, isCompetitionCompromised(Procurement) res),
+	(existsFrontInEnterprise(Enterprise) inp, isCompetitionCompromised(Procurement) res)})
+	
+MG10 = ({isA(person, Person)},
+	{(hasCriminalHistory(person) res, hasCleanHistory(person) res),
+	(hasAdministrativeHistory(person) res, hasCleanHistory(person) res)})
+	
+MG11 = ({isA(member, Person), isA(person, Person), isA(previous_procurement, Procurement),
+	isA(enterprise, Enterprise), isMemberOfCommitee(member, previous_procurement),
+	isResponsibleFor(person, enterprise), isParticipantIn(enterprise, previous_procurement),
+	isProcurementFinished(previous_procurement)},	
+	{(isRelated(member, person) inp, wasRelatedToPreviousParticipants(member) res)})
+	
+MG12 = ({isA(member, Person), isA(procurement, Procurement), isMemberOfCommitee(member, procurement)},	
+	{(wasRelatedToPreviousParticipants(member) inp, hasSuspiciousCommitee(procurement) res),
+	(hasCleanHistory(member) inp, hasSuspiciousCommitee(procurement) res)})
+	
+MG13 = ({isA(person, Person), isA(enterprise, Enterprise), isA(procurement, Procurement),
+	isResponsibleFor(person, enterprise), isParticipantIn(enterprise, procurement)},	
+	{(owsSuspendedEnterprise(person) inp, isSuspendedProcurement(procurement) res),
+	(hasSuspiciousCommitee(procurement) inp, isSuspendedProcurement(procurement) res),
+	(isCompetitionCompromised(procurement) inp, isSuspendedProcurement(procurement))})
+	
+----------Saída após rodar a segunda parte do algoritimo principal e a função DefineMfragInfo----------
+
+MG2 = ({isA(procurement, Procurement), isA(person, Person)},
+	{(hasProcurementOwner(procurement) res), (hasWinnerOfProcurement(procurement) res),
+	(isParticipantIn(enterprise , procurement) res), (isMemberOfCommitee(person , procurement) res),
+	(hasValue(procurement) res), (isProcurementFinished(procurement) res)})
+	
+MG3 = ({isA(enterprise, Enterprise), isA(person, Person)},
+	{(isSuspended(enterprise) res), (isResponsibleFor(person , enterprise) res)})
+
+	
+-------Saída após rodar a terceira parte do algoritimo principal e a função VerificaCasosDuvida--------
+
+MG4 = ({isA(person, Person), isA(enterprise, Enterprise), isA(procurement, Procurement),
+	isResponsibleFor(person, enterprise), 
+	isProcurementFinished(procurement) ^ (enterprise = hasWinnerOfProcurement(procurement))},	
+	{(hasValue(procurement) inp, isFrontOf(person, enterprise) res),
+	(hasEducationLevel(person) inp, isFrontOf(person, enterprise) res),
+	(hasAnnualIncome(person) inp, isFrontOf(person, enterprise) res)})
+	
+MG9 = ({isA(person, Person), isA(enterprise, Enterprise), isResponsibleFor(person, enterprise)},	
+	{(isSuspended(enterprise) inp, owsSuspendedEnterprise(person) res)})

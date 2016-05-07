@@ -1,0 +1,22 @@
+***************** LIST OF REVIEW ACTIVITIES *******************
+
+- Goal Traceability
+1. Are there duplicated objects?
+
+
+- Hypothesis Traceability
+1. Are there goals related to hypothesis? (it means, is necessary the goals description in hypothesis treceability?)
+
+
+
+
+
+
+
+
+OBS.	See caret update in Console view when click on some objects (Goals/Hypothesis)
+	
+	*Rules is a kind of relationship between Relationship object, Hypothesis and Goal objects. So backtracking goals and hypothesis present in relationship attributes can be instacited based on this relation.
+
+
+

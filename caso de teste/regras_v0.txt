@@ -1,0 +1,21 @@
+&R1 = ({isA(person1,Person), isA(person2,Person)}, {¬(person1=person2)}, {livesAtSameAddress(person1,person2)}, {isRelated(person1,person2)})
+
+&R2 = ({isA(member, Person), isA(person, Person), ¬(member = person), isA(enterprise, Enterprise), isA(procurement, Procurement), isMemberOfCommitee(member, procurement), isResponsible(member, enterprise), isParticipantIn(enterprise, procurement)}, {isRelated(member, person)}, {hasMemberRelatedToParticipant(procurement)})
+
+&R3 = ({isA(person, Person), isA(enterprise, Enterprise), isA(procurement, Procurement), isResponsibleFor(person, enterprise), isProcurementFinished(procurement) ^(enterprise = 	hasWinnerOfProcurement(procurement))}, {hasValue(procurement),  hasEducationLevel(person), hasAnnualIncome(person)}, {isFrontOf(person, enterprise)})
+
+&R4 = ({isA(person, Person), isA(enterprise, Enterprise), isResponsibleFor(person, enterprise)}, {isFrontOf(person, enterprise)}, {existsFrontInEnterprise(enterprise)})
+
+&R5 = ({isA(person, Person), isA(enterprise, Enterprise), isResponsibleFor(person, enterprise)}, {isSuspended(enterprise)}, {owsSuspendedEnterprise(person)})
+
+&R6 = ({isA(person1, Person), isA(person2, Person), ¬(person1 = person2), isA(enterprise1, Enterprise), isA(enterprise2, Enterprise), ¬(enterprise1 = enterprise2), isResponsibleFor(person1, enterprise1), isParticipantIn(enterprise1, procurement), isResponsibleFor(person2, enterprise2), isParticipantIn(enterprise2, procurement)}, {isRelated(person, person)}, {hasRelatedParticipants(procurement)})
+
+&R7 = ({isA(person, Person), isA(procurement, Procurement), isA(enterprise, Enterprise), isParticipantIn(Enterprise, Procurement)}, {hasRelatedParticipants(Procurement), hasMemberRelatedToParticipant(Procurement), existsFrontInEnterprise(Enterprise)}, {isCompetitionCompromised(Procurement)})
+
+&R8 = ({isA(person, Person)}, {hasCriminalHistory(person), hasAdministrativeHistory(person)}, {hasCleanHistory(person)})
+
+&R9 = ({isA(member, Person), isA(person, Person), isA(previous_procurement, Procurement), isA(enterprise, Enterprise), isMemberOfCommitee(member, previous_procurement), isResponsibleFor(person, enterprise), isParticipantIn(enterprise, previous_procurement), isProcurementFinished(previous_procurement)}, {isRelated(member, person)}, {wasRelatedToPreviousParticipants(member)})
+
+&R10 = ({isA(member, Person), isA(procurement, Procurement), isMemberOfCommitee(member, procurement)}, {wasRelatedToPreviousParticipants(member), hasCleanHistory(member)}, {hasSuspiciousCommitee(procurement)})
+
+&R11 = ({isA(person, Person), isA(enterprise, Enterprise), isA(procurement, Procurement), isResponsibleFor(person, enterprise), isParticipantIn(enterprise, procurement)}, {ownsSuspendedEnterprise(person), hasSuspiciousCommitee(procurement), isCompetitionCompromised(procurement)}, {isSuspendedProcurement(procurement)})

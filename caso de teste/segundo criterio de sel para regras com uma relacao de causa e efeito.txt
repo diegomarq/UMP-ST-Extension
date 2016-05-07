@@ -1,0 +1,81 @@
+---------------------------------   Codificação dos dados   ---------------------------------
+R é o conjunto de todas as regras
+G é o conjunto de todos os grupos
+M é o conjunto de todas as MFrags
+L lista de nós que estão em dúvida
+
+R = {Rn, ...}
+<Rn> = ({cond necessarias}, {causas}, {consequencias})
+G = {Gk, ...}
+<Gk> = ({entidades}, {atributos}, {relacionamentos}, {regra})
+M = {MGk, ...}
+<MGk> = ({contexto}, {(Nn, Nj), ...) com Nn residente ou input e Nj residente na Mfrag MGk
+<L> = {(Nn, Gk), ...} com Nn em duvida e Gk o grupo no qual Nn pertence
+----------------------------------------------------------------------------------------------
+
+Principal: "Sobre a entrada R e G
+	Para cada Gk:
+		Verifique qual regra Rn está presente no grupo
+			Se Rn foi identificada então:
+				Compare os elementos presentes em Rn com Gk
+					Se os elementos em Rn estiverem relacionados em Gk, então:
+						Insira {cond necessarias} de Rn em {contexto} de MGk
+						Verifica se todas as entidades E em Gk são variaveis ordinarias em MGk
+							Se não, adicione as var ord que estão faltando
+						Vá para DefineMfragCausal
+					Se não, há um erro de concisão entre a regra Rn e o grupo Gk,
+					todos os elementos de Rn devem estar presentes em Gk				
+			Se não:
+				Adicione como {contexto} em MGk todas as variaveis ordinarias relacionadas as 
+				entidades E de Gk
+				Vá para DefineMfragInfo
+	Se a lista de dúvidas L não estiver vazia, então:
+		Vá para VerificaCasosDuvida"
+
+/*Casos onde não há uma relação causal no grupo* Obs**/
+DefineMfragInfo: "Sobre a entrada Gk
+	Para cada Nn presente em Gk:
+		verifique se Nn é residente em Gk pelo primeiro criterio de seleção
+			Se sim, adicione {(Nn res),...} em MGk		
+			Se não, o algoritmo irá interpretar os nós como residentes já que não foi
+			definida uma regra que esse grupo envolve, então adicione {(Nn res),...} em MGk"
+
+/*Casos onde há uma relação causal no grupo*/
+DefineMfragCausal: "Sobre a entrada Rn e Gk
+	Para cada relacionamento Nn que for causa em Rn:
+		Verifica se Nn é residente em Gk pelo primeiro criterio de seleção		
+			Se Nn for residente, então:
+				Para cada consequência Nj em Rn:
+					Nj é residente, logo {(Nn res, Nj res), ....} em MGk
+			Se não, verifica se Nn é consequência em pelo menos uma regra exceto Rn
+				Se sim, então:
+					Nn é de input e para cada consequencia Nj em Rn:
+						Nj é residente, logo {(Nn inp, Nj res), ....} em MGk
+				Se não, então:
+					Nn será inserido em uma lista de duvidas <L> = {(Nn, Gk), ...}, onde não sabemos
+					se ele é residente ou de input.
+					Para cada consequência Nj em Rn:
+						Nj é residente, logo {(Nn duv, Nj res), ....} em MGk
+	Para cada relacionamento Nn que não estiver em Rn:
+		Adicione {(Nn res), ...} em MGk"
+
+/*Casos que estão na lista de dúvidas*/
+VerificaCasosDuvida: "Sobre a entrada M e L
+	Para cada (Nn, Gk) em duvida pertencente a L:
+		Verifica se Nn está presente em outro grupo em L
+			Se sim, então haverá um erro de consistência já que para o mesmo nó Nn residente em um Gy
+			qualquer, existem dois nós Nn em duvida em dois grupos distintos e diferentes de Gy.
+		Verifica se Nn é residente em alguma MGk exceto a formada por Gk			
+			Se sim, então para cada nó em dúvida {(Nn duv,...), (Nn duv,...), ...} em MGk referente a Gk:
+				Altere para {(Nn inp,...), (Nn inp,...), ...}
+			Se não, o algoritmo permitirá que o modelador decida quem é o nó de input e o nó residente.
+			
+			
+*Obs não há como identificar se um nó é residente ou de input se ele for apenas pai em todas as MFrags,
+podendo ser residente e de input. 
+Ex: MF1 = {{nós de contexto},{(A res, C res), (B duv, C res)}}, MF2 = {{nós de contexto},{(B duv, D res)}}.
+Neste caso, B pode ser residente tanto na MF1 como na MF2.
+
+**Obs os Nn relacionados aos Gk são na verdade relacionamentos na forma rel(Entidade, Entidade),
+isso posteriormente deve ser tratado substituindo cada Entidade por sua respectiva variavel ordinária
+dentro da MFrag
