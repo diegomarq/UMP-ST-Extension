@@ -1,5 +1,6 @@
 Plugins/
 UnBBayes/
 MEBN/
+PR-OWL2/
 *.tar.gz
 .metadata/

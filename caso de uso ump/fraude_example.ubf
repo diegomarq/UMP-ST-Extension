@@ -1,0 +1,98 @@
+% UBF file header
+Version=0.04
+PrOwl="fraude_example.owl"
+
+% UBF MTheory declaration
+MTheory=MEBN
+NextMFrag=3
+NextResident=4
+NextInput=2
+NextContext=2
+NextEntity=1
+
+% UBF MFrags and Nodes declaration
+
+% MFrag
+MFrag=Enterprise_Information
+NextOrdinaryVar=5
+
+% Resident nodes
+
+
+Node=isResponsibleFor
+Type=DomainResidentNode
+Position=90.0,106.0
+Size=283,60
+Color=-66914
+PossibleValuesOrder=
+
+Node=isSuspended
+Type=DomainResidentNode
+Position=367.0,103.0
+Size=206,60
+Color=-66914
+PossibleValuesOrder=
+
+% Ordinary Variables
+
+
+Node=person
+Type=OrdinalVar
+Position=145.0,41.0
+Size=170,60
+Color=-5178237
+
+Node=enterprise
+Type=OrdinalVar
+Position=320.0,42.0
+Size=212,60
+Color=-5178237
+
+% MFrag
+MFrag=Owns_Suspended_Enterprise
+NextOrdinaryVar=3
+
+% Resident nodes
+
+
+Node=ownsSuspendedEnterprise
+Type=DomainResidentNode
+Position=97.0,229.0
+Size=272,60
+Color=-66914
+PossibleValuesOrder=
+
+% Input nodes
+
+
+Node=IX1
+Type=GenerativeInputNode
+Position=130.0,153.0
+Size=206,60
+Color=-2302756
+
+% Context nodes
+
+
+Node=CX1
+Type=ContextNode
+Position=89.0,96.0
+Size=279,60
+Color=-5178237
+
+% Ordinary Variables
+
+
+Node=person
+Type=OrdinalVar
+Position=238.0,42.0
+Size=170,60
+Color=-5178237
+
+Node=enterprise
+Type=OrdinalVar
+Position=22.0,43.0
+Size=212,60
+Color=-5178237
+
+% Object Entity Instances
