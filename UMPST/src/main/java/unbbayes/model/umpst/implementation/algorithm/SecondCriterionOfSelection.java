@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import unbbayes.controller.umpst.GenerateMTheoryController;
+import unbbayes.controller.umpst.MappingController;
 import unbbayes.model.umpst.ObjectModel;
 import unbbayes.model.umpst.entity.EntityModel;
 import unbbayes.model.umpst.group.GroupModel;
@@ -31,7 +31,7 @@ import unbbayes.util.ArrayMap;
 public class SecondCriterionOfSelection {
 	
 	private UMPSTProject umpstProject;
-	private GenerateMTheoryController generateMTheoryController;
+	private MappingController generateMTheoryController;
 	
 	private Map<String, GroupModel> mapGroup;
 	private Map<String, RuleModel> mapRule;
@@ -39,7 +39,7 @@ public class SecondCriterionOfSelection {
 	private List<ObjectModel> objectModel;
 	
 	public SecondCriterionOfSelection(UMPSTProject umpstProject,
-			GenerateMTheoryController generateMTheoryController) {
+			MappingController generateMTheoryController) {
 		
 		this.umpstProject = umpstProject;
 		this.generateMTheoryController = generateMTheoryController;
@@ -56,7 +56,7 @@ public class SecondCriterionOfSelection {
 	 */
 	public void mainSelection() {
 		List<RuleModel> listRules = new ArrayList<RuleModel>();
-		DefineMFragRelation mfragRelation;
+		DefineDependenceRelation mfragRelation;
 		
 		mapGroup = umpstProject.getMapGroups();
 		Set<String> keys = mapGroup.keySet();
@@ -72,7 +72,7 @@ public class SecondCriterionOfSelection {
 				if (compareElements(rule, group)) {
 					
 					insertContextNode(rule, group);
-					mfragRelation = new DefineMFragRelation(rule, group, generateMTheoryController,
+					mfragRelation = new DefineDependenceRelation(rule, group, generateMTheoryController,
 							umpstProject, this);
 //					searchOVMissing(rule, group);
 //					defineMFragCausal(rule, group);

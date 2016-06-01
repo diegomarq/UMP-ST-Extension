@@ -21,7 +21,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 
-import unbbayes.controller.umpst.GenerateMTheoryController;
+import unbbayes.controller.umpst.MappingController;
 import unbbayes.gui.umpst.IUMPSTPanel;
 import unbbayes.gui.umpst.UmpstModule;
 import unbbayes.model.umpst.project.UMPSTProject;
@@ -40,7 +40,7 @@ public class ImplementationMainPanel extends IUMPSTPanel{
 	private JPanel descriptionPanel;
 	private JPanel generatePanel;
 	
-	private GenerateMTheoryController generateMtheoryController;
+	private MappingController generateMtheoryController;
 	
 	private String ruleDescriptionText = " ";
 	
@@ -90,7 +90,7 @@ public class ImplementationMainPanel extends IUMPSTPanel{
 		btnGenerate.addActionListener(new ActionListener() {			
 			public void actionPerformed(ActionEvent e) {
 				
-				generateMtheoryController = new GenerateMTheoryController(getUmpstProject());
+				generateMtheoryController = new MappingController(getUmpstProject());
 			}
 		});
 	}

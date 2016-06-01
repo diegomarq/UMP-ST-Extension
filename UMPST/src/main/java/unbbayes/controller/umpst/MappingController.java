@@ -9,6 +9,7 @@ import javax.swing.JFileChooser;
 
 import unbbayes.io.umpst.FileSave;
 import unbbayes.io.umpst.intermediatemtheory.FileBuildIntermediateMTheory;
+import unbbayes.model.umpst.implementation.algorithm.DefineMapping;
 import unbbayes.model.umpst.implementation.algorithm.FirstCriterionOfSelection;
 import unbbayes.model.umpst.implementation.algorithm.MFragModel;
 import unbbayes.model.umpst.implementation.algorithm.MTheoryModel;
@@ -23,12 +24,13 @@ import unbbayes.model.umpst.project.UMPSTProject;
  * @author Diego Marques
  *
  */
-public class GenerateMTheoryController {
+public class MappingController {
 	
 	private UMPSTProject umsptProject;
 	private MTheoryModel mtheory;
 	
-	// Run Mode
+	// Run Mode	
+	private DefineMapping mapping;
 	private FirstCriterionOfSelection firstCriterion;
 	private SecondCriterionOfSelection secondCriterion;
 	
@@ -36,11 +38,13 @@ public class GenerateMTheoryController {
 	private ResourceBundle resource = unbbayes.util.ResourceController.newInstance().getBundle(
 			unbbayes.gui.umpst.resources.Resources.class.getName());
 	
-	public GenerateMTheoryController (UMPSTProject umpstProject) {
+	public MappingController (UMPSTProject umpstProject) {
 		
 		this.umsptProject = umpstProject;
 		
 		mtheory = new MTheoryModel(umpstProject.getModelName(), umpstProject.getAuthorModel());
+		
+		mapping = new DefineMapping(umpstProject, this);
 		firstCriterion = new FirstCriterionOfSelection(umpstProject, this);
 		secondCriterion = new SecondCriterionOfSelection(umpstProject, this);
 		
@@ -126,14 +130,6 @@ public class GenerateMTheoryController {
 	 */
 	public void addNotDefinedNodeInMFrag(String idMFrag, NodeObjectModel node) {
 		mtheory.addNotDefinedNodeInMFrag(idMFrag, node);
-	}
-	
-	/**
-	 * Add MFrag.
-	 * @param mfrag
-	 */
-	public void addMFrag(MFragModel mfrag) {
-		mtheory.addMFrag(mfrag);
 	}
 
 	/**

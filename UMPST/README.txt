@@ -16,6 +16,11 @@ Go to \mvn_lib\unbbayes>
 mvn install:install-file -DgroupId=guess -DartifactId=jpf -Dversion=1.5 -Dpackaging=jar -Dfile=jpf-1.5.jar
 mvn install:install-file -DpomFile=pom.xml -Dpackaging=jar -Dfile=unbbayes-4.0.0.jar
 
+The following JAR is a dependency of the UnBBayes PR-OWL 2 format extension
+Go to \mvn_lib\>
+mvn install:install-file -DgroupId=br.unb.cic -DartifactId=unbbayes.gui.mebn.ontology.protege -Dversion=1.2.5 -Dpackaging=jar -Dfile=unbbayes.gui.mebn.ontology.protege-1.2.5.jar
+mvn install:install-file -DgroupId=br.unb.cic -DartifactId=unbbayes.prs.mebn -Dversion=1.14.13 -Dpackaging=jar -Dfile=unbbayes.prs.mebn-1.14.13
+
 
 CREATING A RELEASE
 -------------------

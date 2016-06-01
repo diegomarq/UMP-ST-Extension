@@ -1,6 +1,7 @@
 package unbbayes.io.umpst.intermediatemtheory;
 
 import java.io.File;
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -22,6 +23,8 @@ import unbbayes.io.umpst.FileBuildNodeHierarchy;
 import unbbayes.io.umpst.FileSaveHeader;
 import unbbayes.model.umpst.project.UMPSTProject;
 import unbbayes.util.CommonDataUtil;
+
+import unbbayes.gui.mebn.extension.ArgumentMappingDialog;
 
 public class FileBuildIntermediateMTheory {
 

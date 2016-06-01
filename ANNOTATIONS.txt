@@ -1,0 +1,3 @@
+- Existe uma dependencia com o MEBN por meio do objeto MultiEntityBayesianNetwork
+
+- Se salvar em UBf2 entao provavelmente vai ter que colocar uma dependencia com o MEBN.

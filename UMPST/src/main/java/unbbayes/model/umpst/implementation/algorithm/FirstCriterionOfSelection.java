@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import unbbayes.controller.umpst.GenerateMTheoryController;
+import unbbayes.controller.umpst.MappingController;
 import unbbayes.model.umpst.entity.RelationshipModel;
 import unbbayes.model.umpst.group.GroupModel;
 import unbbayes.model.umpst.implementation.node.NodeResidentModel;
@@ -27,12 +27,12 @@ public class FirstCriterionOfSelection {
 	
 	private List<NodeResidentModel> nodeResidentList;
 	
-	private GenerateMTheoryController generateMTheoryController;
+	private MappingController mappingController;
 
-	public FirstCriterionOfSelection(UMPSTProject umpstProject, GenerateMTheoryController generateMTheoryController) {
+	public FirstCriterionOfSelection(UMPSTProject umpstProject, MappingController mappingController) {
 		
 		this.umpstProject = umpstProject;
-		this.generateMTheoryController = generateMTheoryController;
+		this.mappingController = mappingController;
 		
 		mapRelationship = new HashMap<String, RelationshipModel>();
 		mapGroup = new HashMap<String, GroupModel>();
@@ -60,7 +60,7 @@ public class FirstCriterionOfSelection {
 						id, name, NodeType.RESIDENT, relationship);
 				
 				for (GroupModel group : setGroups) {
-					generateMTheoryController.addResidentNodeInMFrag(group.getId(), nodeResident);
+					mappingController.addResidentNodeInMFrag(group.getId(), nodeResident);
 				}	
 			}
 		}
@@ -80,7 +80,7 @@ public class FirstCriterionOfSelection {
 			
 			MFragModel mfrag = new MFragModel(id, name);
 			// Adds MFrags in MTheory
-			generateMTheoryController.addMFrag(mfrag);	
+//			mappingController.addMFrag(mfrag);	
 		}
 	}
 

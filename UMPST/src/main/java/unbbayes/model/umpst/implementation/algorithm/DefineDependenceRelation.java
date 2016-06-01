@@ -1,13 +1,12 @@
 package unbbayes.model.umpst.implementation.algorithm;
 
-import java.awt.print.Printable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import unbbayes.controller.umpst.GenerateMTheoryController;
+import unbbayes.controller.umpst.MappingController;
 import unbbayes.model.umpst.entity.RelationshipModel;
 import unbbayes.model.umpst.group.GroupModel;
 import unbbayes.model.umpst.implementation.CauseVariableModel;
@@ -28,7 +27,7 @@ import unbbayes.model.umpst.rule.RuleModel;
  * @param rule
  * @param group
  */
-public class DefineMFragRelation {
+public class DefineDependenceRelation {
 	
 	private RuleModel rule;
 	private GroupModel group;
@@ -40,12 +39,12 @@ public class DefineMFragRelation {
 	private NodeObjectModel notDefinedNode;
 //	private NodeResidentModel residentNodeFather;
 	
-	private GenerateMTheoryController generateMTheoryController;
+	private MappingController generateMTheoryController;
 	private SecondCriterionOfSelection secondCriterion;
 	
 	private UMPSTProject umpstProject;
 	
-	public DefineMFragRelation(RuleModel rule, GroupModel group, GenerateMTheoryController generateMTheoryController, 
+	public DefineDependenceRelation(RuleModel rule, GroupModel group, MappingController generateMTheoryController, 
 			UMPSTProject umpstProject, SecondCriterionOfSelection secondCriterion) {
 		
 		this.rule = rule;
