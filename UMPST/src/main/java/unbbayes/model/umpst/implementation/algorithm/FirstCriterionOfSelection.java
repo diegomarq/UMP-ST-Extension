@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.eclipse.osgi.framework.debug.Debug;
+
 import unbbayes.controller.umpst.MappingController;
 import unbbayes.model.umpst.entity.RelationshipModel;
 import unbbayes.model.umpst.group.GroupModel;
@@ -50,6 +52,7 @@ public class FirstCriterionOfSelection {
 		
 //		createMfrags();
 		firstSelection();
+		Debug.println(this.getClass() + "Fist Criterion of Selection done.");
 	}
 	
 	/**
