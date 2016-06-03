@@ -8,30 +8,30 @@ import unbbayes.prs.mebn.MultiEntityNode;
 
 public class UndefinedNode extends MultiEntityNode {
 	
-	private MFrag mfrag;
+	private MFragExtension mfragExtension;
 	private RelationshipModel relationshipPointer;
 	
-	public UndefinedNode(String name, MFrag mfrag) {
+	public UndefinedNode(String name, MFragExtension mfragExtension) {
 		super();		
 		setName(name);
 		setLabel(" ");
 		setColor(new Color(176, 252, 131));
 		
-		this.mfrag = mfrag;
+		this.mfragExtension = mfragExtension;
 	}
 
 	/**
-	 * @return the mfrag
+	 * @return the mfragExtension
 	 */
-	public MFrag getMfrag() {
-		return mfrag;
+	public MFragExtension getMfragExtension() {
+		return mfragExtension;
 	}
 
 	/**
-	 * @param mfrag the mfrag to set
+	 * @param mfrag the mfragExtension to set
 	 */
-	public void setMfrag(MFrag mfrag) {
-		this.mfrag = mfrag;
+	public void setMfragExtension(MFragExtension mfragExtension) {
+		this.mfragExtension = mfragExtension;
 	}
 
 	/**

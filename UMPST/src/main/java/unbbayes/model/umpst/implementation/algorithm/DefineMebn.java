@@ -2,9 +2,9 @@ package unbbayes.model.umpst.implementation.algorithm;
 
 import java.util.List;
 
+import unbbayes.model.umpst.implementation.node.MFragExtension;
+import unbbayes.model.umpst.implementation.node.MebnExtension;
 import unbbayes.model.umpst.project.UMPSTProject;
-import unbbayes.prs.mebn.MFrag;
-import unbbayes.prs.mebn.MultiEntityBayesianNetwork;
 
 /**
  * Mebn is a MultiEntityBayesianNetwork structure 
@@ -13,38 +13,37 @@ import unbbayes.prs.mebn.MultiEntityBayesianNetwork;
 public class DefineMebn {
 
 	private UMPSTProject umpstProject;
-	private MultiEntityBayesianNetwork mebn;	
+	private MebnExtension mebnExtension;
 	
 	public DefineMebn(UMPSTProject umpstProject) {
 		this.umpstProject = umpstProject;		
-		
-		mebn = new MultiEntityBayesianNetwork(umpstProject.getModelName());
-		
+	
+		mebnExtension = new MebnExtension(umpstProject.getModelName());
 	}
 	
-	public List<MFrag> getMFragList() {
-		return mebn.getDomainMFragList();
+	public List<MFragExtension> getMFragExtensionList() {
+		return mebnExtension.getDomainMFragExtensionList();
 	}
 	
-	public void addMFrag(MFrag domainMFrag) {
-		mebn.addDomainMFrag(domainMFrag);
+	public void addMFragExtension(MFragExtension domainMFrag) {
+		mebnExtension.addDomainMFragExtension(domainMFrag);		
 	}
 	
-	public void removeMFrag(MFrag domainMFrag) {
-		mebn.removeDomainMFrag(domainMFrag);
+	public void removeMFragExtension(MFragExtension domainMFrag) {
+		mebnExtension.removeDomainMFragExtension(domainMFrag);
 	}
 
 	/**
-	 * @return the mebn
+	 * @return the mebnExtension
 	 */
-	public MultiEntityBayesianNetwork getMebn() {
-		return mebn;
+	public MebnExtension getMebnExtension() {
+		return mebnExtension;
 	}
 
 	/**
-	 * @param mebn the mebn to set
+	 * @param mebn the mebnExtension to set
 	 */
-	public void setMebn(MultiEntityBayesianNetwork mebn) {
-		this.mebn = mebn;
+	public void setMebnExtension(MebnExtension mebnExtension) {
+		this.mebnExtension = mebnExtension;
 	}
 }

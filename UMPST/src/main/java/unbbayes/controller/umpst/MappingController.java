@@ -30,7 +30,7 @@ public class MappingController {
 	private MTheoryModel mtheory;
 	
 	// Run Mode	
-	private DefineMapping mapping;
+	private DefineMapping defineMapping;
 	private FirstCriterionOfSelection firstCriterion;
 	private SecondCriterionOfSelection secondCriterion;
 	
@@ -44,11 +44,11 @@ public class MappingController {
 		
 		mtheory = new MTheoryModel(umpstProject.getModelName(), umpstProject.getAuthorModel());
 		
-		mapping = new DefineMapping(umpstProject, this);
+		defineMapping = new DefineMapping(umpstProject, this);
 		firstCriterion = new FirstCriterionOfSelection(umpstProject, this);
-		secondCriterion = new SecondCriterionOfSelection(umpstProject, this);
-		
-		umpstProject.setMtheory(mtheory);
+//		secondCriterion = new SecondCriterionOfSelection(umpstProject, this);
+//		
+//		umpstProject.setMtheory(mtheory);
 		
 //		testMTheory();
 	}
@@ -144,6 +144,20 @@ public class MappingController {
 	 */
 	public void setMTheory(MTheoryModel mtheory) {
 		this.mtheory = mtheory;
+	}
+
+	/**
+	 * @return the defineMapping
+	 */
+	public DefineMapping getDefineMapping() {
+		return defineMapping;
+	}
+
+	/**
+	 * @param defineMapping the defineMapping to set
+	 */
+	public void setDefineMapping(DefineMapping defineMapping) {
+		this.defineMapping = defineMapping;
 	}	
 
 }

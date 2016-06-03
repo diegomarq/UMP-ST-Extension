@@ -10,9 +10,13 @@ import java.util.TreeSet;
 import unbbayes.controller.umpst.MappingController;
 import unbbayes.model.umpst.entity.RelationshipModel;
 import unbbayes.model.umpst.group.GroupModel;
+import unbbayes.model.umpst.implementation.node.MFragExtension;
+import unbbayes.model.umpst.implementation.node.MebnExtension;
 import unbbayes.model.umpst.implementation.node.NodeResidentModel;
-import unbbayes.model.umpst.implementation.node.NodeType;
+import unbbayes.model.umpst.implementation.node.ResidentNodeExtension;
+import unbbayes.model.umpst.implementation.node.UndefinedNode;
 import unbbayes.model.umpst.project.UMPSTProject;
+import unbbayes.prs.mebn.ResidentNode;
 
 /**
  * Separate resident nodes according the relationship presence in a groupList.
@@ -22,6 +26,9 @@ import unbbayes.model.umpst.project.UMPSTProject;
 public class FirstCriterionOfSelection {
 	
 	private UMPSTProject umpstProject;
+	private DefineMapping defineMapping;
+	private DefineMebn defineMebn;
+	
 	private Map<String, RelationshipModel> mapRelationship;
 	private Map<String, GroupModel> mapGroup;
 	
@@ -34,55 +41,84 @@ public class FirstCriterionOfSelection {
 		this.umpstProject = umpstProject;
 		this.mappingController = mappingController;
 		
+		defineMapping = mappingController.getDefineMapping();
+		defineMebn = defineMapping.getDefineMebnExtension();
+		
 		mapRelationship = new HashMap<String, RelationshipModel>();
 		mapGroup = new HashMap<String, GroupModel>();
 		nodeResidentList = new ArrayList<NodeResidentModel>();
 		
-		createMfrags();
-		searchResidentNode();
+//		createMfrags();
+		firstSelection();
 	}
 	
-	public void searchResidentNode() {
+	/**
+	 * Search nodes declared once in MTheory and map to resident.
+	 */
+	public void firstSelection() {
 		
-		mapRelationship = umpstProject.getMapRelationship();
-		Set<String> keys = mapRelationship.keySet();
-		TreeSet<String> sortedKeys = new TreeSet<String>(keys);
+		MebnExtension mebn = defineMebn.getMebnExtension();
+		List<MFragExtension> mfragList = mebn.getDomainMFragExtensionList();
 		
-		for (String key : sortedKeys) {
-			RelationshipModel relationship = mapRelationship.get(key);
-			String id = relationship.getId();
-			String name = relationship.getName();
+		for (MFragExtension mFragExtension : mfragList) {
 			
-			Set<GroupModel> setGroups = relationship.getFowardtrackingGroups();
-			if (setGroups.size() == 1) {
+			List<UndefinedNode> undefinedNodeList = mFragExtension.getUndefinedNodeList();
+			for (UndefinedNode undefinedNode : undefinedNodeList) {
 				
-				NodeResidentModel nodeResident = new NodeResidentModel(
-						id, name, NodeType.RESIDENT, relationship);
-				
-				for (GroupModel group : setGroups) {
-					mappingController.addResidentNodeInMFrag(group.getId(), nodeResident);
-				}	
+				RelationshipModel relationship = undefinedNode.getRelationshipPointer();
+				if (relationship.getFowardtrackingGroups().size() == 1) {
+					
+					String name = undefinedNode.getName();					
+					ResidentNodeExtension residentNode = new ResidentNodeExtension(
+							name, mFragExtension);
+					
+					mFragExtension.removeUndefinedNode(undefinedNode);
+					mFragExtension.addResidentNodeExtension(residentNode);
+				}
 			}
 		}
+		
+//		mapRelationship = umpstProject.getMapRelationship();
+//		Set<String> keys = mapRelationship.keySet();
+//		TreeSet<String> sortedKeys = new TreeSet<String>(keys);
+//		
+//		for (String key : sortedKeys) {
+//			RelationshipModel relationship = mapRelationship.get(key);
+//			String id = relationship.getId();
+//			String name = relationship.getName();
+//			
+//			Set<GroupModel> setGroups = relationship.getFowardtrackingGroups();
+//			if (setGroups.size() == 1) {
+//				
+//				
+//				
+//				NodeResidentModel nodeResident = new NodeResidentModel(
+//						id, name, NodeType.RESIDENT, relationship);
+//				
+//				for (GroupModel group : setGroups) {
+//					mappingController.addResidentNodeInMFrag(group.getId(), nodeResident);
+//				}	
+//			}
+//		}
 	}
 	
-	public void createMfrags() {
-		
-		mapGroup = umpstProject.getMapGroups();
-		Set<String> keys = mapGroup.keySet();
-		TreeSet<String> sortedKeys = new TreeSet<String>(keys);
-		
-		for (String key : sortedKeys) {
-			GroupModel group = mapGroup.get(key);
-			
-			String id = group.getId();
-			String name = group.getName();
-			
-			MFragModel mfrag = new MFragModel(id, name);
-			// Adds MFrags in MTheory
-//			mappingController.addMFrag(mfrag);	
-		}
-	}
+//	public void createMfrags() {
+//		
+//		mapGroup = umpstProject.getMapGroups();
+//		Set<String> keys = mapGroup.keySet();
+//		TreeSet<String> sortedKeys = new TreeSet<String>(keys);
+//		
+//		for (String key : sortedKeys) {
+//			GroupModel group = mapGroup.get(key);
+//			
+//			String id = group.getId();
+//			String name = group.getName();
+//			
+//			MFragModel mfrag = new MFragModel(id, name);
+//			// Adds MFrags in MTheory
+////			mappingController.addMFrag(mfrag);	
+//		}
+//	}
 
 	/**
 	 * @return the nodeResidentList

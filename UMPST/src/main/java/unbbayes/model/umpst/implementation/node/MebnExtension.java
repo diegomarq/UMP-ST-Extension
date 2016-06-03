@@ -15,15 +15,40 @@ import unbbayes.prs.mebn.MultiEntityBayesianNetwork;
  */
 public class MebnExtension extends MultiEntityBayesianNetwork {
 
-	private ArrayList<MFragExtension> domainMFragList;
+	private ArrayList<MFragExtension> domainMFragExtensionList;
 
 	/**
 	 * @param name
 	 */
 	public MebnExtension(String name) {
-		super(name);		
+		super(name);
 		
-		domainMFragList = new ArrayList<MFragExtension>();
+		setDomainMFragExtensionList(new ArrayList<MFragExtension>());
+	}
+	
+	public void addDomainMFragExtension(MFragExtension domainMFragExtension) {
+		domainMFragExtensionList.add(domainMFragExtension);
+		super.addDomainMFrag((MFrag)domainMFragExtension);
+	}
+	
+	public void removeDomainMFragExtension(MFragExtension domainMFragExtension) {
+		domainMFragExtension.delete();
+		domainMFragExtensionList.remove(domainMFragExtension);
+		super.removeDomainMFrag((MFrag)domainMFragExtension);
+	}
+
+	/**
+	 * @return the domainMFragExtensionList
+	 */
+	public ArrayList<MFragExtension> getDomainMFragExtensionList() {
+		return domainMFragExtensionList;
+	}
+
+	/**
+	 * @param domainMFragExtensionList the domainMFragExtensionList to set
+	 */
+	public void setDomainMFragExtensionList(ArrayList<MFragExtension> domainMFragExtensionList) {
+		this.domainMFragExtensionList = domainMFragExtensionList;		
 	}
 	
 	

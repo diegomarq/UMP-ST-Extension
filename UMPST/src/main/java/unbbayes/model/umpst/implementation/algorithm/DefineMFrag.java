@@ -6,6 +6,7 @@ import java.util.TreeSet;
 
 import unbbayes.model.umpst.group.GroupModel;
 import unbbayes.model.umpst.implementation.node.MFragExtension;
+import unbbayes.model.umpst.implementation.node.MebnExtension;
 import unbbayes.prs.mebn.MultiEntityBayesianNetwork;
 
 /**
@@ -15,16 +16,16 @@ import unbbayes.prs.mebn.MultiEntityBayesianNetwork;
 public class DefineMFrag {
 	
 	private Map<String, GroupModel> mapGroup;
-	private MultiEntityBayesianNetwork mebn;
+	private MebnExtension mebnExtension;
 	private DefineMapping defineMapping;
 	
-	public DefineMFrag(Map<String, GroupModel> mapGroup, MultiEntityBayesianNetwork mebn,
+	public DefineMFrag(Map<String, GroupModel> mapGroup, MebnExtension mebnExtension,
 			DefineMapping defineMapping) {
 		this.mapGroup = mapGroup;
 		this.defineMapping = defineMapping;
-		this.mebn = mebn;
+		this.mebnExtension = mebnExtension;
 		
-		createMFrags();		
+		createMFrags();
 	}
 	
 	/**
@@ -40,11 +41,11 @@ public class DefineMFrag {
 			String id = group.getId();
 			String name = group.getName();
 			
-			MFragExtension mfrag = new MFragExtension(name, mebn);
+			MFragExtension mfragExtension = new MFragExtension(name, mebnExtension);
 //			MFragModel mfrag = new MFragModel(id, name);
-			// Adds MFrags in MTheory
-			defineMapping.addMFrag(mfrag);
-			defineMapping.addGroupPointer(mfrag, group);
+			// Adds MFrags in MTheory			
+			defineMapping.addGroupPointer(mfragExtension, group);
+			defineMapping.addMFragExtension(mfragExtension);
 		}
 	} 
 }
