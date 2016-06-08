@@ -7,11 +7,9 @@ import java.util.ResourceBundle;
 
 import javax.swing.JFileChooser;
 
-import unbbayes.io.umpst.FileSave;
-import unbbayes.io.umpst.intermediatemtheory.FileBuildIntermediateMTheory;
 import unbbayes.model.umpst.implementation.algorithm.DefineMapping;
+import unbbayes.model.umpst.implementation.algorithm.DefineMebn;
 import unbbayes.model.umpst.implementation.algorithm.FirstCriterionOfSelection;
-import unbbayes.model.umpst.implementation.algorithm.MFragModel;
 import unbbayes.model.umpst.implementation.algorithm.MTheoryModel;
 import unbbayes.model.umpst.implementation.algorithm.SecondCriterionOfSelection;
 import unbbayes.model.umpst.implementation.node.NodeContextModel;
@@ -19,6 +17,12 @@ import unbbayes.model.umpst.implementation.node.NodeInputModel;
 import unbbayes.model.umpst.implementation.node.NodeObjectModel;
 import unbbayes.model.umpst.implementation.node.NodeResidentModel;
 import unbbayes.model.umpst.project.UMPSTProject;
+import unbbayes.prs.mebn.MultiEntityBayesianNetwork;
+import unbbayes.io.mebn.MebnIO;
+import unbbayes.io.umpst.implementation.FileBuildPROWL2;
+import unbbayes.io.umpst.intermediatemtheory.FileBuildIntermediateMTheory;
+import unbbayes.io.mebn.*;
+import unbbayes.io.mebn.exceptions.IOMebnException;
 
 /**
  * @author Diego Marques
@@ -50,7 +54,7 @@ public class MappingController {
 //		
 //		umpstProject.setMtheory(mtheory);
 		
-//		testMTheory();
+		testMTheory();
 	}
 	
 	/**
@@ -58,8 +62,9 @@ public class MappingController {
 	 */
 	public void testMTheory() {
 		File newFile = null;
-		FileBuildIntermediateMTheory file = new FileBuildIntermediateMTheory();
+//		FileBuildIntermediateMTheory file = new FileBuildIntermediateMTheory();
 
+		// set current directory
 		JFileChooser fc =  new JFileChooser(); 
 		fc.setCurrentDirectory (new File ("."));
 
@@ -70,18 +75,39 @@ public class MappingController {
 		}
 
 		if (newFile!=null)	{
+			
+			DefineMebn defineMebn = defineMapping.getDefineMebnExtension();
+			MultiEntityBayesianNetwork mebn = defineMebn.getMebnExtension();
+			
+//			SaverPrOwlIO savePrOwl = new SaverPrOwlIO();
+//			FileBuildPROWL2 saveFile  = new FileBuildPROWL2(newFile, mebn);
+//			SaverPrOwlIO saveFile = new SaverPrOwlIO();
+			UbfIO2 saveFile = new UbfIO2();
 			try {
-				controller = Controller.getInstance(null); 
-				
-				file.buildIntermediateMTheory(newFile, umsptProject);
+				saveFile.saveMebn(newFile, mebn);
+//				saveFile.saveMebn(newFile, mebn);		
+//				savePrOwl.saveMebn(newFile, mebn);				
 				controller.showSucessMessageDialog(resource.getString("msSaveSuccessfull"));
-			} catch (FileNotFoundException e1) {
-				controller.showErrorMessageDialog(resource.getString("erFileNotFound")); 
-				e1.printStackTrace();
-			} catch (IOException e2) {
-				controller.showErrorMessageDialog(resource.getString("erSaveFatal")); 
-				e2.printStackTrace();
+			} catch (IOMebnException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+			
+//			try {				
+//				controller = Controller.getInstance(null); 
+//				
+//				file.buildIntermediateMTheory(newFile, umsptProject);
+//				controller.showSucessMessageDialog(resource.getString("msSaveSuccessfull"));
+//			} catch (FileNotFoundException e1) {
+//				controller.showErrorMessageDialog(resource.getString("erFileNotFound")); 
+//				e1.printStackTrace();
+//			} catch (IOException e2) {
+//				controller.showErrorMessageDialog(resource.getString("erSaveFatal")); 
+//				e2.printStackTrace();
+//			}
 		}
 		else {
 			controller.showErrorMessageDialog(resource.getString("erSaveFatal")); 

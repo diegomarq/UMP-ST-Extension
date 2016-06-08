@@ -5,6 +5,7 @@ import java.util.List;
 
 import unbbayes.model.umpst.group.GroupModel;
 import unbbayes.prs.mebn.MFrag;
+import unbbayes.prs.mebn.ResidentNode;
 
 public class MFragExtension extends MFrag {
 	private GroupModel groupPointer;
@@ -24,10 +25,12 @@ public class MFragExtension extends MFrag {
 	
 	public void addResidentNodeExtension(ResidentNodeExtension residentNodeExtension) {
 		residentNodeExtensionList.add(residentNodeExtension);
+		super.addResidentNode((ResidentNode)residentNodeExtension);
 	}
 	
 	public void removeResindentNodeExtension(ResidentNodeExtension resindeNodeExtension) {
 		residentNodeExtensionList.remove(resindeNodeExtension);
+		super.removeResidentNode((ResidentNode)resindeNodeExtension);
 	}
 	
 	public void addUndefinedNode(UndefinedNode node) {

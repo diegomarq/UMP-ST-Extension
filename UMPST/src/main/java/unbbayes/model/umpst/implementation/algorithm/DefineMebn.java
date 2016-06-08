@@ -26,7 +26,8 @@ public class DefineMebn {
 	}
 	
 	public void addMFragExtension(MFragExtension domainMFrag) {
-		mebnExtension.addDomainMFragExtension(domainMFrag);		
+		mebnExtension.addDomainMFragExtension(domainMFrag);
+		mebnExtension.addDomainMFrag(domainMFrag);
 	}
 	
 	public void removeMFragExtension(MFragExtension domainMFrag) {

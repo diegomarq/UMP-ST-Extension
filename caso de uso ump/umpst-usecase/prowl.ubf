@@ -1,0 +1,119 @@
+% Cabeçalho UBF
+Version=2.0
+PrOwl="prowl.owl"
+
+% Declaração de MTheory - UBF
+MTheory=prowl
+NextMFrag=27
+NextResident=1
+NextInput=1
+NextContext=1
+NextEntity=1
+
+% Declaração de MFrags e nós UBF
+
+% MFrag
+MFrag=Personal Information
+NextOrdinaryVar=1
+
+% MFrag
+MFrag=Personal Information
+NextOrdinaryVar=1
+
+% MFrag
+MFrag=Judgement History
+NextOrdinaryVar=1
+
+% MFrag
+MFrag=Judgement History
+NextOrdinaryVar=1
+
+% MFrag
+MFrag=Related to Previous Participants
+NextOrdinaryVar=1
+
+% MFrag
+MFrag=Related to Previous Participants
+NextOrdinaryVar=1
+
+% MFrag
+MFrag=Suspicious Commitee
+NextOrdinaryVar=1
+
+% MFrag
+MFrag=Suspicious Commitee
+NextOrdinaryVar=1
+
+% MFrag
+MFrag=Suspicious Procurement
+NextOrdinaryVar=1
+
+% MFrag
+MFrag=Suspicious Procurement
+NextOrdinaryVar=1
+
+% MFrag
+MFrag=Procurement Information
+NextOrdinaryVar=1
+
+% MFrag
+MFrag=Procurement Information
+NextOrdinaryVar=1
+
+% MFrag
+MFrag=Enterprise Information
+NextOrdinaryVar=1
+
+% MFrag
+MFrag=Enterprise Information
+NextOrdinaryVar=1
+
+% MFrag
+MFrag=Front of Enterprise
+NextOrdinaryVar=1
+
+% MFrag
+MFrag=Front of Enterprise
+NextOrdinaryVar=1
+
+% MFrag
+MFrag=Exists Front in Enterprise
+NextOrdinaryVar=1
+
+% MFrag
+MFrag=Exists Front in Enterprise
+NextOrdinaryVar=1
+
+% MFrag
+MFrag=Related Participant Enterprises
+NextOrdinaryVar=1
+
+% MFrag
+MFrag=Related Participant Enterprises
+NextOrdinaryVar=1
+
+% MFrag
+MFrag=Member Related to Participant
+NextOrdinaryVar=1
+
+% MFrag
+MFrag=Member Related to Participant
+NextOrdinaryVar=1
+
+% MFrag
+MFrag=Competition Compromised
+NextOrdinaryVar=1
+
+% MFrag
+MFrag=Competition Compromised
+NextOrdinaryVar=1
+
+% MFrag
+MFrag=Owns Suspended Enterprise
+NextOrdinaryVar=1
+
+% MFrag
+MFrag=Owns Suspended Enterprise
+NextOrdinaryVar=1
+
+% Instâncias de Entidades Objetos

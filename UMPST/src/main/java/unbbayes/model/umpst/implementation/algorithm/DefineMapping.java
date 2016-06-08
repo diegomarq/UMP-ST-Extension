@@ -32,7 +32,7 @@ public class DefineMapping {
 		Debug.println("MTheoryExtension created: " + getDefineMebnExtension().getMebnExtension().getName());
 		createMFragsExtension();
 		Debug.println("MFrags created: " + getDefineMebnExtension().getMFragExtensionList().size());
-//		createUndefinedNodes();
+		createUndefinedNodes();
 		// put code here to map attributes as RVs
 	}
 	
@@ -40,21 +40,21 @@ public class DefineMapping {
 	 * TODO create a new method to map attributes as UndefinedNodes
 	 */
 	
-//	public void createUndefinedNodes() {
-//		List<MFragExtension> listMFragExtension = defineMebnExtension.getMFragExtensionList();
-//		for (MFragExtension mfragExtension : listMFragExtension) {
-//			
-//			GroupModel group = mfragExtension.getGroupPointer();
-//			List<RelationshipModel> relationshipList = group.getBacktrackingRelationship();
-//			for(RelationshipModel relationship : relationshipList) {
-//				
-//				String name = relationship.getName();
-//				UndefinedNode node = new UndefinedNode(name, mfragExtension);
-//				node.setRelationshipPointer(relationship);
-//				mfragExtension.addUndefinedNode(node);
-//			}
-//		}
-//	}
+	public void createUndefinedNodes() {
+		List<MFragExtension> listMFragExtension = defineMebnExtension.getMFragExtensionList();
+		for (MFragExtension mfragExtension : listMFragExtension) {
+			
+			GroupModel group = mfragExtension.getGroupPointer();
+			List<RelationshipModel> relationshipList = group.getBacktrackingRelationship();
+			for(RelationshipModel relationship : relationshipList) {
+				
+				String name = relationship.getName();
+				UndefinedNode node = new UndefinedNode(name, mfragExtension);
+				node.setRelationshipPointer(relationship);
+				mfragExtension.addUndefinedNode(node);
+			}
+		}
+	}
 	
 	public void createMebnExtension() {
 		setDefineMebnExtension(new DefineMebn(umpstProject));
@@ -71,7 +71,7 @@ public class DefineMapping {
 	}
 	
 	public void addMFragExtension(MFragExtension domainMFragExtension) {
-		getDefineMebnExtension().addMFragExtension(domainMFragExtension);		
+		getDefineMebnExtension().addMFragExtension(domainMFragExtension);
 	}
 	
 	public void removeMFrag(MFragExtension domainMFrag) {

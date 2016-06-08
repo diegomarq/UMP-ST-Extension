@@ -56,7 +56,7 @@ public class FirstCriterionOfSelection {
 	}
 	
 	/**
-	 * Search nodes declared once in MTheory and map to resident.
+	 * Search nodes declared once in MTheory and maps them to resident.
 	 */
 	public void firstSelection() {
 		

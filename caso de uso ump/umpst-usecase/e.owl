@@ -1,0 +1,205 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="file:/home/diego/Documents/Projeto/UMP-ST-Extension/caso%20de%20uso%20ump/umpst-usecase/e.owl"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     ontologyIRI="file:/home/diego/Documents/Projeto/UMP-ST-Extension/caso%20de%20uso%20ump/umpst-usecase/e.owl">
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Import>http://www.pr-owl.org/pr-owl2.owl</Import>
+    <ClassAssertion>
+        <Class IRI="http://www.pr-owl.org/pr-owl2.owl#DomainMFrag"/>
+        <NamedIndividual IRI="#Domain_MFrag.Competition_Compromised"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.pr-owl.org/pr-owl2.owl#DomainMFrag"/>
+        <NamedIndividual IRI="#Domain_MFrag.Enterprise_Information"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.pr-owl.org/pr-owl2.owl#DomainMFrag"/>
+        <NamedIndividual IRI="#Domain_MFrag.Exists_Front_in_Enterprise"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.pr-owl.org/pr-owl2.owl#DomainMFrag"/>
+        <NamedIndividual IRI="#Domain_MFrag.Front_of_Enterprise"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.pr-owl.org/pr-owl2.owl#DomainMFrag"/>
+        <NamedIndividual IRI="#Domain_MFrag.Judgement_History"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.pr-owl.org/pr-owl2.owl#DomainMFrag"/>
+        <NamedIndividual IRI="#Domain_MFrag.Member_Related_to_Participant"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.pr-owl.org/pr-owl2.owl#DomainMFrag"/>
+        <NamedIndividual IRI="#Domain_MFrag.Owns_Suspended_Enterprise"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.pr-owl.org/pr-owl2.owl#DomainMFrag"/>
+        <NamedIndividual IRI="#Domain_MFrag.Personal_Information"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.pr-owl.org/pr-owl2.owl#DomainMFrag"/>
+        <NamedIndividual IRI="#Domain_MFrag.Procurement_Information"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.pr-owl.org/pr-owl2.owl#DomainMFrag"/>
+        <NamedIndividual IRI="#Domain_MFrag.Related_Participant_Enterprises"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.pr-owl.org/pr-owl2.owl#DomainMFrag"/>
+        <NamedIndividual IRI="#Domain_MFrag.Related_to_Previous_Participants"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.pr-owl.org/pr-owl2.owl#DomainMFrag"/>
+        <NamedIndividual IRI="#Domain_MFrag.Suspicious_Commitee"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.pr-owl.org/pr-owl2.owl#DomainMFrag"/>
+        <NamedIndividual IRI="#Domain_MFrag.Suspicious_Procurement"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.pr-owl.org/pr-owl2.owl#MTheory"/>
+        <NamedIndividual IRI="#prowl"/>
+    </ClassAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isMFragOf"/>
+        <NamedIndividual IRI="#Domain_MFrag.Competition_Compromised"/>
+        <NamedIndividual IRI="#prowl"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isMFragOf"/>
+        <NamedIndividual IRI="#Domain_MFrag.Enterprise_Information"/>
+        <NamedIndividual IRI="#prowl"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isMFragOf"/>
+        <NamedIndividual IRI="#Domain_MFrag.Exists_Front_in_Enterprise"/>
+        <NamedIndividual IRI="#prowl"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isMFragOf"/>
+        <NamedIndividual IRI="#Domain_MFrag.Front_of_Enterprise"/>
+        <NamedIndividual IRI="#prowl"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isMFragOf"/>
+        <NamedIndividual IRI="#Domain_MFrag.Judgement_History"/>
+        <NamedIndividual IRI="#prowl"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isMFragOf"/>
+        <NamedIndividual IRI="#Domain_MFrag.Member_Related_to_Participant"/>
+        <NamedIndividual IRI="#prowl"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isMFragOf"/>
+        <NamedIndividual IRI="#Domain_MFrag.Owns_Suspended_Enterprise"/>
+        <NamedIndividual IRI="#prowl"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isMFragOf"/>
+        <NamedIndividual IRI="#Domain_MFrag.Personal_Information"/>
+        <NamedIndividual IRI="#prowl"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isMFragOf"/>
+        <NamedIndividual IRI="#Domain_MFrag.Procurement_Information"/>
+        <NamedIndividual IRI="#prowl"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isMFragOf"/>
+        <NamedIndividual IRI="#Domain_MFrag.Related_Participant_Enterprises"/>
+        <NamedIndividual IRI="#prowl"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isMFragOf"/>
+        <NamedIndividual IRI="#Domain_MFrag.Related_to_Previous_Participants"/>
+        <NamedIndividual IRI="#prowl"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isMFragOf"/>
+        <NamedIndividual IRI="#Domain_MFrag.Suspicious_Commitee"/>
+        <NamedIndividual IRI="#prowl"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isMFragOf"/>
+        <NamedIndividual IRI="#Domain_MFrag.Suspicious_Procurement"/>
+        <NamedIndividual IRI="#prowl"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasMFrag"/>
+        <NamedIndividual IRI="#prowl"/>
+        <NamedIndividual IRI="#Domain_MFrag.Judgement_History"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasMFrag"/>
+        <NamedIndividual IRI="#prowl"/>
+        <NamedIndividual IRI="#Domain_MFrag.Front_of_Enterprise"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasMFrag"/>
+        <NamedIndividual IRI="#prowl"/>
+        <NamedIndividual IRI="#Domain_MFrag.Suspicious_Procurement"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasMFrag"/>
+        <NamedIndividual IRI="#prowl"/>
+        <NamedIndividual IRI="#Domain_MFrag.Suspicious_Commitee"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasMFrag"/>
+        <NamedIndividual IRI="#prowl"/>
+        <NamedIndividual IRI="#Domain_MFrag.Member_Related_to_Participant"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasMFrag"/>
+        <NamedIndividual IRI="#prowl"/>
+        <NamedIndividual IRI="#Domain_MFrag.Owns_Suspended_Enterprise"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasMFrag"/>
+        <NamedIndividual IRI="#prowl"/>
+        <NamedIndividual IRI="#Domain_MFrag.Related_to_Previous_Participants"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasMFrag"/>
+        <NamedIndividual IRI="#prowl"/>
+        <NamedIndividual IRI="#Domain_MFrag.Related_Participant_Enterprises"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasMFrag"/>
+        <NamedIndividual IRI="#prowl"/>
+        <NamedIndividual IRI="#Domain_MFrag.Exists_Front_in_Enterprise"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasMFrag"/>
+        <NamedIndividual IRI="#prowl"/>
+        <NamedIndividual IRI="#Domain_MFrag.Enterprise_Information"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasMFrag"/>
+        <NamedIndividual IRI="#prowl"/>
+        <NamedIndividual IRI="#Domain_MFrag.Procurement_Information"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasMFrag"/>
+        <NamedIndividual IRI="#prowl"/>
+        <NamedIndividual IRI="#Domain_MFrag.Personal_Information"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasMFrag"/>
+        <NamedIndividual IRI="#prowl"/>
+        <NamedIndividual IRI="#Domain_MFrag.Competition_Compromised"/>
+    </ObjectPropertyAssertion>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 3.1.0.20069) http://owlapi.sourceforge.net -->
+

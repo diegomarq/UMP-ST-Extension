@@ -21,6 +21,15 @@ Go to \mvn_lib\>
 mvn install:install-file -DgroupId=br.unb.cic -DartifactId=unbbayes.gui.mebn.ontology.protege -Dversion=1.2.5 -Dpackaging=jar -Dfile=unbbayes.gui.mebn.ontology.protege-1.2.5.jar
 mvn install:install-file -DgroupId=br.unb.cic -DartifactId=unbbayes.prs.mebn -Dversion=1.14.13 -Dpackaging=jar -Dfile=unbbayes.prs.mebn-1.14.13
 
+Go to \mvn_lib\protege>
+mvn install:install-file -DgroupId=guess -DartifactId=protege -Dversion=3.2 -Dpackaging=jar -Dfile=protege.jar
+
+Go to \mvn_lib\protege\edu.stanford.smi.protegex.owl>
+mvn install:install-file -DgroupId=guess -DartifactId=iri -Dversion=2.4 -Dpackaging=jar -Dfile=iri.jar
+mvn install:install-file -DgroupId=guess -DartifactId=jena -Dversion=2.4 -Dpackaging=jar -Dfile=jena.jar
+mvn install:install-file -DgroupId=guess -DartifactId=protege-owl -Dversion=3.2 -Dpackaging=jar -Dfile=protege-owl.jar
+
+
 
 CREATING A RELEASE
 -------------------

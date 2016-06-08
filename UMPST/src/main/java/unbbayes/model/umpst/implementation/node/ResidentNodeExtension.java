@@ -19,8 +19,8 @@ public class ResidentNodeExtension extends ResidentNode {
 	 * @param name
 	 * @param mFrag
 	 */
-	public ResidentNodeExtension(String name, MFrag mFrag) {
-		super(name, mFrag);
+	public ResidentNodeExtension(String name, MFragExtension mFragExtension) {
+		super(name, (MFrag)mFragExtension);
 		// TODO Auto-generated constructor stub
 	}
 

@@ -4,10 +4,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javax.swing.JComboBox.KeySelectionManager;
+
 import unbbayes.model.umpst.group.GroupModel;
 import unbbayes.model.umpst.implementation.node.MFragExtension;
 import unbbayes.model.umpst.implementation.node.MebnExtension;
-import unbbayes.prs.mebn.MultiEntityBayesianNetwork;
+import unbbayes.util.ArrayMap;
 
 /**
  * Create and make operations over MFrags.
@@ -33,19 +35,21 @@ public class DefineMFrag {
 	 */
 	public void createMFrags() {
 		Set<String> keys = mapGroup.keySet();
-		TreeSet<String> sortedKeys = new TreeSet<String>(keys);
+		TreeSet<String> sortedKeys = new TreeSet<String>(keys);	
 		
-		for (String key : sortedKeys) {
+		for (String key : sortedKeys) {			
 			GroupModel group = mapGroup.get(key);
 			
 			String id = group.getId();
 			String name = group.getName();
+			name = name.replace(" ", "_");
+			System.out.println("LALALA - "+name);
 			
 			MFragExtension mfragExtension = new MFragExtension(name, mebnExtension);
 //			MFragModel mfrag = new MFragModel(id, name);
 			// Adds MFrags in MTheory			
 			defineMapping.addGroupPointer(mfragExtension, group);
-			defineMapping.addMFragExtension(mfragExtension);
+			defineMapping.addMFragExtension(mfragExtension);	
 		}
 	} 
 }
