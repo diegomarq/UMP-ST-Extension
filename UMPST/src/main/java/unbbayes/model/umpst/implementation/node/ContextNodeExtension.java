@@ -4,6 +4,7 @@
 package unbbayes.model.umpst.implementation.node;
 
 import unbbayes.model.umpst.entity.RelationshipModel;
+import unbbayes.model.umpst.implementation.NecessaryConditionVariableModel;
 import unbbayes.prs.mebn.ContextNode;
 import unbbayes.prs.mebn.MFrag;
 
@@ -13,29 +14,31 @@ import unbbayes.prs.mebn.MFrag;
  */
 public class ContextNodeExtension extends ContextNode {
 	
-	private RelationshipModel relationshipPointer;
+	private NecessaryConditionVariableModel ncConditionPointer;
 
 	/**
 	 * @param name
 	 * @param mFrag
 	 */
-	public ContextNodeExtension(String name, MFrag mFrag) {
-		super(name, mFrag);
-		// TODO Auto-generated constructor stub
+	public ContextNodeExtension(MFragExtension mFragExtension, 
+			NecessaryConditionVariableModel ncConditionPointer, String name) {
+			
+		super(name, mFragExtension);
+		this.ncConditionPointer = ncConditionPointer;
 	}
 
 	/**
-	 * @return the relationshipPointer
+	 * @return the ncConditionPointer
 	 */
-	public RelationshipModel getRelationshipPointer() {
-		return relationshipPointer;
+	public NecessaryConditionVariableModel getNcConditionPointer() {
+		return ncConditionPointer;
 	}
 
 	/**
-	 * @param relationshipPointer the relationshipPointer to set
+	 * @param ncConditionPointer the ncConditionPointer to set
 	 */
-	public void setRelationshipPointer(RelationshipModel relationshipPointer) {
-		this.relationshipPointer = relationshipPointer;
+	public void setNcConditionPointer(NecessaryConditionVariableModel ncConditionPointer) {
+		this.ncConditionPointer = ncConditionPointer;
 	}
 
 }

@@ -1,11 +1,11 @@
 % Cabeçalho UBF
 Version=2.0
-PrOwl="prowl.owl"
+PrOwl="starstrek.owl"
 
 % Declaração de MTheory - UBF
-MTheory=prowl
-NextMFrag=14
-NextResident=5
+MTheory=startrek
+NextMFrag=9
+NextResident=6
 NextInput=1
 NextContext=1
 NextEntity=1
@@ -13,115 +13,13 @@ NextEntity=1
 % Declaração de MFrags e nós UBF
 
 % MFrag
-MFrag=Personal_Information
-NextOrdinaryVar=3
-
-% Nós Residentes
-
-
-Node=livesAtSameAddress
-Type=DomainResidentNode
-Position=0.0,0.0
-Size=80,60
-Color=-66914
-PossibleValuesOrder=
-
-% Variáveis Ordinárias
-
-
-Node=person1
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-Node=person2
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-% MFrag
-MFrag=Judgement_History
-NextOrdinaryVar=2
-
-% Nós Residentes
-
-
-Node=hasAdministrativeHistory
-Type=DomainResidentNode
-Position=0.0,0.0
-Size=80,60
-Color=-66914
-PossibleValuesOrder=
-
-% Variáveis Ordinárias
-
-
-Node=person
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-% MFrag
-MFrag=Related_to_Previous_Participants
-NextOrdinaryVar=5
-
-% Variáveis Ordinárias
-
-
-Node=member
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-Node=person
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-Node=previous_procurement
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-Node=enterprise
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-% MFrag
-MFrag=Suspicious_Commitee
-NextOrdinaryVar=3
-
-% Variáveis Ordinárias
-
-
-Node=member
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-Node=procurement
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-% MFrag
-MFrag=Suspicious_Procurement
+MFrag=Danger_To_Others
 NextOrdinaryVar=4
 
 % Nós Residentes
 
 
-Node=isSuspendedProcurement
+Node=DangerToOthers
 Type=DomainResidentNode
 Position=0.0,0.0
 Size=80,60
@@ -131,187 +29,333 @@ PossibleValuesOrder=
 % Variáveis Ordinárias
 
 
-Node=person
+Node=s
 Type=OrdinalVar
 Position=0.0,0.0
 Size=80,60
 Color=-5178237
 
-Node=enterprise
+Node=st
 Type=OrdinalVar
 Position=0.0,0.0
 Size=80,60
 Color=-5178237
 
-Node=procurement
+Node=t
 Type=OrdinalVar
 Position=0.0,0.0
 Size=80,60
 Color=-5178237
 
 % MFrag
-MFrag=Procurement_Information
-NextOrdinaryVar=1
+MFrag=Danger_To_Self
+NextOrdinaryVar=4
 
 % Nós Residentes
 
 
-Node=hasProcurementOwner
+Node=DangerToSelf
 Type=DomainResidentNode
 Position=0.0,0.0
 Size=80,60
 Color=-66914
 PossibleValuesOrder=
 
+% Variáveis Ordinárias
+
+
+Node=s
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+Node=st
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+Node=t
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
 % MFrag
-MFrag=Enterprise_Information
+MFrag=Starship_Existence
+NextOrdinaryVar=3
+
+% Variáveis Ordinárias
+
+
+Node=st
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+Node=z
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+% MFrag
+MFrag=SR_Data
 NextOrdinaryVar=1
 
 % MFrag
-MFrag=Front_of_Enterprise
-NextOrdinaryVar=4
+MFrag=Starship_Data
+NextOrdinaryVar=1
+
+% MFrag
+MFrag=Zone
+NextOrdinaryVar=9
+
+% Nós Residentes
+
+
+Node=ZoneMD
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
 
 % Variáveis Ordinárias
 
 
-Node=person
+Node=tPrev
 Type=OrdinalVar
 Position=0.0,0.0
 Size=80,60
 Color=-5178237
 
-Node=enterprise
+Node=z
 Type=OrdinalVar
 Position=0.0,0.0
 Size=80,60
 Color=-5178237
 
-Node=procurement
+Node=st
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+Node=t
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+Node=tPrev
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+Node=z
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+Node=st
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+Node=t
 Type=OrdinalVar
 Position=0.0,0.0
 Size=80,60
 Color=-5178237
 
 % MFrag
-MFrag=Exists_Front_in_Enterprise
-NextOrdinaryVar=3
+MFrag=Starship
+NextOrdinaryVar=21
 
 % Variáveis Ordinárias
 
 
-Node=person
+Node=z
 Type=OrdinalVar
 Position=0.0,0.0
 Size=80,60
 Color=-5178237
 
-Node=enterprise
+Node=st
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+Node=t
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+Node=tPrev
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+Node=z
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+Node=st
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+Node=t
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+Node=tPrev
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+Node=z
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+Node=t
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+Node=tPrev
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+Node=st
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+Node=z
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+Node=t
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+Node=tPrev
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+Node=st
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+Node=z
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+Node=t
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+Node=tPrev
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+Node=st
 Type=OrdinalVar
 Position=0.0,0.0
 Size=80,60
 Color=-5178237
 
 % MFrag
-MFrag=Related_Participant_Enterprises
-NextOrdinaryVar=6
+MFrag=Sensor_Report
+NextOrdinaryVar=7
+
+% Nós Residentes
+
+
+Node=SRClass
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+Node=SRDistance
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
 
 % Variáveis Ordinárias
 
 
-Node=person1
+Node=sr
 Type=OrdinalVar
 Position=0.0,0.0
 Size=80,60
 Color=-5178237
 
-Node=person2
+Node=st
 Type=OrdinalVar
 Position=0.0,0.0
 Size=80,60
 Color=-5178237
 
-Node=enterprise1
+Node=t
 Type=OrdinalVar
 Position=0.0,0.0
 Size=80,60
 Color=-5178237
 
-Node=enterprise2
+Node=sr
 Type=OrdinalVar
 Position=0.0,0.0
 Size=80,60
 Color=-5178237
 
-Node=procurement
+Node=st
 Type=OrdinalVar
 Position=0.0,0.0
 Size=80,60
 Color=-5178237
 
-% MFrag
-MFrag=Member_Related_to_Participant
-NextOrdinaryVar=5
-
-% Variáveis Ordinárias
-
-
-Node=member
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-Node=person
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-Node=enterprise
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-Node=procurement
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-% MFrag
-MFrag=Competition_Compromised
-NextOrdinaryVar=3
-
-% Variáveis Ordinárias
-
-
-Node=procurement
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-Node=enterprise
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-% MFrag
-MFrag=Owns_Suspended_Enterprise
-NextOrdinaryVar=3
-
-% Variáveis Ordinárias
-
-
-Node=person
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-Node=enterprise
+Node=t
 Type=OrdinalVar
 Position=0.0,0.0
 Size=80,60

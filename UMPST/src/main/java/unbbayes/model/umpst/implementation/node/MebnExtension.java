@@ -4,8 +4,8 @@
 package unbbayes.model.umpst.implementation.node;
 
 import java.util.ArrayList;
-import java.util.List;
 
+import unbbayes.model.umpst.rule.RuleModel;
 import unbbayes.prs.mebn.MFrag;
 import unbbayes.prs.mebn.MultiEntityBayesianNetwork;
 
@@ -15,7 +15,7 @@ import unbbayes.prs.mebn.MultiEntityBayesianNetwork;
  */
 public class MebnExtension extends MultiEntityBayesianNetwork {
 
-	private ArrayList<MFragExtension> domainMFragExtensionList;
+	private ArrayList<MFragExtension> mFragExtensionList;
 
 	/**
 	 * @param name
@@ -23,32 +23,32 @@ public class MebnExtension extends MultiEntityBayesianNetwork {
 	public MebnExtension(String name) {
 		super(name);
 		
-		setDomainMFragExtensionList(new ArrayList<MFragExtension>());
+		setMFragExtensionList(new ArrayList<MFragExtension>());
 	}
 	
-	public void addDomainMFragExtension(MFragExtension domainMFragExtension) {
-		domainMFragExtensionList.add(domainMFragExtension);
-		super.addDomainMFrag((MFrag)domainMFragExtension);
+	public void addMFragExtension(MFragExtension mFragExtension) {
+		mFragExtensionList.add(mFragExtension);
+		super.addDomainMFrag((MFrag)mFragExtension);
 	}
 	
-	public void removeDomainMFragExtension(MFragExtension domainMFragExtension) {
-		domainMFragExtension.delete();
-		domainMFragExtensionList.remove(domainMFragExtension);
-		super.removeDomainMFrag((MFrag)domainMFragExtension);
+	public void removeMFragExtension(MFragExtension mFragExtension) {
+		mFragExtension.delete();
+		mFragExtensionList.remove(mFragExtension);
+		super.removeDomainMFrag((MFrag)mFragExtension);
 	}
 
 	/**
-	 * @return the domainMFragExtensionList
+	 * @return the mFragExtensionList
 	 */
-	public ArrayList<MFragExtension> getDomainMFragExtensionList() {
-		return domainMFragExtensionList;
+	public ArrayList<MFragExtension> getMFragExtensionList() {
+		return mFragExtensionList;
 	}
 
 	/**
-	 * @param domainMFragExtensionList the domainMFragExtensionList to set
+	 * @param mFragExtensionList the mFragExtensionList to set
 	 */
-	public void setDomainMFragExtensionList(ArrayList<MFragExtension> domainMFragExtensionList) {
-		this.domainMFragExtensionList = domainMFragExtensionList;		
+	public void setMFragExtensionList(ArrayList<MFragExtension> mFragExtensionList) {
+		this.mFragExtensionList = mFragExtensionList;		
 	}
 	
 	

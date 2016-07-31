@@ -28,8 +28,6 @@ import unbbayes.prs.mebn.ResidentNode;
 public class FirstCriterionOfSelection {
 	
 	private UMPSTProject umpstProject;
-	private DefineMapping defineMapping;
-	private DefineMebn defineMebn;
 	
 	private Map<String, RelationshipModel> mapRelationship;
 	private Map<String, GroupModel> mapGroup;
@@ -42,9 +40,6 @@ public class FirstCriterionOfSelection {
 		
 		this.umpstProject = umpstProject;
 		this.mappingController = mappingController;
-		
-		defineMapping = mappingController.getDefineMapping();
-		defineMebn = defineMapping.getDefineMebnExtension();
 		
 		mapRelationship = new HashMap<String, RelationshipModel>();
 		mapGroup = new HashMap<String, GroupModel>();
@@ -60,14 +55,15 @@ public class FirstCriterionOfSelection {
 	 */
 	public void firstSelection() {
 		
-		MebnExtension mebn = defineMebn.getMebnExtension();
-		List<MFragExtension> mfragList = mebn.getDomainMFragExtensionList();
+		MebnExtension mebnExtension = mappingController.getMebnExtension();
+		List<MFragExtension> mfragExtensionList = mebnExtension.getMFragExtensionList();
 		
-		for (MFragExtension mFragExtension : mfragList) {
+		for (MFragExtension mFragExtension : mfragExtensionList) {
 			
 			List<UndefinedNode> undefinedNodeList = mFragExtension.getUndefinedNodeList();
-			for (UndefinedNode undefinedNode : undefinedNodeList) {
+			for (int i = 0; i < undefinedNodeList.size(); i++) {
 				
+				UndefinedNode undefinedNode = undefinedNodeList.get(i);				
 				RelationshipModel relationship = undefinedNode.getRelationshipPointer();
 				if (relationship.getFowardtrackingGroups().size() == 1) {
 					
@@ -78,7 +74,7 @@ public class FirstCriterionOfSelection {
 					mFragExtension.removeUndefinedNode(undefinedNode);
 					mFragExtension.addResidentNodeExtension(residentNode);
 				}
-			}
+			}			
 		}
 		
 //		mapRelationship = umpstProject.getMapRelationship();

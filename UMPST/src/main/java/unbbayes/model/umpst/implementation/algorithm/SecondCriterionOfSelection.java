@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import unbbayes.controller.mebn.MEBNController;
 import unbbayes.controller.umpst.MappingController;
 import unbbayes.model.umpst.ObjectModel;
 import unbbayes.model.umpst.entity.EntityModel;
@@ -15,65 +16,77 @@ import unbbayes.model.umpst.implementation.CauseVariableModel;
 import unbbayes.model.umpst.implementation.EffectVariableModel;
 import unbbayes.model.umpst.implementation.NecessaryConditionVariableModel;
 import unbbayes.model.umpst.implementation.OrdinaryVariableModel;
+import unbbayes.model.umpst.implementation.node.ContextNodeExtension;
+import unbbayes.model.umpst.implementation.node.MFragExtension;
+import unbbayes.model.umpst.implementation.node.MebnExtension;
 import unbbayes.model.umpst.implementation.node.NodeContextModel;
 import unbbayes.model.umpst.implementation.node.NodeInputModel;
 import unbbayes.model.umpst.implementation.node.NodeObjectModel;
 import unbbayes.model.umpst.implementation.node.NodeType;
+import unbbayes.model.umpst.implementation.node.OrdinaryVariableExtension;
 import unbbayes.model.umpst.project.UMPSTProject;
 import unbbayes.model.umpst.rule.RuleModel;
-import unbbayes.util.ArrayMap;
+import unbbayes.prs.mebn.ContextNode;
+import unbbayes.prs.mebn.entity.Type;
 
 /**
- * This criterion classifies not defined nodes present in MFrags in context, input
+ * This criterion classifies not defined nodes present in MFrags as context, input
  * or resident nodes and set the dependencies between each other.  
  * @author Diego Marques
  */
 public class SecondCriterionOfSelection {
 	
 	private UMPSTProject umpstProject;
-	private MappingController generateMTheoryController;
+	private MappingController mappingController;	
 	
 	private Map<String, GroupModel> mapGroup;
 	private Map<String, RuleModel> mapRule;
 	private Map<String, NodeObjectModel> mapDoubtNodes;
 	private List<ObjectModel> objectModel;
 	
+	private MebnExtension mebnExtension;
+	private MFragExtension mfragExtension;
+	
 	public SecondCriterionOfSelection(UMPSTProject umpstProject,
-			MappingController generateMTheoryController) {
+			MappingController mappingController) {
 		
 		this.umpstProject = umpstProject;
-		this.generateMTheoryController = generateMTheoryController;
+		this.mappingController = mappingController;
+		
+		mebnExtension = mappingController.getMebnExtension();
 		
 		mapGroup = new HashMap<String, GroupModel>();
 		mapRule = new HashMap<String, RuleModel>();
 		mapDoubtNodes = new HashMap<String, NodeObjectModel>();
 		
-		mainSelection();		
+		secondSelection();		
 	}
 	
 	/**
-	 * Main Selection.
+	 * Second Selection based on Second Criterion Of Selection algorithm.
 	 */
-	public void mainSelection() {
+	public void secondSelection() {
 		List<RuleModel> listRules = new ArrayList<RuleModel>();
 		DefineDependenceRelation mfragRelation;
 		
-		mapGroup = umpstProject.getMapGroups();
-		Set<String> keys = mapGroup.keySet();
-		TreeSet<String> sortedKeys = new TreeSet<String>(keys);
-		
-		for (String key : sortedKeys) {
-			GroupModel group = mapGroup.get(key);
+		// Verify list of rules related to each group		
+		List<MFragExtension> mfragExtensionList = mebnExtension.getMFragExtensionList();
+		for (MFragExtension mfragExtension : mfragExtensionList) {	
+			
+			GroupModel group = mfragExtension.getGroupPointer();
 			
 			listRules = group.getBacktrackingRules();
 			for (int i = 0; i < listRules.size(); i++) {
 				
+				// Compare if rule and group have the same elements
 				RuleModel rule = group.getBacktrackingRules().get(i);
 				if (compareElements(rule, group)) {
 					
-					insertContextNode(rule, group);
-					mfragRelation = new DefineDependenceRelation(rule, group, generateMTheoryController,
-							umpstProject, this);
+					
+					mappingController.addOrdinaryVariable(rule, mfragExtension);
+//					mappingController.addNecessaryConditionFromRule(rule, mfragExtension);
+//					mfragRelation = new DefineDependenceRelation(rule, group, mappingController,
+//							umpstProject, this);
 //					searchOVMissing(rule, group);
 //					defineMFragCausal(rule, group);
 					
@@ -153,7 +166,7 @@ public class SecondCriterionOfSelection {
 							
 							List<GroupModel> idGroupList = ruleSelected.getFowardtrackingGroupList();
 							if (idGroupList.size() == 1) {
-								generateMTheoryController.addInputNodeInMFrag(idGroupList.get(0).getId(), inputNode);
+//								mappingController.addInputNodeInMFrag(idGroupList.get(0).getId(), inputNode);
 							} else {
 								System.err.println("Error classifyInputNode. Rule is in more than one group.");
 							}
@@ -215,7 +228,7 @@ public class SecondCriterionOfSelection {
 			NodeContextModel contextNode = new NodeContextModel(
 					ov.getId(), name, NodeType.CONTEXT, ov);
 			
-			generateMTheoryController.addContextNodeInMFrag(group.getId(), contextNode);
+//			mappingController.addContextNodeInMFrag(group.getId(), contextNode);
 		}
 	}
 	
@@ -243,29 +256,6 @@ public class SecondCriterionOfSelection {
 			System.err.println("Error OV definition" + "Missing Entities GROUP :" + group.getId() +
 					"Missing Entities RULE :" + rule.getId());
 		}
-	}
-	
-	public void insertContextNode(RuleModel rule, GroupModel group) {
-		
-		// Add OrdinaryVariable as context node.
-		for (int i = 0; i < rule.getOrdinaryVariableList().size(); i++) {
-			OrdinaryVariableModel ov = rule.getOrdinaryVariableList().get(i);
-			String id = ov.getId();		
-			String name = "isA( " + ov.getVariable() + ", " + ov.getTypeEntity() + " )" ;
-			
-			NodeContextModel contextNode = new NodeContextModel(id, name, NodeType.CONTEXT, ov);
-			generateMTheoryController.addContextNodeInMFrag(group.getId(), contextNode);
-		}
-		
-		// Add NecessaryCondtion as context node.
-		for (int i = 0; i < rule.getNecessaryConditionList().size(); i++) {
-			NecessaryConditionVariableModel nc = rule.getNecessaryConditionList().get(i);
-			String id = nc.getId();
-			String name = nc.getFormula();
-			
-			NodeContextModel contextNode = new NodeContextModel(id, name, NodeType.CONTEXT, nc);
-			generateMTheoryController.addContextNodeInMFrag(group.getId(), contextNode);
-		}		
 	}
 	
 	/**

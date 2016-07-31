@@ -40,7 +40,7 @@ public class ImplementationMainPanel extends IUMPSTPanel{
 	private JPanel descriptionPanel;
 	private JPanel generatePanel;
 	
-	private MappingController generateMtheoryController;
+	private MappingController mappingController;
 	
 	private String ruleDescriptionText = " ";
 	
@@ -90,7 +90,7 @@ public class ImplementationMainPanel extends IUMPSTPanel{
 		btnGenerate.addActionListener(new ActionListener() {			
 			public void actionPerformed(ActionEvent e) {
 				
-				generateMtheoryController = new MappingController(getUmpstProject());
+				mappingController = new MappingController(getUmpstProject());
 			}
 		});
 	}

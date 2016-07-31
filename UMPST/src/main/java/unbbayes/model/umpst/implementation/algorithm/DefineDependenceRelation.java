@@ -296,13 +296,13 @@ public class DefineDependenceRelation {
 			residentNodeChild.addFatherNode(nodeFather);
 			nodeFather.addChildrenNode(residentNodeChild);
 			
-			generateMTheoryController.addResidentNodeInMFrag(group.getId(), residentNodeChild);
+//			generateMTheoryController.addResidentNodeInMFrag(group.getId(), residentNodeChild);
 		}
 		if (nodeFather.getNodeType() == NodeType.RESIDENT_CAUSE) {
-			generateMTheoryController.updateResidentNodeInMFrag(group.getId(), (NodeResidentModel)nodeFather);
+//			generateMTheoryController.updateResidentNodeInMFrag(group.getId(), (NodeResidentModel)nodeFather);
 		}
 		else if (nodeFather.getNodeType() == NodeType.INPUT) {
-			generateMTheoryController.updateInputNodeInMFrag(group.getId(), (NodeInputModel)nodeFather);
+//			generateMTheoryController.updateInputNodeInMFrag(group.getId(), (NodeInputModel)nodeFather);
 		}
 	}
 	
@@ -316,7 +316,7 @@ public class DefineDependenceRelation {
 		sentence = sentence + ")";
 		
 		String id = cause.getId();
-		nodeFather = new NodeInputModel(id, sentence, NodeType.INPUT, cause);
+//		nodeFather = new NodeInputModel(id, sentence, NodeType.INPUT, cause);
 	}
 	
 	public void mapCauseAsResident(CauseVariableModel cause) {
@@ -406,15 +406,15 @@ public class DefineDependenceRelation {
 	 * Select MFrag related to group.
 	 */
 	public void selectMFragRelated() {
-		List<MFragModel> mfrag = generateMTheoryController.getMTheory().getMFragList();
-		mfragSelected = null;
-		
-		for (int i = 0; i < mfrag.size(); i++) {
-			if (mfrag.get(i).getId().equals(group.getId())) {
-				mfragSelected = mfrag.get(i);
-				break;
-			}
-		}
+//		List<MFragModel> mfrag = generateMTheoryController.getMTheory().getMFragList();
+//		mfragSelected = null;
+//		
+//		for (int i = 0; i < mfrag.size(); i++) {
+//			if (mfrag.get(i).getId().equals(group.getId())) {
+//				mfragSelected = mfrag.get(i);
+//				break;
+//			}
+//		}
 	}
 }
 
