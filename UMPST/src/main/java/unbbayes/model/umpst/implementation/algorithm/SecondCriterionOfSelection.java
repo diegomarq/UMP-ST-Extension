@@ -7,27 +7,21 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import unbbayes.controller.mebn.MEBNController;
 import unbbayes.controller.umpst.MappingController;
 import unbbayes.model.umpst.ObjectModel;
 import unbbayes.model.umpst.entity.EntityModel;
 import unbbayes.model.umpst.group.GroupModel;
 import unbbayes.model.umpst.implementation.CauseVariableModel;
 import unbbayes.model.umpst.implementation.EffectVariableModel;
-import unbbayes.model.umpst.implementation.NecessaryConditionVariableModel;
 import unbbayes.model.umpst.implementation.OrdinaryVariableModel;
-import unbbayes.model.umpst.implementation.node.ContextNodeExtension;
 import unbbayes.model.umpst.implementation.node.MFragExtension;
-import unbbayes.model.umpst.implementation.node.MebnExtension;
 import unbbayes.model.umpst.implementation.node.NodeContextModel;
 import unbbayes.model.umpst.implementation.node.NodeInputModel;
 import unbbayes.model.umpst.implementation.node.NodeObjectModel;
 import unbbayes.model.umpst.implementation.node.NodeType;
-import unbbayes.model.umpst.implementation.node.OrdinaryVariableExtension;
 import unbbayes.model.umpst.project.UMPSTProject;
 import unbbayes.model.umpst.rule.RuleModel;
-import unbbayes.prs.mebn.ContextNode;
-import unbbayes.prs.mebn.entity.Type;
+import unbbayes.prs.mebn.MultiEntityBayesianNetwork;
 
 /**
  * This criterion classifies not defined nodes present in MFrags as context, input
@@ -44,69 +38,66 @@ public class SecondCriterionOfSelection {
 	private Map<String, NodeObjectModel> mapDoubtNodes;
 	private List<ObjectModel> objectModel;
 	
-	private MebnExtension mebnExtension;
 	private MFragExtension mfragExtension;
 	
 	public SecondCriterionOfSelection(UMPSTProject umpstProject,
-			MappingController mappingController) {
+			MappingController mappingController, MultiEntityBayesianNetwork mebn) {
 		
 		this.umpstProject = umpstProject;
 		this.mappingController = mappingController;
-		
-		mebnExtension = mappingController.getMebnExtension();
 		
 		mapGroup = new HashMap<String, GroupModel>();
 		mapRule = new HashMap<String, RuleModel>();
 		mapDoubtNodes = new HashMap<String, NodeObjectModel>();
 		
-		secondSelection();		
+//		secondSelection(mebn);		
 	}
 	
 	/**
 	 * Second Selection based on Second Criterion Of Selection algorithm.
 	 */
-	public void secondSelection() {
-		List<RuleModel> listRules = new ArrayList<RuleModel>();
-		DefineDependenceRelation mfragRelation;
-		
-		// Verify list of rules related to each group		
-		List<MFragExtension> mfragExtensionList = mebnExtension.getMFragExtensionList();
-		for (MFragExtension mfragExtension : mfragExtensionList) {	
-			
-			GroupModel group = mfragExtension.getGroupPointer();
-			
-			listRules = group.getBacktrackingRules();
-			for (int i = 0; i < listRules.size(); i++) {
-				
-				// Compare if rule and group have the same elements
-				RuleModel rule = group.getBacktrackingRules().get(i);
-				if (compareElements(rule, group)) {
-					
-					
-					mappingController.addOrdinaryVariable(rule, mfragExtension);
-//					mappingController.addNecessaryConditionFromRule(rule, mfragExtension);
-//					mfragRelation = new DefineDependenceRelation(rule, group, mappingController,
-//							umpstProject, this);
-//					searchOVMissing(rule, group);
-//					defineMFragCausal(rule, group);
-					
-				} else {
-					System.err.println("Number of element in rule: " + rule.getId() +
-							" " + "does not match with group: " + group.getId());
-					
-					// Elements of rule that does not check
-					for (int j = 0; j < objectModel.size(); j++) {
-						System.err.println(objectModel.get(j).getName());
-					}
-				}
-			}
-			if (group.getBacktrackingRules().size() == 0) {
-				
-				// Add missing OrdinaryVariables
-//				insertMissingOV(group);
-			}
-		}
-	}
+//	public void secondSelection() {
+//		List<RuleModel> listRules = new ArrayList<RuleModel>();
+//		DefineDependenceRelation mfragRelation;
+//		
+//		// Verify list of rules related to each group		
+//		List<MFragExtension> mfragExtensionList = mebnExtension.getMFragExtensionList();
+//		for (MFragExtension mfragExtension : mfragExtensionList) {	
+//			
+//			GroupModel group = mfragExtension.getGroupPointer();
+//			
+//			listRules = group.getBacktrackingRules();
+//			for (int i = 0; i < listRules.size(); i++) {
+//				
+//				// Compare if rule and group have the same elements
+//				RuleModel rule = group.getBacktrackingRules().get(i);
+//				if (compareElements(rule, group)) {
+//					
+//					
+//					mappingController.addOrdinaryVariable(rule, mfragExtension);
+////					mappingController.addNecessaryConditionFromRule(rule, mfragExtension);
+////					mfragRelation = new DefineDependenceRelation(rule, group, mappingController,
+////							umpstProject, this);
+////					searchOVMissing(rule, group);
+////					defineMFragCausal(rule, group);
+//					
+//				} else {
+//					System.err.println("Number of element in rule: " + rule.getId() +
+//							" " + "does not match with group: " + group.getId());
+//					
+//					// Elements of rule that does not check
+//					for (int j = 0; j < objectModel.size(); j++) {
+//						System.err.println(objectModel.get(j).getName());
+//					}
+//				}
+//			}
+//			if (group.getBacktrackingRules().size() == 0) {
+//				
+//				// Add missing OrdinaryVariables
+////				insertMissingOV(group);
+//			}
+//		}
+//	}
 	
 	public void classifyInputNode(RuleModel rule, GroupModel group) {
 		
