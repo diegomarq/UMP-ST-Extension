@@ -6,7 +6,7 @@ import java.util.List;
 import unbbayes.model.umpst.implementation.algorithm.MFragModel;
 
 /**
- * Node model that can be context, input or resident node.
+ * Node model that can be context, input or resident node. 
  * 
  * @author Diego Marques
  *

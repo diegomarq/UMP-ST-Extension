@@ -401,7 +401,10 @@ public class FileLoadRuleImplementation {
 	}
 	
 	/**
-	 * This function evaluates if relationshipModel can be eventVariableObjectModel. 
+	 * This function evaluates if relationshipModel can be eventVariableObjectModel.
+	 * If the relationship has as argument variables related to the Entities present
+	 * in Ordinary Variable, so the relationship can be an event that participates in
+	 * the model. 
 	 * @param relationship
 	 * @return
 	 */

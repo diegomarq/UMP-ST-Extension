@@ -28,7 +28,7 @@ public class FirstCriterionOfSelection {
 	private Map<String, GroupModel> mapGroup;
 	
 	private List<NodeResidentModel> nodeResidentList;
-	private ArrayList<MFragExtension> mfragExtensionList;	
+	private Map<String, MFragExtension> mapMFragExtension;	
 	
 	private MappingController mappingController;
 
@@ -42,7 +42,7 @@ public class FirstCriterionOfSelection {
 		mapGroup = new HashMap<String, GroupModel>();
 		nodeResidentList = new ArrayList<NodeResidentModel>();
 		
-		mfragExtensionList = mappingController.getMfragExtensionList();
+		mapMFragExtension = mappingController.getMapMFragExtension();
 		
 		firstSelection(mebn);
 		Debug.println(this.getClass() + "Fist Criterion of Selection done.");

@@ -90,7 +90,7 @@ public class FileLoadNodeGroup {
 					NodeList ruleIdNodes = ruleNodes.item(0).getChildNodes();
 					Element ruleIdElem = (Element) ruleIdNodes;								
 					repeatNodes = ruleIdElem.getElementsByTagName("ruleId");
-					for (int j = 0; j < repeatNodes.getLength(); j++) {		
+					for (int j = 0; j < repeatNodes.getLength(); j++) {
 						rule = umpstProject.getMapRules().get(repeatNodes.item(j).getTextContent());						
 						group.getBacktrackingRules().add(rule);
 						
