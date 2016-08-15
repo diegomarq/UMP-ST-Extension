@@ -482,152 +482,152 @@
     <DataPropertyAssertion>
         <DataProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isSubstitutedBy"/>
         <NamedIndividual IRI="#Competition_Compromised.enterprise"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">Thing</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">file:/home/diego/Documents/Projeto/UMP-ST-Extension/UMPST/./ubfTmpFile.owl#Enterprise</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isSubstitutedBy"/>
         <NamedIndividual IRI="#Competition_Compromised.procurement"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">Thing</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">file:/home/diego/Documents/Projeto/UMP-ST-Extension/UMPST/./ubfTmpFile.owl#Procurement</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isSubstitutedBy"/>
         <NamedIndividual IRI="#Exists_Front_in_Enterprise.enterprise"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">Thing</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">file:/home/diego/Documents/Projeto/UMP-ST-Extension/UMPST/./ubfTmpFile.owl#Enterprise</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isSubstitutedBy"/>
         <NamedIndividual IRI="#Exists_Front_in_Enterprise.person"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">Thing</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">file:/home/diego/Documents/Projeto/UMP-ST-Extension/UMPST/./ubfTmpFile.owl#Person</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isSubstitutedBy"/>
         <NamedIndividual IRI="#Front_of_Enterprise.enterprise"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">Thing</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">file:/home/diego/Documents/Projeto/UMP-ST-Extension/UMPST/./ubfTmpFile.owl#Enterprise</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isSubstitutedBy"/>
         <NamedIndividual IRI="#Front_of_Enterprise.person"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">Thing</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">file:/home/diego/Documents/Projeto/UMP-ST-Extension/UMPST/./ubfTmpFile.owl#Person</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isSubstitutedBy"/>
         <NamedIndividual IRI="#Front_of_Enterprise.procurement"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">Thing</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">file:/home/diego/Documents/Projeto/UMP-ST-Extension/UMPST/./ubfTmpFile.owl#Procurement</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isSubstitutedBy"/>
         <NamedIndividual IRI="#Judgement_History.person"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">Thing</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">file:/home/diego/Documents/Projeto/UMP-ST-Extension/UMPST/./ubfTmpFile.owl#Person</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isSubstitutedBy"/>
         <NamedIndividual IRI="#Member_Related_to_Participant.enterprise"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">Thing</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">file:/home/diego/Documents/Projeto/UMP-ST-Extension/UMPST/./ubfTmpFile.owl#Enterprise</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isSubstitutedBy"/>
         <NamedIndividual IRI="#Member_Related_to_Participant.member"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">Thing</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">file:/home/diego/Documents/Projeto/UMP-ST-Extension/UMPST/./ubfTmpFile.owl#Person</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isSubstitutedBy"/>
         <NamedIndividual IRI="#Member_Related_to_Participant.person"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">Thing</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">file:/home/diego/Documents/Projeto/UMP-ST-Extension/UMPST/./ubfTmpFile.owl#Person</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isSubstitutedBy"/>
         <NamedIndividual IRI="#Member_Related_to_Participant.procurement"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">Thing</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">file:/home/diego/Documents/Projeto/UMP-ST-Extension/UMPST/./ubfTmpFile.owl#Procurement</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isSubstitutedBy"/>
         <NamedIndividual IRI="#Owns_Suspended_Enterprise.enterprise"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">Thing</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">file:/home/diego/Documents/Projeto/UMP-ST-Extension/UMPST/./ubfTmpFile.owl#Enterprise</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isSubstitutedBy"/>
         <NamedIndividual IRI="#Owns_Suspended_Enterprise.person"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">Thing</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">file:/home/diego/Documents/Projeto/UMP-ST-Extension/UMPST/./ubfTmpFile.owl#Person</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isSubstitutedBy"/>
         <NamedIndividual IRI="#Personal_Information.person1"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">Thing</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">file:/home/diego/Documents/Projeto/UMP-ST-Extension/UMPST/./ubfTmpFile.owl#Person</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isSubstitutedBy"/>
         <NamedIndividual IRI="#Personal_Information.person2"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">Thing</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">file:/home/diego/Documents/Projeto/UMP-ST-Extension/UMPST/./ubfTmpFile.owl#Person</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isSubstitutedBy"/>
         <NamedIndividual IRI="#Related_Participant_Enterprises.enterprise1"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">Thing</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">file:/home/diego/Documents/Projeto/UMP-ST-Extension/UMPST/./ubfTmpFile.owl#Enterprise</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isSubstitutedBy"/>
         <NamedIndividual IRI="#Related_Participant_Enterprises.enterprise2"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">Thing</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">file:/home/diego/Documents/Projeto/UMP-ST-Extension/UMPST/./ubfTmpFile.owl#Enterprise</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isSubstitutedBy"/>
         <NamedIndividual IRI="#Related_Participant_Enterprises.person1"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">Thing</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">file:/home/diego/Documents/Projeto/UMP-ST-Extension/UMPST/./ubfTmpFile.owl#Person</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isSubstitutedBy"/>
         <NamedIndividual IRI="#Related_Participant_Enterprises.person2"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">Thing</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">file:/home/diego/Documents/Projeto/UMP-ST-Extension/UMPST/./ubfTmpFile.owl#Person</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isSubstitutedBy"/>
         <NamedIndividual IRI="#Related_Participant_Enterprises.procurement"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">Thing</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">file:/home/diego/Documents/Projeto/UMP-ST-Extension/UMPST/./ubfTmpFile.owl#Procurement</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isSubstitutedBy"/>
         <NamedIndividual IRI="#Related_to_Previous_Participants.enterprise"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">Thing</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">file:/home/diego/Documents/Projeto/UMP-ST-Extension/UMPST/./ubfTmpFile.owl#Enterprise</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isSubstitutedBy"/>
         <NamedIndividual IRI="#Related_to_Previous_Participants.member"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">Thing</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">file:/home/diego/Documents/Projeto/UMP-ST-Extension/UMPST/./ubfTmpFile.owl#Person</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isSubstitutedBy"/>
         <NamedIndividual IRI="#Related_to_Previous_Participants.person"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">Thing</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">file:/home/diego/Documents/Projeto/UMP-ST-Extension/UMPST/./ubfTmpFile.owl#Person</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isSubstitutedBy"/>
         <NamedIndividual IRI="#Related_to_Previous_Participants.previous_procurement"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">Thing</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">file:/home/diego/Documents/Projeto/UMP-ST-Extension/UMPST/./ubfTmpFile.owl#Procurement</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isSubstitutedBy"/>
         <NamedIndividual IRI="#Suspicious_Commitee.member"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">Thing</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">file:/home/diego/Documents/Projeto/UMP-ST-Extension/UMPST/./ubfTmpFile.owl#Person</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isSubstitutedBy"/>
         <NamedIndividual IRI="#Suspicious_Commitee.procurement"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">Thing</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">file:/home/diego/Documents/Projeto/UMP-ST-Extension/UMPST/./ubfTmpFile.owl#Procurement</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isSubstitutedBy"/>
         <NamedIndividual IRI="#Suspicious_Procurement.enterprise"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">Thing</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">file:/home/diego/Documents/Projeto/UMP-ST-Extension/UMPST/./ubfTmpFile.owl#Enterprise</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isSubstitutedBy"/>
         <NamedIndividual IRI="#Suspicious_Procurement.person"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">Thing</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">file:/home/diego/Documents/Projeto/UMP-ST-Extension/UMPST/./ubfTmpFile.owl#Person</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isSubstitutedBy"/>
         <NamedIndividual IRI="#Suspicious_Procurement.procurement"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">Thing</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">file:/home/diego/Documents/Projeto/UMP-ST-Extension/UMPST/./ubfTmpFile.owl#Procurement</Literal>
     </DataPropertyAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>

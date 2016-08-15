@@ -19,15 +19,18 @@ import unbbayes.io.mebn.exceptions.IOMebnException;
 import unbbayes.io.mebn.owlapi.OWLAPICompatiblePROWL2IO;
 import unbbayes.model.umpst.entity.EntityModel;
 import unbbayes.model.umpst.group.GroupModel;
-import unbbayes.model.umpst.implementation.OrdinaryVariableModel;
 import unbbayes.model.umpst.implementation.algorithm.FirstCriterionOfSelection;
 import unbbayes.model.umpst.implementation.algorithm.SecondCriterionOfSelection;
 import unbbayes.model.umpst.implementation.node.MFragExtension;
 import unbbayes.model.umpst.project.UMPSTProject;
 import unbbayes.model.umpst.rule.RuleModel;
+import unbbayes.prs.mebn.MFrag;
 import unbbayes.prs.mebn.MultiEntityBayesianNetwork;
+import unbbayes.prs.mebn.OrdinaryVariable;
 import unbbayes.prs.mebn.entity.ObjectEntity;
 import unbbayes.prs.mebn.entity.ObjectEntityContainer;
+import unbbayes.prs.mebn.entity.Type;
+import unbbayes.prs.mebn.entity.TypeContainer;
 import unbbayes.prs.mebn.entity.exception.TypeException;
 
 /**
@@ -47,6 +50,7 @@ public class MappingController {
 	private DefaultTreeModel treeModel;
 	private ObjectEntityContainer entityContainer;
 	private ObjectEntity rootObjectEntity;
+	private TypeContainer typeContainer;
 	
 	private Map<String, MFragExtension> mapMFragExtension;
 	
@@ -65,8 +69,9 @@ public class MappingController {
 		Debug.println("Created working version of mtheory: " + mebn.getName());
 		
 		//Entities
-		entityContainer = mebn.getObjectEntityContainer();
-		rootObjectEntity = entityContainer.getRootObjectEntity();
+//		entityContainer = mebn.getObjectEntityContainer();
+		rootObjectEntity = mebn.getObjectEntityContainer().getRootObjectEntity();
+		typeContainer = mebn.getTypeContainer();
 				
 		createAllEntities(mebn);
 		Debug.println("All entities defined in MEBN");
@@ -77,12 +82,10 @@ public class MappingController {
 		
 		// Ordinary Variables
 		createAllOrdinaryVariables();
+		Debug.println("Create all OVs from the rules");
 		
-//		for( Type type : mebn.getTypeContainer().getListOfTypes() ) {
-//			// obtain the Entity related to type
-//			ObjectEntity objectEntity = mebn.getObjectEntityContainer().getObjectEntityByType(type);
-//			System.out.println(objectEntity.getName());
-//		}
+		// Context Nodes
+		createAllContextNodes();
 		
 		// Undefined Nodes
 //		createUndefinedNodes(mebn);
@@ -119,6 +122,15 @@ public class MappingController {
 				ubf.saveMebn(newFile, mebn);
 //				file.buildIntermediateMTheory(newFile, umsptProject);
 				
+				for( Type type : mebn.getTypeContainer().getListOfTypes() ) {
+					ObjectEntity objectEntity = mebn.getObjectEntityContainer().getObjectEntityByType(type);
+					if (objectEntity == null) {
+						System.out.println(" -- MappingController, entity null, type: "+type.getName());
+					} else {
+						System.out.println(objectEntity.getName() + " -- MappingController, type: "+type.getName());
+					}
+				}
+				
 				controller.showSucessMessageDialog(resource.getString("msSaveSuccessfull"));
 			} catch (IOMebnException e) {
 				// TODO Auto-generated catch block
@@ -131,6 +143,67 @@ public class MappingController {
 		else {
 			controller.showErrorMessageDialog(resource.getString("erSaveFatal")); 
 		}
+	}
+	
+	/**
+	 * Method created from MEBNController and modified to search type related by the name
+	 * @param mebn
+	 * @return
+	 * @author Shou Matsumoto
+	 */
+	public static Type getType(MultiEntityBayesianNetwork mebn, String name) {
+		
+		// extract some containers we'll be using to check types
+		TypeContainer typeContainer = mebn.getTypeContainer();	// this is the main container of types
+		ObjectEntityContainer objectEntityContainer = mebn.getObjectEntityContainer();	// this will be later to check hierarchy of entities
+		if (typeContainer == null || objectEntityContainer == null) {
+			return TypeContainer.getDefaultType();
+		}
+		
+		// only consider types we know about
+		Set<Type> knownTypes = typeContainer.getListOfTypes();
+		if (knownTypes == null) {
+			return TypeContainer.getDefaultType();
+		}
+		
+		// search for some reasonable type
+		for (Type type : knownTypes) {
+			
+			// ignore invalid types
+			if (type == null) {
+				continue;
+			}
+			
+			// ignore boolean, type label, and categorical at this point
+			if (type.equals(typeContainer.typeBoolean)
+					|| type.equals(typeContainer.typeCategoryLabel)
+					|| type.equals(typeContainer.typeLabel)) {
+				continue;
+			}
+			
+			// check if this is a root type
+			// TODO avoid using object entities to check for type hierarchy
+			boolean isRoot = false;
+			for (Object entity : type.getIsTypeOfList()) {
+				if (entity instanceof ObjectEntity) {
+					List<ObjectEntity> parents = objectEntityContainer.getParentsOfObjectEntity((ObjectEntity) entity);
+					if (parents == null || parents.isEmpty()) {
+						isRoot = true;
+						break;
+					} else if(((ObjectEntity) entity).getName().equals(name)){
+						return type;
+					}
+				}
+			}
+			
+			// do not return root types
+			if (isRoot) {
+				continue;
+			}
+		}
+				
+		// if nothing was found, use the default
+		return TypeContainer.getDefaultType();
 	}
 
 	public MultiEntityBayesianNetwork createMebnInstance(
@@ -178,9 +251,10 @@ public class MappingController {
 			
 			try {
 				String name = entity.getName();		
-				ObjectEntity objectEntity = entityContainer.createObjectEntity(name,rootObjectEntity);
+				ObjectEntity objectEntity = mebn.getObjectEntityContainer().
+						createObjectEntity(name,rootObjectEntity);
 				mebn.getNamesUsed().add(name);
-				entityContainer.getTypeContainer().createType(name);
+//				typeContainer.createType(name);
 			} catch (TypeException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
