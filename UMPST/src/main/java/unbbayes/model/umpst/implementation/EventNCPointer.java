@@ -9,12 +9,12 @@ import java.util.ArrayList;
  * @author Diego Marques
  */
 public class EventNCPointer {
-	private NodeFormulaTree nodePlace;	
+	private NodeFormulaTreeUMP nodePlace;	
 	private NecessaryConditionVariableModel ncVariableModel;
 	private ArrayList<OrdinaryVariableModel> ovArgumentList;
 	private EventVariableObjectModel eventVariable;
 	
-	public EventNCPointer(NodeFormulaTree nodePlace, NecessaryConditionVariableModel ncVariableModel,
+	public EventNCPointer(NodeFormulaTreeUMP nodePlace, NecessaryConditionVariableModel ncVariableModel,
 			EventVariableObjectModel eventVariable) {
 		this.nodePlace = nodePlace;
 		this.ncVariableModel = ncVariableModel;
@@ -30,13 +30,13 @@ public class EventNCPointer {
 	/**
 	 * @return the nodePlace
 	 */
-	public NodeFormulaTree getNodePlace() {
+	public NodeFormulaTreeUMP getNodePlace() {
 		return nodePlace;
 	}
 	/**
 	 * @param nodePlace the nodePlace to set
 	 */
-	public void setNodePlace(NodeFormulaTree nodePlace) {
+	public void setNodePlace(NodeFormulaTreeUMP nodePlace) {
 		this.nodePlace = nodePlace;
 	}
 	/**

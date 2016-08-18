@@ -1,6 +1,5 @@
 package unbbayes.io.umpst.implementation;
 
-import java.awt.Event;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,28 +7,25 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import javax.swing.tree.DefaultMutableTreeNode;
-
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import unbbayes.gui.umpst.UmpstModule;
 import unbbayes.model.umpst.entity.EntityModel;
 import unbbayes.model.umpst.entity.RelationshipModel;
 import unbbayes.model.umpst.implementation.BuiltInRV;
 import unbbayes.model.umpst.implementation.CauseVariableModel;
 import unbbayes.model.umpst.implementation.EffectVariableModel;
-import unbbayes.model.umpst.implementation.EnumSubType;
-import unbbayes.model.umpst.implementation.EnumType;
 import unbbayes.model.umpst.implementation.EventNCPointer;
 import unbbayes.model.umpst.implementation.EventType;
 import unbbayes.model.umpst.implementation.EventVariableObjectModel;
 import unbbayes.model.umpst.implementation.NecessaryConditionVariableModel;
-import unbbayes.model.umpst.implementation.NodeFormulaTree;
+import unbbayes.model.umpst.implementation.NodeFormulaTreeUMP;
 import unbbayes.model.umpst.implementation.OrdinaryVariableModel;
 import unbbayes.model.umpst.project.UMPSTProject;
 import unbbayes.model.umpst.rule.RuleModel;
+import unbbayes.prs.mebn.context.EnumSubType;
+import unbbayes.prs.mebn.context.EnumType;
 
 /**
  * Builder to load rule implementation nodes.
@@ -47,8 +43,8 @@ public class FileLoadRuleImplementation {
 	private List<EventVariableObjectModel> othersEventVariableList;
 	private List<RelationshipModel> relationshipModelList;
 	
-	private NodeFormulaTree rootFormula;
-	private List<NodeFormulaTree> nodeFormulaFather;
+	private NodeFormulaTreeUMP rootFormula;
+	private List<NodeFormulaTreeUMP> nodeFormulaFather;
 	private BuiltInRV builtInRV = null;
 	private int index;
 
@@ -90,7 +86,7 @@ public class FileLoadRuleImplementation {
 		NodeList listNC = btNCElemList.getElementsByTagName("necessaryCondition");
 		for (int j = 0; j < listNC.getLength(); j++) {
 			rootFormula = null;
-			nodeFormulaFather = new ArrayList<NodeFormulaTree>();
+			nodeFormulaFather = new ArrayList<NodeFormulaTreeUMP>();
 			index = -1;
 			
 			NodeList ncNode = listNC.item(j).getChildNodes();
@@ -99,16 +95,16 @@ public class FileLoadRuleImplementation {
 			String ncId = btNCElem.getElementsByTagName("ncId").item(0).
 					getTextContent();
 			
-			NodeList listNCNodeFormulaTree = btNCElem.getElementsByTagName("ncNodeFormulaTree");
-			NodeList ncNodeFormulaTree = listNCNodeFormulaTree.item(0).getChildNodes();
-			Element btNCNodeFormulaTreeElem = (Element) ncNodeFormulaTree;
+			NodeList listNCNodeFormulaTreeUMP = btNCElem.getElementsByTagName("ncNodeFormulaTree");
+			NodeList ncNodeFormulaTreeUMP = listNCNodeFormulaTreeUMP.item(0).getChildNodes();
+			Element btNCNodeFormulaTreeUMPElem = (Element) ncNodeFormulaTreeUMP;
 			
 			// Root
-			NodeList listRootNode = btNCNodeFormulaTreeElem.getElementsByTagName("ncNode");
+			NodeList listRootNode = btNCNodeFormulaTreeUMPElem.getElementsByTagName("ncNode");
 			for (int i = 0; i < listRootNode.getLength(); i++) {
 				NodeList listRootChild = listRootNode.item(i).getChildNodes();
 				
-				NodeFormulaTree nodeFormula = loaderNCNode(rule, listRootChild);
+				NodeFormulaTreeUMP nodeFormula = loaderNCNode(rule, listRootChild);
 				if (nodeFormula.getNodeVariable().getClass() == BuiltInRV.class) {
 					nodeFormulaFather.add(nodeFormula);
 					index += 1;
@@ -117,7 +113,7 @@ public class FileLoadRuleImplementation {
 					
 					if (nodeFormulaFather.size() > 0) {	
 						if (((BuiltInRV)nodeFormulaFather.get(index).getNodeVariable()).getNumOperandos() ==
-								nodeFormulaFather.get(index).getChildren().size()) {
+								nodeFormulaFather.get(index).getChildrenUMP().size()) {
 							index -= 1;							
 						}
 						addChildNode(nodeFormula);
@@ -143,11 +139,11 @@ public class FileLoadRuleImplementation {
 		}
 	}
 	
-	public void addChildNode(NodeFormulaTree nodeFormula) {
+	public void addChildNode(NodeFormulaTreeUMP nodeFormula) {
 		if ((nodeFormulaFather.size() > 0) && (index > -1)) {
 			if (index < nodeFormulaFather.size()-1) {
 				if (((BuiltInRV)nodeFormulaFather.get(index).getNodeVariable()).getNumOperandos() ==
-						nodeFormulaFather.get(index).getChildren().size()+1) {
+						nodeFormulaFather.get(index).getChildrenUMP().size()+1) {
 					index -= 1;
 					addChildNode(nodeFormula);
 				} else {
@@ -155,7 +151,7 @@ public class FileLoadRuleImplementation {
 				}
 			} else {
 				if (((BuiltInRV)nodeFormulaFather.get(index).getNodeVariable()).getNumOperandos() ==
-						nodeFormulaFather.get(index).getChildren().size()) {
+						nodeFormulaFather.get(index).getChildrenUMP().size()) {
 					nodeFormulaFather.get(index).addChild(nodeFormula);
 					index -= 1;
 					addChildNode(nodeFormula);
@@ -166,7 +162,7 @@ public class FileLoadRuleImplementation {
 		}
 	}
 	
-	public NodeFormulaTree loaderNCNode(RuleModel rule, NodeList listNCNode) {
+	public NodeFormulaTreeUMP loaderNCNode(RuleModel rule, NodeList listNCNode) {
 		Element btNCNodeElem = (Element) listNCNode;		
 		
 		String ncNodeName = btNCNodeElem.getElementsByTagName("ncNodeName").item(0).
@@ -245,15 +241,15 @@ public class FileLoadRuleImplementation {
 				getTextContent();
 		
 		
-		NodeFormulaTree nodeFormula;
+		NodeFormulaTreeUMP nodeFormula;
 		if (nodeVariableObject.getClass() == BuiltInRV.class) {
-			nodeFormula = new NodeFormulaTree(ncNodeName, EnumType.valueOf(ncNodeTypeNode),
+			nodeFormula = new NodeFormulaTreeUMP(ncNodeName, EnumType.valueOf(ncNodeTypeNode),
 					EnumSubType.valueOf(ncNodeSubTypeNode), nodeVariableObject);
 			nodeFormula.setMnemonic(builtInRV.getMnemonic());
 			((BuiltInRV)nodeFormula.getNodeVariable()).setNumOperandos(
 					Integer.parseInt(ncNodeNumOperands));
 		} else {
-			nodeFormula = new NodeFormulaTree(ncNodeName, EnumType.valueOf(ncNodeTypeNode),
+			nodeFormula = new NodeFormulaTreeUMP(ncNodeName, EnumType.valueOf(ncNodeTypeNode),
 					EnumSubType.valueOf(ncNodeSubTypeNode), nodeVariableObject);
 		}
 		

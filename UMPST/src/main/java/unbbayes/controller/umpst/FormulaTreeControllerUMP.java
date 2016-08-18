@@ -27,14 +27,14 @@ import unbbayes.gui.umpst.implementation.FormulaEditionPane;
 import unbbayes.gui.umpst.implementation.FormulaViewTreePane;
 import unbbayes.gui.umpst.implementation.NecessaryConditionEditPanel;
 import unbbayes.gui.umpst.implementation.exception.FormulaTreeConstructionException;
-import unbbayes.model.umpst.implementation.EnumSubType;
-import unbbayes.model.umpst.implementation.EnumType;
 import unbbayes.model.umpst.implementation.EventNCPointer;
 import unbbayes.model.umpst.implementation.EventVariableObjectModel;
 import unbbayes.model.umpst.implementation.NecessaryConditionVariableModel;
-import unbbayes.model.umpst.implementation.NodeFormulaTree;
+import unbbayes.model.umpst.implementation.NodeFormulaTreeUMP;
 import unbbayes.model.umpst.implementation.OrdinaryVariableModel;
 import unbbayes.model.umpst.rule.RuleModel;
+import unbbayes.prs.mebn.context.EnumSubType;
+import unbbayes.prs.mebn.context.EnumType;
 
 /**
  * Controller for the formulaEditionPane
@@ -44,7 +44,7 @@ import unbbayes.model.umpst.rule.RuleModel;
  * @author Laecio Lima dos Santos
  *
  */
-public class FormulaTreeController {
+public class FormulaTreeControllerUMP {
 	
 	private NecessaryConditionEditPanel ncEditPanel;
 	private FormulaViewTreePane formulaViewTreePane;
@@ -53,9 +53,8 @@ public class FormulaTreeController {
 	private NecessaryConditionVariableModel ncVariableModel;
 	private NecessaryConditionVariableModel ncVariableActive;
 	
-	public FormulaTreeController(NecessaryConditionEditPanel ncEditPanel, RuleModel rule, 
+	public FormulaTreeControllerUMP(NecessaryConditionEditPanel ncEditPanel, RuleModel rule, 
 			FormulaEditionPane formulaEditionPane, NecessaryConditionVariableModel ncVariableModel, boolean editTree){
-		
 		this.rule = rule;
 		this.ncEditPanel = ncEditPanel;
 		this.formulaEditionPane = formulaEditionPane;
@@ -65,7 +64,7 @@ public class FormulaTreeController {
 		if (editTree) {			
 			model = new DefaultTreeModel(buildTree());
 		} else {		
-			NodeFormulaTree rootFormula = new NodeFormulaTree("formula", EnumType.FORMULA, 	EnumSubType.NOTHING, null);
+			NodeFormulaTreeUMP rootFormula = new NodeFormulaTreeUMP("formula", EnumType.FORMULA, 	EnumSubType.NOTHING, null);
 			DefaultMutableTreeNode rootTreeView = new DefaultMutableTreeNode(rootFormula);
 			model = new DefaultTreeModel(rootTreeView);
 			ncVariableModel.setFormulaTree(rootFormula);
@@ -74,14 +73,14 @@ public class FormulaTreeController {
 	}
 	
 	public DefaultMutableTreeNode buildTree() {
-		NodeFormulaTree rootTreeFormula = ncVariableModel.getFormulaTree();
+		NodeFormulaTreeUMP rootTreeFormula = ncVariableModel.getFormulaTree();
 		DefaultMutableTreeNode rootTreeView = new DefaultMutableTreeNode(rootTreeFormula);		
 		buildChildren(rootTreeFormula, rootTreeView);
 		return rootTreeView;
 	}
 	
-	public DefaultMutableTreeNode buildChildren(NodeFormulaTree nodeFormulaFather, DefaultMutableTreeNode nodeTreeFather){		
-		for(NodeFormulaTree child: nodeFormulaFather.getChildren()){
+	public DefaultMutableTreeNode buildChildren(NodeFormulaTreeUMP nodeFormulaFather, DefaultMutableTreeNode nodeTreeFather){		
+		for(NodeFormulaTreeUMP child: nodeFormulaFather.getChildrenUMP()){
 			DefaultMutableTreeNode treeNode = new DefaultMutableTreeNode(child); 
 			nodeTreeFather.add(treeNode);
 			buildChildren(child, treeNode); 
@@ -97,7 +96,7 @@ public class FormulaTreeController {
 	 */
 	public void addNode(EventVariableObjectModel rv){
 		
-		NodeFormulaTree nodePlace = formulaViewTreePane.getNodeFormulaActive(); 
+		NodeFormulaTreeUMP nodePlace = formulaViewTreePane.getNodeFormulaActive(); 
 
 		if(nodePlace != null){
 			EventNCPointer eventNCPointer = new EventNCPointer(nodePlace, ncVariableModel, rv);
@@ -123,10 +122,10 @@ public class FormulaTreeController {
 	public void addOVariable(OrdinaryVariableModel ov) 
 			throws FormulaTreeConstructionException{
 		
-		NodeFormulaTree nodePlace = formulaViewTreePane.getNodeFormulaActive();		
+		NodeFormulaTreeUMP nodePlace = formulaViewTreePane.getNodeFormulaActive();		
 		if(nodePlace != null){
 			if(nodePlace.getTypeNode() == EnumType.VARIABLE_SEQUENCE){
-				NodeFormulaTree nodeExemplar = new NodeFormulaTree(ov.getVariable(), 
+				NodeFormulaTreeUMP nodeExemplar = new NodeFormulaTreeUMP(ov.getVariable(), 
 						EnumType.VARIABLE, EnumSubType.VARIABLE, ov); 
 				nodePlace.addChild(nodeExemplar); 
 				formulaViewTreePane.addNewNodeInTree(nodeExemplar);  
@@ -141,7 +140,7 @@ public class FormulaTreeController {
 		}
 	}
 	
-	public void setNCNodeFormula(NodeFormulaTree formula){
+	public void setNCNodeFormula(NodeFormulaTreeUMP formula){
 		ncVariableModel.setFormulaTree(formula); 
 	}
 	
@@ -185,7 +184,7 @@ public class FormulaTreeController {
 //		mebnController.updateFormulaActiveContextNode(); 
 	}
 	
-	public void showArgumentPanel(NodeFormulaTree nodeFormulaActive){
+	public void showArgumentPanel(NodeFormulaTreeUMP nodeFormulaActive){
 		// TODO The user can select relationship that is not present in any group.		
 //		formulaEditionPane.setArgumentSelectionTab(nodeFormulaActive.getName());
 		formulaEditionPane.setArgumentSelectionTab(
@@ -201,7 +200,7 @@ public class FormulaTreeController {
 	
 	public void updateArgumentsOfObject(Object node){
 		
-		NodeFormulaTree nodePlace = formulaViewTreePane.getNodeFormulaActive();
+		NodeFormulaTreeUMP nodePlace = formulaViewTreePane.getNodeFormulaActive();
 		if (node instanceof EventNCPointer) {
 			EventNCPointer eventPointer = (EventNCPointer)node;
 			

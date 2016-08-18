@@ -3,9 +3,6 @@
  */
 package unbbayes.model.umpst.implementation;
 
-import java.util.List;
-
-import unbbayes.model.umpst.entity.EntityModel;
 
 
 /**
@@ -15,13 +12,13 @@ import unbbayes.model.umpst.entity.EntityModel;
 public class NecessaryConditionVariableModel {
 	
 	private String id;
-	private NodeFormulaTree formulaTree;
+	private NodeFormulaTreeUMP formulaTree;
 	private String formula;
 
 	/**
 	 * Constructor of effect variable object
 	 */
-	public NecessaryConditionVariableModel(String id, NodeFormulaTree formulaTree) {
+	public NecessaryConditionVariableModel(String id, NodeFormulaTreeUMP formulaTree) {
 		
 		this.id = id;
 		this.formulaTree = formulaTree;
@@ -58,11 +55,11 @@ public class NecessaryConditionVariableModel {
 		this.id = id;
 	}
 	
-	public NodeFormulaTree getFormulaTree(){
+	public NodeFormulaTreeUMP getFormulaTree(){
 		return formulaTree; 
 	}
 	
-	public void setFormulaTree(NodeFormulaTree formulaTree){		
+	public void setFormulaTree(NodeFormulaTreeUMP formulaTree){		
 		this.formulaTree = formulaTree;
 		updateLabel();
 	}

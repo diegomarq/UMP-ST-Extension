@@ -3,21 +3,12 @@ package unbbayes.io.umpst.implementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import unbbayes.model.umpst.ObjectModel;
 import unbbayes.model.umpst.implementation.BuiltInRV;
-import unbbayes.model.umpst.implementation.EnumSubType;
-import unbbayes.model.umpst.implementation.EnumType;
 import unbbayes.model.umpst.implementation.EventNCPointer;
-import unbbayes.model.umpst.implementation.NodeFormulaTree;
+import unbbayes.model.umpst.implementation.NodeFormulaTreeUMP;
 import unbbayes.model.umpst.implementation.OrdinaryVariableModel;
-import unbbayes.model.umpst.implementation.builtInRV.BuiltInRVAnd;
-import unbbayes.model.umpst.implementation.builtInRV.BuiltInRVEqualTo;
-import unbbayes.model.umpst.implementation.builtInRV.BuiltInRVExists;
-import unbbayes.model.umpst.implementation.builtInRV.BuiltInRVForAll;
-import unbbayes.model.umpst.implementation.builtInRV.BuiltInRVIff;
-import unbbayes.model.umpst.implementation.builtInRV.BuiltInRVImplies;
-import unbbayes.model.umpst.implementation.builtInRV.BuiltInRVNot;
-import unbbayes.model.umpst.implementation.builtInRV.BuiltInRVOr;
+import unbbayes.prs.mebn.context.EnumSubType;
+import unbbayes.prs.mebn.context.EnumType;
 
 /**
  * Builder of node properties
@@ -27,25 +18,25 @@ import unbbayes.model.umpst.implementation.builtInRV.BuiltInRVOr;
 public class FileBuildImplementationNode {
 	
 	
-	public Element buildNodeName (Document doc, NodeFormulaTree fatherNode) {		
+	public Element buildNodeName (Document doc, NodeFormulaTreeUMP fatherNode) {		
 		Element ncNodeName = doc.createElement("ncNodeName");			
 		ncNodeName.appendChild(doc.createTextNode(fatherNode.getName()));
 		return ncNodeName;
 	}
 
-	public Element buildNodeMnemonic (Document doc, NodeFormulaTree fatherNode) {
+	public Element buildNodeMnemonic (Document doc, NodeFormulaTreeUMP fatherNode) {
 		Element ncNodeMnemonic = doc.createElement("ncNodeMnemonic");			
 		ncNodeMnemonic.appendChild(doc.createTextNode(fatherNode.getMnemonic()));
 		return ncNodeMnemonic;
 	}
 	
-	public Element buildSentenceNodeVariable (Document doc, NodeFormulaTree fatherNode) {
+	public Element buildSentenceNodeVariable (Document doc, NodeFormulaTreeUMP fatherNode) {
 		Element ncNodeVariable = doc.createElement("ncNodeVariable");
 		ncNodeVariable.appendChild(doc.createTextNode("BuiltInRV"));
 		return ncNodeVariable;
 	}
 	
-	public Element buildSentenceNodeVariableOperands (Document doc, NodeFormulaTree fatherNode) {
+	public Element buildSentenceNodeVariableOperands (Document doc, NodeFormulaTreeUMP fatherNode) {
 		int num = ((BuiltInRV)fatherNode.getNodeVariable()).getNumOperandos();
 		String numOp = Integer.toString(num);
 		
@@ -54,19 +45,19 @@ public class FileBuildImplementationNode {
 		return ncNodeVariableNumOperands;
 	}
 	
-	public Element buildTypeNode (Document doc, NodeFormulaTree fatherNode) {
+	public Element buildTypeNode (Document doc, NodeFormulaTreeUMP fatherNode) {
 		Element ncNodeTypeNode = doc.createElement("ncNodeTypeNode");				
 		ncNodeTypeNode.appendChild(doc.createTextNode(((EnumType)fatherNode.getTypeNode()).name()));
 		return ncNodeTypeNode;
 	}
 	
-	public Element buildSubTypeNode (Document doc, NodeFormulaTree fatherNode) {		
+	public Element buildSubTypeNode (Document doc, NodeFormulaTreeUMP fatherNode) {		
 		Element ncNodeSubTypeNode = doc.createElement("ncNodeSubTypeNode");			
 		ncNodeSubTypeNode.appendChild(doc.createTextNode(((EnumSubType)fatherNode.getSubTypeNode()).name()));
 		return ncNodeSubTypeNode;
 	}	
 	
-	public Element buildUnitNodeVariable (Document doc, NodeFormulaTree fatherNode) {
+	public Element buildUnitNodeVariable (Document doc, NodeFormulaTreeUMP fatherNode) {
 		
 		Element ncNodeVariable = doc.createElement("ncNodeVariable");		
 		if (fatherNode.getNodeVariable().getClass().equals(OrdinaryVariableModel.class)) {

@@ -19,7 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
-import unbbayes.controller.umpst.FormulaTreeController;
+import unbbayes.controller.umpst.FormulaTreeControllerUMP;
 import unbbayes.model.umpst.implementation.CauseVariableModel;
 import unbbayes.model.umpst.implementation.EffectVariableModel;
 import unbbayes.model.umpst.implementation.EventNCPointer;
@@ -37,7 +37,7 @@ public class ArgumentsTypedPane extends JPanel {
 	private OrdinaryVariableModel ovSelected[];
 	
 	private FormulaEditionPane formulaEditionPane;
-	private FormulaTreeController formulaTreeController;
+	private FormulaTreeControllerUMP formulaTreeController;
 	
 //	private EventNCPointer eventVariable;
 	private JPanel argPane;

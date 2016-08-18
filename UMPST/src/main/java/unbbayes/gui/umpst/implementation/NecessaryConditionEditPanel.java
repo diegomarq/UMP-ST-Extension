@@ -23,9 +23,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
-import org.apache.ws.jaxme.sqls.junit.CreateTest;
-
-import unbbayes.controller.umpst.FormulaTreeController;
+import unbbayes.controller.umpst.FormulaTreeControllerUMP;
 import unbbayes.controller.umpst.IconController;
 import unbbayes.gui.umpst.IUMPSTPanel;
 import unbbayes.gui.umpst.MainPanel;
@@ -33,10 +31,7 @@ import unbbayes.gui.umpst.TableButton;
 import unbbayes.gui.umpst.UmpstModule;
 import unbbayes.model.umpst.entity.RelationshipModel;
 import unbbayes.model.umpst.group.GroupModel;
-import unbbayes.model.umpst.implementation.CauseVariableModel;
-import unbbayes.model.umpst.implementation.EventVariableObjectModel;
 import unbbayes.model.umpst.implementation.NecessaryConditionVariableModel;
-import unbbayes.model.umpst.implementation.NodeFormulaTree;
 import unbbayes.model.umpst.project.UMPSTProject;
 import unbbayes.model.umpst.rule.RuleModel;
 
@@ -63,7 +58,7 @@ public class NecessaryConditionEditPanel extends IUMPSTPanel{
 	
 	private ImplementationMainPropertiesEditionPane mainPropertiesEditionPane;
 	private FormulaEditionPane formulaEditionPane;
-	private FormulaTreeController formulaTreeController;
+	private FormulaTreeControllerUMP formulaTreeController;
 	private FormulaViewTreePane formulaViewTreePane;
 	private FormulaVariablePane formulaVariablePane;
 	private JScrollPane editionList;
@@ -196,8 +191,8 @@ public class NecessaryConditionEditPanel extends IUMPSTPanel{
 			if (necessaryConditionList.get(i).getFormula() != null) {
 				formula = necessaryConditionList.get(i).getFormula();
 			}
-			String causeVariableId = necessaryConditionList.get(i).getId();
-			data[i][0] = causeVariableId;
+			String ncId = necessaryConditionList.get(i).getId();
+			data[i][0] = ncId;
 			data[i][1] = formula;
 			data[i][2] = "";
 			data[i][3] = "";

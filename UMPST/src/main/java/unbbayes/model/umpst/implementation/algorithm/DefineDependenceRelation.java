@@ -11,16 +11,16 @@ import unbbayes.model.umpst.entity.RelationshipModel;
 import unbbayes.model.umpst.group.GroupModel;
 import unbbayes.model.umpst.implementation.CauseVariableModel;
 import unbbayes.model.umpst.implementation.EffectVariableModel;
-import unbbayes.model.umpst.implementation.EnumType;
 import unbbayes.model.umpst.implementation.EventNCPointer;
 import unbbayes.model.umpst.implementation.NecessaryConditionVariableModel;
-import unbbayes.model.umpst.implementation.NodeFormulaTree;
+import unbbayes.model.umpst.implementation.NodeFormulaTreeUMP;
 import unbbayes.model.umpst.implementation.node.NodeInputModel;
 import unbbayes.model.umpst.implementation.node.NodeObjectModel;
 import unbbayes.model.umpst.implementation.node.NodeResidentModel;
 import unbbayes.model.umpst.implementation.node.NodeType;
 import unbbayes.model.umpst.project.UMPSTProject;
 import unbbayes.model.umpst.rule.RuleModel;
+import unbbayes.prs.mebn.context.EnumType;
 
 /**
  * This class deals with causal relation related to rule. This rule is in a group.
@@ -125,7 +125,7 @@ public class DefineDependenceRelation {
 		boolean exists = false;		
 		for (int j = 0; j < rule.getNecessaryConditionList().size(); j++) {
 			NecessaryConditionVariableModel nc = rule.getNecessaryConditionList().get(j);			
-			NodeFormulaTree formulaTree = nc.getFormulaTree();
+			NodeFormulaTreeUMP formulaTree = nc.getFormulaTree();
 			
 			exists = compareNodeFormula(formulaTree, relationship);
 			if (exists) {
@@ -137,7 +137,7 @@ public class DefineDependenceRelation {
 		return false;
 	}
 	
-	public boolean compareNodeFormula(NodeFormulaTree node, RelationshipModel relationship) {
+	public boolean compareNodeFormula(NodeFormulaTreeUMP node, RelationshipModel relationship) {
 		if (node.getTypeNode() == EnumType.OPERAND) {
 			EventNCPointer event = (EventNCPointer)node.getNodeVariable();
 			RelationshipModel ncRelationship = event.getEventVariable().getRelationshipModel();
@@ -145,7 +145,7 @@ public class DefineDependenceRelation {
 				return true;
 			}
 			if (node.getChildren().size() > 0) {
-				compareNodeFormula(node.getChildren().get(0), relationship);			
+				compareNodeFormula(node.getChildrenUMP().get(0), relationship);			
 			}
 		}
 		return false;

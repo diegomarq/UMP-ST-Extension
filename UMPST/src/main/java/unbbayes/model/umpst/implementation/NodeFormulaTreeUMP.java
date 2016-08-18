@@ -23,6 +23,10 @@ package unbbayes.model.umpst.implementation;
 import java.util.ArrayList;
 import java.util.List;
 
+import unbbayes.prs.mebn.context.EnumSubType;
+import unbbayes.prs.mebn.context.EnumType;
+import unbbayes.prs.mebn.context.NodeFormulaTree;
+
 
 /**
  * Node of the tree of the formula. Have the information
@@ -31,62 +35,28 @@ import java.util.List;
  * @author Laecio Lima dos Santos (laecio@gmail.com)
  */
 
-public class NodeFormulaTree{
+public class NodeFormulaTreeUMP extends NodeFormulaTree{
 	
 	private String name; 
 	private String mnemonic; 
 	private EnumType type;
 	private EnumSubType subType; 
 	private Object nodeVariable; 
-	private ArrayList<NodeFormulaTree> children; 
+	private ArrayList<NodeFormulaTreeUMP> children; 
 	
 	/**
 	 * create a new node formula tree
 	 * @param typeNode type of the node (what go to fill its)
 	 * @param nodeVariable object that fill the node 
 	 */
-	public NodeFormulaTree(String _name, EnumType _type, EnumSubType _subType, Object _nodeVariable){
+	public NodeFormulaTreeUMP(String _name, EnumType _type, EnumSubType _subType, Object _nodeVariable){
+		super(_name, _type, _subType, _nodeVariable);
 		name = _name; 
 		type = _type; 
 		subType = _subType; 
 		nodeVariable = _nodeVariable;
-		children = new ArrayList<NodeFormulaTree>(); 
+		setChildrenUMP(new ArrayList<NodeFormulaTreeUMP>()); 
 	}
-	
-//	public Set<OrdinaryVariable> getVariableList(){
-//		
-//		Set<OrdinaryVariable> set = new HashSet<OrdinaryVariable>(); 
-//		
-//		switch(type){
-//		
-//		case OPERAND:
-//			switch(subType){
-//			
-//			case OVARIABLE:
-//				set.add((OrdinaryVariable)this.getNodeVariable());
-//				break;
-//				
-//			case NODE:
-//				ResidentNodePointer node = (ResidentNodePointer)this.getNodeVariable(); 
-//				set.addAll(node.getOrdinaryVariableList()); 
-//			    break; 
-//			}
-//			
-//			break;
-//		
-//		}
-//		
-//		for(NodeFormulaTree child: this.getChildren()){
-//			set.addAll(child.getVariableList()); 
-//		}
-//		
-//		return set; 
-//	}
-//	
-//	public Set<OrdinaryVariable> getExemplarList(){
-//		
-//		return null; 
-//	}
 	
 	/*
 	 * Formulas validas: 
@@ -102,20 +72,24 @@ public class NodeFormulaTree{
 		return true; 
 	}
 	
-	public void addChild(NodeFormulaTree child){
-		children.add(child); 
+	public void addChild(NodeFormulaTreeUMP child){
+		getChildrenUMP().add(child); 
 	}
 	
-	public void removeChild(NodeFormulaTree child){
-		children.remove(child); 
+	public void removeChild(NodeFormulaTreeUMP child){
+		getChildrenUMP().remove(child); 
 	}
 	
 	public void removeAllChildren(){
-		children.clear(); 
+		getChildrenUMP().clear(); 
 	}
 	
-	public List<NodeFormulaTree> getChildren(){
-		return this.children; 
+	public Object getNodeVariable(){
+		return nodeVariable; 
+	}
+	
+	public void setNodeVariable(Object nodeVariable){
+		this.nodeVariable = nodeVariable; 
 	}
 	
 	public String toString(){
@@ -144,14 +118,6 @@ public class NodeFormulaTree{
 	
 	public void setSubTypeNode(EnumSubType _subType){
 		this.subType = _subType; 
-	}
-	
-	public Object getNodeVariable(){
-		return nodeVariable; 
-	}
-	
-	public void setNodeVariable(Object nodeVariable){
-		this.nodeVariable = nodeVariable; 
 	}
 	
 	public String getMnemonic() {
@@ -197,12 +163,12 @@ public class NodeFormulaTree{
 			}
 			
 		case SIMPLE_OPERATOR: 
-			if(children.size() == 2){
-				return "( " + children.get(0).getFormulaViewText() + " " + mnemonic + " " + children.get(1).getFormulaViewText() + " )" ;
+			if(getChildrenUMP().size() == 2){
+				return "( " + getChildrenUMP().get(0).getFormulaViewText() + " " + mnemonic + " " + getChildrenUMP().get(1).getFormulaViewText() + " )" ;
 			}
 			else{
-				if(children.size() == 1){
-					return "( " + mnemonic + " " + children.get(0).getFormulaViewText() + " )"; 
+				if(getChildrenUMP().size() == 1){
+					return "( " + mnemonic + " " + getChildrenUMP().get(0).getFormulaViewText() + " )"; 
 				}
 				else return " "; 
 			}
@@ -216,17 +182,17 @@ public class NodeFormulaTree{
 			// exemplar list
 			
 			formula+= "( "; 
-			NodeFormulaTree exemplarList = children.get(0); 
-			int exemplarListSize = exemplarList.getChildren().size(); 
+			NodeFormulaTreeUMP exemplarList = getChildrenUMP().get(0); 
+			int exemplarListSize = exemplarList.getChildrenUMP().size(); 
 			for(int i = 0; i< exemplarListSize; i++){
-				formula+= exemplarList.getChildren().get(i).getName();
+				formula+= exemplarList.getChildrenUMP().get(i).getName();
 				if(i < exemplarListSize - 1) formula+= ","; 
 			}
 			formula+= " )"; 
 			
 			// formula 
 			
-			formula+= children.get(1).getFormulaViewText(); 
+			formula+= getChildrenUMP().get(1).getFormulaViewText(); 
 			
 			formula+= ")"; 
 			
@@ -236,6 +202,20 @@ public class NodeFormulaTree{
 			return " "; 
 		
 		}
+	}
+
+	/**
+	 * @return the children
+	 */
+	public ArrayList<NodeFormulaTreeUMP> getChildrenUMP() {
+		return children;
+	}
+
+	/**
+	 * @param children the children to set
+	 */
+	public void setChildrenUMP(ArrayList<NodeFormulaTreeUMP> children) {
+		this.children = children;
 	}	
 	
 }

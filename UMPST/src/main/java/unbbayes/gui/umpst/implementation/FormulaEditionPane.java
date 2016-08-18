@@ -15,7 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
 
 import unbbayes.controller.IconController;
-import unbbayes.controller.umpst.FormulaTreeController;
+import unbbayes.controller.umpst.FormulaTreeControllerUMP;
 import unbbayes.model.umpst.implementation.EventNCPointer;
 import unbbayes.model.umpst.implementation.NecessaryConditionVariableModel;
 import unbbayes.model.umpst.project.UMPSTProject;
@@ -58,7 +58,7 @@ public class FormulaEditionPane extends JPanel {
 	private UMPSTProject umpstProject;
 	private String formula;
 	
-	private FormulaTreeController formulaTreeController;
+	private FormulaTreeControllerUMP formulaTreeController;
 	private FormulaViewTreePane formulaViewTreePane;
 	
 	protected IconController iconController = IconController.getInstance();
@@ -101,7 +101,7 @@ public class FormulaEditionPane extends JPanel {
 		jtbOperator.add(btnForAll); 	
 		jtbOperator.setFloatable(false);
 		
-		formulaTreeController = new FormulaTreeController(ncEditPanel, rule, this, ncVariableModel, editTree);		
+		formulaTreeController = new FormulaTreeControllerUMP(ncEditPanel, rule, this, ncVariableModel, editTree);		
 		jspFormulaTree = new JScrollPane(formulaTreeController.getFormulaViewTreePane());
 		
 		upPanel = new JPanel(new BorderLayout()); 
@@ -249,14 +249,14 @@ public class FormulaEditionPane extends JPanel {
 	/**
 	 * @return the formulaTreeController
 	 */
-	public FormulaTreeController getFormulaTreeController() {
+	public FormulaTreeControllerUMP getFormulaTreeController() {
 		return formulaTreeController;
 	}
 
 	/**
 	 * @param formulaTreeController the formulaTreeController to set
 	 */
-	public void setFormulaTreeController(FormulaTreeController formulaTreeController) {
+	public void setFormulaTreeController(FormulaTreeControllerUMP formulaTreeController) {
 		this.formulaTreeController = formulaTreeController;
 	}
 

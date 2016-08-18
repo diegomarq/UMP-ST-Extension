@@ -8,7 +8,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
-import unbbayes.controller.umpst.FormulaTreeController;
+import unbbayes.controller.umpst.FormulaTreeControllerUMP;
 import unbbayes.model.umpst.implementation.OrdinaryVariableModel;
 import unbbayes.model.umpst.rule.RuleModel;
 import unbbayes.util.ArrayMap;
@@ -17,7 +17,7 @@ public class OVTreeForReplaceInFormula extends JTree {
 	
 	private RuleModel rule;
 	private FormulaEditionPane formulaEditionPane;
-	private FormulaTreeController formulaTreeController;
+	private FormulaTreeControllerUMP formulaTreeController;
 	
 	private ArrayMap<Object, Object> ordinaryVariableMap = new ArrayMap<Object, Object>();
 		

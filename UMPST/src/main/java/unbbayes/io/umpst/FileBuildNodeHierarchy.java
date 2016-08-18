@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -17,14 +16,12 @@ import unbbayes.model.umpst.goal.HypothesisModel;
 import unbbayes.model.umpst.group.GroupModel;
 import unbbayes.model.umpst.implementation.CauseVariableModel;
 import unbbayes.model.umpst.implementation.EffectVariableModel;
-import unbbayes.model.umpst.implementation.EnumSubType;
-import unbbayes.model.umpst.implementation.EnumType;
-import unbbayes.model.umpst.implementation.EventNCPointer;
 import unbbayes.model.umpst.implementation.NecessaryConditionVariableModel;
-import unbbayes.model.umpst.implementation.NodeFormulaTree;
+import unbbayes.model.umpst.implementation.NodeFormulaTreeUMP;
 import unbbayes.model.umpst.implementation.OrdinaryVariableModel;
 import unbbayes.model.umpst.project.UMPSTProject;
 import unbbayes.model.umpst.rule.RuleModel;
+import unbbayes.prs.mebn.context.EnumType;
 
 /**
  * Build hierarchy of nodes according to type node distribution
@@ -538,12 +535,12 @@ public class FileBuildNodeHierarchy implements IBuildTypeNodeHierarchy {
 						ncId.appendChild(doc.createTextNode(nc.getId()));
 						ncVariable.appendChild(ncId);
 						
-						// NodeFormulaTree
-						Element ncNodeFormulaTree = doc.createElement("ncNodeFormulaTree");
-						ncVariable.appendChild(ncNodeFormulaTree);
+						// NodeFormulaTreeUMP
+						Element ncNodeFormulaTreeUMP = doc.createElement("ncNodeFormulaTreeUMP");
+						ncVariable.appendChild(ncNodeFormulaTreeUMP);
 						
-						NodeFormulaTree root = nc.getFormulaTree();			
-						buildNodeFormula(doc, ncNodeFormulaTree, root);	
+						NodeFormulaTreeUMP root = nc.getFormulaTree();			
+						buildNodeFormula(doc, ncNodeFormulaTreeUMP, root);	
 					}
 				}
 				
@@ -628,7 +625,7 @@ public class FileBuildNodeHierarchy implements IBuildTypeNodeHierarchy {
 		}		
 	}
 	
-	public void buildNodeFormula(Document doc, Element parent, NodeFormulaTree fatherNode) {
+	public void buildNodeFormula(Document doc, Element parent, NodeFormulaTreeUMP fatherNode) {
 		
 		Element ncNode = doc.createElement("ncNode");	
 		parent.appendChild(ncNode);
@@ -689,9 +686,9 @@ public class FileBuildNodeHierarchy implements IBuildTypeNodeHierarchy {
 		}
 	}
 	
-	public void buildChildNode(Document doc, Element parent, NodeFormulaTree fatherNode) {
+	public void buildChildNode(Document doc, Element parent, NodeFormulaTreeUMP fatherNode) {
 		
-		for(NodeFormulaTree child: fatherNode.getChildren()) {			
+		for(NodeFormulaTreeUMP child: fatherNode.getChildrenUMP()) {			
 			buildNodeFormula(doc, parent, child);
 		}
 	}

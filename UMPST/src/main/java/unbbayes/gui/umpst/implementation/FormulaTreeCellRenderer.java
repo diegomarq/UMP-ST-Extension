@@ -28,9 +28,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
 import unbbayes.controller.IconController;
-import unbbayes.model.umpst.implementation.EnumSubType;
-import unbbayes.model.umpst.implementation.EnumType;
-import unbbayes.model.umpst.implementation.NodeFormulaTree;
+import unbbayes.model.umpst.implementation.NodeFormulaTreeUMP;
+import unbbayes.prs.mebn.context.EnumSubType;
+import unbbayes.prs.mebn.context.EnumType;
 
 public class FormulaTreeCellRenderer extends DefaultTreeCellRenderer {
 	
@@ -98,7 +98,7 @@ public class FormulaTreeCellRenderer extends DefaultTreeCellRenderer {
 			return this; 
 		}			
 		
-		NodeFormulaTree nodeFormula = (NodeFormulaTree)(((DefaultMutableTreeNode)value).getUserObject());
+		NodeFormulaTreeUMP nodeFormula = (NodeFormulaTreeUMP)(((DefaultMutableTreeNode)value).getUserObject());
 		
 		EnumType type = nodeFormula.getTypeNode(); 
 		EnumSubType subType = nodeFormula.getSubTypeNode();

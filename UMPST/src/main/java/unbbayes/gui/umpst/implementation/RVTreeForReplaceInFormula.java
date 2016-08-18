@@ -21,7 +21,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
-import unbbayes.controller.umpst.FormulaTreeController;
+import unbbayes.controller.umpst.FormulaTreeControllerUMP;
 import unbbayes.controller.umpst.IconController;
 import unbbayes.gui.umpst.TableButton;
 import unbbayes.model.umpst.entity.EntityModel;
@@ -47,7 +47,7 @@ public class RVTreeForReplaceInFormula extends JTree{
 	private RuleModel rule;
 	private UMPSTProject umpstProject;
 	
-	private FormulaTreeController formulaTreeController;
+	private FormulaTreeControllerUMP formulaTreeController;
 	private FormulaEditionPane formulaEditionPane;
 	
 	private DefaultMutableTreeNode root;

@@ -29,13 +29,11 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
-import unbbayes.controller.umpst.FormulaTreeController;
+import unbbayes.controller.umpst.FormulaTreeControllerUMP;
 import unbbayes.gui.umpst.implementation.exception.FormulaTreeConstructionException;
 import unbbayes.model.umpst.implementation.BuiltInRV;
-import unbbayes.model.umpst.implementation.EnumSubType;
-import unbbayes.model.umpst.implementation.EnumType;
 import unbbayes.model.umpst.implementation.NecessaryConditionVariableModel;
-import unbbayes.model.umpst.implementation.NodeFormulaTree;
+import unbbayes.model.umpst.implementation.NodeFormulaTreeUMP;
 import unbbayes.model.umpst.implementation.builtInRV.BuiltInRVAnd;
 import unbbayes.model.umpst.implementation.builtInRV.BuiltInRVEqualTo;
 import unbbayes.model.umpst.implementation.builtInRV.BuiltInRVExists;
@@ -45,6 +43,9 @@ import unbbayes.model.umpst.implementation.builtInRV.BuiltInRVImplies;
 import unbbayes.model.umpst.implementation.builtInRV.BuiltInRVNot;
 import unbbayes.model.umpst.implementation.builtInRV.BuiltInRVOr;
 import unbbayes.model.umpst.rule.RuleModel;
+import unbbayes.prs.mebn.context.EnumSubType;
+import unbbayes.prs.mebn.context.EnumType;
+import unbbayes.prs.mebn.context.NodeFormulaTree;
 
 /** 
  * View Tree that represents the formula of a context node. 
@@ -81,13 +82,13 @@ import unbbayes.model.umpst.rule.RuleModel;
 
 public class FormulaViewTreePane extends JTree {
 	private RuleModel rule;	
-	private FormulaTreeController formulaTreeController;	
+	private FormulaTreeControllerUMP formulaTreeController;	
 	private NecessaryConditionVariableModel ncVariableModel;
 	
 	private DefaultMutableTreeNode rootTreeView;
 	private DefaultMutableTreeNode nodeActive;
-	private NodeFormulaTree nodeFormulaActive;
-	private NodeFormulaTree rootTreeFormula;
+	private NodeFormulaTreeUMP nodeFormulaActive;
+	private NodeFormulaTreeUMP rootTreeFormula;
 	private DefaultTreeModel model;
 	
 	
@@ -95,7 +96,7 @@ public class FormulaViewTreePane extends JTree {
 	private ResourceBundle resource = unbbayes.util.ResourceController.newInstance().getBundle(
 			unbbayes.gui.umpst.resources.Resources.class.getName());	
 	
-	public FormulaViewTreePane(RuleModel rule, FormulaTreeController formulaTreeController, 
+	public FormulaViewTreePane(RuleModel rule, FormulaTreeControllerUMP formulaTreeController, 
 			NecessaryConditionVariableModel _ncVariableModel, DefaultTreeModel _model) {
 		super(_model);
 		this.model = _model;
@@ -120,8 +121,8 @@ public class FormulaViewTreePane extends JTree {
 		buildChildren(rootTreeFormula, rootTreeView);
 	}
 	
-	public void buildChildren(NodeFormulaTree nodeFormulaFather, DefaultMutableTreeNode nodeTreeFather){		
-		for(NodeFormulaTree child: nodeFormulaFather.getChildren()){
+	public void buildChildren(NodeFormulaTreeUMP nodeFormulaFather, DefaultMutableTreeNode nodeTreeFather){		
+		for(NodeFormulaTreeUMP child: nodeFormulaFather.getChildrenUMP()){
 			DefaultMutableTreeNode treeNode = new DefaultMutableTreeNode(child); 
 			nodeTreeFather.add(treeNode);
 			buildChildren(child, treeNode); 
@@ -140,7 +141,7 @@ public class FormulaViewTreePane extends JTree {
 			DefaultMutableTreeNode node = (DefaultMutableTreeNode) selPath.getLastPathComponent();
 			
 			nodeActive = node; 
-			nodeFormulaActive = (NodeFormulaTree)node.getUserObject(); 
+			nodeFormulaActive = (NodeFormulaTreeUMP)node.getUserObject(); 
 			
 			if (e.getModifiers() == MouseEvent.BUTTON3_MASK) {				
 				switch(nodeFormulaActive.getTypeNode()){				
@@ -243,9 +244,9 @@ public class FormulaViewTreePane extends JTree {
 	
 	public void addQuantifierOperatorInTree(BuiltInRV builtInRV, EnumSubType subType) throws FormulaTreeConstructionException{
 		
-		NodeFormulaTree nodeFormula = (NodeFormulaTree)nodeActive.getUserObject(); 
+		NodeFormulaTreeUMP nodeFormula = (NodeFormulaTreeUMP)nodeActive.getUserObject(); 
 		
-		NodeFormulaTree nodeFormulaTree; 
+		NodeFormulaTreeUMP nodeFormulaTree; 
 		DefaultMutableTreeNode node; 
 		
 		/* check if the nodeActive of the tree permit this operation */
@@ -262,13 +263,13 @@ public class FormulaViewTreePane extends JTree {
 		nodeFormula.setSubTypeNode(subType); 
 		
 		// Add node to insert variable sequence
-		nodeFormulaTree = new NodeFormulaTree("Var", EnumType.VARIABLE_SEQUENCE, EnumSubType.NOTHING, null); 
+		nodeFormulaTree = new NodeFormulaTreeUMP("Var", EnumType.VARIABLE_SEQUENCE, EnumSubType.NOTHING, null); 
 		node = new DefaultMutableTreeNode(nodeFormulaTree); 
 		nodeActive.add(node);
 		nodeFormula.addChild(nodeFormulaTree); 
 		
 		// Add node to insert formula
-		nodeFormulaTree = new NodeFormulaTree("Formula", EnumType.FORMULA, EnumSubType.NOTHING, null); 
+		nodeFormulaTree = new NodeFormulaTreeUMP("Formula", EnumType.FORMULA, EnumSubType.NOTHING, null); 
 		node = new DefaultMutableTreeNode(nodeFormulaTree); 
 		nodeActive.add(node); 
 		nodeFormula.addChild(nodeFormulaTree); 
@@ -287,8 +288,8 @@ public class FormulaViewTreePane extends JTree {
 	 */
 	public void addSimpleOperatorInTree(BuiltInRV builtInRV, EnumSubType subType) throws FormulaTreeConstructionException{
 //		
-		NodeFormulaTree nodeFormula = (NodeFormulaTree)nodeActive.getUserObject(); 
-		NodeFormulaTree operandoChild; 
+		NodeFormulaTreeUMP nodeFormula = (NodeFormulaTreeUMP)nodeActive.getUserObject(); 
+		NodeFormulaTreeUMP operandoChild; 
 		DefaultMutableTreeNode nodeChild;	
 		
 		/* check if the nodeActive of the tree permit this operation */
@@ -307,7 +308,7 @@ public class FormulaViewTreePane extends JTree {
 		nodeFormula.setSubTypeNode(subType);
 		
 		for (int i = 1; i <= builtInRV.getNumOperandos(); i++){
-			operandoChild = new NodeFormulaTree("op_" + i, EnumType.OPERAND, EnumSubType.NOTHING, null); 
+			operandoChild = new NodeFormulaTreeUMP("op_" + i, EnumType.OPERAND, EnumSubType.NOTHING, null); 
 			nodeChild = new DefaultMutableTreeNode(operandoChild); 
 			nodeActive.add(nodeChild); 
 			nodeFormula.addChild(operandoChild); 
@@ -346,11 +347,11 @@ public class FormulaViewTreePane extends JTree {
 		this.model = model;
 	}
 	
-	public NodeFormulaTree getNodeFormulaActive() {
+	public NodeFormulaTreeUMP getNodeFormulaActive() {
 		return nodeFormulaActive;
 	}
 
-	public void setNodeFormulaActive(NodeFormulaTree nodeFormulaActive) {
+	public void setNodeFormulaActive(NodeFormulaTreeUMP nodeFormulaActive) {
 		this.nodeFormulaActive = nodeFormulaActive;
 	}
 
@@ -362,7 +363,7 @@ public class FormulaViewTreePane extends JTree {
 		this.nodeActive = nodeActive;
 	}
 	
-    public void addNewNodeInTree(NodeFormulaTree node){
+    public void addNewNodeInTree(NodeFormulaTreeUMP node){
     	nodeActive.add(new DefaultMutableTreeNode(node));     	
     }
 		

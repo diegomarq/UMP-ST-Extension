@@ -14,19 +14,21 @@ import javax.swing.tree.DefaultTreeModel;
 
 import org.eclipse.osgi.framework.debug.Debug;
 
+import unbbayes.controller.mebn.FormulaTreeController;
 import unbbayes.io.mebn.UbfIO2;
 import unbbayes.io.mebn.exceptions.IOMebnException;
 import unbbayes.io.mebn.owlapi.OWLAPICompatiblePROWL2IO;
 import unbbayes.model.umpst.entity.EntityModel;
 import unbbayes.model.umpst.group.GroupModel;
+import unbbayes.model.umpst.implementation.NecessaryConditionVariableModel;
+import unbbayes.model.umpst.implementation.OrdinaryVariableModel;
 import unbbayes.model.umpst.implementation.algorithm.FirstCriterionOfSelection;
 import unbbayes.model.umpst.implementation.algorithm.SecondCriterionOfSelection;
 import unbbayes.model.umpst.implementation.node.MFragExtension;
 import unbbayes.model.umpst.project.UMPSTProject;
 import unbbayes.model.umpst.rule.RuleModel;
-import unbbayes.prs.mebn.MFrag;
+import unbbayes.prs.mebn.ContextNode;
 import unbbayes.prs.mebn.MultiEntityBayesianNetwork;
-import unbbayes.prs.mebn.OrdinaryVariable;
 import unbbayes.prs.mebn.entity.ObjectEntity;
 import unbbayes.prs.mebn.entity.ObjectEntityContainer;
 import unbbayes.prs.mebn.entity.Type;
@@ -38,7 +40,7 @@ import unbbayes.prs.mebn.entity.exception.TypeException;
  */
 public class MappingController {
 	
-	private UMPSTProject umsptProject;
+	private UMPSTProject umpstProject;
 	 
 	private FirstCriterionOfSelection firstCriterion;
 	private SecondCriterionOfSelection secondCriterion;
@@ -56,7 +58,7 @@ public class MappingController {
 	
 	public MappingController (UMPSTProject umpstProject) {
 		
-		this.umsptProject = umpstProject;		
+		this.umpstProject = umpstProject;		
 		setMapMFragExtension(new HashMap<String, MFragExtension>());
 		
 		// temporary method to create mtheory
@@ -85,7 +87,9 @@ public class MappingController {
 		Debug.println("Create all OVs from the rules");
 		
 		// Context Nodes
-		createAllContextNodes();
+		
+		FormulaTreeController formulaController = new FormulaTreeController(null, null, null);
+		createAllContextNodes(formulaController);
 		
 		// Undefined Nodes
 //		createUndefinedNodes(mebn);
@@ -93,7 +97,7 @@ public class MappingController {
 //		firstCriterion = new FirstCriterionOfSelection(umpstProject, this);
 //		secondCriterion = new SecondCriterionOfSelection(umpstProject, this);
 //		
-		testMTheory(mebn);
+//		testMTheory(mebn);
 	}
 	
 	/**
@@ -121,15 +125,6 @@ public class MappingController {
 				
 				ubf.saveMebn(newFile, mebn);
 //				file.buildIntermediateMTheory(newFile, umsptProject);
-				
-				for( Type type : mebn.getTypeContainer().getListOfTypes() ) {
-					ObjectEntity objectEntity = mebn.getObjectEntityContainer().getObjectEntityByType(type);
-					if (objectEntity == null) {
-						System.out.println(" -- MappingController, entity null, type: "+type.getName());
-					} else {
-						System.out.println(objectEntity.getName() + " -- MappingController, type: "+type.getName());
-					}
-				}
 				
 				controller.showSucessMessageDialog(resource.getString("msSaveSuccessfull"));
 			} catch (IOMebnException e) {
@@ -231,8 +226,41 @@ public class MappingController {
 			}
 		} else {
 			MultiEntityBayesianNetwork mebn = new MultiEntityBayesianNetwork(
-					umsptProject.getModelName());
+					umpstProject.getModelName());
 			return mebn;
+		}
+	}
+	
+	/**
+	 * keep all necessary conditions from UMP-ST rule and create context nodes related to Mebn
+	 * structure
+	 */
+	public void createAllContextNodes(FormulaTreeController formulaController) {
+		Map<String, RuleModel> mapRule = umpstProject.getMapRules();
+		Set<String> keys = mapRule.keySet();
+		TreeSet<String> sortedKeys = new TreeSet<String>(keys);
+		
+		for (String key : sortedKeys) {
+			
+			RuleModel rule = mapRule.get(key);
+			if (rule.getFowardtrackingGroupList().size() <  2) {
+				List<GroupModel> groupList = rule.getFowardtrackingGroupList();
+				
+				for (int i = 0; i < groupList.size(); i++) {
+					GroupModel group = groupList.get(i);					
+					MFragExtension mfrag = mapMFragExtension.get(group.getId());
+					
+					List<NecessaryConditionVariableModel> ncModelList = rule.getNecessaryConditionList();
+					for (int j = 0; j < ncModelList.size(); j++) {
+						NecessaryConditionVariableModel ncModel = ncModelList.get(j);
+						ContextNode node = mfrag.addContextNode(ncModel);
+						mfrag.mapContextNodeFormula(node, ncModel);
+					}
+				}
+				
+			} else {
+				System.err.println("Rule "+ rule.getId()+" related to more then one group");
+			}
 		}
 	}
 	
@@ -242,7 +270,7 @@ public class MappingController {
 	 */
 	public void createAllEntities(MultiEntityBayesianNetwork mebn) {
 		
-		Map<String, EntityModel> mapEntity = umsptProject.getMapEntity();
+		Map<String, EntityModel> mapEntity = umpstProject.getMapEntity();
 		Set<String> keys = mapEntity.keySet();
 		TreeSet<String> sortedKeys = new TreeSet<String>(keys);	
 		
@@ -269,7 +297,7 @@ public class MappingController {
 	 * @param group
 	 */
 	public void createAllOrdinaryVariables() {
-		Map<String, RuleModel> mapRule = umsptProject.getMapRules();
+		Map<String, RuleModel> mapRule = umpstProject.getMapRules();
 		Set<String> keys = mapRule.keySet();
 		TreeSet<String> sortedKeys = new TreeSet<String>(keys);
 		
@@ -281,23 +309,19 @@ public class MappingController {
 				
 				for (int i = 0; i < groupList.size(); i++) {
 					GroupModel group = groupList.get(i);
-					
 					MFragExtension mfrag = mapMFragExtension.get(group.getId());
-					mfrag.addAllOrdinaryVariables(rule);
+					
+					List<OrdinaryVariableModel> ovModelList = rule.getOrdinaryVariableList();
+					for (int j = 0; j < ovModelList.size(); j++) {
+						OrdinaryVariableModel ovModel = ovModelList.get(j);
+						mfrag.addOrdinaryVariable(ovModel);
+					}
 				}				
 				
 			} else {
 				System.err.println("Rule "+ rule.getId()+" related to more then one group");
 			}
 		}
-		
-//		// Add OrdinaryVariable as a context node
-//		for (int i = 0; i < getMFragExtensionList().size(); i++) {
-//			MFragExtension mfrag = getMFragExtensionList().get(i);
-//			GroupModel groupRelated = mfrag.getGroupRelated();
-//			List<RuleModel> ruleList = groupRelated.getBacktrackingRules();
-//			mfrag.addAllOrdinaryVariables(ruleList);	
-//		}
 	}
 	
 	/**
@@ -356,7 +380,7 @@ public class MappingController {
 	 * Create all MFrags from set of groups.
 	 */
 	public void createAllMFrags(MultiEntityBayesianNetwork mebn) {
-		Map<String, GroupModel> mapGroup = umsptProject.getMapGroups();
+		Map<String, GroupModel> mapGroup = umpstProject.getMapGroups();
 		Set<String> keys = mapGroup.keySet();
 		TreeSet<String> sortedKeys = new TreeSet<String>(keys);	
 		
