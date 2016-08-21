@@ -20,9 +20,9 @@
  */
 package unbbayes.model.umpst.implementation.builtInRV;
 
-import unbbayes.model.umpst.implementation.BuiltInRV;
+import unbbayes.model.umpst.implementation.BuiltInConditionUMP;
 
-public class BuiltInRVEqualTo extends BuiltInRV{
+public class BuiltInRVEqualTo extends BuiltInConditionUMP{
 
 	public BuiltInRVEqualTo(){
 		super("equalto", "\u003D"); 

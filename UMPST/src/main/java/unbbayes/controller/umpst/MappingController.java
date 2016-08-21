@@ -14,17 +14,19 @@ import javax.swing.tree.DefaultTreeModel;
 
 import org.eclipse.osgi.framework.debug.Debug;
 
-import unbbayes.controller.mebn.FormulaTreeController;
+import unbbayes.controller.mebn.MEBNController;
 import unbbayes.io.mebn.UbfIO2;
 import unbbayes.io.mebn.exceptions.IOMebnException;
 import unbbayes.io.mebn.owlapi.OWLAPICompatiblePROWL2IO;
 import unbbayes.model.umpst.entity.EntityModel;
+import unbbayes.model.umpst.entity.RelationshipModel;
 import unbbayes.model.umpst.group.GroupModel;
 import unbbayes.model.umpst.implementation.NecessaryConditionVariableModel;
 import unbbayes.model.umpst.implementation.OrdinaryVariableModel;
 import unbbayes.model.umpst.implementation.algorithm.FirstCriterionOfSelection;
 import unbbayes.model.umpst.implementation.algorithm.SecondCriterionOfSelection;
 import unbbayes.model.umpst.implementation.node.MFragExtension;
+import unbbayes.model.umpst.implementation.node.UndefinedNode;
 import unbbayes.model.umpst.project.UMPSTProject;
 import unbbayes.model.umpst.rule.RuleModel;
 import unbbayes.prs.mebn.ContextNode;
@@ -87,17 +89,16 @@ public class MappingController {
 		Debug.println("Create all OVs from the rules");
 		
 		// Context Nodes
-		
-		FormulaTreeController formulaController = new FormulaTreeController(null, null, null);
-		createAllContextNodes(formulaController);
+//		MEBNController mebnController = new MEBNController(mebn, null);
+//		createAllContextNodes(mebnController);
 		
 		// Undefined Nodes
-//		createUndefinedNodes(mebn);
+		createAllUndefinedNodes(mebn);
 //		
-//		firstCriterion = new FirstCriterionOfSelection(umpstProject, this);
+		firstCriterion = new FirstCriterionOfSelection(umpstProject, this, mebn);
 //		secondCriterion = new SecondCriterionOfSelection(umpstProject, this);
 //		
-//		testMTheory(mebn);
+		testMTheory(mebn);
 	}
 	
 	/**
@@ -235,7 +236,7 @@ public class MappingController {
 	 * keep all necessary conditions from UMP-ST rule and create context nodes related to Mebn
 	 * structure
 	 */
-	public void createAllContextNodes(FormulaTreeController formulaController) {
+	public void createAllContextNodes(MEBNController mebnController) {
 		Map<String, RuleModel> mapRule = umpstProject.getMapRules();
 		Set<String> keys = mapRule.keySet();
 		TreeSet<String> sortedKeys = new TreeSet<String>(keys);
@@ -253,8 +254,8 @@ public class MappingController {
 					List<NecessaryConditionVariableModel> ncModelList = rule.getNecessaryConditionList();
 					for (int j = 0; j < ncModelList.size(); j++) {
 						NecessaryConditionVariableModel ncModel = ncModelList.get(j);
-						ContextNode node = mfrag.addContextNode(ncModel);
-						mfrag.mapContextNodeFormula(node, ncModel);
+						ContextNode contextNode = mfrag.addContextNode(ncModel);
+//						mfrag.mapContextNodeFormula(contextNode, ncModel, mebnController);
 					}
 				}
 				
@@ -358,23 +359,21 @@ public class MappingController {
 	 * TODO create a new method to map attributes as UndefinedNodes
 	 */
 	
-//	public void createUndefinedNodes(MultiEntityBayesianNetwork mebn) {
-//		
-//		for (int i = 0; i < mfragExtensionList.size(); i++) {
-//			MFragExtension mfrag = mfragExtensionList.get(i);
-//			GroupModel group = mfrag.getGroupRelated();
-//			List<RelationshipModel> relationshipList = group.getBacktrackingRelationship();
-//			for(RelationshipModel relationship : relationshipList) {
-//				
-//				String name = relationship.getName();
-//				UndefinedNode node = new UndefinedNode(name, mfrag);
-//				node.setRelationshipPointer(relationship);
-////				mfragExtension.addUndefinedNode(node);
-//				
-//				
-//			}
-//		}
-//	}
+	public void createAllUndefinedNodes(MultiEntityBayesianNetwork mebn) {
+		Set<String> keys = getMapMFragExtension().keySet();
+		TreeSet<String> sortedKeys = new TreeSet<String>(keys);
+		
+		for (String groupId : sortedKeys) {
+			MFragExtension mfrag = getMapMFragExtension().get(groupId);
+			GroupModel group = mfrag.getGroupRelated();
+			
+			List<RelationshipModel> relationshipList = group.getBacktrackingRelationship();
+			for (int i = 0; i < relationshipList.size(); i++) {
+				UndefinedNode node = mfrag.mapToUndefinedNode(relationshipList.get(i));
+				mfrag.addUndefinedNode(node);
+			}
+		}
+	}
 	
 	/**
 	 * Create all MFrags from set of groups.
@@ -398,6 +397,7 @@ public class MappingController {
 	}
 
 	/**
+	 * Maps {@link GroupModel} id and {@link MFragExtension} as <String, Object> parameters
 	 * @return the mapMFragExtension
 	 */
 	public Map<String, MFragExtension> getMapMFragExtension() {

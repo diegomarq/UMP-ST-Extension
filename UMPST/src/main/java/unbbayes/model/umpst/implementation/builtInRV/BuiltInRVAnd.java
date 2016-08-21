@@ -20,9 +20,9 @@
  */
 package unbbayes.model.umpst.implementation.builtInRV;
 
-import unbbayes.model.umpst.implementation.BuiltInRV;
+import unbbayes.model.umpst.implementation.BuiltInConditionUMP;
 
-public class BuiltInRVAnd extends BuiltInRV{
+public class BuiltInRVAnd extends BuiltInConditionUMP{
 
 	public BuiltInRVAnd(){
 		super("and" , "\u2227"); 

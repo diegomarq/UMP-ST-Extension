@@ -20,9 +20,9 @@
  */
 package unbbayes.model.umpst.implementation.builtInRV;
 
-import unbbayes.model.umpst.implementation.BuiltInRV;
+import unbbayes.model.umpst.implementation.BuiltInConditionUMP;
 
-public class BuiltInRVOr extends BuiltInRV{
+public class BuiltInRVOr extends BuiltInConditionUMP{
 
 	public BuiltInRVOr(){
 		super("or", "\u2228"); 

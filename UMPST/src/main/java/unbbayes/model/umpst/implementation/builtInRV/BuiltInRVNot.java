@@ -20,9 +20,9 @@
  */
 package unbbayes.model.umpst.implementation.builtInRV;
 
-import unbbayes.model.umpst.implementation.BuiltInRV;
+import unbbayes.model.umpst.implementation.BuiltInConditionUMP;
 
-public class BuiltInRVNot extends BuiltInRV{
+public class BuiltInRVNot extends BuiltInConditionUMP{
 
 	public BuiltInRVNot(){
 		super("not", "\u00AC"); 

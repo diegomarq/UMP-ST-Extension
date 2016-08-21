@@ -31,7 +31,7 @@ import javax.swing.tree.TreePath;
 
 import unbbayes.controller.umpst.FormulaTreeControllerUMP;
 import unbbayes.gui.umpst.implementation.exception.FormulaTreeConstructionException;
-import unbbayes.model.umpst.implementation.BuiltInRV;
+import unbbayes.model.umpst.implementation.BuiltInConditionUMP;
 import unbbayes.model.umpst.implementation.NecessaryConditionVariableModel;
 import unbbayes.model.umpst.implementation.NodeFormulaTreeUMP;
 import unbbayes.model.umpst.implementation.builtInRV.BuiltInRVAnd;
@@ -45,7 +45,6 @@ import unbbayes.model.umpst.implementation.builtInRV.BuiltInRVOr;
 import unbbayes.model.umpst.rule.RuleModel;
 import unbbayes.prs.mebn.context.EnumSubType;
 import unbbayes.prs.mebn.context.EnumType;
-import unbbayes.prs.mebn.context.NodeFormulaTree;
 
 /** 
  * View Tree that represents the formula of a context node. 
@@ -194,42 +193,42 @@ public class FormulaViewTreePane extends JTree {
 	}
 	
 	public void addOperatorExists() throws Exception{
-		BuiltInRV builtInRV = new BuiltInRVExists(); 
+		BuiltInConditionUMP builtInRV = new BuiltInRVExists(); 
 		addQuantifierOperatorInTree(builtInRV, EnumSubType.EXISTS); 
 	}
 	
 	public void addOperatorForAll() throws Exception{
-		BuiltInRV builtInRV = new BuiltInRVForAll(); 
+		BuiltInConditionUMP builtInRV = new BuiltInRVForAll(); 
 		addQuantifierOperatorInTree(builtInRV, EnumSubType.FORALL); 
 	}
 	
 	public void addOperatorImplies() throws Exception{
-		BuiltInRV builtInRV = new BuiltInRVImplies(); 
+		BuiltInConditionUMP builtInRV = new BuiltInRVImplies(); 
 		addSimpleOperatorInTree(builtInRV, EnumSubType.IMPLIES); 
 	}
 	
 	public void addOperatorIf() throws Exception{
-		BuiltInRV builtInRV = new BuiltInRVIff(); 
+		BuiltInConditionUMP builtInRV = new BuiltInRVIff(); 
 		addSimpleOperatorInTree(builtInRV,EnumSubType.IFF); 
 	}
 	
 	public void addOperatorEqualTo()  throws Exception{
-		BuiltInRV builtInRV = new BuiltInRVEqualTo(); 
+		BuiltInConditionUMP builtInRV = new BuiltInRVEqualTo(); 
 		addSimpleOperatorInTree(builtInRV,EnumSubType.EQUALTO); 
 	}
 	
 	public void addOperatorNot()  throws Exception{
-		BuiltInRV builtInRV = new BuiltInRVNot(); 
+		BuiltInConditionUMP builtInRV = new BuiltInRVNot(); 
 		addSimpleOperatorInTree(builtInRV, EnumSubType.NOT); 
 	}
 	
 	public void addOperatorOr()  throws Exception{
-		BuiltInRV builtInRV = new BuiltInRVOr(); 
+		BuiltInConditionUMP builtInRV = new BuiltInRVOr(); 
 		addSimpleOperatorInTree(builtInRV, EnumSubType.OR); 	
 	}
 	
 	public void addOperatorAnd() throws Exception{
-		BuiltInRV builtInRV = new BuiltInRVAnd(); 
+		BuiltInConditionUMP builtInRV = new BuiltInRVAnd(); 
 		addSimpleOperatorInTree(builtInRV, EnumSubType.AND);
 	}
 	
@@ -242,7 +241,7 @@ public class FormulaViewTreePane extends JTree {
 	 * @param subType type of the operator
 	 */	
 	
-	public void addQuantifierOperatorInTree(BuiltInRV builtInRV, EnumSubType subType) throws FormulaTreeConstructionException{
+	public void addQuantifierOperatorInTree(BuiltInConditionUMP builtInRV, EnumSubType subType) throws FormulaTreeConstructionException{
 		
 		NodeFormulaTreeUMP nodeFormula = (NodeFormulaTreeUMP)nodeActive.getUserObject(); 
 		
@@ -286,7 +285,7 @@ public class FormulaViewTreePane extends JTree {
 	 * @param builtInRV builtIn of operator
 	 * @param subType type of the operator
 	 */
-	public void addSimpleOperatorInTree(BuiltInRV builtInRV, EnumSubType subType) throws FormulaTreeConstructionException{
+	public void addSimpleOperatorInTree(BuiltInConditionUMP builtInRV, EnumSubType subType) throws FormulaTreeConstructionException{
 //		
 		NodeFormulaTreeUMP nodeFormula = (NodeFormulaTreeUMP)nodeActive.getUserObject(); 
 		NodeFormulaTreeUMP operandoChild; 

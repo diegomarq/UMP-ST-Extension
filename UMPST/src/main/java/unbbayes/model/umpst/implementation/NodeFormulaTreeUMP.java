@@ -128,6 +128,21 @@ public class NodeFormulaTreeUMP extends NodeFormulaTree{
 		this.mnemonic = mnemonic;
 	}
 	
+//	public NodeFormulaTree mapFormulaToMEBN() {
+//		switch(type){
+//		case OPERAND:
+//			switch(subType){
+//			
+//			case NODE:
+//				EventNCPointer eventPointer = (EventNCPointer)nodeVariable;
+//				
+//				/*TODO convert this event to resident node*/
+////				this.setNodeVariable(eventPointer);
+//				return this;
+//			}
+//		}
+//	}
+	
 	/**
 	 * M�todo utilizado para se obter a forma textual da f�rmula 
 	 * representada por este n�. Funciona recursivamente, chamando
@@ -140,6 +155,7 @@ public class NodeFormulaTreeUMP extends NodeFormulaTree{
 			
 			case NODE:
 				EventNCPointer eventPointer = (EventNCPointer)nodeVariable;
+				
 //				System.out.println(eventPointer.getOvArgumentList().size());
 //				ResidentNodePointer pointer = (ResidentNodePointer)nodeVariable;
 //				String returnName = name + "(";
@@ -162,7 +178,7 @@ public class NodeFormulaTreeUMP extends NodeFormulaTree{
 				return name; 
 			}
 			
-		case SIMPLE_OPERATOR: 
+		case SIMPLE_OPERATOR:
 			if(getChildrenUMP().size() == 2){
 				return "( " + getChildrenUMP().get(0).getFormulaViewText() + " " + mnemonic + " " + getChildrenUMP().get(1).getFormulaViewText() + " )" ;
 			}

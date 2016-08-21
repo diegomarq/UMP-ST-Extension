@@ -3,7 +3,7 @@ package unbbayes.model.umpst.implementation;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BuiltInRV {
+public class BuiltInConditionUMP {
  
 	private String name; 
 	private String mnemonic; 
@@ -13,9 +13,9 @@ public class BuiltInRV {
 	// It is the same thing as necessary condition
 	private List<NecessaryConditionVariableModel> contextInstanceFromList; 
 	
-	protected int numOperandos; 
+	protected int numOperandos;
 	
-	public BuiltInRV(String name, String mnemonic){
+	public BuiltInConditionUMP(String name, String mnemonic){
 		this.name = name; 
 		this.mnemonic = mnemonic; 
 		eventInstanceFromList = new ArrayList<EventVariableObjectModel>();

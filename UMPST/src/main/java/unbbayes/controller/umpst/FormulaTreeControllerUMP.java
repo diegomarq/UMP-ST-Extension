@@ -176,12 +176,12 @@ public class FormulaTreeControllerUMP {
 	
 	public void addOperatorForAll()throws Exception{
 		formulaViewTreePane.addOperatorForAll(); 
-//		mebnController.updateFormulaActiveContextNode(); 
+		updateFormulaActiveContextNode(); 
 	}
 	
 	public void addOperatorExists()throws Exception{
 		formulaViewTreePane.addOperatorExists(); 
-//		mebnController.updateFormulaActiveContextNode(); 
+		updateFormulaActiveContextNode(); 
 	}
 	
 	public void showArgumentPanel(NodeFormulaTreeUMP nodeFormulaActive){

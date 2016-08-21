@@ -20,9 +20,9 @@
  */
 package unbbayes.model.umpst.implementation.builtInRV;
 
-import unbbayes.model.umpst.implementation.BuiltInRV;
+import unbbayes.model.umpst.implementation.BuiltInConditionUMP;
 
-public class BuiltInRVImplies extends BuiltInRV{
+public class BuiltInRVImplies extends BuiltInConditionUMP{
 
 	public BuiltInRVImplies(){
 		super("implies", "\u2192"); 

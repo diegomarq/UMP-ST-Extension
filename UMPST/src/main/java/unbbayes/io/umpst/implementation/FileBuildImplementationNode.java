@@ -3,7 +3,7 @@ package unbbayes.io.umpst.implementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import unbbayes.model.umpst.implementation.BuiltInRV;
+import unbbayes.model.umpst.implementation.BuiltInConditionUMP;
 import unbbayes.model.umpst.implementation.EventNCPointer;
 import unbbayes.model.umpst.implementation.NodeFormulaTreeUMP;
 import unbbayes.model.umpst.implementation.OrdinaryVariableModel;
@@ -37,7 +37,7 @@ public class FileBuildImplementationNode {
 	}
 	
 	public Element buildSentenceNodeVariableOperands (Document doc, NodeFormulaTreeUMP fatherNode) {
-		int num = ((BuiltInRV)fatherNode.getNodeVariable()).getNumOperandos();
+		int num = ((BuiltInConditionUMP)fatherNode.getNodeVariable()).getNumOperandos();
 		String numOp = Integer.toString(num);
 		
 		Element ncNodeVariableNumOperands = doc.createElement("ncNodeVariableNumOperands");

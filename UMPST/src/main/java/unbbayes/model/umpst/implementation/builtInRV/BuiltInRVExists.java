@@ -20,9 +20,9 @@
  */
 package unbbayes.model.umpst.implementation.builtInRV;
 
-import unbbayes.model.umpst.implementation.BuiltInRV;
+import unbbayes.model.umpst.implementation.BuiltInConditionUMP;
 
-public class BuiltInRVExists extends BuiltInRV{
+public class BuiltInRVExists extends BuiltInConditionUMP{
 
 	public BuiltInRVExists(){
 		super("exists", "\u2203"); 

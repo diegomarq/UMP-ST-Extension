@@ -3,21 +3,21 @@
  */
 package unbbayes.model.umpst.implementation.node;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import unbbayes.controller.umpst.MappingController;
-import unbbayes.gui.mebn.MEBNEditionPane;
+import unbbayes.model.umpst.entity.RelationshipModel;
 import unbbayes.model.umpst.group.GroupModel;
 import unbbayes.model.umpst.implementation.NecessaryConditionVariableModel;
 import unbbayes.model.umpst.implementation.OrdinaryVariableModel;
-import unbbayes.model.umpst.rule.RuleModel;
 import unbbayes.prs.mebn.ContextNode;
 import unbbayes.prs.mebn.MFrag;
 import unbbayes.prs.mebn.MultiEntityBayesianNetwork;
 import unbbayes.prs.mebn.OrdinaryVariable;
+import unbbayes.prs.mebn.ResidentNode;
 import unbbayes.prs.mebn.entity.Type;
-import unbbayes.prs.mebn.entity.TypeContainer;
 
 /**
  * Class modified to add group model
@@ -30,6 +30,7 @@ public class MFragExtension extends MFrag {
 	private static ResourceBundle resource = unbbayes.util.ResourceController.newInstance().getBundle(
 			unbbayes.controller.mebn.resources.Resources.class.getName());
 	private MultiEntityBayesianNetwork mebn;
+	private List<UndefinedNode> undefinedNodeList;
 
 	/**
 	 * @param name
@@ -41,11 +42,53 @@ public class MFragExtension extends MFrag {
 		
 		this.mebn = mebn;
 		this.setGroupRelated(group);
+		setUndefinedNodeList(new ArrayList<UndefinedNode>());
 	}
 	
-	public void mapContextNodeFormula(ContextNode node, NecessaryConditionVariableModel ncModel) {
-//		node.set
+	public ResidentNode mapToResidentNode(UndefinedNode undefinedNode) {
+		ResidentNode residentNode = new ResidentNode(undefinedNode.getName(), this);
+		
+		RelationshipModel relationship = undefinedNode.getRelationshipPointer();
+		
+		//TODO get the list of ordinary variables present in event and add their to resident
+		//node list of arguments
+		
+//		for (int i = 0; i < relationship.get; i++) {
+//			
+//		}
+//		residentNode.addArgument(ordinaryVariable, true);
+		return residentNode;
 	}
+	
+	public void removeUndefinedNode(UndefinedNode node) {
+		getUndefinedNodeList().remove(node);
+	}
+	
+	public void addUndefinedNode(UndefinedNode node) {
+		getUndefinedNodeList().add(node);
+	}
+	
+	public UndefinedNode mapToUndefinedNode(RelationshipModel relationship) {
+		
+		UndefinedNode node = new UndefinedNode(relationship.getName(), this);
+		node.setRelationshipPointer(relationship);
+		return node;
+	}
+	
+//	public void mapContextNodeFormula(ContextNode node, NecessaryConditionVariableModel ncModel,
+//			MEBNController mebnController) {
+//		FormulaTreeController formulaControllerMebn = new FormulaTreeController(mebnController, node, null);
+//		
+//		NodeFormulaTreeUMP rootFormulaUMP = ncModel.getFormulaTree();
+//		DefaultMutableTreeNode rootTreeView = new DefaultMutableTreeNode();
+//		
+//		for(NodeFormulaTreeUMP child: rootFormulaUMP.getChildrenUMP()){
+//			DefaultMutableTreeNode treeNode = new DefaultMutableTreeNode(child); 
+//			nodeTreeFather.add(treeNode);
+//			buildChildren(child, treeNode); 
+//		}
+//		return nodeTreeFather;
+//	}
 	
 	/**
 	 * Create {@link ContextNode} from {@link NecessaryConditionVariableModel} of 
@@ -109,6 +152,20 @@ public class MFragExtension extends MFrag {
 	 */
 	public void setGroupRelated(GroupModel groupRelated) {
 		this.groupRelated = groupRelated;
+	}
+
+	/**
+	 * @return the undefinedNodeList
+	 */
+	public List<UndefinedNode> getUndefinedNodeList() {
+		return undefinedNodeList;
+	}
+
+	/**
+	 * @param undefinedNodeList the undefinedNodeList to set
+	 */
+	public void setUndefinedNodeList(List<UndefinedNode> undefinedNodeList) {
+		this.undefinedNodeList = undefinedNodeList;
 	}
 
 }

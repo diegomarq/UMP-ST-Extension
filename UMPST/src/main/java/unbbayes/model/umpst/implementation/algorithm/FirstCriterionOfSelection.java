@@ -1,19 +1,19 @@
 package unbbayes.model.umpst.implementation.algorithm;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.eclipse.osgi.framework.debug.Debug;
 
 import unbbayes.controller.umpst.MappingController;
 import unbbayes.model.umpst.entity.RelationshipModel;
-import unbbayes.model.umpst.group.GroupModel;
 import unbbayes.model.umpst.implementation.node.MFragExtension;
-import unbbayes.model.umpst.implementation.node.NodeResidentModel;
+import unbbayes.model.umpst.implementation.node.UndefinedNode;
 import unbbayes.model.umpst.project.UMPSTProject;
 import unbbayes.prs.mebn.MultiEntityBayesianNetwork;
+import unbbayes.prs.mebn.ResidentNode;
 
 /**
  * Separate resident nodes according the relationship presence in a groupList.
@@ -23,13 +23,6 @@ import unbbayes.prs.mebn.MultiEntityBayesianNetwork;
 public class FirstCriterionOfSelection {
 	
 	private UMPSTProject umpstProject;
-	
-	private Map<String, RelationshipModel> mapRelationship;
-	private Map<String, GroupModel> mapGroup;
-	
-	private List<NodeResidentModel> nodeResidentList;
-	private Map<String, MFragExtension> mapMFragExtension;	
-	
 	private MappingController mappingController;
 
 	public FirstCriterionOfSelection(UMPSTProject umpstProject, MappingController mappingController,
@@ -38,11 +31,10 @@ public class FirstCriterionOfSelection {
 		this.umpstProject = umpstProject;
 		this.mappingController = mappingController;
 		
-		mapRelationship = new HashMap<String, RelationshipModel>();
-		mapGroup = new HashMap<String, GroupModel>();
-		nodeResidentList = new ArrayList<NodeResidentModel>();
 		
-		mapMFragExtension = mappingController.getMapMFragExtension();
+//		nodeResidentList = new ArrayList<NodeResidentModel>();
+		
+//		mapMFragExtension = mappingController.getMapMFragExtension();
 		
 		firstSelection(mebn);
 		Debug.println(this.getClass() + "Fist Criterion of Selection done.");
@@ -53,83 +45,29 @@ public class FirstCriterionOfSelection {
 	 */
 	public void firstSelection(MultiEntityBayesianNetwork mebn) {
 		
-//		MebnExtension mebnExtension = mappingController.getMebnExtension();
-//		List<MFragExtension> mfragExtensionList = mebnExtension.getMFragExtensionList();
-//		
-//		for (MFragExtension mFragExtension : mfragExtensionList) {
-//			
-//			List<UndefinedNode> undefinedNodeList = mFragExtension.getUndefinedNodeList();
-//			for (int i = 0; i < undefinedNodeList.size(); i++) {
-//				
-//				UndefinedNode undefinedNode = undefinedNodeList.get(i);				
-//				RelationshipModel relationship = undefinedNode.getRelationshipPointer();
-//				if (relationship.getFowardtrackingGroups().size() == 1) {
-//					
-//					String name = undefinedNode.getName();					
-//					ResidentNodeExtension residentNode = new ResidentNodeExtension(
-//							name, mFragExtension);
-//					
-//					mFragExtension.removeUndefinedNode(undefinedNode);
-//					mFragExtension.addResidentNodeExtension(residentNode);
-//				}
-//			}			
-//		}
+		Map<String, MFragExtension> mapMFragExtension = mappingController.getMapMFragExtension();
+		Set<String> keys = mapMFragExtension.keySet();
+		TreeSet<String> sortedKeys = new TreeSet<String>(keys);
 		
-//		mapRelationship = umpstProject.getMapRelationship();
-//		Set<String> keys = mapRelationship.keySet();
-//		TreeSet<String> sortedKeys = new TreeSet<String>(keys);
-//		
-//		for (String key : sortedKeys) {
-//			RelationshipModel relationship = mapRelationship.get(key);
-//			String id = relationship.getId();
-//			String name = relationship.getName();
-//			
-//			Set<GroupModel> setGroups = relationship.getFowardtrackingGroups();
-//			if (setGroups.size() == 1) {
-//				
-//				
-//				
-//				NodeResidentModel nodeResident = new NodeResidentModel(
-//						id, name, NodeType.RESIDENT, relationship);
-//				
-//				for (GroupModel group : setGroups) {
-//					mappingController.addResidentNodeInMFrag(group.getId(), nodeResident);
-//				}	
-//			}
-//		}
+		for (String groupId : sortedKeys) {	
+			MFragExtension mfragExtension = mapMFragExtension.get(groupId);
+			List<UndefinedNode> undefinedNodeList = mfragExtension.getUndefinedNodeList();
+			
+			for (int i = 0; i < undefinedNodeList.size(); i++) {
+				
+				UndefinedNode undefinedNode = undefinedNodeList.get(i);				
+				RelationshipModel relationship = undefinedNode.getRelationshipPointer();
+				if (relationship.getFowardtrackingGroups().size() == 1) {
+					
+					String name = undefinedNode.getName();
+					ResidentNode residentNode = new ResidentNode(name, mfragExtension);
+					residentNode.setDescription(residentNode.getName());
+					mfragExtension.addResidentNode(residentNode);
+					
+					mfragExtension.removeUndefinedNode(undefinedNode);
+//					mFragExtension.addResidentNodeExtension(residentNode);
+				}
+			}			
+		}
 	}
-	
-//	public void createMfrags() {
-//		
-//		mapGroup = umpstProject.getMapGroups();
-//		Set<String> keys = mapGroup.keySet();
-//		TreeSet<String> sortedKeys = new TreeSet<String>(keys);
-//		
-//		for (String key : sortedKeys) {
-//			GroupModel group = mapGroup.get(key);
-//			
-//			String id = group.getId();
-//			String name = group.getName();
-//			
-//			MFragModel mfrag = new MFragModel(id, name);
-//			// Adds MFrags in MTheory
-////			mappingController.addMFrag(mfrag);	
-//		}
-//	}
-
-	/**
-	 * @return the nodeResidentList
-	 */
-	public List<NodeResidentModel> getNodeResidentList() {
-		return nodeResidentList;
-	}
-
-
-	/**
-	 * @param nodeResidentList the nodeResidentList to set
-	 */
-	public void setNodeResidentList(List<NodeResidentModel> nodeResidentList) {
-		this.nodeResidentList = nodeResidentList;
-	}
-
 }
