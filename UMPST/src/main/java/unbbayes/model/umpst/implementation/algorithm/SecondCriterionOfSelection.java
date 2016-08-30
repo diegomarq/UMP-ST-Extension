@@ -50,127 +50,129 @@ public class SecondCriterionOfSelection {
 		mapRule = new HashMap<String, RuleModel>();
 		mapDoubtNodes = new HashMap<String, NodeObjectModel>();
 		
-//		secondSelection(mebn);		
+		secondSelection(mebn);		
 	}
 	
 	/**
 	 * Second Selection based on Second Criterion Of Selection algorithm.
 	 */
-//	public void secondSelection() {
-//		List<RuleModel> listRules = new ArrayList<RuleModel>();
-//		DefineDependenceRelation mfragRelation;
-//		
-//		// Verify list of rules related to each group		
-//		List<MFragExtension> mfragExtensionList = mebnExtension.getMFragExtensionList();
-//		for (MFragExtension mfragExtension : mfragExtensionList) {	
-//			
-//			GroupModel group = mfragExtension.getGroupPointer();
-//			
-//			listRules = group.getBacktrackingRules();
-//			for (int i = 0; i < listRules.size(); i++) {
-//				
-//				// Compare if rule and group have the same elements
-//				RuleModel rule = group.getBacktrackingRules().get(i);
-//				if (compareElements(rule, group)) {
-//					
-//					
-//					mappingController.addOrdinaryVariable(rule, mfragExtension);
-////					mappingController.addNecessaryConditionFromRule(rule, mfragExtension);
-////					mfragRelation = new DefineDependenceRelation(rule, group, mappingController,
-////							umpstProject, this);
-////					searchOVMissing(rule, group);
-////					defineMFragCausal(rule, group);
-//					
-//				} else {
-//					System.err.println("Number of element in rule: " + rule.getId() +
-//							" " + "does not match with group: " + group.getId());
-//					
-//					// Elements of rule that does not check
-//					for (int j = 0; j < objectModel.size(); j++) {
-//						System.err.println(objectModel.get(j).getName());
-//					}
-//				}
-//			}
-//			if (group.getBacktrackingRules().size() == 0) {
-//				
-//				// Add missing OrdinaryVariables
-////				insertMissingOV(group);
-//			}
-//		}
-//	}
-	
-	public void classifyInputNode(RuleModel rule, GroupModel group) {
+	public void secondSelection(MultiEntityBayesianNetwork mebn) {
+		List<RuleModel> listRules = new ArrayList<RuleModel>();
+		DefineDependenceRelation ruleRelation;
 		
-		List<RuleModel> causeIsEffectList = new ArrayList<RuleModel>();
-		
-		mapRule = umpstProject.getMapRules();
-		Set<String> keys = mapRule.keySet();
+		// Verify list of rules related to each group		
+		Map<String, MFragExtension> mapMFragExtension = mappingController.getMapMFragExtension();
+		Set<String> keys = mapMFragExtension.keySet();
 		TreeSet<String> sortedKeys = new TreeSet<String>(keys);
+		
+		for (String groupId : sortedKeys) {	
+			MFragExtension mfragExtension = mapMFragExtension.get(groupId);
+			GroupModel group = mfragExtension.getGroupRelated();
+			
+			listRules = group.getBacktrackingRules();
+			for (int i = 0; i < listRules.size(); i++) {
 				
-		int flag = 0;
-		for (String key : sortedKeys) {
-			RuleModel ruleSelected = mapRule.get(key);
-			if (!(ruleSelected.getId().equals(rule.getId()))) {
-				
-				for (int k = 0; k < rule.getCauseVariableList().size(); k++) {
-					CauseVariableModel cause = rule.getCauseVariableList().get(k);
-				
-					for (int j = 0; j < ruleSelected.getEffectVariableList().size(); j++) {	
-						EffectVariableModel effect = ruleSelected.getEffectVariableList().get(j);
-						
-						if (cause.getRelationshipModel().equals(effect.getRelationshipModel())) {
-							// cause is effect
-							causeIsEffectList.add(ruleSelected);
-							flag++;
-						}
+				// Compare if rule and group have the same elements
+				RuleModel rule = group.getBacktrackingRules().get(i);
+				if (compareElements(rule, group)) {
+					
+//					mappingController.addOrdinaryVariable(rule, mfragExtension);
+//					mappingController.addNecessaryConditionFromRule(rule, mfragExtension);
+					ruleRelation = new DefineDependenceRelation(rule, group, mfragExtension, mappingController,
+							umpstProject, this);
+//					searchOVMissing(rule, group);
+//					defineMFragCausal(rule, group, mfragExtension);
+					
+				} else {
+					System.err.println("Number of element in rule: " + rule.getId() +
+							" " + "does not match with group: " + group.getId());
+					
+					// Elements of rule that does not check
+					for (int j = 0; j < objectModel.size(); j++) {
+						System.err.println(objectModel.get(j).getName());
 					}
 				}
 			}
-		}
-		
-		if (causeIsEffectList.size() > 0) {
-			mapRule = umpstProject.getMapRules();
-			Set<String> keys2 = mapRule.keySet();
-			TreeSet<String> sortedKeys2 = new TreeSet<String>(keys2);
-					
-			for (String key2 : sortedKeys2) {
-				RuleModel ruleSelected = mapRule.get(key2);
-			
-				for (int i = 0; i < causeIsEffectList.size(); i++) {
-					String idCauseIsEffect = causeIsEffectList.get(i).getId();
-					
-					if (!(ruleSelected.getId().equals(idCauseIsEffect))) {
-						
-						for (int k = 0; k < ruleSelected.getCauseVariableList().size(); k++) {
-							CauseVariableModel cause = ruleSelected.getCauseVariableList().get(k);
-							String id = cause.getId();
-							
-							String sentence = cause.getRelationship() + "(";
-							for (int k1 = 0; k1 < cause.getArgumentList().size(); k1++) {				
-								sentence = sentence + cause.getArgumentList().get(k1) + ", ";
-							}
-							int index = sentence.lastIndexOf(", ");
-							sentence = sentence.substring(0, index);
-							sentence = sentence + ")";
-							
-							NodeInputModel inputNode = new NodeInputModel(id, sentence, NodeType.INPUT, cause);
-							
-							List<GroupModel> idGroupList = ruleSelected.getFowardtrackingGroupList();
-							if (idGroupList.size() == 1) {
-//								mappingController.addInputNodeInMFrag(idGroupList.get(0).getId(), inputNode);
-							} else {
-								System.err.println("Error classifyInputNode. Rule is in more than one group.");
-							}
-						}				
-					}
-				}
+			if (group.getBacktrackingRules().size() == 0) {
+				
+				// Add missing OrdinaryVariables
+//				insertMissingOV(group);
 			}
 		}
 	}
 	
+	public void classifyInputNode(RuleModel rule, GroupModel group) {
+		
+//		List<RuleModel> causeIsEffectList = new ArrayList<RuleModel>();
+//		
+//		mapRule = umpstProject.getMapRules();
+//		Set<String> keys = mapRule.keySet();
+//		TreeSet<String> sortedKeys = new TreeSet<String>(keys);
+//				
+//		int flag = 0;
+//		for (String key : sortedKeys) {
+//			RuleModel ruleSelected = mapRule.get(key);
+//			if (!(ruleSelected.getId().equals(rule.getId()))) {
+//				
+//				for (int k = 0; k < rule.getCauseVariableList().size(); k++) {
+//					CauseVariableModel cause = rule.getCauseVariableList().get(k);
+//				
+//					for (int j = 0; j < ruleSelected.getEffectVariableList().size(); j++) {	
+//						EffectVariableModel effect = ruleSelected.getEffectVariableList().get(j);
+//						
+//						if (cause.getRelationshipModel().equals(effect.getRelationshipModel())) {
+//							// cause is effect
+//							causeIsEffectList.add(ruleSelected);
+//							flag++;
+//						}
+//					}
+//				}
+//			}
+//		}
+//		
+//		if (causeIsEffectList.size() > 0) {
+//			mapRule = umpstProject.getMapRules();
+//			Set<String> keys2 = mapRule.keySet();
+//			TreeSet<String> sortedKeys2 = new TreeSet<String>(keys2);
+//					
+//			for (String key2 : sortedKeys2) {
+//				RuleModel ruleSelected = mapRule.get(key2);
+//			
+//				for (int i = 0; i < causeIsEffectList.size(); i++) {
+//					String idCauseIsEffect = causeIsEffectList.get(i).getId();
+//					
+//					if (!(ruleSelected.getId().equals(idCauseIsEffect))) {
+//						
+//						for (int k = 0; k < ruleSelected.getCauseVariableList().size(); k++) {
+//							CauseVariableModel cause = ruleSelected.getCauseVariableList().get(k);
+//							String id = cause.getId();
+//							
+//							String sentence = cause.getRelationship() + "(";
+//							for (int k1 = 0; k1 < cause.getArgumentList().size(); k1++) {				
+//								sentence = sentence + cause.getArgumentList().get(k1) + ", ";
+//							}
+//							int index = sentence.lastIndexOf(", ");
+//							sentence = sentence.substring(0, index);
+//							sentence = sentence + ")";
+//							
+//							NodeInputModel inputNode = new NodeInputModel(id, sentence, NodeType.INPUT, cause);
+//							
+//							List<GroupModel> idGroupList = ruleSelected.getFowardtrackingGroupList();
+//							if (idGroupList.size() == 1) {
+////								mappingController.addInputNodeInMFrag(idGroupList.get(0).getId(), inputNode);
+//							} else {
+//								System.err.println("Error classifyInputNode. Rule is in more than one group.");
+//							}
+//						}				
+//					}
+//				}
+//			}
+//		}
+	}
+	
 	public void setOthersResidentNode() {
 		
-//		// Set resident node as effect event present in rule related to group.
+		// Set resident node as effect event present in rule related to group.
 //		for (int i = 0; i < rule.getEffectVariableList().size(); i++) {
 //			
 //			EffectVariableModel effect = rule.getEffectVariableList().get(i);

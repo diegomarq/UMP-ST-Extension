@@ -135,6 +135,7 @@ public class NodeFormulaTreeUMP extends NodeFormulaTree{
 //			
 //			case NODE:
 //				EventNCPointer eventPointer = (EventNCPointer)nodeVariable;
+//				eventPointer.getEventVariable().get
 //				
 //				/*TODO convert this event to resident node*/
 ////				this.setNodeVariable(eventPointer);

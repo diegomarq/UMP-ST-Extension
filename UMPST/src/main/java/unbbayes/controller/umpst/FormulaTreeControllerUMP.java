@@ -27,6 +27,7 @@ import unbbayes.gui.umpst.implementation.FormulaEditionPane;
 import unbbayes.gui.umpst.implementation.FormulaViewTreePane;
 import unbbayes.gui.umpst.implementation.NecessaryConditionEditPanel;
 import unbbayes.gui.umpst.implementation.exception.FormulaTreeConstructionException;
+import unbbayes.model.umpst.entity.RelationshipModel;
 import unbbayes.model.umpst.implementation.EventNCPointer;
 import unbbayes.model.umpst.implementation.EventVariableObjectModel;
 import unbbayes.model.umpst.implementation.NecessaryConditionVariableModel;
@@ -89,9 +90,7 @@ public class FormulaTreeControllerUMP {
 	}
 
 	/**
-	 * add one ordinary variable in the formula tree (replace
-	 * the actual node of the formula for the ordinary variable)
-	 * 
+	 * add one {@link RelationshipModel} defined by relationship structure in the formula tree
 	 * @param ov
 	 */
 	public void addNode(EventVariableObjectModel rv){
@@ -114,8 +113,8 @@ public class FormulaTreeControllerUMP {
 	}
 	
 	/**
-	 * Add one ordinary variable in the formula tree (replace
-	 * the actual node of the formula for the ordinary variable)
+	 * Add one {@link OrdinaryVariableModel} in the formula tree (replace
+	 * the actual node of the formula for the {@link OrdinaryVariableModel})
 	 * 
 	 * @param ov
 	 */

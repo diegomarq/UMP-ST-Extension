@@ -161,8 +161,8 @@ public class RVTreeForReplaceInFormula extends JTree{
 		for (int i = 0; i < causeVariableList.size(); i++) {
 			if (causeVariableList.get(i).getRelationship() != null) {
 				sentence = causeVariableList.get(i).getRelationship() + "(";
-				for (int j = 0; j < causeVariableList.get(i).getArgumentList().size(); j++) {				
-					sentence = sentence + causeVariableList.get(i).getArgumentList().get(j) + ", ";
+				for (int j = 0; j < causeVariableList.get(i).getOvArgumentList().size(); j++) {				
+					sentence = sentence + causeVariableList.get(i).getOvArgumentList().get(j).getVariable() + ", ";
 				}
 				int index = sentence.lastIndexOf(", ");
 				sentence = sentence.substring(0, index);

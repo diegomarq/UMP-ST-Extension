@@ -539,8 +539,8 @@ public class FileBuildNodeHierarchy implements IBuildTypeNodeHierarchy {
 						Element ncNodeFormulaTreeUMP = doc.createElement("ncNodeFormulaTreeUMP");
 						ncVariable.appendChild(ncNodeFormulaTreeUMP);
 						
-						NodeFormulaTreeUMP root = nc.getFormulaTree();			
-						buildNodeFormula(doc, ncNodeFormulaTreeUMP, root);	
+						NodeFormulaTreeUMP root = nc.getFormulaTree();	
+						buildNodeFormula(doc, ncNodeFormulaTreeUMP, root);
 					}
 				}
 				
@@ -565,10 +565,10 @@ public class FileBuildNodeHierarchy implements IBuildTypeNodeHierarchy {
 						Element causeArgumentList = doc.createElement("causeArgumentList");
 						causeVariable.appendChild(causeArgumentList);
 						
-						for (int i = 0; i < cause.getArgumentList().size(); i++) {
+						for (int i = 0; i < cause.getOvArgumentList().size(); i++) {
 							
 							Element causeArgument = doc.createElement("causeArgument");
-							String arg = cause.getArgumentList().get(i);
+							String arg = cause.getOvArgumentList().get(i).getVariable();
 							causeArgument.appendChild(doc.createTextNode(arg));
 							causeArgumentList.appendChild(causeArgument);
 						}
@@ -604,10 +604,10 @@ public class FileBuildNodeHierarchy implements IBuildTypeNodeHierarchy {
 						Element effectArgumentList = doc.createElement("effectArgumentList");
 						effectVariable.appendChild(effectArgumentList);
 						
-						for (int i = 0; i < effect.getArgumentList().size(); i++) {
+						for (int i = 0; i < effect.getOvArgumentList().size(); i++) {
 							
 							Element effectArgument = doc.createElement("effectArgument");
-							String arg = effect.getArgumentList().get(i);
+							String arg = effect.getOvArgumentList().get(i).getVariable();
 							effectArgument.appendChild(doc.createTextNode(arg));
 							effectArgumentList.appendChild(effectArgument);
 						}
@@ -630,7 +630,7 @@ public class FileBuildNodeHierarchy implements IBuildTypeNodeHierarchy {
 		Element ncNode = doc.createElement("ncNode");	
 		parent.appendChild(ncNode);
 		
-		if (fatherNode.getChildren().size() > 0) {
+		if (fatherNode.getChildrenUMP().size() > 0) {
 			
 			if (fatherNode.getTypeNode() == EnumType.SIMPLE_OPERATOR) {
 				ncNode.appendChild(bin.buildNodeName(doc, fatherNode));

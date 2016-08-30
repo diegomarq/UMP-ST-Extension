@@ -5,7 +5,7 @@ PrOwl="prowl.owl"
 % Declaração de MTheory - UBF
 MTheory=prowl
 NextMFrag=14
-NextResident=1
+NextResident=11
 NextInput=1
 NextContext=1
 NextEntity=1
@@ -15,6 +15,30 @@ NextEntity=1
 % MFrag
 MFrag=Personal_Information
 NextOrdinaryVar=3
+
+% Nós Residentes
+
+
+Node=livesAtSameAddress
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+Node=livesAtSameAddress
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+Node=isRelated
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
 
 % Variáveis Ordinárias
 
@@ -34,6 +58,30 @@ Color=-5178237
 % MFrag
 MFrag=Judgement_History
 NextOrdinaryVar=2
+
+% Nós Residentes
+
+
+Node=hasAdministrativeHistory
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+Node=hasAdministrativeHistory
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+Node=hasCleanHistory
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
 
 % Variáveis Ordinárias
 
@@ -98,6 +146,23 @@ Color=-5178237
 MFrag=Suspicious_Procurement
 NextOrdinaryVar=4
 
+% Nós Residentes
+
+
+Node=isSuspendedProcurement
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+Node=isSuspendedProcurement
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
 % Variáveis Ordinárias
 
 
@@ -122,6 +187,23 @@ Color=-5178237
 % MFrag
 MFrag=Procurement_Information
 NextOrdinaryVar=1
+
+% Nós Residentes
+
+
+Node=hasProcurementOwner
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+Node=hasProcurementOwner
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
 
 % MFrag
 MFrag=Enterprise_Information

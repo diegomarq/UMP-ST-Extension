@@ -18,7 +18,7 @@ public class EventVariableObjectModel {
 	private String id;
 	private EventType typeEvent;
 	private String relationship;
-	private ArrayList<String> argumentList;
+	private ArrayList<OrdinaryVariableModel> ovArgumentList;
 	private AttributeModel attributeModel;
 	private RelationshipModel relationshipModel;
 	private String attribute;
@@ -32,7 +32,7 @@ public class EventVariableObjectModel {
 		this.relationship = null;
 		this.attribute = null;
 		
-		argumentList = new ArrayList<String>();
+		setOvArgumentList(new ArrayList<OrdinaryVariableModel>());
 	}
 
 	/**
@@ -76,21 +76,7 @@ public class EventVariableObjectModel {
 	public void setAttribute(String attribute) {
 		this.attribute = attribute;
 	}
-
-	/**
-	 * @return the argumentList
-	 */
-	public ArrayList<String> getArgumentList() {
-		return argumentList;
-	}
-
-	/**
-	 * @param argumentList the argumentList to set
-	 */
-	public void setArgumentList(ArrayList<String> argumentList) {
-		this.argumentList = argumentList;
-	}
-
+	
 	/**
 	 * @return the relationshipModel
 	 */
@@ -131,6 +117,20 @@ public class EventVariableObjectModel {
 	 */
 	public void setTypeEvent(EventType typeEvent) {
 		this.typeEvent = typeEvent;
+	}
+
+	/**
+	 * @return the ovArgumentList
+	 */
+	public ArrayList<OrdinaryVariableModel> getOvArgumentList() {
+		return ovArgumentList;
+	}
+
+	/**
+	 * @param ovArgumentList the ovArgumentList to set
+	 */
+	public void setOvArgumentList(ArrayList<OrdinaryVariableModel> ovArgumentList) {
+		this.ovArgumentList = ovArgumentList;
 	}	
 
 }

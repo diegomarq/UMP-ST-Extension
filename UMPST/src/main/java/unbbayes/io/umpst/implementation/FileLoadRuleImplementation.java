@@ -95,7 +95,7 @@ public class FileLoadRuleImplementation {
 			String ncId = btNCElem.getElementsByTagName("ncId").item(0).
 					getTextContent();
 			
-			NodeList listNCNodeFormulaTreeUMP = btNCElem.getElementsByTagName("ncNodeFormulaTree");
+			NodeList listNCNodeFormulaTreeUMP = btNCElem.getElementsByTagName("ncNodeFormulaTreeUMP");
 			NodeList ncNodeFormulaTreeUMP = listNCNodeFormulaTreeUMP.item(0).getChildNodes();
 			Element btNCNodeFormulaTreeUMPElem = (Element) ncNodeFormulaTreeUMP;
 			
@@ -259,7 +259,7 @@ public class FileLoadRuleImplementation {
 	public void loadCauseNode (RuleModel rule, NodeList causeNodeList, List<RuleModel> ruleChildrenList) {
 		
 		causeVariableList = new ArrayList<CauseVariableModel>();
-		ArrayList<String> argumentList;
+		ArrayList<OrdinaryVariableModel> ovArgumentList;
 		createAllRelationshipModelList(rule, ruleChildrenList);
 		
 		NodeList btCauseNodeList = causeNodeList.item(0).getChildNodes();
@@ -282,13 +282,19 @@ public class FileLoadRuleImplementation {
 			Element btListCauseElem = (Element) listCauseArgument;
 			
 			NodeList listArgument = btListCauseElem.getElementsByTagName("causeArgument");
-			argumentList = new ArrayList<String>();
+			ovArgumentList = new ArrayList<OrdinaryVariableModel>();
 			for (int i = 0; i < listArgument.getLength(); i++) {		
 				Node argumentNode = listArgument.item(i);
 				Element btArgumentElem = (Element) argumentNode;
 				
 				String causeArgument = btArgumentElem.getTextContent();
-				argumentList.add(causeArgument);
+				
+				// Select OrdinaryVariable
+				for (int k = 0; k < ordinaryVariableList.size(); k++) {
+					if (causeArgument.equals(ordinaryVariableList.get(k).getVariable())) {
+						ovArgumentList.add(ordinaryVariableList.get(k));
+					}
+				}
 			}
 			
 			// Cause Relationship Model
@@ -296,18 +302,14 @@ public class FileLoadRuleImplementation {
 			Element btCauseRelationshipModelElem = (Element) causeRelationshipModel;
 			
 			String relationshipId = btCauseRelationshipModelElem.getElementsByTagName(
-					"relationshipId").item(0).getTextContent();
+					"relationshipId").item(0).getTextContent();			
 			
 			// Set CauseVariable
 			CauseVariableModel causeVariable = new CauseVariableModel(causeId);
 			causeVariable.setRelationship(causeRelationship);
-			causeVariable.setArgumentList(argumentList);
+			causeVariable.setOvArgumentList(ovArgumentList);
 			causeVariable.setRelationshipModel(
 					searchRelationshipModel(rule, relationshipId));
-			
-//			System.out.println(causeVariable.getRelationshipModel().getName());
-//			System.out.println(causeVariable.getRelationshipModel().getEntityList().size());
-//			System.out.println(causeVariable.getArgumentList().size());
 			
 			causeVariableList.add(causeVariable);
 		}
@@ -316,7 +318,7 @@ public class FileLoadRuleImplementation {
 	public void loadEffectNode (RuleModel rule, NodeList effectNodeList, List<RuleModel> ruleChildrenList) {
 		
 		effectVariableList = new ArrayList<EffectVariableModel>();		
-		ArrayList<String> argumentList;
+		ArrayList<OrdinaryVariableModel> ovArgumentList;
 		createAllRelationshipModelList(rule, ruleChildrenList);
 		
 		NodeList btEffectNodeList = effectNodeList.item(0).getChildNodes();
@@ -339,13 +341,19 @@ public class FileLoadRuleImplementation {
 			Element btListEffectElem = (Element) listCauseArgument;
 			
 			NodeList listArgument = btListEffectElem.getElementsByTagName("effectArgument");
-			argumentList = new ArrayList<String>();
+			ovArgumentList = new ArrayList<OrdinaryVariableModel>();
 			for (int i = 0; i < listArgument.getLength(); i++) {		
 				Node argumentNode = listArgument.item(i);
 				Element btArgumentElem = (Element) argumentNode;
 				
 				String effectArgument = btArgumentElem.getTextContent();
-				argumentList.add(effectArgument);
+				
+				// Select OrdinaryVariable
+				for (int k = 0; k < ordinaryVariableList.size(); k++) {
+					if (effectArgument.equals(ordinaryVariableList.get(k).getVariable())) {
+						ovArgumentList.add(ordinaryVariableList.get(k));
+					}
+				}
 			}
 			
 			// Effect Relationship Model
@@ -358,7 +366,7 @@ public class FileLoadRuleImplementation {
 			// Set EffectVariable
 			EffectVariableModel effectVariable = new EffectVariableModel(effectId);
 			effectVariable.setRelationship(effectRelationship);
-			effectVariable.setArgumentList(argumentList);
+			effectVariable.setOvArgumentList(ovArgumentList);
 			effectVariable.setRelationshipModel(
 					searchRelationshipModel(rule, relationshipId));
 			

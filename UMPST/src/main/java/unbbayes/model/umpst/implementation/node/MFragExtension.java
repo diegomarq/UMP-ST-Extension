@@ -31,6 +31,7 @@ public class MFragExtension extends MFrag {
 			unbbayes.controller.mebn.resources.Resources.class.getName());
 	private MultiEntityBayesianNetwork mebn;
 	private List<UndefinedNode> undefinedNodeList;
+	private List<ResidentNodeExtension> residentNodeExtensionList;
 
 	/**
 	 * @param name
@@ -43,21 +44,17 @@ public class MFragExtension extends MFrag {
 		this.mebn = mebn;
 		this.setGroupRelated(group);
 		setUndefinedNodeList(new ArrayList<UndefinedNode>());
+		setResidentNodeExtensionList(new ArrayList<ResidentNodeExtension>());
 	}
 	
-	public ResidentNode mapToResidentNode(UndefinedNode undefinedNode) {
-		ResidentNode residentNode = new ResidentNode(undefinedNode.getName(), this);
-		
-		RelationshipModel relationship = undefinedNode.getRelationshipPointer();
-		
-		//TODO get the list of ordinary variables present in event and add their to resident
-		//node list of arguments
-		
-//		for (int i = 0; i < relationship.get; i++) {
-//			
-//		}
-//		residentNode.addArgument(ordinaryVariable, true);
-		return residentNode;
+	public void addResidentNodeExtension(ResidentNodeExtension residentNode) {
+		getResidentNodeExtensionList().add(residentNode);
+		super.addResidentNode(residentNode);
+	}
+	
+	public void removeResidentNodeExtension(ResidentNodeExtension residentNode) {
+		getResidentNodeExtensionList().remove(residentNode);
+		super.removeResidentNode(residentNode);
 	}
 	
 	public void removeUndefinedNode(UndefinedNode node) {
@@ -67,28 +64,6 @@ public class MFragExtension extends MFrag {
 	public void addUndefinedNode(UndefinedNode node) {
 		getUndefinedNodeList().add(node);
 	}
-	
-	public UndefinedNode mapToUndefinedNode(RelationshipModel relationship) {
-		
-		UndefinedNode node = new UndefinedNode(relationship.getName(), this);
-		node.setRelationshipPointer(relationship);
-		return node;
-	}
-	
-//	public void mapContextNodeFormula(ContextNode node, NecessaryConditionVariableModel ncModel,
-//			MEBNController mebnController) {
-//		FormulaTreeController formulaControllerMebn = new FormulaTreeController(mebnController, node, null);
-//		
-//		NodeFormulaTreeUMP rootFormulaUMP = ncModel.getFormulaTree();
-//		DefaultMutableTreeNode rootTreeView = new DefaultMutableTreeNode();
-//		
-//		for(NodeFormulaTreeUMP child: rootFormulaUMP.getChildrenUMP()){
-//			DefaultMutableTreeNode treeNode = new DefaultMutableTreeNode(child); 
-//			nodeTreeFather.add(treeNode);
-//			buildChildren(child, treeNode); 
-//		}
-//		return nodeTreeFather;
-//	}
 	
 	/**
 	 * Create {@link ContextNode} from {@link NecessaryConditionVariableModel} of 
@@ -109,35 +84,16 @@ public class MFragExtension extends MFrag {
 		
 		ContextNode node = new ContextNode(name, this);
 		mebn.getNamesUsed().add(name);
-		this.addContextNode(node);
+		super.addContextNode(node);
 		return node;
-	}
-	
-	/**
-	 * Maps an {@link OrdinaryVariableModel} created in UMP-ST implementation panel to
-	 * an {@link OrdinaryVariable} of Mebn structure
-	 * @param ordinaryVariableModel
-	 * @return
-	 */
-	public OrdinaryVariable mapOrdinaryVariable(OrdinaryVariableModel
-			ordinaryVariableModel) {
-		
-		String typeName = ordinaryVariableModel.getTypeEntity();
-		Type type = MappingController.getType(this.getMultiEntityBayesianNetwork(), typeName);
-		
-		OrdinaryVariable ov = new OrdinaryVariable(
-					ordinaryVariableModel.getVariable(), type, this);
-		
-		return ov;
 	}
 	
 	/**
 	 * Adds an {@link OrdinaryVariable} to the {@link MultiEntityBayesianNetwork}
 	 * @param ordinaryVariableModel
 	 */
-	public void addOrdinaryVariable(OrdinaryVariableModel ordinaryVariableModel) {
-		OrdinaryVariable ov = mapOrdinaryVariable(ordinaryVariableModel);
-		super.addOrdinaryVariable(ov);
+	public void addOrdinaryVariable(OrdinaryVariable ordinaryVariable) {
+		super.addOrdinaryVariable(ordinaryVariable);
 	}
 
 	/**
@@ -166,6 +122,21 @@ public class MFragExtension extends MFrag {
 	 */
 	public void setUndefinedNodeList(List<UndefinedNode> undefinedNodeList) {
 		this.undefinedNodeList = undefinedNodeList;
+	}
+
+	/**
+	 * @return the residentNodeExtensionList
+	 */
+	public List<ResidentNodeExtension> getResidentNodeExtensionList() {
+		return residentNodeExtensionList;
+	}
+
+	/**
+	 * @param residentNodeExtensionList the residentNodeExtensionList to set
+	 */
+	public void setResidentNodeExtensionList(
+			List<ResidentNodeExtension> residentNodeExtensionList) {
+		this.residentNodeExtensionList = residentNodeExtensionList;
 	}
 
 }

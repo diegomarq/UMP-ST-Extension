@@ -84,7 +84,7 @@ public class RuleModel extends ObjectModel{
 				if (causeVariable.getId().equals(getEventVariableObjectList().get(i).getId())) {
 					getEventVariableObjectList().get(i).setRelationshipModel(causeVariable.getRelationshipModel());
 					getEventVariableObjectList().get(i).setRelationship(causeVariable.getRelationship());
-					getEventVariableObjectList().get(i).setArgumentList(causeVariable.getArgumentList());
+					getEventVariableObjectList().get(i).setOvArgumentList(causeVariable.getOvArgumentList());
 					break;
 				}
 			}
@@ -98,7 +98,7 @@ public class RuleModel extends ObjectModel{
 				if (effectVariable.getId().equals(getEventVariableObjectList().get(i).getId())) {
 					getEventVariableObjectList().get(i).setRelationshipModel(effectVariable.getRelationshipModel());
 					getEventVariableObjectList().get(i).setRelationship(effectVariable.getRelationship());
-					getEventVariableObjectList().get(i).setArgumentList(effectVariable.getArgumentList());
+					getEventVariableObjectList().get(i).setOvArgumentList(effectVariable.getOvArgumentList());
 					break;
 				}
 			}

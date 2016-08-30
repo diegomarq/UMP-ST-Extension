@@ -18,8 +18,8 @@ public class EffectVariableModel extends EventVariableObjectModel {
 	private String id;
 	private String relationship;
 	private RelationshipModel relationshipModel;
-	private ArrayList<String> argumentList;
-	private String attribute;
+	private ArrayList<OrdinaryVariableModel> ovArgumentList;
+	private ArrayList<AttributeModel> attArgumentList;
 	private AttributeModel attributeModel;
 
 	/**
@@ -29,9 +29,9 @@ public class EffectVariableModel extends EventVariableObjectModel {
 		super(id, EventType.EFFECT);
 		this.id = id;
 		this.relationship = null;
-		this.attribute = null;
 		
-		argumentList = new ArrayList<String>();
+		setOvArgumentList(new ArrayList<OrdinaryVariableModel>());
+		setAttArgumentList(new ArrayList<AttributeModel>());
 	}
 
 	/**
@@ -61,35 +61,7 @@ public class EffectVariableModel extends EventVariableObjectModel {
 	public void setRelationship(String relationship) {
 		this.relationship = relationship;
 	}	
-
-	/**
-	 * @return the attribute
-	 */
-	public String getAttribute() {
-		return attribute;
-	}
-
-	/**
-	 * @param attribute the attribute to set
-	 */
-	public void setAttribute(String attribute) {
-		this.attribute = attribute;
-	}
-
-	/**
-	 * @return the argumentList
-	 */
-	public ArrayList<String> getArgumentList() {
-		return argumentList;
-	}
-
-	/**
-	 * @param argumentList the argumentList to set
-	 */
-	public void setArgumentList(ArrayList<String> argumentList) {
-		this.argumentList = argumentList;
-	}
-
+	
 	/**
 	 * @return the relationshipModel
 	 */
@@ -116,5 +88,33 @@ public class EffectVariableModel extends EventVariableObjectModel {
 	 */
 	public void setAttributeModel(AttributeModel attributeModel) {
 		this.attributeModel = attributeModel;
+	}
+	
+	/**
+	 * @return the ovArgumentList
+	 */
+	public ArrayList<OrdinaryVariableModel> getOvArgumentList() {
+		return ovArgumentList;
+	}
+
+	/**
+	 * @param ovArgumentList the ovArgumentList to set
+	 */
+	public void setOvArgumentList(ArrayList<OrdinaryVariableModel> ovArgumentList) {
+		this.ovArgumentList = ovArgumentList;
+	}
+
+	/**
+	 * @return the attArgumentList
+	 */
+	public ArrayList<AttributeModel> getAttArgumentList() {
+		return attArgumentList;
+	}
+
+	/**
+	 * @param attArgumentList the attArgumentList to set
+	 */
+	public void setAttArgumentList(ArrayList<AttributeModel> attArgumentList) {
+		this.attArgumentList = attArgumentList;
 	}
 }

@@ -28,6 +28,7 @@ import unbbayes.gui.umpst.UmpstModule;
 import unbbayes.model.umpst.entity.AttributeModel;
 import unbbayes.model.umpst.entity.EntityModel;
 import unbbayes.model.umpst.entity.RelationshipModel;
+import unbbayes.model.umpst.implementation.CauseVariableModel;
 import unbbayes.model.umpst.implementation.EffectVariableModel;
 import unbbayes.model.umpst.implementation.EffectVariableModel;
 import unbbayes.model.umpst.implementation.OrdinaryVariableModel;
@@ -48,8 +49,9 @@ public class EffectEditPanel extends IUMPSTPanel{
 	private final int NUM_COLUMNS_TEXT = 1;
 	
 	private String variableRelationshipName;
-	private String variableInstEntity1;
-	private String variableInstEntity2;	
+	private List<OrdinaryVariableModel> variableInstEntityList;
+//	private String variableInstEntity1;
+//	private String variableInstEntity2;	
 	
 	private ImplementationMainPropertiesEditionPane mainPropertiesEditionPane;	
 	private RuleModel rule;
@@ -250,81 +252,139 @@ public class EffectEditPanel extends IUMPSTPanel{
 		argumentBox = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 		
 		// Instance of entities related to relationship
-		final ArrayList<ArrayList<String>> boxArray = new ArrayList<ArrayList<String>>();
+		final ArrayList<ArrayList<OrdinaryVariableModel>> boxArray = new ArrayList<ArrayList<OrdinaryVariableModel>>();
 		List<EntityModel> entityList = getRelationshipSelected().getEntityList();
 		List<OrdinaryVariableModel> ordVariableList = rule.getOrdinaryVariableList();
 		
 		for (int i = 0; i < entityList.size(); i++) {
-			final ArrayList<String> argumentArray = new ArrayList<String>();			
+			
+			final ArrayList<OrdinaryVariableModel> argumentArray = new ArrayList<OrdinaryVariableModel>();
 			for (int j = 0; j < ordVariableList.size(); j++) {
-				if (entityList.get(i).getName().equals(ordVariableList.get(j).getTypeEntity())) {						
-						argumentArray.add(ordVariableList.get(j).getVariable());
+				if (entityList.get(i).equals(ordVariableList.get(j).getEntityObject())) {
+						argumentArray.add(ordVariableList.get(j));
 				}
 			}
 			boxArray.add(argumentArray);
 		}
 		
 		// Entity instance box
-		if(boxArray.size() == 1) {
-			final String[] elementBox = new String[boxArray.get(0).size()];
-			for (int i = 0; i < boxArray.get(0).size(); i++) {
-				elementBox[i] = boxArray.get(0).get(i);
-			}
+		if (boxArray.size() > 0){
 			
-			final JComboBox<String> argumentComboBox = new JComboBox<String>(elementBox);
-			if(getEffectVariableEdited() != null) {
-				if (getEffectVariableEdited().getArgumentList() != null) {
-					argumentComboBox.setSelectedItem(getEffectVariableEdited().getArgumentList().get(0));
+//			final String[] elementBox = new String[boxArray.get(0).size()];
+			setVariableInstEntityList(new ArrayList<OrdinaryVariableModel>());
+			for (int i = 0; i < boxArray.size(); i++) {
+				
+				final String[] elementBox = new String[boxArray.get(0).size()];
+				final ArrayList<OrdinaryVariableModel> ovModelList = boxArray.get(i); 
+				for (int j = 0; j < ovModelList.size(); j++) {
+					elementBox[j] = ovModelList.get(j).getVariable();
 				}
+				
+//				List<JComboBox<String>> comboBoxList = new ArrayList<JComboBox<String>>();
+				final JComboBox<String> argumentComboBox = new JComboBox<String>(elementBox);
+				if(getEffectVariableEdited() != null) {
+					if (getEffectVariableEdited().getOvArgumentList() != null) {
+						argumentComboBox.setSelectedItem(getEffectVariableEdited().getOvArgumentList().get(0).getVariable());
+					}
+				}
+//				comboBoxList.add(argumentComboBox);
+				
+				argumentComboBox.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						int index = argumentComboBox.getSelectedIndex();
+						
+						OrdinaryVariableModel ov = ovModelList.get(index);
+						getVariableInstEntityList().add(ov);
+						
+					}
+				});
+				argumentBox.add(argumentComboBox);
 			}
-			argumentComboBox.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					int index = argumentComboBox.getSelectedIndex();
-					setVariableInstEntity1(elementBox[index]);					
-				}
-			});
-			argumentBox.add(argumentComboBox);
-		} else if (boxArray.size() == 2){
-			final String[] elementBox = new String[boxArray.get(0).size()];
-			for (int i = 0; i < boxArray.get(0).size(); i++) {
-				elementBox[i] = boxArray.get(0).get(i);
-			}
-			
-			final JComboBox<String> argumentComboBox = new JComboBox<String>(elementBox);
-			if(getEffectVariableEdited() != null) {
-				if (getEffectVariableEdited().getArgumentList() != null) {
-					argumentComboBox.setSelectedItem(getEffectVariableEdited().getArgumentList().get(0));
-				}
-			}
-			argumentComboBox.addActionListener(new ActionListener() {			
-				public void actionPerformed(ActionEvent e) {
-					int index = argumentComboBox.getSelectedIndex();
-					setVariableInstEntity1(elementBox[index]);
-				}
-			});
-			argumentBox.add(argumentComboBox);
-			
-			final String[] elementBox2 = new String[boxArray.get(1).size()];
-			for (int i = 0; i < boxArray.get(1).size(); i++) {
-				elementBox2[i] = boxArray.get(1).get(i);
-			}			
-			
-			final JComboBox<String> argumentComboBox2 = new JComboBox<String>(elementBox2);
-			if((getEffectVariableEdited() != null) &&
-					(getEffectVariableEdited().getArgumentList().size() == 2)) {
-				argumentComboBox2.setSelectedItem(getEffectVariableEdited().getArgumentList().get(1));
-			}
-			argumentComboBox2.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					int index = argumentComboBox2.getSelectedIndex();
-					setVariableInstEntity2(elementBox2[index]);
-				}
-			});
-			argumentBox.add(argumentComboBox2);
-		}  else {
-			System.err.println("Error Relationship. Argument error.");
 		}
 	}
+	
+//	/**
+//	 * Get relationshipBox pane and set arguments related to relationship selected.
+//	 */
+//	public void createArgumentBox() {
+//		argumentBox = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+//		
+//		// Instance of entities related to relationship
+//		final ArrayList<ArrayList<String>> boxArray = new ArrayList<ArrayList<String>>();
+//		List<EntityModel> entityList = getRelationshipSelected().getEntityList();
+//		List<OrdinaryVariableModel> ordVariableList = rule.getOrdinaryVariableList();
+//		
+//		for (int i = 0; i < entityList.size(); i++) {
+//			final ArrayList<String> argumentArray = new ArrayList<String>();			
+//			for (int j = 0; j < ordVariableList.size(); j++) {
+//				if (entityList.get(i).getName().equals(ordVariableList.get(j).getTypeEntity())) {						
+//						argumentArray.add(ordVariableList.get(j).getVariable());
+//				}
+//			}
+//			boxArray.add(argumentArray);
+//		}
+//		
+//		// Entity instance box
+//		if(boxArray.size() == 1) {
+//			final String[] elementBox = new String[boxArray.get(0).size()];
+//			for (int i = 0; i < boxArray.get(0).size(); i++) {
+//				elementBox[i] = boxArray.get(0).get(i);
+//			}
+//			
+//			final JComboBox<String> argumentComboBox = new JComboBox<String>(elementBox);
+//			if(getEffectVariableEdited() != null) {
+//				if (getEffectVariableEdited().getArgumentList() != null) {
+//					argumentComboBox.setSelectedItem(getEffectVariableEdited().getArgumentList().get(0));
+//				}
+//			}
+//			argumentComboBox.addActionListener(new ActionListener() {
+//				public void actionPerformed(ActionEvent e) {
+//					int index = argumentComboBox.getSelectedIndex();
+//					setVariableInstEntity1(elementBox[index]);					
+//				}
+//			});
+//			argumentBox.add(argumentComboBox);
+//		} else if (boxArray.size() == 2){
+//			final String[] elementBox = new String[boxArray.get(0).size()];
+//			for (int i = 0; i < boxArray.get(0).size(); i++) {
+//				elementBox[i] = boxArray.get(0).get(i);
+//			}
+//			
+//			final JComboBox<String> argumentComboBox = new JComboBox<String>(elementBox);
+//			if(getEffectVariableEdited() != null) {
+//				if (getEffectVariableEdited().getArgumentList() != null) {
+//					argumentComboBox.setSelectedItem(getEffectVariableEdited().getArgumentList().get(0));
+//				}
+//			}
+//			argumentComboBox.addActionListener(new ActionListener() {			
+//				public void actionPerformed(ActionEvent e) {
+//					int index = argumentComboBox.getSelectedIndex();
+//					setVariableInstEntity1(elementBox[index]);
+//				}
+//			});
+//			argumentBox.add(argumentComboBox);
+//			
+//			final String[] elementBox2 = new String[boxArray.get(1).size()];
+//			for (int i = 0; i < boxArray.get(1).size(); i++) {
+//				elementBox2[i] = boxArray.get(1).get(i);
+//			}			
+//			
+//			final JComboBox<String> argumentComboBox2 = new JComboBox<String>(elementBox2);
+//			if((getEffectVariableEdited() != null) &&
+//					(getEffectVariableEdited().getArgumentList().size() == 2)) {
+//				argumentComboBox2.setSelectedItem(getEffectVariableEdited().getArgumentList().get(1));
+//			}
+//			argumentComboBox2.addActionListener(new ActionListener() {
+//				public void actionPerformed(ActionEvent e) {
+//					int index = argumentComboBox2.getSelectedIndex();
+//					setVariableInstEntity2(elementBox2[index]);
+//				}
+//			});
+//			argumentBox.add(argumentComboBox2);
+//		}  else {
+//			System.err.println("Error Relationship. Argument error.");
+//		}
+//	}
 	
 	public void createRAButton() {		
 		buttonAddUpdate = new JButton("Add/Update");
@@ -393,8 +453,8 @@ public class EffectEditPanel extends IUMPSTPanel{
 		for (int i = 0; i < effectVariableList.size(); i++) {
 			if (effectVariableList.get(i).getRelationship() != null) {
 				sentence = effectVariableList.get(i).getRelationship() + "(";
-				for (int j = 0; j < effectVariableList.get(i).getArgumentList().size(); j++) {				
-					sentence = sentence + effectVariableList.get(i).getArgumentList().get(j) + ", ";
+				for (int j = 0; j < effectVariableList.get(i).getOvArgumentList().size(); j++) {				
+					sentence = sentence + effectVariableList.get(i).getOvArgumentList().get(j).getVariable() + ", ";
 				}
 				int index = sentence.lastIndexOf(", ");
 				sentence = sentence.substring(0, index);
@@ -537,94 +597,144 @@ public class EffectEditPanel extends IUMPSTPanel{
 		buttonAddUpdate.addActionListener(new ActionListener() {			
 			public void actionPerformed(ActionEvent e) {				
 				// Just edit relationship
-				if ((getRelationshipSelected() != null) && (getAttributeSelected() == null)) {					
-					if (getRelationshipSelected().getEntityList().size() == 2) {
-						String relationship = getVariableRelationshipName();
-						String arg1 = getVariableInstEntity1();
-						String arg2 = getVariableInstEntity2();						
+				if ((getRelationshipSelected() != null) && (getAttributeSelected() == null)) {
+					
+					if (getRelationshipSelected().getEntityList().size() > 0) {
 						
-						if(relationship == null || arg1 == null || arg2 == null) {
-							System.err.println("Error. Select relationship and set its arguments.");
-						} else {						
-							if (getEffectVariableEdited() != null) {
-								effectVariable = new EffectVariableModel(effectVariableEdited.getId());								
-							} else {
-								String key = Integer.toString(ID);
-								effectVariable = new EffectVariableModel(key);
-							}
-							effectVariable.setRelationshipModel(getRelationshipSelected());
-							effectVariable.setRelationship(relationship);
-							effectVariable.getArgumentList().add(arg1);
-							effectVariable.getArgumentList().add(arg2);
-							if (!mainPropertiesEditionPane.isVariableDuplicated(effectVariable)) {
-								if (getEffectVariableEdited() != null) {
-									int i = 0;
-									while (i < rule.getEffectVariableList().size()) {				
-										if (rule.getEffectVariableList().get(i).getId().equals(effectVariable.getId())) {
-											rule.getEffectVariableList().get(i).setRelationshipModel(effectVariable.getRelationshipModel());
-											rule.getEffectVariableList().get(i).setRelationship(effectVariable.getRelationship());
-											rule.getEffectVariableList().get(i).setArgumentList(effectVariable.getArgumentList());
-											
-											rule.changeEventVariableObject(effectVariable);
-											break;
-										}
-										i++;
-									}
-									setEffectVariableEdited(null);
-								} else {
-									rule.getEffectVariableList().add(effectVariable);
-									rule.getEventVariableObjectList().add(effectVariable);
-									ID++;
-								}
-							} else {
-								System.err.println("Variable duplicated.");
-							}							
-							updateEffectVariableTable();
-						}
-					} else if (getRelationshipSelected().getEntityList().size() == 1) {
 						String relationship = getVariableRelationshipName();
-						String arg1 = getVariableInstEntity1();
-						
-						if(relationship == null || arg1 == null) {
-							System.err.println("Error. Select relationship and set its arguments.");
+						if (getEffectVariableEdited() != null) {
+							effectVariable = new EffectVariableModel(getEffectVariableEdited().getId());								
 						} else {
-							if (getEffectVariableEdited() != null) {
-								effectVariable = new EffectVariableModel(effectVariableEdited.getId());								
-							} else {
-								String key = Integer.toString(ID);
-								effectVariable = new EffectVariableModel(key);
-							}
-							effectVariable.setRelationshipModel(getRelationshipSelected());
-							effectVariable.setRelationship(relationship);
-							effectVariable.getArgumentList().add(arg1);
-							if (!mainPropertiesEditionPane.isVariableDuplicated(effectVariable)) {
-								if (getEffectVariableEdited() != null) {
-									int i = 0;
-									while (i < rule.getEffectVariableList().size()) {				
-										if (rule.getEffectVariableList().get(i).getId().equals(effectVariable.getId())) {
-											rule.getEffectVariableList().get(i).setRelationshipModel(effectVariable.getRelationshipModel());
-											rule.getEffectVariableList().get(i).setRelationship(effectVariable.getRelationship());
-											rule.getEffectVariableList().get(i).setArgumentList(effectVariable.getArgumentList());
-											
-											rule.changeEventVariableObject(effectVariable);
-											break;
-										}
-										i++;
-									}
-									setEffectVariableEdited(null);
-								} else {
-									rule.getEffectVariableList().add(effectVariable);
-									rule.getEventVariableObjectList().add(effectVariable);
-									ID++;
-								}
-							} else {
-								System.err.println("Variable duplicated.");
-							}
-							updateEffectVariableTable();
+							String key = Integer.toString(ID);
+							effectVariable = new EffectVariableModel(key);
 						}
-					} else {
-						System.err.println("Error add relationship.");
+						effectVariable.setRelationshipModel(getRelationshipSelected());
+						effectVariable.setRelationship(relationship);
+						
+						for (int i = 0; i < getVariableInstEntityList().size(); i++) {
+							
+							OrdinaryVariableModel ov = getVariableInstEntityList().get(i); 
+							if(ov != null) {
+								effectVariable.getOvArgumentList().add(ov);
+							}
+							else {
+								System.err.println("Error. Select relationship arguments.");
+							}
+						}
+						
+						if (!mainPropertiesEditionPane.isVariableDuplicated(effectVariable)) {
+							if (getEffectVariableEdited() != null) {
+								int i = 0;
+								while (i < rule.getCauseVariableList().size()) {				
+									if (rule.getCauseVariableList().get(i).getId().equals(effectVariable.getId())) {
+										rule.getCauseVariableList().get(i).setRelationshipModel(effectVariable.getRelationshipModel());
+										rule.getCauseVariableList().get(i).setRelationship(effectVariable.getRelationship());
+										rule.getCauseVariableList().get(i).setOvArgumentList(effectVariable.getOvArgumentList());
+										
+										rule.changeEventVariableObject(effectVariable);
+										break;
+									}
+									i++;
+								}
+								setEffectVariableEdited(null);
+							} else {
+								rule.getEffectVariableList().add(effectVariable);
+								rule.getEventVariableObjectList().add(effectVariable);
+								ID++;
+							}
+						} else {
+							System.err.println("Variable duplicated.");
+						}
+						updateEffectVariableTable();
 					}
+					
+//					if (getRelationshipSelected().getEntityList().size() == 2) {
+//						String relationship = getVariableRelationshipName();
+//						String arg1 = getVariableInstEntity1();
+//						String arg2 = getVariableInstEntity2();						
+//						
+//						if(relationship == null || arg1 == null || arg2 == null) {
+//							System.err.println("Error. Select relationship and set its arguments.");
+//						} else {						
+//							if (getEffectVariableEdited() != null) {
+//								effectVariable = new EffectVariableModel(effectVariableEdited.getId());								
+//							} else {
+//								String key = Integer.toString(ID);
+//								effectVariable = new EffectVariableModel(key);
+//							}
+//							effectVariable.setRelationshipModel(getRelationshipSelected());
+//							effectVariable.setRelationship(relationship);
+//							effectVariable.getArgumentList().add(arg1);
+//							effectVariable.getArgumentList().add(arg2);
+//							if (!mainPropertiesEditionPane.isVariableDuplicated(effectVariable)) {
+//								if (getEffectVariableEdited() != null) {
+//									int i = 0;
+//									while (i < rule.getEffectVariableList().size()) {				
+//										if (rule.getEffectVariableList().get(i).getId().equals(effectVariable.getId())) {
+//											rule.getEffectVariableList().get(i).setRelationshipModel(effectVariable.getRelationshipModel());
+//											rule.getEffectVariableList().get(i).setRelationship(effectVariable.getRelationship());
+//											rule.getEffectVariableList().get(i).setArgumentList(effectVariable.getArgumentList());
+//											
+//											rule.changeEventVariableObject(effectVariable);
+//											break;
+//										}
+//										i++;
+//									}
+//									setEffectVariableEdited(null);
+//								} else {
+//									rule.getEffectVariableList().add(effectVariable);
+//									rule.getEventVariableObjectList().add(effectVariable);
+//									ID++;
+//								}
+//							} else {
+//								System.err.println("Variable duplicated.");
+//							}							
+//							updateEffectVariableTable();
+//						}
+//					} else if (getRelationshipSelected().getEntityList().size() == 1) {
+//						String relationship = getVariableRelationshipName();
+//						String arg1 = getVariableInstEntity1();
+//						
+//						if(relationship == null || arg1 == null) {
+//							System.err.println("Error. Select relationship and set its arguments.");
+//						} else {
+//							if (getEffectVariableEdited() != null) {
+//								effectVariable = new EffectVariableModel(effectVariableEdited.getId());								
+//							} else {
+//								String key = Integer.toString(ID);
+//								effectVariable = new EffectVariableModel(key);
+//							}
+//							effectVariable.setRelationshipModel(getRelationshipSelected());
+//							effectVariable.setRelationship(relationship);
+//							effectVariable.getArgumentList().add(arg1);
+//							if (!mainPropertiesEditionPane.isVariableDuplicated(effectVariable)) {
+//								if (getEffectVariableEdited() != null) {
+//									int i = 0;
+//									while (i < rule.getEffectVariableList().size()) {				
+//										if (rule.getEffectVariableList().get(i).getId().equals(effectVariable.getId())) {
+//											rule.getEffectVariableList().get(i).setRelationshipModel(effectVariable.getRelationshipModel());
+//											rule.getEffectVariableList().get(i).setRelationship(effectVariable.getRelationship());
+//											rule.getEffectVariableList().get(i).setArgumentList(effectVariable.getArgumentList());
+//											
+//											rule.changeEventVariableObject(effectVariable);
+//											break;
+//										}
+//										i++;
+//									}
+//									setEffectVariableEdited(null);
+//								} else {
+//									rule.getEffectVariableList().add(effectVariable);
+//									rule.getEventVariableObjectList().add(effectVariable);
+//									ID++;
+//								}
+//							} else {
+//								System.err.println("Variable duplicated.");
+//							}
+//							updateEffectVariableTable();
+//						}
+//					} else {
+//						System.err.println("Error add relationship.");
+//					}
 				} else if ((getRelationshipSelected() == null) && (getAttributeSelected() != null)) {
 					String key = Integer.toString(ID);
 					effectVariable = new EffectVariableModel(key);
@@ -724,34 +834,6 @@ public class EffectEditPanel extends IUMPSTPanel{
 	}
 
 	/**
-	 * @return the variableInstEntity1
-	 */
-	public String getVariableInstEntity1() {
-		return variableInstEntity1;
-	}
-
-	/**
-	 * @param variableInstEntity1 the variableInstEntity1 to set
-	 */
-	public void setVariableInstEntity1(String variableInstEntity1) {
-		this.variableInstEntity1 = variableInstEntity1;
-	}
-
-	/**
-	 * @return the variableInstEntity2
-	 */
-	public String getVariableInstEntity2() {
-		return variableInstEntity2;
-	}
-
-	/**
-	 * @param variableInstEntity2 the variableInstEntity2 to set
-	 */
-	public void setVariableInstEntity2(String variableInstEntity2) {
-		this.variableInstEntity2 = variableInstEntity2;
-	}
-
-	/**
 	 * @return the attributeSelected
 	 */
 	public AttributeModel getAttributeSelected() {
@@ -833,5 +915,19 @@ public class EffectEditPanel extends IUMPSTPanel{
 	 */
 	public void setWasRelationshipBox(boolean wasRelationshipBox) {
 		this.wasRelationshipBox = wasRelationshipBox;
+	}
+
+	/**
+	 * @return the variableInstEntityList
+	 */
+	public List<OrdinaryVariableModel> getVariableInstEntityList() {
+		return variableInstEntityList;
+	}
+
+	/**
+	 * @param variableInstEntityList the variableInstEntityList to set
+	 */
+	public void setVariableInstEntityList(List<OrdinaryVariableModel> variableInstEntityList) {
+		this.variableInstEntityList = variableInstEntityList;
 	}
 }

@@ -10,10 +10,10 @@ import org.eclipse.osgi.framework.debug.Debug;
 import unbbayes.controller.umpst.MappingController;
 import unbbayes.model.umpst.entity.RelationshipModel;
 import unbbayes.model.umpst.implementation.node.MFragExtension;
+import unbbayes.model.umpst.implementation.node.ResidentNodeExtension;
 import unbbayes.model.umpst.implementation.node.UndefinedNode;
 import unbbayes.model.umpst.project.UMPSTProject;
 import unbbayes.prs.mebn.MultiEntityBayesianNetwork;
-import unbbayes.prs.mebn.ResidentNode;
 
 /**
  * Separate resident nodes according the relationship presence in a groupList.
@@ -31,17 +31,13 @@ public class FirstCriterionOfSelection {
 		this.umpstProject = umpstProject;
 		this.mappingController = mappingController;
 		
-		
-//		nodeResidentList = new ArrayList<NodeResidentModel>();
-		
-//		mapMFragExtension = mappingController.getMapMFragExtension();
-		
 		firstSelection(mebn);
 		Debug.println(this.getClass() + "Fist Criterion of Selection done.");
 	}
 	
 	/**
-	 * Search nodes declared once in MTheory and maps them to resident.
+	 * Search {@link UndefinedNode} declared once in {@link MultiEntityBayesianNetwork} 
+	 * and maps them to {@link ResidentNodeExtension}.
 	 */
 	public void firstSelection(MultiEntityBayesianNetwork mebn) {
 		
@@ -57,15 +53,15 @@ public class FirstCriterionOfSelection {
 				
 				UndefinedNode undefinedNode = undefinedNodeList.get(i);				
 				RelationshipModel relationship = undefinedNode.getRelationshipPointer();
+				
 				if (relationship.getFowardtrackingGroups().size() == 1) {
 					
-					String name = undefinedNode.getName();
-					ResidentNode residentNode = new ResidentNode(name, mfragExtension);
-					residentNode.setDescription(residentNode.getName());
-					mfragExtension.addResidentNode(residentNode);
+					ResidentNodeExtension residentNodeExtension = mappingController.mapToResidentNode(
+							undefinedNode, mfragExtension);
 					
-					mfragExtension.removeUndefinedNode(undefinedNode);
-//					mFragExtension.addResidentNodeExtension(residentNode);
+					residentNodeExtension.setDescription(residentNodeExtension.getName());
+					residentNodeExtension.setEventRelated(relationship);
+					mfragExtension.addResidentNodeExtension(residentNodeExtension);
 				}
 			}			
 		}

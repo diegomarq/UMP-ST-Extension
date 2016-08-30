@@ -59,16 +59,16 @@ public class ImplementationMainPropertiesEditionPane extends IUMPSTPanel {
 			if ((vCompared.getRelationship() != null) && (vCompared.getAttribute() == null) &&
 					(evTested.getRelationship() != null) && (evTested.getAttribute() == null)) {				
 				if (evTested.getRelationship().equals(vCompared.getRelationship())) {
-					if (evTested.getArgumentList().size() == vCompared.getArgumentList().size()) {
-						if (evTested.getArgumentList().size() == 1) {
-							if (evTested.getArgumentList().get(0).equals(vCompared.getArgumentList().get(0))) {
+					if (evTested.getOvArgumentList().size() == vCompared.getOvArgumentList().size()) {
+						if (evTested.getOvArgumentList().size() == 1) {
+							if (evTested.getOvArgumentList().get(0).equals(vCompared.getOvArgumentList().get(0))) {
 								return true;
 							} else {
 								return false;
 							}
-						} else if (evTested.getArgumentList().size() == 2) {
-							if (evTested.getArgumentList().get(0).equals(vCompared.getArgumentList().get(0)) &&
-									evTested.getArgumentList().get(1).equals(vCompared.getArgumentList().get(1))) {
+						} else if (evTested.getOvArgumentList().size() == 2) {
+							if (evTested.getOvArgumentList().get(0).equals(vCompared.getOvArgumentList().get(0)) &&
+									evTested.getOvArgumentList().get(1).equals(vCompared.getOvArgumentList().get(1))) {
 								return true;
 							} else {
 								return false;
@@ -101,16 +101,16 @@ public class ImplementationMainPropertiesEditionPane extends IUMPSTPanel {
 			if ((vCompared.getRelationship() != null) && (vCompared.getAttribute() == null) &&
 					(cvTested.getRelationship() != null) && (cvTested.getAttribute() == null)) {				
 				if (cvTested.getRelationship().equals(vCompared.getRelationship())) {
-					if (cvTested.getArgumentList().size() == vCompared.getArgumentList().size()) {
-						if (cvTested.getArgumentList().size() == 1) {
-							if (cvTested.getArgumentList().get(0).equals(vCompared.getArgumentList().get(0))) {
+					if (cvTested.getOvArgumentList().size() == vCompared.getOvArgumentList().size()) {
+						if (cvTested.getOvArgumentList().size() == 1) {
+							if (cvTested.getOvArgumentList().get(0).equals(vCompared.getOvArgumentList().get(0))) {
 								return true;
 							} else {
 								return false;
 							}
-						} else if (cvTested.getArgumentList().size() == 2) {
-							if (cvTested.getArgumentList().get(0).equals(vCompared.getArgumentList().get(0)) &&
-									cvTested.getArgumentList().get(1).equals(vCompared.getArgumentList().get(1))) {
+						} else if (cvTested.getOvArgumentList().size() == 2) {
+							if (cvTested.getOvArgumentList().get(0).equals(vCompared.getOvArgumentList().get(0)) &&
+									cvTested.getOvArgumentList().get(1).equals(vCompared.getOvArgumentList().get(1))) {
 								return true;
 							} else {
 								return false;

@@ -4,6 +4,8 @@
 package unbbayes.model.umpst.implementation;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import unbbayes.model.umpst.entity.AttributeModel;
 import unbbayes.model.umpst.entity.RelationshipModel;
@@ -17,8 +19,10 @@ public class CauseVariableModel extends EventVariableObjectModel{
 	
 	private String id;
 	private String relationship;
-	private ArrayList<String> argumentList;
-	private AttributeModel attributeModel;
+//	private ArrayList<String> argumentList;
+	private ArrayList<OrdinaryVariableModel> ovArgumentList;
+	private ArrayList<AttributeModel> attArgumentList;
+//	private AttributeModel attributeModel;
 	private RelationshipModel relationshipModel;
 	private String attribute;
 
@@ -31,7 +35,8 @@ public class CauseVariableModel extends EventVariableObjectModel{
 		this.relationship = null;
 		this.attribute = null;
 		
-		argumentList = new ArrayList<String>();
+		setOvArgumentList(new ArrayList<OrdinaryVariableModel>());
+		setAttArgumentList(new ArrayList<AttributeModel>());
 	}
 
 	/**
@@ -76,19 +81,19 @@ public class CauseVariableModel extends EventVariableObjectModel{
 		this.attribute = attribute;
 	}
 
-	/**
-	 * @return the argumentList
-	 */
-	public ArrayList<String> getArgumentList() {
-		return argumentList;
-	}
-
-	/**
-	 * @param argumentList the argumentList to set
-	 */
-	public void setArgumentList(ArrayList<String> argumentList) {
-		this.argumentList = argumentList;
-	}
+//	/**
+//	 * @return the argumentList
+//	 */
+//	public ArrayList<String> getArgumentList() {
+//		return argumentList;
+//	}
+//
+//	/**
+//	 * @param argumentList the argumentList to set
+//	 */
+//	public void setArgumentList(ArrayList<String> argumentList) {
+//		this.argumentList = argumentList;
+//	}
 
 	/**
 	 * @return the relationshipModel
@@ -104,18 +109,46 @@ public class CauseVariableModel extends EventVariableObjectModel{
 		this.relationshipModel = relationshipModel;
 	}
 
+//	/**
+//	 * @return the attributeModel
+//	 */
+//	public AttributeModel getAttributeModel() {
+//		return attributeModel;
+//	}
+//
+//	/**
+//	 * @param attributeModel the attributeModel to set
+//	 */
+//	public void setAttributeModel(AttributeModel attributeModel) {
+//		this.attributeModel = attributeModel;
+//	}
+	
 	/**
-	 * @return the attributeModel
+	 * @return the ovArgumentList
 	 */
-	public AttributeModel getAttributeModel() {
-		return attributeModel;
+	public ArrayList<OrdinaryVariableModel> getOvArgumentList() {
+		return ovArgumentList;
 	}
 
 	/**
-	 * @param attributeModel the attributeModel to set
+	 * @param ovArgumentList the ovArgumentList to set
 	 */
-	public void setAttributeModel(AttributeModel attributeModel) {
-		this.attributeModel = attributeModel;
+	public void setOvArgumentList(ArrayList<OrdinaryVariableModel> ovArgumentList) {
+		this.ovArgumentList = ovArgumentList;
+	}
+
+	/**
+	 * @return the attArgumentList
+	 */
+	public ArrayList<AttributeModel> getAttArgumentList() {
+		return attArgumentList;
+	}
+
+	/**
+	 * @param attArgumentList the attArgumentList to set
+	 */
+	public void setAttArgumentList(ArrayList<AttributeModel> attArgumentList) {
+		this.attArgumentList = attArgumentList;
 	}	
 
 }

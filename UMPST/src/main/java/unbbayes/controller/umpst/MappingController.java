@@ -21,16 +21,23 @@ import unbbayes.io.mebn.owlapi.OWLAPICompatiblePROWL2IO;
 import unbbayes.model.umpst.entity.EntityModel;
 import unbbayes.model.umpst.entity.RelationshipModel;
 import unbbayes.model.umpst.group.GroupModel;
+import unbbayes.model.umpst.implementation.CauseVariableModel;
+import unbbayes.model.umpst.implementation.EffectVariableModel;
 import unbbayes.model.umpst.implementation.NecessaryConditionVariableModel;
 import unbbayes.model.umpst.implementation.OrdinaryVariableModel;
 import unbbayes.model.umpst.implementation.algorithm.FirstCriterionOfSelection;
 import unbbayes.model.umpst.implementation.algorithm.SecondCriterionOfSelection;
 import unbbayes.model.umpst.implementation.node.MFragExtension;
+import unbbayes.model.umpst.implementation.node.ResidentNodeExtension;
 import unbbayes.model.umpst.implementation.node.UndefinedNode;
 import unbbayes.model.umpst.project.UMPSTProject;
 import unbbayes.model.umpst.rule.RuleModel;
+import unbbayes.prs.Edge;
+import unbbayes.prs.INode;
+import unbbayes.prs.Node;
 import unbbayes.prs.mebn.ContextNode;
 import unbbayes.prs.mebn.MultiEntityBayesianNetwork;
+import unbbayes.prs.mebn.OrdinaryVariable;
 import unbbayes.prs.mebn.entity.ObjectEntity;
 import unbbayes.prs.mebn.entity.ObjectEntityContainer;
 import unbbayes.prs.mebn.entity.Type;
@@ -73,7 +80,6 @@ public class MappingController {
 		Debug.println("Created working version of mtheory: " + mebn.getName());
 		
 		//Entities
-//		entityContainer = mebn.getObjectEntityContainer();
 		rootObjectEntity = mebn.getObjectEntityContainer().getRootObjectEntity();
 		typeContainer = mebn.getTypeContainer();
 				
@@ -96,8 +102,8 @@ public class MappingController {
 		createAllUndefinedNodes(mebn);
 //		
 		firstCriterion = new FirstCriterionOfSelection(umpstProject, this, mebn);
-//		secondCriterion = new SecondCriterionOfSelection(umpstProject, this);
-//		
+		secondCriterion = new SecondCriterionOfSelection(umpstProject, this, mebn);
+		
 		testMTheory(mebn);
 	}
 	
@@ -140,6 +146,117 @@ public class MappingController {
 			controller.showErrorMessageDialog(resource.getString("erSaveFatal")); 
 		}
 	}
+	
+	/**
+	 * Get {@link UndefinedNode} related to {@link CauseVariableModel} identifying
+	 * the same {@link RelationshipModel}
+	 * 
+	 * @param cause
+	 * @param mfragExtension
+	 * @return
+	 */
+	public UndefinedNode getUndefinedNodeRelatedToCause(CauseVariableModel cause,
+			MFragExtension mfragExtension) {
+		
+		List<UndefinedNode> undefinedNodeList = mfragExtension.getUndefinedNodeList();
+		for (int i = 0; i < undefinedNodeList.size(); i++) {
+			
+			UndefinedNode node = undefinedNodeList.get(i);
+			if (node.getRelationshipPointer().equals(cause.getRelationshipModel())) {
+				 return node;
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Get {@link UndefinedNode} related to {@link EffectVariableModel} identifying
+	 * the same {@link RelationshipModel}. If the return is null, then the event probably it is a {@link ResidentNodeExtension}
+	 * 
+	 * @param effect
+	 * @param mfragExtension
+	 * @return
+	 */
+	public UndefinedNode getUndefinedNodeRelatedToEffect(EffectVariableModel effect,
+			MFragExtension mfragExtension) {
+		
+		List<UndefinedNode> undefinedNodeList = mfragExtension.getUndefinedNodeList();
+		for (int i = 0; i < undefinedNodeList.size(); i++) {
+			
+			UndefinedNode node = undefinedNodeList.get(i);
+			if (node.getRelationshipPointer().equals(effect.getRelationshipModel())) {
+				 return node;
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Maps {@link UndefinedNode} to {@link ResidentNodeExtension} without a proper integration between
+	 * its arguments. 
+	 * @param undefinedNode
+	 * @return residentNode
+	 */
+	public ResidentNodeExtension mapToResidentNode(UndefinedNode undefinedNode, MFragExtension mfrag) {
+		
+//		List<ResidentNodeExtension> residentNodeList = mfrag.getResidentNodeExtensionList();
+//		for (int i = 0; i < residentNodeList.size(); i++) {
+//			
+//			ResidentNodeExtension existingNode = residentNodeList.get(i); 
+//			if (existingNode.getEventRelated().getClass().equals(RelationshipModel.class)) {
+//				
+//				RelationshipModel eventRelated = (RelationshipModel)existingNode.getEventRelated();
+//				if(eventRelated.equals(undefinedNode.getRelationshipPointer())) {
+//					return existingNode;
+//				}
+//			}
+//		}
+		ResidentNodeExtension residentNode = new ResidentNodeExtension(undefinedNode.getName(), mfrag);
+		mfrag.addResidentNodeExtension(residentNode);
+		mfrag.removeUndefinedNode(undefinedNode);
+		return residentNode;
+	}
+	
+	public UndefinedNode mapToUndefinedNode(RelationshipModel relationship, MFragExtension mfrag) {
+		
+		UndefinedNode node = new UndefinedNode(relationship.getName(), mfrag);
+		node.setRelationshipPointer(relationship);
+		return node;
+	}
+	
+
+	/**
+	 * Maps an {@link OrdinaryVariableModel} created in UMP-ST implementation panel to
+	 * an {@link OrdinaryVariable} of Mebn structure
+	 * @param ordinaryVariableModel, mfragExtension
+	 * @return ordinaryVariable
+	 */
+	public OrdinaryVariable mapOrdinaryVariable(OrdinaryVariableModel
+			ordinaryVariableModel, MFragExtension mfrag) {
+		
+		String typeName = ordinaryVariableModel.getTypeEntity();
+		Type type = MappingController.getType(mfrag.getMultiEntityBayesianNetwork(), typeName);
+		
+		OrdinaryVariable ov = new OrdinaryVariable(
+					ordinaryVariableModel.getVariable(), type, mfrag);
+		
+		return ov;
+	}	
+	
+//	public void mapContextNodeFormula(ContextNode node, NecessaryConditionVariableModel ncModel,
+//			MEBNController mebnController) {
+//		FormulaTreeController formulaControllerMebn = new FormulaTreeController(mebnController, node, null);
+//		
+//		NodeFormulaTreeUMP rootFormulaUMP = ncModel.getFormulaTree();
+//		DefaultMutableTreeNode rootTreeView = new DefaultMutableTreeNode();
+//		
+//		for(NodeFormulaTreeUMP child: rootFormulaUMP.getChildrenUMP()){
+//			DefaultMutableTreeNode treeNode = new DefaultMutableTreeNode(child); 
+//			nodeTreeFather.add(treeNode);
+//			buildChildren(child, treeNode); 
+//		}
+//		return nodeTreeFather;
+//	}
 	
 	/**
 	 * Method created from MEBNController and modified to search type related by the name
@@ -202,6 +319,11 @@ public class MappingController {
 		return TypeContainer.getDefaultType();
 	}
 
+	/**
+	 * Creates an instance of {@link MultiEntityBayesianNetwork} to define a MTheory model. 
+	 * @param tmpMebn
+	 * @return
+	 */
 	public MultiEntityBayesianNetwork createMebnInstance(
 			MultiEntityBayesianNetwork tmpMebn) {
 		
@@ -233,8 +355,8 @@ public class MappingController {
 	}
 	
 	/**
-	 * keep all necessary conditions from UMP-ST rule and create context nodes related to Mebn
-	 * structure
+	 * keep all {@link NecessaryConditionVariableModel} from UMP-ST {@link RuleModel} and create {@link ContextNode}
+	 * related to MEBN structure
 	 */
 	public void createAllContextNodes(MEBNController mebnController) {
 		Map<String, RuleModel> mapRule = umpstProject.getMapRules();
@@ -315,7 +437,8 @@ public class MappingController {
 					List<OrdinaryVariableModel> ovModelList = rule.getOrdinaryVariableList();
 					for (int j = 0; j < ovModelList.size(); j++) {
 						OrdinaryVariableModel ovModel = ovModelList.get(j);
-						mfrag.addOrdinaryVariable(ovModel);
+						OrdinaryVariable ov = mapOrdinaryVariable(ovModel, mfrag);
+						mfrag.addOrdinaryVariable(ov);
 					}
 				}				
 				
@@ -369,7 +492,7 @@ public class MappingController {
 			
 			List<RelationshipModel> relationshipList = group.getBacktrackingRelationship();
 			for (int i = 0; i < relationshipList.size(); i++) {
-				UndefinedNode node = mfrag.mapToUndefinedNode(relationshipList.get(i));
+				UndefinedNode node = mapToUndefinedNode(relationshipList.get(i), mfrag);
 				mfrag.addUndefinedNode(node);
 			}
 		}
