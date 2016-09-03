@@ -9,6 +9,7 @@ import org.eclipse.osgi.framework.debug.Debug;
 
 import unbbayes.controller.umpst.MappingController;
 import unbbayes.model.umpst.entity.RelationshipModel;
+import unbbayes.model.umpst.group.GroupModel;
 import unbbayes.model.umpst.implementation.node.MFragExtension;
 import unbbayes.model.umpst.implementation.node.ResidentNodeExtension;
 import unbbayes.model.umpst.implementation.node.UndefinedNode;
@@ -47,23 +48,40 @@ public class FirstCriterionOfSelection {
 		
 		for (String groupId : sortedKeys) {	
 			MFragExtension mfragExtension = mapMFragExtension.get(groupId);
-			List<UndefinedNode> undefinedNodeList = mfragExtension.getUndefinedNodeList();
+//			List<UndefinedNode> undefinedNodeList = mfragExtension.getUndefinedNodeList();
+//			
+//			for (int i = 0; i < undefinedNodeList.size(); i++) {
+//				
+//				UndefinedNode undefinedNode = undefinedNodeList.get(i);				
+//				RelationshipModel relationship = undefinedNode.getRelationshipPointer();
+//				
+//				if (relationship.getFowardtrackingGroups().size() == 1) {
+//					
+//					ResidentNodeExtension residentNodeExtension = mappingController.mapToResidentNode(
+//							undefinedNode, mfragExtension);
+//					
+//					residentNodeExtension.setDescription(residentNodeExtension.getName());
+//					residentNodeExtension.setEventRelated(relationship);
+//					mfragExtension.addResidentNodeExtension(residentNodeExtension);
+//				}
+//			}			
 			
-			for (int i = 0; i < undefinedNodeList.size(); i++) {
+			GroupModel groupRelated = mfragExtension.getGroupRelated();
+			List<RelationshipModel> relationshipList = groupRelated.getBacktrackingRelationship(); 
+			for (int i = 0; i < relationshipList.size(); i++) {
 				
-				UndefinedNode undefinedNode = undefinedNodeList.get(i);				
-				RelationshipModel relationship = undefinedNode.getRelationshipPointer();
+				RelationshipModel relationship = relationshipList.get(i);
 				
 				if (relationship.getFowardtrackingGroups().size() == 1) {
 					
 					ResidentNodeExtension residentNodeExtension = mappingController.mapToResidentNode(
-							undefinedNode, mfragExtension);
+							relationship, mfragExtension);
 					
 					residentNodeExtension.setDescription(residentNodeExtension.getName());
 					residentNodeExtension.setEventRelated(relationship);
 					mfragExtension.addResidentNodeExtension(residentNodeExtension);
 				}
-			}			
+			}
 		}
 	}
 }

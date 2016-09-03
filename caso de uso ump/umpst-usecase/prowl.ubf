@@ -5,8 +5,8 @@ PrOwl="prowl.owl"
 % Declaração de MTheory - UBF
 MTheory=prowl
 NextMFrag=14
-NextResident=11
-NextInput=1
+NextResident=18
+NextInput=13
 NextContext=1
 NextEntity=1
 
@@ -76,6 +76,20 @@ Size=80,60
 Color=-66914
 PossibleValuesOrder=
 
+Node=hasCriminalHistory
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+Node=hasCriminalHistory
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
 Node=hasCleanHistory
 Type=DomainResidentNode
 Position=0.0,0.0
@@ -95,6 +109,25 @@ Color=-5178237
 % MFrag
 MFrag=Related_to_Previous_Participants
 NextOrdinaryVar=5
+
+% Nós Residentes
+
+
+Node=wasRelatedToPreviousParticipants
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+% nós Input
+
+
+Node=isRelated
+Type=GenerativeInputNode
+Position=0.0,0.0
+Size=100,60
+Color=-2302756
 
 % Variáveis Ordinárias
 
@@ -126,6 +159,31 @@ Color=-5178237
 % MFrag
 MFrag=Suspicious_Commitee
 NextOrdinaryVar=3
+
+% Nós Residentes
+
+
+Node=hasSuspiciousCommitee
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+% nós Input
+
+
+Node=wasRelatedToPreviousParticipants
+Type=GenerativeInputNode
+Position=0.0,0.0
+Size=100,60
+Color=-2302756
+
+Node=hasCleanHistory
+Type=GenerativeInputNode
+Position=0.0,0.0
+Size=100,60
+Color=-2302756
 
 % Variáveis Ordinárias
 
@@ -162,6 +220,27 @@ Position=0.0,0.0
 Size=80,60
 Color=-66914
 PossibleValuesOrder=
+
+% nós Input
+
+
+Node=ownsSuspendedEnterprise
+Type=GenerativeInputNode
+Position=0.0,0.0
+Size=100,60
+Color=-2302756
+
+Node=hasSuspiciousCommitee
+Type=GenerativeInputNode
+Position=0.0,0.0
+Size=100,60
+Color=-2302756
+
+Node=isCompetitionCompromised
+Type=GenerativeInputNode
+Position=0.0,0.0
+Size=100,60
+Color=-2302756
 
 % Variáveis Ordinárias
 
@@ -238,6 +317,15 @@ Color=-5178237
 MFrag=Exists_Front_in_Enterprise
 NextOrdinaryVar=3
 
+% nós Input
+
+
+Node=isFrontFor
+Type=GenerativeInputNode
+Position=0.0,0.0
+Size=100,60
+Color=-2302756
+
 % Variáveis Ordinárias
 
 
@@ -256,6 +344,25 @@ Color=-5178237
 % MFrag
 MFrag=Related_Participant_Enterprises
 NextOrdinaryVar=6
+
+% Nós Residentes
+
+
+Node=hasRelatedParticipants
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+% nós Input
+
+
+Node=isRelated
+Type=GenerativeInputNode
+Position=0.0,0.0
+Size=100,60
+Color=-2302756
 
 % Variáveis Ordinárias
 
@@ -294,6 +401,25 @@ Color=-5178237
 MFrag=Member_Related_to_Participant
 NextOrdinaryVar=5
 
+% Nós Residentes
+
+
+Node=hasMemberRelatedToParticipant
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+% nós Input
+
+
+Node=isRelated
+Type=GenerativeInputNode
+Position=0.0,0.0
+Size=100,60
+Color=-2302756
+
 % Variáveis Ordinárias
 
 
@@ -324,6 +450,37 @@ Color=-5178237
 % MFrag
 MFrag=Competition_Compromised
 NextOrdinaryVar=3
+
+% Nós Residentes
+
+
+Node=isCompetitionCompromised
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+% nós Input
+
+
+Node=hasRelatedParticipants
+Type=GenerativeInputNode
+Position=0.0,0.0
+Size=100,60
+Color=-2302756
+
+Node=existsFrontInEnterprise
+Type=GenerativeInputNode
+Position=0.0,0.0
+Size=100,60
+Color=-2302756
+
+Node=hasMemberRelatedToParticipant
+Type=GenerativeInputNode
+Position=0.0,0.0
+Size=100,60
+Color=-2302756
 
 % Variáveis Ordinárias
 

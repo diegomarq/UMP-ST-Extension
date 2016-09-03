@@ -32,6 +32,9 @@ public class MFragExtension extends MFrag {
 	private MultiEntityBayesianNetwork mebn;
 	private List<UndefinedNode> undefinedNodeList;
 	private List<ResidentNodeExtension> residentNodeExtensionList;
+	private List<InputNodeExtension> inputNodeExtensionList;
+	private List<OrdinaryVariableModel> ordinaryVariablevModelList;
+	
 
 	/**
 	 * @param name
@@ -45,6 +48,33 @@ public class MFragExtension extends MFrag {
 		this.setGroupRelated(group);
 		setUndefinedNodeList(new ArrayList<UndefinedNode>());
 		setResidentNodeExtensionList(new ArrayList<ResidentNodeExtension>());
+		setInputNodeExtensionList(new ArrayList<InputNodeExtension>());
+		setOrdinaryVariablevModelList(new ArrayList<OrdinaryVariableModel>());
+	}
+	
+	/**
+	 * Check if there is the {@link OrdinaryVariableModel} in the {@link MFragExtension}.
+	 * @param ovModel
+	 * @return
+	 */
+	public boolean existsAsOrdinaryVariableModel(OrdinaryVariableModel ovModel) {
+		for (int i = 0; i < this.getOrdinaryVariablevModelList().size(); i++) {
+			OrdinaryVariableModel ovModelCompared = this.getOrdinaryVariablevModelList().get(i);
+			if(ovModelCompared.equals(ovModel)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void addInputNodeExtension(InputNodeExtension inputNode) {
+		getInputNodeExtensionList().add(inputNode);
+		super.addInputNode(inputNode);
+	}
+	
+	public void removeInputNodeExtension(InputNodeExtension inputNode) {
+		getInputNodeExtensionList().remove(inputNode);
+		super.removeInputNode(inputNode);
 	}
 	
 	public void addResidentNodeExtension(ResidentNodeExtension residentNode) {
@@ -95,6 +125,10 @@ public class MFragExtension extends MFrag {
 	public void addOrdinaryVariable(OrdinaryVariable ordinaryVariable) {
 		super.addOrdinaryVariable(ordinaryVariable);
 	}
+	
+	public void addOrdinaryVariableModel(OrdinaryVariableModel ovModel) {
+		getOrdinaryVariablevModelList().add(ovModel);
+	}
 
 	/**
 	 * @return the group
@@ -137,6 +171,35 @@ public class MFragExtension extends MFrag {
 	public void setResidentNodeExtensionList(
 			List<ResidentNodeExtension> residentNodeExtensionList) {
 		this.residentNodeExtensionList = residentNodeExtensionList;
+	}
+
+	/**
+	 * @return the inputNodeExtensionList
+	 */
+	public List<InputNodeExtension> getInputNodeExtensionList() {
+		return inputNodeExtensionList;
+	}
+
+	/**
+	 * @param inputNodeExtensionList the inputNodeExtensionList to set
+	 */
+	public void setInputNodeExtensionList(List<InputNodeExtension> inputNodeExtensionList) {
+		this.inputNodeExtensionList = inputNodeExtensionList;
+	}
+
+	/**
+	 * @return the ordinaryVariablevModelList
+	 */
+	public List<OrdinaryVariableModel> getOrdinaryVariablevModelList() {
+		return ordinaryVariablevModelList;
+	}
+
+	/**
+	 * @param ordinaryVariablevModelList the ordinaryVariablevModelList to set
+	 */
+	public void setOrdinaryVariablevModelList(
+			List<OrdinaryVariableModel> ordinaryVariablevModelList) {
+		this.ordinaryVariablevModelList = ordinaryVariablevModelList;
 	}
 
 }
