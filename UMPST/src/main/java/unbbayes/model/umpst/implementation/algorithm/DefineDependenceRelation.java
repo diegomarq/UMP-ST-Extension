@@ -95,25 +95,33 @@ public class DefineDependenceRelation {
 	public void mapCausalRelation() throws ArgumentNodeAlreadySetException,
 		OVariableAlreadyExistsInArgumentList, InvalidParentException {
 		
-		for (int j = 0; j < rule.getCauseVariableList().size(); j++) {				
+		for (int j = 0; j < rule.getCauseVariableList().size(); j++) {
 			CauseVariableModel cause = rule.getCauseVariableList().get(j);
 
-			// Cause was mapped as resident node in first criterion of selection
+			/**
+			 * Cause was mapped as resident node in first criterion of selection
+			 */
 			ResidentNodeExtension residentNode = mappingController.getResidentNodeRelatedToEvent(
 					cause, mfragExtensionActive);
 			
+			/**
+			 * Also it is possible to exist resident nodes that were mapped in first criterion and
+			 * it is effect. So, these kind of node will not have its arguments.
+			 */
 			if (residentNode != null) {
+				
 				/**
 				 * The First Criterion of Selection does not add the arguments related to resident node
 				 * created.
 				 */
-				mappingController.mapResidentNodeArgument(cause, residentNode, mfragExtensionActive);
-				mappingController.mapAllEffectsAsResident(residentNode, mfragExtensionActive, rule);
+				residentNode = mappingController.mapResidentNodeArgument(cause, residentNode, mfragExtensionActive);
+				mappingController.mapAllEffectsToResident(residentNode, mfragExtensionActive, rule);
 			}
-			// Cause is Effect in other rule
-			else if(containsCauseRelatedToEffect(cause, group, umpstProject)) {
+			/**
+			 * Cause is Effect in other rule
+			 */
+			else if ((residentNode == null) && (containsCauseRelatedToEffect(cause, group, umpstProject))) {
 				
-				InputNodeExtension inputNode = mappingController.mapToInputNode(cause, mfragExtensionActive);
 				
 				/**
 				 * Verify if the input node related to the cause has an instance related to the resident node created
@@ -124,15 +132,19 @@ public class DefineDependenceRelation {
 				EffectVariableModel effectRelatedToCause = getEffectRelatedToCause();
 				
 				ResidentNodeExtension residentNodeRelated = mappingController.getResidentNodeRelatedToEvent(
-						effectRelatedToCause, mfragRelatedEffect);
+						effectRelatedToCause, mfragRelatedEffect);				
 				
 				if (residentNodeRelated != null) {
-					try {
-						inputNode.setInputInstanceOf(residentNodeRelated);
-						mappingController.mapAllEffectsAsResident(inputNode, mfragExtensionActive, rule);
-					} catch (OVDontIsOfTypeExpected e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					
+					if(residentNodeRelated.getOrdinaryVariableList().size() > 0) {
+						try {
+							InputNodeExtension inputNode = mappingController.mapToInputNode(cause, mfragExtensionActive, residentNodeRelated);
+							mappingController.mapAllEffectsToResident(inputNode, mfragExtensionActive, rule);
+							
+						} catch (OVDontIsOfTypeExpected e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 				}
 				else {
@@ -255,6 +267,9 @@ public class DefineDependenceRelation {
 	 */
 	public boolean containsCauseRelatedToEffect(CauseVariableModel cause, GroupModel groupRelated, UMPSTProject umpstProject) {
 		
+		/**
+		 * Keep all the groups in the project
+		 */
 		Map<String, GroupModel> mapGroup = umpstProject.getMapGroups();
 		Set<String> keys = mapGroup.keySet();
 		TreeSet<String> sortedKeys = new TreeSet<String>(keys);
@@ -262,12 +277,19 @@ public class DefineDependenceRelation {
 		for (String key : sortedKeys) {
 			GroupModel groupSearched = mapGroup.get(key);
 			
+			/**
+			 * Search in a group that is different from the group related passed as parameter
+			 */
 			if (!groupSearched.equals(groupRelated)) {
 			
 				for (int i = 0; i < groupSearched.getBacktrackingRules().size(); i++) {
 			
 					RuleModel ruleSearched = groupSearched.getBacktrackingRules().get(i);
 					
+					/**
+					 * Search in all rules related to the group searched if there are effects related
+					 * to the cause passed as parameter.
+					 */					
 					List<EffectVariableModel> effectList = ruleSearched.getEffectVariableList();
 					for (int j = 0; j < effectList.size(); j++) {
 						
@@ -275,6 +297,9 @@ public class DefineDependenceRelation {
 						RelationshipModel relationshipCause = cause.getRelationshipModel();
 						if (relationshipCause.equals(relationshipEffect)) {
 							
+							/**
+							 * Set the effect and group identified
+							 */
 							setEffectRelatedToCause(effectList.get(j));
 							setGroupRelatedToEffect(groupSearched);
 							return true;

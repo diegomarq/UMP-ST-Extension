@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import unbbayes.controller.umpst.MappingController;
-import unbbayes.model.umpst.entity.RelationshipModel;
 import unbbayes.model.umpst.group.GroupModel;
 import unbbayes.model.umpst.implementation.NecessaryConditionVariableModel;
 import unbbayes.model.umpst.implementation.OrdinaryVariableModel;
@@ -16,8 +14,6 @@ import unbbayes.prs.mebn.ContextNode;
 import unbbayes.prs.mebn.MFrag;
 import unbbayes.prs.mebn.MultiEntityBayesianNetwork;
 import unbbayes.prs.mebn.OrdinaryVariable;
-import unbbayes.prs.mebn.ResidentNode;
-import unbbayes.prs.mebn.entity.Type;
 
 /**
  * Class modified to add group model
@@ -30,7 +26,6 @@ public class MFragExtension extends MFrag {
 	private static ResourceBundle resource = unbbayes.util.ResourceController.newInstance().getBundle(
 			unbbayes.controller.mebn.resources.Resources.class.getName());
 	private MultiEntityBayesianNetwork mebn;
-	private List<UndefinedNode> undefinedNodeList;
 	private List<ResidentNodeExtension> residentNodeExtensionList;
 	private List<InputNodeExtension> inputNodeExtensionList;
 	private List<OrdinaryVariableModel> ordinaryVariablevModelList;
@@ -46,7 +41,6 @@ public class MFragExtension extends MFrag {
 		
 		this.mebn = mebn;
 		this.setGroupRelated(group);
-		setUndefinedNodeList(new ArrayList<UndefinedNode>());
 		setResidentNodeExtensionList(new ArrayList<ResidentNodeExtension>());
 		setInputNodeExtensionList(new ArrayList<InputNodeExtension>());
 		setOrdinaryVariablevModelList(new ArrayList<OrdinaryVariableModel>());
@@ -85,14 +79,6 @@ public class MFragExtension extends MFrag {
 	public void removeResidentNodeExtension(ResidentNodeExtension residentNode) {
 		getResidentNodeExtensionList().remove(residentNode);
 		super.removeResidentNode(residentNode);
-	}
-	
-	public void removeUndefinedNode(UndefinedNode node) {
-		getUndefinedNodeList().remove(node);
-	}
-	
-	public void addUndefinedNode(UndefinedNode node) {
-		getUndefinedNodeList().add(node);
 	}
 	
 	/**
@@ -142,21 +128,7 @@ public class MFragExtension extends MFrag {
 	 */
 	public void setGroupRelated(GroupModel groupRelated) {
 		this.groupRelated = groupRelated;
-	}
-
-	/**
-	 * @return the undefinedNodeList
-	 */
-	public List<UndefinedNode> getUndefinedNodeList() {
-		return undefinedNodeList;
-	}
-
-	/**
-	 * @param undefinedNodeList the undefinedNodeList to set
-	 */
-	public void setUndefinedNodeList(List<UndefinedNode> undefinedNodeList) {
-		this.undefinedNodeList = undefinedNodeList;
-	}
+	}	
 
 	/**
 	 * @return the residentNodeExtensionList

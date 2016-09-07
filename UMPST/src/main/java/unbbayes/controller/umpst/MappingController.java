@@ -207,69 +207,72 @@ public class MappingController {
 	 * @throws ArgumentNodeAlreadySetException 
 	 * @throws InvalidParentException 
 	 */
-	public void mapAllEffectsAsResident(Object nodeFather, MFragExtension mfragExtension, RuleModel rule) throws
+	public void mapAllEffectsToResident(Object nodeFather, MFragExtension mfragExtension, RuleModel rule) throws
 		ArgumentNodeAlreadySetException, OVariableAlreadyExistsInArgumentList, InvalidParentException {
 		
-		// Get all effects from rule
+		/**
+		 * Get all effects from rule
+		 */
 		for (int l = 0; l < rule.getEffectVariableList().size(); l++) {
 			
 			EffectVariableModel effect = rule.getEffectVariableList().get(l);
-//			UndefinedNode undefinedNode = getUndefinedNodeRelatedToEffect(
-//					effect, mfragExtension);
-			
-//			ResidentNodeExtension residentNode = null;
 			ResidentNodeExtension residentNode = getResidentNodeRelatedToEffect(effect, mfragExtension);
 			
 			if(residentNode == null) {
-				// Map the effects to residentNodes
-				residentNode = mapToResidentNode(effect.getRelationshipModel(), mfragExtension);
-				mapResidentNodeArgument(effect, residentNode, mfragExtension);
+				
+				/**
+				 * Map the effects to residentNodes and add to mfragExtension
+				 */
+				residentNode = mapToResidentNode(effect.getRelationshipModel(), mfragExtension, effect);
+								
 			}
-//			else {
-//				// Get resident node if the effect already was mapped to resident
-//				residentNode = searchResidentNodeRelated(effect, mfragExtension);
-//				if(residentNode == null) {
-//					Debug.println(DefineDependenceRelation.class + " -- EffectVariableModel not valid");
-//				}
-//			}
-			
-//			if(residentNode != null) {				
-				// Create an edge linking the parent node to the child node related to ResidentNode created from EffectModel
-				if(nodeFather.getClass().equals(ResidentNodeExtension.class)) {
-					
-					Edge auxEdge = new Edge((ResidentNodeExtension)nodeFather, residentNode);
-					
-					try {
-						mfragExtension.addEdge(auxEdge);
-					} catch (MEBNConstructionException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (CycleFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+			else if ((residentNode != null) && (residentNode.getOrdinaryVariableList().size() == 0)) {
+				
+				/**
+				 * It is possible to exist nodes that were mapped to resident by the first criteria and
+				 * does not have its arguments added to itself.
+				 */
+				residentNode = mapResidentNodeArgument(effect, residentNode, mfragExtension);
+			}
+
+			/**
+			 * Create an edge linking the parent node to the child node related to ResidentNode created
+			 * from EffectModel
+			 */
+			if(nodeFather.getClass().equals(ResidentNodeExtension.class)) {
+				
+				Edge auxEdge = new Edge((ResidentNodeExtension)nodeFather, residentNode);
+				
+				try {
+					mfragExtension.addEdge(auxEdge);
+				} catch (MEBNConstructionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (CycleFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-				else if(nodeFather.getClass().equals(InputNodeExtension.class)) {
-					
-					Edge auxEdge = new Edge((InputNodeExtension)nodeFather, residentNode);
-					
-					try {
-						mfragExtension.addEdge(auxEdge);
-					} catch (MEBNConstructionException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (CycleFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+			}
+			else if(nodeFather.getClass().equals(InputNodeExtension.class)) {
+				
+				Edge auxEdge = new Edge((InputNodeExtension)nodeFather, residentNode);
+				
+				try {
+					mfragExtension.addEdge(auxEdge);
+				} catch (MEBNConstructionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (CycleFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-//			}
+			}
 		}
 	}	
 
@@ -282,42 +285,50 @@ public class MappingController {
 	 * @throws ArgumentNodeAlreadySetException
 	 * @throws OVariableAlreadyExistsInArgumentList
 	 */
-	public void mapResidentNodeArgument(Object event, ResidentNodeExtension residentNode, MFragExtension mfragExtension) 
+	public ResidentNodeExtension mapResidentNodeArgument(Object event, ResidentNodeExtension residentNode, MFragExtension mfragExtension) 
 			throws ArgumentNodeAlreadySetException, OVariableAlreadyExistsInArgumentList {
+		
+		// Only add arguments if the ordinaryVariableList of resident has anyone ordinaryVariable
+//		if(residentNode.getArgumentList().size() == 0) {
 				
-		List<OrdinaryVariableModel> ovEventModelList = null;
-		
-		// Verify if the event it is cause or effect
-		if(event.getClass().equals(CauseVariableModel.class)) { 
-			ovEventModelList = ((CauseVariableModel)event).getOvArgumentList();
-		}
-		else { // the event it is effect
-			ovEventModelList = ((EffectVariableModel)event).getOvArgumentList();
-		}
-		
-		// Add arguments related to the event	
-		for (int i = 0; i < ovEventModelList.size(); i++) {
-			OrdinaryVariableModel ovModel = ovEventModelList.get(i);
+			List<OrdinaryVariableModel> ovEventModelList = null;
 			
-			// OrdinaryVariable from MEBN
-			List<OrdinaryVariable> ovList = mfragExtension.getOrdinaryVariableList();
-			for (int j = 0; j < ovList.size(); j++) {
+			// Verify if the event it is cause or effect
+			if(event.getClass().equals(CauseVariableModel.class)) { 
+				ovEventModelList = ((CauseVariableModel)event).getOvArgumentList();
+			}
+			else { // the event it is effect
+				ovEventModelList = ((EffectVariableModel)event).getOvArgumentList();
+			}
+			
+			// Add arguments related to the event	
+			for (int i = 0; i < ovEventModelList.size(); i++) {
+				OrdinaryVariableModel ovModel = ovEventModelList.get(i);
 				
-				// Identify by the name of ordinary variable and its type
-				OrdinaryVariable ov = ovList.get(j);
-				if ((ovModel.getVariable().equals(ov.getName()) &&
-						(ovModel.getTypeEntity().equals(ov.getValueType().toString())))) {
+				// OrdinaryVariable from MEBN
+				List<OrdinaryVariable> ovList = mfragExtension.getOrdinaryVariableList();
+				for (int j = 0; j < ovList.size(); j++) {
 					
-					residentNode.addArgument(ov, true);
-//					try {
-//						residentNode.addArgumentRelated(ov);
-//					} catch (ArgumentOVariableAlreadySetException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
+					// Identify by the name of ordinary variable and its type
+					OrdinaryVariable ov = ovList.get(j);
+					if ((ovModel.getVariable().equals(ov.getName()) &&
+							(ovModel.getTypeEntity().equals(ov.getValueType().toString())))) {
+						
+						residentNode.addArgument(ov, true);
+	//					try {
+	//						residentNode.addArgumentRelated(ov);
+	//					} catch (ArgumentOVariableAlreadySetException e) {
+	//						// TODO Auto-generated catch block
+	//						e.printStackTrace();
+	//					}
+					}
 				}
 			}
+//		}
+		if(residentNode.getOrdinaryVariableList().size() == 0) {
+			System.err.println(this.getClass() + " - ERROR. NUMBER OF ARGUMENT INVALID - " + residentNode.getName());
 		}
+		return residentNode;
 	}
 	
 	/**
@@ -358,26 +369,16 @@ public class MappingController {
 		for (int i = 0; i < residentNodeList.size(); i++) {
 			
 			ResidentNodeExtension node = residentNodeList.get(i);
-			if (node.getEventRelated().equals(effect.getRelationshipModel())) {
-				 return node;
+			if ((node.getEventRelated().getClass().equals(RelationshipModel.class))) {
+				
+				RelationshipModel relationshipRelated = (RelationshipModel)node.getEventRelated();
+				if(relationshipRelated.equals(effect.getRelationshipModel())) {
+					return node;
+				}
 			}
 		}
 		return null;
 	}
-	
-//	public UndefinedNode getUndefinedNodeRelatedToEffect(EffectVariableModel effect,
-//			MFragExtension mfragExtension) {
-//		
-//		List<UndefinedNode> undefinedNodeList = mfragExtension.getUndefinedNodeList();
-//		for (int i = 0; i < undefinedNodeList.size(); i++) {
-//			
-//			UndefinedNode node = undefinedNodeList.get(i);
-//			if (node.getRelationshipPointer().equals(effect.getRelationshipModel())) {
-//				 return node;
-//			}
-//		}
-//		return null;
-//	}
 	
 	/**
 	 * Get {@link MFragExtension} related to {@link GroupModel} passed in parameter.
@@ -413,8 +414,11 @@ public class MappingController {
 	 * @param cause
 	 * @param mfrag
 	 * @return
+	 * @throws ArgumentNodeAlreadySetException 
+	 * @throws OVDontIsOfTypeExpected 
 	 */
-	public InputNodeExtension mapToInputNode(CauseVariableModel cause, MFragExtension mfrag) {
+	public InputNodeExtension mapToInputNode(CauseVariableModel cause, MFragExtension mfragExtension, ResidentNodeExtension residentNodePointer)
+			throws OVDontIsOfTypeExpected, ArgumentNodeAlreadySetException {
 		/**
 		 * The object needs to be a causeModel related to RuleModel, not an undefinedNode or effectModel.
 		 * The relationship can repeat according to the rule related to the GroupModel. So if there
@@ -425,9 +429,10 @@ public class MappingController {
 		 * The effectModel has as parent a causeModel which will be mapped to resident or input node.
 		 * The input node does not have as parent another node, only if it is a resident node in other mfrag.
 		 */
-				
-		InputNodeExtension inputNode = new InputNodeExtension(cause.getRelationship(), mfrag);
-		mfrag.addInputNodeExtension(inputNode);
+		
+		InputNodeExtension inputNode = new InputNodeExtension(cause.getRelationship(), mfragExtension);
+		inputNode.setInputInstanceOf(residentNodePointer);
+		mfragExtension.addInputNodeExtension(inputNode);
 		return inputNode;
 	}
 	
@@ -437,25 +442,27 @@ public class MappingController {
 	 * @param undefinedNode
 	 * @return residentNode
 	 */
-	public ResidentNodeExtension mapToResidentNode(RelationshipModel relationship, MFragExtension mfragExtension) {
+	public ResidentNodeExtension mapToResidentNode(RelationshipModel relationship, MFragExtension mfragExtension,
+			Object event) {
 		
-//		List<ResidentNodeExtension> residentNodeList = mfrag.getResidentNodeExtensionList();
-//		for (int i = 0; i < residentNodeList.size(); i++) {
-//			
-//			ResidentNodeExtension existingNode = residentNodeList.get(i); 
-//			if (existingNode.getEventRelated().getClass().equals(RelationshipModel.class)) {
-//				
-//				RelationshipModel eventRelated = (RelationshipModel)existingNode.getEventRelated();
-//				if(eventRelated.equals(undefinedNode.getRelationshipPointer())) {
-//					return existingNode;
-//				}
-//			}
-//		}
 		ResidentNodeExtension residentNode = new ResidentNodeExtension(relationship.getName(), mfragExtension,
 				relationship);
 		mfragExtension.getMultiEntityBayesianNetwork().getNamesUsed().add(relationship.getName());
+		
+		if(event != null) {
+			try {
+				residentNode = mapResidentNodeArgument(event, residentNode, mfragExtension);
+			} catch (ArgumentNodeAlreadySetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (OVariableAlreadyExistsInArgumentList e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}	
+		
+		residentNode.setDescription(residentNode.getName());
 		mfragExtension.addResidentNodeExtension(residentNode);
-//		mfragExtension.removeUndefinedNode(undefinedNode);
 		return residentNode;
 	}
 	

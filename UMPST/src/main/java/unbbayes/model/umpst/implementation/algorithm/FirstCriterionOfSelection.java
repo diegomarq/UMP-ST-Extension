@@ -37,7 +37,7 @@ public class FirstCriterionOfSelection {
 	}
 	
 	/**
-	 * Search {@link UndefinedNode} declared once in {@link MultiEntityBayesianNetwork} 
+	 * Search {@link RelationshipModel} declared once in {@link GroupModel}
 	 * and maps them to {@link ResidentNodeExtension}.
 	 */
 	public void firstSelection(MultiEntityBayesianNetwork mebn) {
@@ -75,11 +75,11 @@ public class FirstCriterionOfSelection {
 				if (relationship.getFowardtrackingGroups().size() == 1) {
 					
 					ResidentNodeExtension residentNodeExtension = mappingController.mapToResidentNode(
-							relationship, mfragExtension);
+							relationship, mfragExtension, null);
 					
-					residentNodeExtension.setDescription(residentNodeExtension.getName());
-					residentNodeExtension.setEventRelated(relationship);
 					mfragExtension.addResidentNodeExtension(residentNodeExtension);
+					
+//					residentNodeExtension.setDescription(residentNodeExtension.getName());
 				}
 			}
 		}

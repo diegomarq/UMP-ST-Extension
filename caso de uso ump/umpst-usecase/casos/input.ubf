@@ -4,9 +4,9 @@ PrOwl="input.owl"
 
 % Declaração de MTheory - UBF
 MTheory=input
-NextMFrag=3
-NextResident=6
-NextInput=2
+NextMFrag=4
+NextResident=7
+NextInput=3
 NextContext=1
 NextEntity=1
 
@@ -69,13 +69,6 @@ Size=80,60
 Color=-66914
 PossibleValuesOrder=
 
-Node=Rel3
-Type=DomainResidentNode
-Position=0.0,0.0
-Size=80,60
-Color=-66914
-PossibleValuesOrder=
-
 % nós Input
 
 
@@ -88,13 +81,58 @@ Color=-2302756
 % Variáveis Ordinárias
 
 
-Node=o1
+Node=o3
 Type=OrdinalVar
 Position=0.0,0.0
 Size=80,60
 Color=-5178237
 
-Node=o2
+Node=o4
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+% MFrag
+MFrag=Grupo3
+NextOrdinaryVar=3
+
+% Nós Residentes
+
+
+Node=Rel4
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+Node=Rel4
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+% nós Input
+
+
+Node=Rel3
+Type=GenerativeInputNode
+Position=0.0,0.0
+Size=100,60
+Color=-2302756
+
+% Variáveis Ordinárias
+
+
+Node=o5
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+Node=o6
 Type=OrdinalVar
 Position=0.0,0.0
 Size=80,60
