@@ -14,8 +14,6 @@ import javax.swing.tree.DefaultTreeModel;
 
 import org.eclipse.osgi.framework.debug.Debug;
 
-import com.hp.hpl.jena.reasoner.rulesys.Rule;
-
 import unbbayes.controller.mebn.MEBNController;
 import unbbayes.io.mebn.UbfIO2;
 import unbbayes.io.mebn.exceptions.IOMebnException;
@@ -27,7 +25,6 @@ import unbbayes.model.umpst.implementation.CauseVariableModel;
 import unbbayes.model.umpst.implementation.EffectVariableModel;
 import unbbayes.model.umpst.implementation.NecessaryConditionVariableModel;
 import unbbayes.model.umpst.implementation.OrdinaryVariableModel;
-import unbbayes.model.umpst.implementation.algorithm.DefineDependenceRelation;
 import unbbayes.model.umpst.implementation.algorithm.FirstCriterionOfSelection;
 import unbbayes.model.umpst.implementation.algorithm.SecondCriterionOfSelection;
 import unbbayes.model.umpst.implementation.node.InputNodeExtension;
@@ -39,16 +36,18 @@ import unbbayes.model.umpst.rule.RuleModel;
 import unbbayes.prs.Edge;
 import unbbayes.prs.exception.InvalidParentException;
 import unbbayes.prs.mebn.ContextNode;
+import unbbayes.prs.mebn.InputNode;
+import unbbayes.prs.mebn.MFrag;
 import unbbayes.prs.mebn.MultiEntityBayesianNetwork;
 import unbbayes.prs.mebn.OrdinaryVariable;
 import unbbayes.prs.mebn.ResidentNode;
+import unbbayes.prs.mebn.ResidentNodePointer;
 import unbbayes.prs.mebn.entity.ObjectEntity;
 import unbbayes.prs.mebn.entity.ObjectEntityContainer;
 import unbbayes.prs.mebn.entity.Type;
 import unbbayes.prs.mebn.entity.TypeContainer;
 import unbbayes.prs.mebn.entity.exception.TypeException;
 import unbbayes.prs.mebn.exception.ArgumentNodeAlreadySetException;
-import unbbayes.prs.mebn.exception.ArgumentOVariableAlreadySetException;
 import unbbayes.prs.mebn.exception.CycleFoundException;
 import unbbayes.prs.mebn.exception.MEBNConstructionException;
 import unbbayes.prs.mebn.exception.OVDontIsOfTypeExpected;
@@ -115,6 +114,44 @@ public class MappingController {
 		secondCriterion = new SecondCriterionOfSelection(umpstProject, this, mebn);
 		
 		testMTheory(mebn);
+		printMTheory(mebn);
+	}
+	
+	/**
+	 * Print model
+	 * @param mebn
+	 */
+	public void printMTheory(MultiEntityBayesianNetwork mebn) {
+		
+		List<MFrag> mfragList = mebn.getDomainMFragList();
+		for (int i = 0; i < mfragList.size(); i++) {
+			
+			MFrag mfrag = mfragList.get(i);
+			System.out.println("===============");
+			System.out.println(mfrag.getName());
+			
+			// OV
+			System.out.println("== OV");
+			for (int j = 0; j < mfrag.getOrdinaryVariableList().size(); j++) {
+				
+				OrdinaryVariable ov = mfrag.getOrdinaryVariableList().get(j);
+				System.out.println(ov.getLabel());
+			}
+			
+			System.out.println("== Resident");
+			for (int j = 0; j < mfrag.getResidentNodeList().size(); j++) {
+				
+				ResidentNode resident = mfrag.getResidentNodeList().get(j);
+				System.out.println(resident.getLabel());
+			}
+			
+			System.out.println("== Input");
+			for (int j = 0; j < mfrag.getInputNodeList().size(); j++) {
+				
+				InputNode input = mfrag.getInputNodeList().get(j);
+				System.out.println(input.getLabel());
+			}
+		}
 	}
 	
 	/**
@@ -224,7 +261,9 @@ public class MappingController {
 				 * Map the effects to residentNodes and add to mfragExtension
 				 */
 				residentNode = mapToResidentNode(effect.getRelationshipModel(), mfragExtension, effect);
-								
+				if(residentNode == null) {
+					System.err.println(this.getClass()+ "Error in create residentNode: "+effect.getRelationship());
+				}				
 			}
 			else if ((residentNode != null) && (residentNode.getOrdinaryVariableList().size() == 0)) {
 				
@@ -274,7 +313,7 @@ public class MappingController {
 				}
 			}
 		}
-	}	
+	}
 
 	/**
 	 * This method consider that the {@link ResidentNodeExtension} is not null so it basically add the arguments related
@@ -409,6 +448,41 @@ public class MappingController {
 	}
 	
 	/**
+	 * Maps the {@link OrdinaryVariableModel} of the {@link CauseVariableModel} to {@link OrdinaryVariable} of the {@link ResidentNodePointer}.
+	 * @param cause
+	 * @param pointer
+	 * @param mfragExtension
+	 * @return
+	 */
+	public ResidentNodePointer mapResidentNodePointerArgument(CauseVariableModel cause, ResidentNodePointer pointer, MFragExtension mfragExtension) {
+		
+		// Add arguments related to the event
+		List<OrdinaryVariableModel> causeOvModelList = cause.getOvArgumentList();
+		for (int i = 0; i < causeOvModelList.size(); i++) {
+			OrdinaryVariableModel ovModel = causeOvModelList.get(i);
+			
+			// OrdinaryVariable from MEBN
+			List<OrdinaryVariable> ovList = mfragExtension.getOrdinaryVariableList();
+			for (int j = 0; j < ovList.size(); j++) {
+				
+				// Identify by the name of ordinary variable and its type
+				OrdinaryVariable ov = ovList.get(j);
+				if ((ovModel.getVariable().equals(ov.getName()) &&
+						(ovModel.getTypeEntity().equals(ov.getValueType().toString())))) {
+					
+					try{
+						pointer.addOrdinaryVariable(ov, i);
+					}
+					catch(OVDontIsOfTypeExpected ex){
+						ex.printStackTrace(); 
+					}
+				}
+			}
+		}
+		return pointer;
+	}
+	
+	/**
 	 * Maps a {@link CauseVariableModel} to {@link InputNodeExtension}. This {@link CauseVariableModel} needs
 	 * to be an effect in other {@link RuleModel} of other {@link GroupModel}.
 	 * @param cause
@@ -417,7 +491,7 @@ public class MappingController {
 	 * @throws ArgumentNodeAlreadySetException 
 	 * @throws OVDontIsOfTypeExpected 
 	 */
-	public InputNodeExtension mapToInputNode(CauseVariableModel cause, MFragExtension mfragExtension, ResidentNodeExtension residentNodePointer)
+	public InputNodeExtension mapToInputNode(CauseVariableModel cause, MFragExtension mfragExtension, ResidentNodeExtension resident)
 			throws OVDontIsOfTypeExpected, ArgumentNodeAlreadySetException {
 		/**
 		 * The object needs to be a causeModel related to RuleModel, not an undefinedNode or effectModel.
@@ -431,8 +505,14 @@ public class MappingController {
 		 */
 		
 		InputNodeExtension inputNode = new InputNodeExtension(cause.getRelationship(), mfragExtension);
-		inputNode.setInputInstanceOf(residentNodePointer);
 		mfragExtension.addInputNodeExtension(inputNode);
+		
+		inputNode.setInputInstanceOf((ResidentNode)resident);
+		inputNode.updateResidentNodePointer();
+		ResidentNodePointer pointer = mapResidentNodePointerArgument(cause, 
+				inputNode.getResidentNodePointer(), mfragExtension);
+		inputNode.updateLabel();
+		
 		return inputNode;
 	}
 	
@@ -445,25 +525,34 @@ public class MappingController {
 	public ResidentNodeExtension mapToResidentNode(RelationshipModel relationship, MFragExtension mfragExtension,
 			Object event) {
 		
-		ResidentNodeExtension residentNode = new ResidentNodeExtension(relationship.getName(), mfragExtension,
-				relationship);
-		mfragExtension.getMultiEntityBayesianNetwork().getNamesUsed().add(relationship.getName());
-		
-		if(event != null) {
-			try {
-				residentNode = mapResidentNodeArgument(event, residentNode, mfragExtension);
-			} catch (ArgumentNodeAlreadySetException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (OVariableAlreadyExistsInArgumentList e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}	
-		
-		residentNode.setDescription(residentNode.getName());
-		mfragExtension.addResidentNodeExtension(residentNode);
-		return residentNode;
+		String relationshipName = relationship.getName();
+		if(!mfragExtension.getMultiEntityBayesianNetwork().getNamesUsed().contains(relationshipName)){
+			
+			ResidentNodeExtension residentNode = new ResidentNodeExtension(relationship.getName(), mfragExtension,
+					relationship);
+			mfragExtension.getMultiEntityBayesianNetwork().getNamesUsed().add(relationship.getName());
+			
+			if(event != null) {
+				try {
+					residentNode = mapResidentNodeArgument(event, residentNode, mfragExtension);
+				} catch (ArgumentNodeAlreadySetException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (OVariableAlreadyExistsInArgumentList e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}	
+			
+			residentNode.setDescription(residentNode.getName());
+			mfragExtension.addResidentNodeExtension(residentNode);
+			return residentNode;
+		}
+		else {
+			System.err.println(this.getClass() + " - There is another resident node with the same name in mfrag - "
+					+ mfragExtension.getName());
+			return null;
+		}
 	}
 	
 	public UndefinedNode mapToUndefinedNode(RelationshipModel relationship, MFragExtension mfrag) {

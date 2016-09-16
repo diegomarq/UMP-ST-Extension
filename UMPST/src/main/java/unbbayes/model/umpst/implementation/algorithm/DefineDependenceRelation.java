@@ -120,8 +120,7 @@ public class DefineDependenceRelation {
 			/**
 			 * Cause is Effect in other rule
 			 */
-			else if ((residentNode == null) && (containsCauseRelatedToEffect(cause, group, umpstProject))) {
-				
+			else if ((residentNode == null) && (containsCauseRelatedToEffect(cause, group, umpstProject))) {				
 				
 				/**
 				 * Verify if the input node related to the cause has an instance related to the resident node created
@@ -132,13 +131,18 @@ public class DefineDependenceRelation {
 				EffectVariableModel effectRelatedToCause = getEffectRelatedToCause();
 				
 				ResidentNodeExtension residentNodeRelated = mappingController.getResidentNodeRelatedToEvent(
-						effectRelatedToCause, mfragRelatedEffect);				
+						effectRelatedToCause, mfragRelatedEffect);
 				
 				if (residentNodeRelated != null) {
 					
+					/**
+					 * The resident node needs to have ordinary variables because during the mapping process the residentPointer
+					 * will be setted as the instance and its arguments will be the input node argument.
+					 */
 					if(residentNodeRelated.getOrdinaryVariableList().size() > 0) {
 						try {
 							InputNodeExtension inputNode = mappingController.mapToInputNode(cause, mfragExtensionActive, residentNodeRelated);
+//							inputNode.updateResidentNodePointer();
 							mappingController.mapAllEffectsToResident(inputNode, mfragExtensionActive, rule);
 							
 						} catch (OVDontIsOfTypeExpected e) {

@@ -203,8 +203,8 @@
 			<dependency>
 				<groupId>br.unb.cic</groupId>
 				<artifactId>unbbayes</artifactId>
-<!-- 			<version>4.13.6</version> -->
-				<version>4.1.0</version>
+	 			<version>4.21.18</version>
+				<!-- <version>4.1.0</version> -->
 			</dependency>
 			<dependency>
 				<groupId>br.unb.cic</groupId>

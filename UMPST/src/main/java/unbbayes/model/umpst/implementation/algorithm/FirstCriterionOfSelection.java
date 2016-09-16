@@ -12,7 +12,6 @@ import unbbayes.model.umpst.entity.RelationshipModel;
 import unbbayes.model.umpst.group.GroupModel;
 import unbbayes.model.umpst.implementation.node.MFragExtension;
 import unbbayes.model.umpst.implementation.node.ResidentNodeExtension;
-import unbbayes.model.umpst.implementation.node.UndefinedNode;
 import unbbayes.model.umpst.project.UMPSTProject;
 import unbbayes.prs.mebn.MultiEntityBayesianNetwork;
 
@@ -48,23 +47,6 @@ public class FirstCriterionOfSelection {
 		
 		for (String groupId : sortedKeys) {	
 			MFragExtension mfragExtension = mapMFragExtension.get(groupId);
-//			List<UndefinedNode> undefinedNodeList = mfragExtension.getUndefinedNodeList();
-//			
-//			for (int i = 0; i < undefinedNodeList.size(); i++) {
-//				
-//				UndefinedNode undefinedNode = undefinedNodeList.get(i);				
-//				RelationshipModel relationship = undefinedNode.getRelationshipPointer();
-//				
-//				if (relationship.getFowardtrackingGroups().size() == 1) {
-//					
-//					ResidentNodeExtension residentNodeExtension = mappingController.mapToResidentNode(
-//							undefinedNode, mfragExtension);
-//					
-//					residentNodeExtension.setDescription(residentNodeExtension.getName());
-//					residentNodeExtension.setEventRelated(relationship);
-//					mfragExtension.addResidentNodeExtension(residentNodeExtension);
-//				}
-//			}			
 			
 			GroupModel groupRelated = mfragExtension.getGroupRelated();
 			List<RelationshipModel> relationshipList = groupRelated.getBacktrackingRelationship(); 
@@ -77,9 +59,9 @@ public class FirstCriterionOfSelection {
 					ResidentNodeExtension residentNodeExtension = mappingController.mapToResidentNode(
 							relationship, mfragExtension, null);
 					
-					mfragExtension.addResidentNodeExtension(residentNodeExtension);
-					
-//					residentNodeExtension.setDescription(residentNodeExtension.getName());
+					if(residentNodeExtension == null) {
+						System.err.println(this.getClass()+ "- Error in create resident node: "+relationship.getName());
+					}
 				}
 			}
 		}

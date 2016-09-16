@@ -1,0 +1,89 @@
+% UBF file header
+Version=2.0
+PrOwl="input_avulso.owl"
+
+% UBF MTheory declaration
+MTheory=MEBN
+NextMFrag=3
+NextResident=4
+NextInput=3
+NextContext=1
+NextEntity=1
+
+% UBF MFrags and Nodes declaration
+
+% MFrag
+MFrag=Grupo1
+NextOrdinaryVar=3
+
+% Resident nodes
+
+
+Node=Rel1
+Type=DomainResidentNode
+Position=236.0,142.0
+Size=139,60
+Color=-66914
+PossibleValuesOrder=
+
+Node=Rel2
+Type=DomainResidentNode
+Position=237.0,235.0
+Size=139,60
+Color=-66914
+PossibleValuesOrder=
+
+% Ordinary Variables
+
+
+Node=ov1
+Type=OrdinalVar
+Position=140.0,64.0
+Size=133,60
+Color=-5178237
+
+Node=ov2
+Type=OrdinalVar
+Position=306.0,61.0
+Size=133,60
+Color=-5178237
+
+% MFrag
+MFrag=Grupo2
+NextOrdinaryVar=3
+
+% Resident nodes
+
+
+Node=Rel3
+Type=DomainResidentNode
+Position=328.0,209.0
+Size=139,60
+Color=-66914
+PossibleValuesOrder=
+
+% Input nodes
+
+
+Node=IX2
+Type=GenerativeInputNode
+Position=331.0,125.0
+Size=135,60
+Color=-2302756
+
+% Ordinary Variables
+
+
+Node=ov3
+Type=OrdinalVar
+Position=250.0,43.0
+Size=133,60
+Color=-5178237
+
+Node=ov4
+Type=OrdinalVar
+Position=407.0,42.0
+Size=133,60
+Color=-5178237
+
+% Object Entity Instances
