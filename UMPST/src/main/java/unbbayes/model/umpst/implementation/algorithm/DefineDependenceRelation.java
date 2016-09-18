@@ -151,9 +151,9 @@ public class DefineDependenceRelation {
 						}
 					}
 				}
-				else {
-					// TODO the input node does not have a resident node instance. So it is a null node.
-				}
+//				else {
+//					// TODO the input node does not have a resident node instance. So it is a null node.
+//				}
 			}
 //			// Verify if there are nodes that were not mapped.
 //			// Usually, these are nodes that were not mapped in other rule as effect.

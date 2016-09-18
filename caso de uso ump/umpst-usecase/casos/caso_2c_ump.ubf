@@ -65,7 +65,7 @@ PossibleValuesOrder=
 % nós Input
 
 
-Node=Rel2
+Node=IX1
 Type=GenerativeInputNode
 Position=0.0,0.0
 Size=100,60

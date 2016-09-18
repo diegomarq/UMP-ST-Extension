@@ -1,35 +1,35 @@
 % UBF file header
 Version=2.0
-PrOwl="input_avulso.owl"
+PrOwl="caso_2c_mebn.owl"
 
 % UBF MTheory declaration
 MTheory=MEBN
 NextMFrag=3
 NextResident=4
-NextInput=3
+NextInput=2
 NextContext=1
 NextEntity=1
 
 % UBF MFrags and Nodes declaration
 
 % MFrag
-MFrag=Grupo1
+MFrag=Group1
 NextOrdinaryVar=3
 
 % Resident nodes
 
 
-Node=Rel1
+Node=rel1
 Type=DomainResidentNode
-Position=236.0,142.0
-Size=139,60
+Position=279.0,118.0
+Size=136,60
 Color=-66914
 PossibleValuesOrder=
 
-Node=Rel2
+Node=rel2
 Type=DomainResidentNode
-Position=237.0,235.0
-Size=139,60
+Position=282.0,205.0
+Size=136,60
 Color=-66914
 PossibleValuesOrder=
 
@@ -38,37 +38,37 @@ PossibleValuesOrder=
 
 Node=ov1
 Type=OrdinalVar
-Position=140.0,64.0
+Position=190.0,38.0
 Size=133,60
 Color=-5178237
 
 Node=ov2
 Type=OrdinalVar
-Position=306.0,61.0
+Position=346.0,36.0
 Size=133,60
 Color=-5178237
 
 % MFrag
-MFrag=Grupo2
+MFrag=Group2
 NextOrdinaryVar=3
 
 % Resident nodes
 
 
-Node=Rel3
+Node=rel3
 Type=DomainResidentNode
-Position=328.0,209.0
-Size=139,60
+Position=316.0,208.0
+Size=136,60
 Color=-66914
 PossibleValuesOrder=
 
 % Input nodes
 
 
-Node=IX2
+Node=IX1
 Type=GenerativeInputNode
-Position=331.0,125.0
-Size=135,60
+Position=317.0,137.0
+Size=132,60
 Color=-2302756
 
 % Ordinary Variables
@@ -76,13 +76,13 @@ Color=-2302756
 
 Node=ov3
 Type=OrdinalVar
-Position=250.0,43.0
+Position=243.0,62.0
 Size=133,60
 Color=-5178237
 
 Node=ov4
 Type=OrdinalVar
-Position=407.0,42.0
+Position=377.0,60.0
 Size=133,60
 Color=-5178237
 

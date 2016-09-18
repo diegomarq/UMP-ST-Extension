@@ -21,8 +21,9 @@ public class InputNodeExtension extends InputNode {
 	 * @param name
 	 * @param mFrag
 	 */
-	public InputNodeExtension(String name, MFragExtension mFrag) {
+	public InputNodeExtension(String name, MFragExtension mFrag, Object event) {
 		super(name, mFrag);
+		setEventRelated(event);
 		// TODO Auto-generated constructor stub
 	}
 

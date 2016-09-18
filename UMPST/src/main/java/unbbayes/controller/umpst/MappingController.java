@@ -64,8 +64,11 @@ public class MappingController {
 	private SecondCriterionOfSelection secondCriterion;
 	
 	private Controller controller; 
-	private ResourceBundle resource = unbbayes.util.ResourceController.newInstance().getBundle(
+	private ResourceBundle resourceUmp = unbbayes.util.ResourceController.newInstance().getBundle(
 			unbbayes.gui.umpst.resources.Resources.class.getName());
+	
+	private static ResourceBundle resourceMebn = unbbayes.util.ResourceController.newInstance().getBundle(
+			unbbayes.controller.mebn.resources.Resources.class.getName());;
 
 	private DefaultTreeModel treeModel;
 	private ObjectEntityContainer entityContainer;
@@ -180,7 +183,7 @@ public class MappingController {
 				ubf.saveMebn(newFile, mebn);
 //				file.buildIntermediateMTheory(newFile, umsptProject);
 				
-				controller.showSucessMessageDialog(resource.getString("msSaveSuccessfull"));
+				controller.showSucessMessageDialog(resourceUmp.getString("msSaveSuccessfull"));
 			} catch (IOMebnException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -190,7 +193,7 @@ public class MappingController {
 			}
 		}
 		else {
-			controller.showErrorMessageDialog(resource.getString("erSaveFatal")); 
+			controller.showErrorMessageDialog(resourceUmp.getString("erSaveFatal")); 
 		}
 	}
 	
@@ -504,14 +507,29 @@ public class MappingController {
 		 * The input node does not have as parent another node, only if it is a resident node in other mfrag.
 		 */
 		
-		InputNodeExtension inputNode = new InputNodeExtension(cause.getRelationship(), mfragExtension);
+		String name = null;
+		while (name == null){
+			name = resourceMebn.getString("inputNodeName") + mfragExtension.getMultiEntityBayesianNetwork().getGenerativeInputNodeNum(); 
+			if(mfragExtension.getMultiEntityBayesianNetwork().getNamesUsed().contains(name)){
+				name = null; 
+				mfragExtension.getMultiEntityBayesianNetwork().plusGenerativeInputNodeNum(); 
+			}
+		}
+		
+		InputNodeExtension inputNode = new InputNodeExtension(name, mfragExtension, cause);
+		mfragExtension.getMultiEntityBayesianNetwork().getNamesUsed().add(name);
+		inputNode.setDescription(inputNode.getName());
 		mfragExtension.addInputNodeExtension(inputNode);
 		
+//		InputNodeExtension inputNode = new InputNodeExtension(cause.getRelationship(), mfragExtension);
+//		mfragExtension.addInputNodeExtension(inputNode);
+		
 		inputNode.setInputInstanceOf((ResidentNode)resident);
-		inputNode.updateResidentNodePointer();
-		ResidentNodePointer pointer = mapResidentNodePointerArgument(cause, 
+//		inputNode.updateResidentNodePointer();
+		ResidentNodePointer pointer = mapResidentNodePointerArgument((CauseVariableModel)inputNode.getEventRelated(),
 				inputNode.getResidentNodePointer(), mfragExtension);
 		inputNode.updateLabel();
+//		inputNode.updateResidentNodePointer();
 		
 		return inputNode;
 	}
@@ -525,12 +543,39 @@ public class MappingController {
 	public ResidentNodeExtension mapToResidentNode(RelationshipModel relationship, MFragExtension mfragExtension,
 			Object event) {
 		
+		// Set unique name
+		String name = null;
+//		int residentNodeNum = mfragExtension.getDomainResidentNodeNum();
+
+		while (name == null){
+			name = resourceMebn.getString("residentNodeName") +
+			                        mfragExtension.getMultiEntityBayesianNetwork().getDomainResidentNodeNum();
+			if(mfragExtension.getMultiEntityBayesianNetwork().getNamesUsed().contains(name)){
+				name = null;
+				mfragExtension.getMultiEntityBayesianNetwork().plusDomainResidentNodeNum();
+			}
+		}
+		
+		ResidentNodeExtension residentNode = new ResidentNodeExtension(name, mfragExtension, relationship);
+		residentNode.setDescription(residentNode.getName());
+		
+		mfragExtension.getMultiEntityBayesianNetwork().getNamesUsed().add(name);
+		mfragExtension.addResidentNodeExtension(residentNode);
+		
+		
+		// Rename residentNode
 		String relationshipName = relationship.getName();
-		if(!mfragExtension.getMultiEntityBayesianNetwork().getNamesUsed().contains(relationshipName)){
+		
+		mfragExtension.getMultiEntityBayesianNetwork().getNamesUsed().remove(residentNode.getName()); 
+		residentNode.setName(relationshipName);
+		mfragExtension.getMultiEntityBayesianNetwork().getNamesUsed().add(relationshipName); 
+		
+//		String relationshipName = relationship.getName();
+//		if(!mfragExtension.getMultiEntityBayesianNetwork().getNamesUsed().contains(relationshipName)){
 			
-			ResidentNodeExtension residentNode = new ResidentNodeExtension(relationship.getName(), mfragExtension,
-					relationship);
-			mfragExtension.getMultiEntityBayesianNetwork().getNamesUsed().add(relationship.getName());
+//			ResidentNodeExtension residentNode = new ResidentNodeExtension(relationship.getName(), mfragExtension,
+//					relationship);
+//			mfragExtension.getMultiEntityBayesianNetwork().getNamesUsed().add(relationship.getName());
 			
 			if(event != null) {
 				try {
@@ -544,23 +589,23 @@ public class MappingController {
 				}
 			}	
 			
-			residentNode.setDescription(residentNode.getName());
-			mfragExtension.addResidentNodeExtension(residentNode);
+//			residentNode.setDescription(residentNode.getName());
+//			mfragExtension.addResidentNodeExtension(residentNode);
 			return residentNode;
-		}
-		else {
-			System.err.println(this.getClass() + " - There is another resident node with the same name in mfrag - "
-					+ mfragExtension.getName());
-			return null;
-		}
+//		}
+//		else {
+//			System.err.println(this.getClass() + " - There is another resident node with the same name in mfrag - "
+//					+ mfragExtension.getName());
+//			return null;
+//		}
 	}
 	
-	public UndefinedNode mapToUndefinedNode(RelationshipModel relationship, MFragExtension mfrag) {
-		
-		UndefinedNode node = new UndefinedNode(relationship.getName(), mfrag);
-		node.setRelationshipPointer(relationship);
-		return node;
-	}
+//	public UndefinedNode mapToUndefinedNode(RelationshipModel relationship, MFragExtension mfrag) {
+//		
+//		UndefinedNode node = new UndefinedNode(relationship.getName(), mfrag);
+//		node.setRelationshipPointer(relationship);
+//		return node;
+//	}
 	
 
 	/**
@@ -570,13 +615,29 @@ public class MappingController {
 	 * @return ordinaryVariable
 	 */
 	public OrdinaryVariable mapOrdinaryVariable(OrdinaryVariableModel
-			ordinaryVariableModel, MFragExtension mfrag) {
+			ordinaryVariableModel, MFragExtension mfragExtension) {
+		
+		String name = null;
+		while (name == null){
+			name = resourceMebn.getString("ordinaryVariableName") + mfragExtension.getOrdinaryVariableNum(); 
+			if(mfragExtension.getOrdinaryVariableByName(name) != null){
+				name = null; 
+				mfragExtension.plusOrdinaryVariableNum(); 
+			}
+		}
 		
 		String typeName = ordinaryVariableModel.getTypeEntity();
-		Type type = MappingController.getType(mfrag.getMultiEntityBayesianNetwork(), typeName);
+		Type type = MappingController.getType(mfragExtension.getMultiEntityBayesianNetwork(), typeName);
 		
-		OrdinaryVariable ov = new OrdinaryVariable(
-					ordinaryVariableModel.getVariable(), type, mfrag);
+		OrdinaryVariable ov = new OrdinaryVariable(name, type, mfragExtension);
+		ov.setDescription(ov.getName());
+		
+		// Rename ordinary variable
+		ov.setName(ordinaryVariableModel.getVariable()); 
+		ov.updateLabel();
+		
+//		OrdinaryVariable ov = new OrdinaryVariable(
+//					ordinaryVariableModel.getVariable(), type, mfrag);
 		
 		return ov;
 	}	
