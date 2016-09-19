@@ -10,18 +10,19 @@ import java.util.TreeSet;
 import unbbayes.controller.umpst.MappingController;
 import unbbayes.model.umpst.ObjectModel;
 import unbbayes.model.umpst.entity.EntityModel;
+import unbbayes.model.umpst.entity.RelationshipModel;
 import unbbayes.model.umpst.group.GroupModel;
-import unbbayes.model.umpst.implementation.CauseVariableModel;
-import unbbayes.model.umpst.implementation.EffectVariableModel;
 import unbbayes.model.umpst.implementation.OrdinaryVariableModel;
 import unbbayes.model.umpst.implementation.node.MFragExtension;
-import unbbayes.model.umpst.implementation.node.NodeContextModel;
-import unbbayes.model.umpst.implementation.node.NodeInputModel;
 import unbbayes.model.umpst.implementation.node.NodeObjectModel;
-import unbbayes.model.umpst.implementation.node.NodeType;
+import unbbayes.model.umpst.implementation.node.ResidentNodeExtension;
 import unbbayes.model.umpst.project.UMPSTProject;
 import unbbayes.model.umpst.rule.RuleModel;
+import unbbayes.prs.mebn.Argument;
 import unbbayes.prs.mebn.MultiEntityBayesianNetwork;
+import unbbayes.prs.mebn.OrdinaryVariable;
+import unbbayes.prs.mebn.exception.ArgumentNodeAlreadySetException;
+import unbbayes.prs.mebn.exception.OVariableAlreadyExistsInArgumentList;
 
 /**
  * This criterion classifies not defined nodes present in MFrags as context, input
@@ -38,7 +39,6 @@ public class SecondCriterionOfSelection {
 	private Map<String, NodeObjectModel> mapDoubtNodes;
 	private List<ObjectModel> objectModel;
 	
-	private MFragExtension mfragExtension;
 	
 	public SecondCriterionOfSelection(UMPSTProject umpstProject,
 			MappingController mappingController, MultiEntityBayesianNetwork mebn) {
@@ -69,7 +69,7 @@ public class SecondCriterionOfSelection {
 			MFragExtension mfragExtension = mapMFragExtension.get(groupId);
 			GroupModel group = mfragExtension.getGroupRelated();
 			
-			// Mapping of causal relation			
+			// Mapping of causal relation defined by rule
 			listRules = group.getBacktrackingRules();
 			for (int i = 0; i < listRules.size(); i++) {
 				
@@ -95,11 +95,39 @@ public class SecondCriterionOfSelection {
 				}
 			}
 			
-			// Map nodes that are not defined in a rule
-			if (group.getBacktrackingRules().size() == 0) {
+			// Add missing OrdinaryVariables. Entities present in group but not defined in any rule.
+//			insertMissingOV(group);
+			
+			/**
+			 * Map relationships that are not defined in a rule. This kind of relationship can be in a group that
+			 * has rules.
+			 */
+			List<RelationshipModel> relationshipModelList = group.getBacktrackingRelationship();
+			for (int i = 0; i < relationshipModelList.size(); i++) {
 				
-				// Add missing OrdinaryVariables
-				insertMissingOV(group);
+				RelationshipModel relationship = relationshipModelList.get(i);
+				if(relationship.getFowardtrackingRules().size() == 0) {
+					
+					 /**
+					  * First verify if there any residentNode related to the relationshipModel that was
+					  * created during the First Criteria of Selection. If it exists, then inserMissingOrdinaryVariable
+					  * related to the node. Case it was not created, then map the relationshipModel to residentNode.
+					  */
+					ResidentNodeExtension residentNode = mappingController.getResidentNodeRelatedTo(relationship, mfragExtension);
+					if(residentNode == null) {
+						residentNode = mappingController.mapToResidentNode(relationship, mfragExtension, null);
+					}
+					
+					try {
+						insertMissingOrdinaryVariableIn(residentNode, mfragExtension);
+					} catch (ArgumentNodeAlreadySetException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (OVariableAlreadyExistsInArgumentList e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 			}
 		}
 	}
@@ -204,30 +232,66 @@ public class SecondCriterionOfSelection {
 	}
 	
 	/**
-	 * Insert missing Ordinary Variables as context node in groups that
-	 * do not have definition rule.
+	 * Add the {@link OrdinaryVariable} related to {@link ResidentNodeExtension} mapped from {@link RelationshipModel}
+	 * that was not present in any {@link RuleModel}
+	 * @param relationship
+	 * @throws OVariableAlreadyExistsInArgumentList 
+	 * @throws ArgumentNodeAlreadySetException 
 	 */
-	public void insertMissingOV(GroupModel group) {
-		OrdinaryVariableModel ov;
+	public void insertMissingOrdinaryVariableIn(ResidentNodeExtension residentNode, MFragExtension mfragExtension)
+			throws ArgumentNodeAlreadySetException, OVariableAlreadyExistsInArgumentList {
 		
-		for (int i = 0; i < group.getBacktrackingEntities().size(); i++) {
-			EntityModel entity = group.getBacktrackingEntities().get(i);
+		RelationshipModel relationship = (RelationshipModel)residentNode.getEventRelated();
+		
+		for (int i = 0; i < relationship.getEntityList().size(); i++) {
+			EntityModel entity = relationship.getEntityList().get(i);
 			
 			String id = Integer.toString(i);
 			String variable = entity.getName().toLowerCase();
 			String typeEntity = entity.getName();
 			
-			ov = new OrdinaryVariableModel(id, variable, typeEntity, entity);
+			OrdinaryVariableModel ovModel = new OrdinaryVariableModel(id, variable, typeEntity, entity);
+//				String name = "isA( " + variable + ", " + typeEntity + " )";
+//			NodeContextModel contextNode = new NodeContextModel(
+//					ov.getId(), name, NodeType.CONTEXT, ov);
+			//			mappingController.addContextNodeInMFrag(group.getId(), contextNode);
 			
-			String name = "isA( " + variable + ", " + typeEntity + " )" ;
+			// Map the ordinaryVariableModel to the ordinaryVariable and add it to the mfragExtension
+			OrdinaryVariable ov = mappingController.mapToOrdinaryVariable(ovModel, mfragExtension);
 			
-			NodeContextModel contextNode = new NodeContextModel(
-					ov.getId(), name, NodeType.CONTEXT, ov);
-			
-//			mappingController.addContextNodeInMFrag(group.getId(), contextNode);
+			// Add the ordinaryVariable to residentNode
+			residentNode.addArgument(ov, true);
 		}
 	}
 	
+//	/**
+//	 * Create missing {@link OrdinaryVariable} present in the {@link GroupModel} and are not
+//	 * related to any RuleModel.
+//	 */
+//	public void insertMissingOVOf(GroupModel group) {
+//		
+//		for (int i = 0; i < group.getBacktrackingEntities().size(); i++) {			
+//			EntityModel entity = group.getBacktrackingEntities().get(i);
+//			
+//			// keep entities that are not related to a rule
+//			if(entity.getFowardTrackingRules().size() == 0) {
+//			
+//				String id = Integer.toString(i);
+//				String variable = entity.getName().toLowerCase();
+//				String typeEntity = entity.getName();
+//				
+//				OrdinaryVariableModel ovModel = new OrdinaryVariableModel(id, variable, typeEntity, entity);
+//	//				String name = "isA( " + variable + ", " + typeEntity + " )";
+//	//			NodeContextModel contextNode = new NodeContextModel(
+//	//					ov.getId(), name, NodeType.CONTEXT, ov);
+//				//			mappingController.addContextNodeInMFrag(group.getId(), contextNode);
+//				
+//				// Map ordinary variable model to ordinary variable and add it to mfragExtension
+//				OrdinaryVariable ov = mappingController.mapToOrdinaryVariable(ovModel, mfragExtension);
+//			}
+//		}
+//	}
+//	
 	/**
 	 * Insert missing Ordinary Variables that has rule, but it is not
 	 * present.

@@ -211,13 +211,41 @@ public class MappingController {
 	
 	
 	/**
+	 * Verify if there any {@link ResidentNodeExtension} related to the {@link RelationshipModel} compared in the
+	 * {@link MFragExtension} selected.
+	 * @param relationshipCompared
+	 * @param mfragExtension
+	 * @return
+	 */
+	public ResidentNodeExtension getResidentNodeRelatedTo(RelationshipModel relationshipCompared, MFragExtension mfragExtension) {
+		
+		List<ResidentNodeExtension> residentNodeExtensionList = mfragExtension.getResidentNodeExtensionList();
+		
+		for (int i = 0; i < residentNodeExtensionList.size(); i++) {
+			
+			// Resident node is random variable related to an attribute or relationship.
+			if (residentNodeExtensionList.get(i).getEventRelated().getClass().equals(
+					RelationshipModel.class)) {
+				
+				ResidentNodeExtension residentNode = residentNodeExtensionList.get(i);
+				RelationshipModel relationshipRelated = (RelationshipModel)residentNode.getEventRelated();
+				
+				if (relationshipCompared.equals(relationshipRelated)) {
+					return residentNode;
+				}
+			}
+		}
+		return null;
+	}
+	
+	/**
 	 * Verify if {@link CauseVariableModel} or {@link EffectVariableModel} defined in {@link RuleModel} were mapped as 
 	 * {@link ResidentNodeExtension} in {@link MFragExtension} related to {@link RuleModel}. If it is, then return
 	 * {@link ResidentNodeExtension} identified.
 	 * @param cause or effect
 	 * @return residentNode
 	 */
-	public ResidentNodeExtension getResidentNodeRelatedToEvent(Object event, MFragExtension mfrag) {
+	public ResidentNodeExtension getResidentNodeRelatedTo(Object event, MFragExtension mfrag) {
 		
 		List<ResidentNodeExtension> residentNodeExtensionList = mfrag.getResidentNodeExtensionList();
 		
@@ -329,7 +357,7 @@ public class MappingController {
 			}
 		}
 	}
-
+	
 	/**
 	 * This method consider that the {@link ResidentNodeExtension} is not null so it basically add the arguments related
 	 * to the {@link CauseVariableModel} or {@link EffectVariableModel} in the {@link ResidentNodeExtension}.
@@ -351,22 +379,28 @@ public class MappingController {
 			if(event.getClass().equals(CauseVariableModel.class)) { 
 				ovEventModelList = ((CauseVariableModel)event).getOvArgumentList();
 			}
-			else { // the event it is effect
+			// the event it is effect
+			else {
 				ovEventModelList = ((EffectVariableModel)event).getOvArgumentList();
 			}
 			
-			// Add arguments related to the event	
+			// Add arguments related to the event
 			for (int i = 0; i < ovEventModelList.size(); i++) {
 				OrdinaryVariableModel ovModel = ovEventModelList.get(i);
 				
-				// OrdinaryVariable from MEBN
-				List<OrdinaryVariable> ovList = mfragExtension.getOrdinaryVariableList();
-				for (int j = 0; j < ovList.size(); j++) {
-					
-					// Identify by the name of ordinary variable and its type
-					OrdinaryVariable ov = ovList.get(j);
-					if ((ovModel.getVariable().equals(ov.getName()) &&
-							(ovModel.getTypeEntity().equals(ov.getValueType().toString())))) {
+//				// OrdinaryVariable from MEBN
+//				List<OrdinaryVariable> ovList = mfragExtension.getOrdinaryVariableList();
+//				for (int j = 0; j < ovList.size(); j++) {
+//					
+//					// Identify by the name of ordinary variable and its type
+//					OrdinaryVariable ov = ovList.get(j);
+//					if ((ovModel.getVariable().equals(ov.getName()) &&
+//							(ovModel.getTypeEntity().equals(ov.getValueType().toString())))) {
+				
+				int index = mfragExtension.getOrdinaryVariableIndexOf(ovModel);
+				if(index > -1) {
+				
+					OrdinaryVariable ov = mfragExtension.getOrdinaryVariableList().get(index);
 						
 						residentNode.addArgument(ov, true);
 	//					try {
@@ -375,7 +409,7 @@ public class MappingController {
 	//						// TODO Auto-generated catch block
 	//						e.printStackTrace();
 	//					}
-					}
+//					}
 				}
 			}
 //		}
@@ -622,12 +656,12 @@ public class MappingController {
 
 	/**
 	 * Maps an {@link OrdinaryVariableModel} created in UMP-ST implementation panel to
-	 * an {@link OrdinaryVariable} of Mebn structure
+	 * an {@link OrdinaryVariable} of Mebn structure and add it to {@link MFragExtension}.
 	 * @param ordinaryVariableModel, mfragExtension
 	 * @return ordinaryVariable
 	 */
-	public OrdinaryVariable mapOrdinaryVariable(OrdinaryVariableModel
-			ordinaryVariableModel, MFragExtension mfragExtension) {
+	public OrdinaryVariable mapToOrdinaryVariable(OrdinaryVariableModel
+			ovModel, MFragExtension mfragExtension) {
 		
 		String name = null;
 		while (name == null){
@@ -638,18 +672,22 @@ public class MappingController {
 			}
 		}
 		
-		String typeName = ordinaryVariableModel.getTypeEntity();
+		String typeName = ovModel.getTypeEntity();
 		Type type = MappingController.getType(mfragExtension.getMultiEntityBayesianNetwork(), typeName);
 		
 		OrdinaryVariable ov = new OrdinaryVariable(name, type, mfragExtension);
 		ov.setDescription(ov.getName());
 		
 		// Rename ordinary variable
-		ov.setName(ordinaryVariableModel.getVariable()); 
+		ov.setName(ovModel.getVariable()); 
 		ov.updateLabel();
 		
 //		OrdinaryVariable ov = new OrdinaryVariable(
 //					ordinaryVariableModel.getVariable(), type, mfrag);
+		
+		// Add ov in the ontology and ovModel in the MFragExtension
+		mfragExtension.addOrdinaryVariable(ov);
+		mfragExtension.addOrdinaryVariableModel(ovModel);
 		
 		return ov;
 	}	
@@ -852,11 +890,7 @@ public class MappingController {
 						OrdinaryVariableModel ovModel = ovModelList.get(j);
 						
 						if(!mfrag.existsAsOrdinaryVariableModel(ovModel)) {
-							OrdinaryVariable ov = mapOrdinaryVariable(ovModel, mfrag);
-							
-							// Add ov in the ontology and ovModel in the MFragExtension
-							mfrag.addOrdinaryVariable(ov);
-							mfrag.addOrdinaryVariableModel(ovModel);
+							OrdinaryVariable ov = mapToOrdinaryVariable(ovModel, mfrag); 
 						}
 					}
 				}				

@@ -101,7 +101,7 @@ public class DefineDependenceRelation {
 			/**
 			 * Cause was mapped as resident node in first criterion of selection
 			 */
-			ResidentNodeExtension residentNode = mappingController.getResidentNodeRelatedToEvent(
+			ResidentNodeExtension residentNode = mappingController.getResidentNodeRelatedTo(
 					cause, mfragExtensionActive);
 			
 			/**
@@ -130,7 +130,7 @@ public class DefineDependenceRelation {
 						getGroupRelatedToEffect());
 				EffectVariableModel effectRelatedToCause = getEffectRelatedToCause();
 				
-				ResidentNodeExtension residentNodeRelated = mappingController.getResidentNodeRelatedToEvent(
+				ResidentNodeExtension residentNodeRelated = mappingController.getResidentNodeRelatedTo(
 						effectRelatedToCause, mfragRelatedEffect);
 				
 				if (residentNodeRelated != null) {

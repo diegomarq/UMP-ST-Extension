@@ -3,9 +3,9 @@ Version=2.0
 PrOwl="caso_2c_ump.owl"
 
 % Declaração de MTheory - UBF
-MTheory=input
-NextMFrag=3
-NextResident=4
+MTheory=caso_2c
+NextMFrag=4
+NextResident=6
 NextInput=2
 NextContext=1
 NextEntity=1
@@ -50,12 +50,19 @@ Color=-5178237
 
 % MFrag
 MFrag=Grupo2
-NextOrdinaryVar=3
+NextOrdinaryVar=4
 
 % Nós Residentes
 
 
 Node=Rel3
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+Node=Rel4
 Type=DomainResidentNode
 Position=0.0,0.0
 Size=80,60
@@ -85,5 +92,25 @@ Type=OrdinalVar
 Position=0.0,0.0
 Size=80,60
 Color=-5178237
+
+Node=o5
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+% MFrag
+MFrag=Group3
+NextOrdinaryVar=1
+
+% Nós Residentes
+
+
+Node=Rel4
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
 
 % Instâncias de Entidades Objetos

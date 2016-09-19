@@ -47,6 +47,26 @@ public class MFragExtension extends MFrag {
 	}
 	
 	/**
+	 * Returns the index of {@link OrdinaryVariable} related to {@link OrdinaryVariableModel}
+	 * @param ovModel
+	 * @param mfragExtension
+	 * @return
+	 */
+	public int getOrdinaryVariableIndexOf(OrdinaryVariableModel ovModel) {
+		
+		int i = -1;
+		for (int j = 0; j < this.getOrdinaryVariableList().size(); j++) {
+			
+			OrdinaryVariable ov = this.getOrdinaryVariableList().get(j);
+			if ((ovModel.getVariable().equals(ov.getName()) &&
+					(ovModel.getTypeEntity().equals(ov.getValueType().toString())))) {
+				return j;
+			}
+		}
+		return i;
+	}
+	
+	/**
 	 * Check if there is the {@link OrdinaryVariableModel} in the {@link MFragExtension}.
 	 * @param ovModel
 	 * @return

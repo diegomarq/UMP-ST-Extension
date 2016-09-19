@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" id="XML Catalog File (see http://www.oasis-open.org/committees/entity/spec-2001-08-06.html) - Created By Protege 4" prefer="public">
 <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=1" prefer="public" xml:base="">
 <uri id="Automatically generated entry, Timestamp=1474143271881" name="file:/home/diego/Documents/Mono/UMP-ST-Extension/caso%20de%20uso%20ump/umpst-usecase/casos/caso_2c_mebn.owl" uri="caso_2c_mebn.owl"/>
-<uri id="Automatically generated entry, Timestamp=1474225825764" name="file:/home/diego/Documents/Mono/UMP-ST-Extension/UMPST/./ubfTmpFile.owl" uri="caso_2c_ump.owl"/>
+<uri id="Automatically generated entry, Timestamp=1474307784999" name="file:/home/diego/Documents/Mono/UMP-ST-Extension/UMPST/./ubfTmpFile.owl" uri="caso_2c_ump.owl"/>
 </group>
 </catalog>

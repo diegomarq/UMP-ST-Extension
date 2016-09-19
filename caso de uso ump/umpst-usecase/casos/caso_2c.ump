@@ -3,10 +3,10 @@
     <header>
         <versionPlugin>0</versionPlugin>
         <versionUnBBayes>0</versionUnBBayes>
-        <modelName>input</modelName>
+        <modelName>caso_2c</modelName>
         <author/>
         <date>03/09/2016</date>
-        <updateDate>09/09/2016</updateDate>
+        <updateDate>19/09/2016</updateDate>
     </header>
     <model>
         <entity>
@@ -22,6 +22,13 @@
             <comments/>
             <author/>
             <date>03/09/2016</date>
+        </entity>
+        <entity>
+            <entityId>3</entityId>
+            <name>Ent3</name>
+            <comments/>
+            <author/>
+            <date>19/09/2016</date>
         </entity>
         <relationship>
             <relationshipId>1</relationshipId>
@@ -54,6 +61,16 @@
             <backtrackingEntitiesList>
                 <entityId>1</entityId>
                 <entityId>2</entityId>
+            </backtrackingEntitiesList>
+        </relationship>
+        <relationship>
+            <relationshipId>4</relationshipId>
+            <name>Rel4</name>
+            <comments/>
+            <author/>
+            <date>19/09/2016</date>
+            <backtrackingEntitiesList>
+                <entityId>3</entityId>
             </backtrackingEntitiesList>
         </relationship>
         <rule>
@@ -180,10 +197,12 @@
             <backtrackingEntitiesList>
                 <entityId>1</entityId>
                 <entityId>2</entityId>
+                <entityId>3</entityId>
             </backtrackingEntitiesList>
             <backtrackingRelationshipList>
                 <relationshipId>1</relationshipId>
                 <relationshipId>2</relationshipId>
+                <relationshipId>4</relationshipId>
             </backtrackingRelationshipList>
         </group>
         <group>
