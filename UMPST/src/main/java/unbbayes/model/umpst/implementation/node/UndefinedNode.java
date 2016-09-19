@@ -3,21 +3,23 @@ package unbbayes.model.umpst.implementation.node;
 import java.awt.Color;
 
 import unbbayes.model.umpst.entity.RelationshipModel;
+import unbbayes.model.umpst.implementation.CauseVariableModel;
 import unbbayes.prs.mebn.MFrag;
 import unbbayes.prs.mebn.MultiEntityNode;
 
-public class UndefinedNode extends MultiEntityNode {
+public class UndefinedNode {
 	
 	private MFragExtension mfragExtension;
-	private RelationshipModel relationshipPointer;
+	private Object eventRelated;
 	
-	public UndefinedNode(String name, MFragExtension mfragExtension) {
-		super();		
-		setName(name);
-		setLabel(" ");
-		setColor(new Color(176, 252, 131));
-		
-		this.mfragExtension = mfragExtension;
+	/**
+	 * Node that was not defined in the criteria of selection.
+	 * @param event
+	 * @param mfragExtension
+	 */
+	public UndefinedNode(Object event, MFragExtension mfragExtension) {
+		setEventRelated(event);		
+		setMfragExtension(mfragExtension);
 	}
 
 	/**
@@ -33,18 +35,20 @@ public class UndefinedNode extends MultiEntityNode {
 	public void setMfragExtension(MFragExtension mfragExtension) {
 		this.mfragExtension = mfragExtension;
 	}
-
+	
 	/**
-	 * @return the relationshipPointer
+	 * The event can be a {@link CauseVariableModel}
+	 * @return object
 	 */
-	public RelationshipModel getRelationshipPointer() {
-		return relationshipPointer;
+	public Object getEventRelated() {
+		return eventRelated;
 	}
-
+	
 	/**
-	 * @param relationshipPointer the relationshipPointer to set
+	 * {@link CauseVariableModel} related
+	 * @param eventRelated
 	 */
-	public void setRelationshipPointer(RelationshipModel relationshipPointer) {
-		this.relationshipPointer = relationshipPointer;
-	}
+	public void setEventRelated(Object eventRelated) {
+		this.eventRelated = eventRelated;
+	}	
 }

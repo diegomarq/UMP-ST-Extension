@@ -69,6 +69,7 @@ public class SecondCriterionOfSelection {
 			MFragExtension mfragExtension = mapMFragExtension.get(groupId);
 			GroupModel group = mfragExtension.getGroupRelated();
 			
+			// Mapping of causal relation			
 			listRules = group.getBacktrackingRules();
 			for (int i = 0; i < listRules.size(); i++) {
 				
@@ -93,10 +94,12 @@ public class SecondCriterionOfSelection {
 					}
 				}
 			}
+			
+			// Map nodes that are not defined in a rule
 			if (group.getBacktrackingRules().size() == 0) {
 				
 				// Add missing OrdinaryVariables
-//				insertMissingOV(group);
+				insertMissingOV(group);
 			}
 		}
 	}

@@ -5,8 +5,8 @@ PrOwl="prowl.owl"
 % Declaração de MTheory - UBF
 MTheory=prowl
 NextMFrag=14
-NextResident=8
-NextInput=1
+NextResident=13
+NextInput=9
 NextContext=1
 NextEntity=1
 
@@ -89,6 +89,25 @@ Color=-5178237
 MFrag=Related_to_Previous_Participants
 NextOrdinaryVar=5
 
+% Nós Residentes
+
+
+Node=wasRelatedToPreviousParticipants
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+% nós Input
+
+
+Node=IX1
+Type=GenerativeInputNode
+Position=0.0,0.0
+Size=100,60
+Color=-2302756
+
 % Variáveis Ordinárias
 
 
@@ -120,6 +139,31 @@ Color=-5178237
 MFrag=Suspicious_Commitee
 NextOrdinaryVar=3
 
+% Nós Residentes
+
+
+Node=hasSuspiciousCommitee
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+% nós Input
+
+
+Node=IX2
+Type=GenerativeInputNode
+Position=0.0,0.0
+Size=100,60
+Color=-2302756
+
+Node=IX3
+Type=GenerativeInputNode
+Position=0.0,0.0
+Size=100,60
+Color=-2302756
+
 % Variáveis Ordinárias
 
 
@@ -148,6 +192,15 @@ Position=0.0,0.0
 Size=80,60
 Color=-66914
 PossibleValuesOrder=
+
+% nós Input
+
+
+Node=IX4
+Type=GenerativeInputNode
+Position=0.0,0.0
+Size=100,60
+Color=-2302756
 
 % Variáveis Ordinárias
 
@@ -236,6 +289,25 @@ Color=-5178237
 MFrag=Related_Participant_Enterprises
 NextOrdinaryVar=6
 
+% Nós Residentes
+
+
+Node=hasRelatedParticipants
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+% nós Input
+
+
+Node=IX5
+Type=GenerativeInputNode
+Position=0.0,0.0
+Size=100,60
+Color=-2302756
+
 % Variáveis Ordinárias
 
 
@@ -273,6 +345,25 @@ Color=-5178237
 MFrag=Member_Related_to_Participant
 NextOrdinaryVar=5
 
+% Nós Residentes
+
+
+Node=hasMemberRelatedToParticipant
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+% nós Input
+
+
+Node=IX6
+Type=GenerativeInputNode
+Position=0.0,0.0
+Size=100,60
+Color=-2302756
+
 % Variáveis Ordinárias
 
 
@@ -303,6 +394,31 @@ Color=-5178237
 % MFrag
 MFrag=Competition_Compromised
 NextOrdinaryVar=3
+
+% Nós Residentes
+
+
+Node=isCompetitionCompromised
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+% nós Input
+
+
+Node=IX7
+Type=GenerativeInputNode
+Position=0.0,0.0
+Size=100,60
+Color=-2302756
+
+Node=IX8
+Type=GenerativeInputNode
+Position=0.0,0.0
+Size=100,60
+Color=-2302756
 
 % Variáveis Ordinárias
 

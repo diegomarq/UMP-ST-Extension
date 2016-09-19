@@ -2,6 +2,7 @@ package unbbayes.controller.umpst;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,6 +60,8 @@ import unbbayes.prs.mebn.exception.OVariableAlreadyExistsInArgumentList;
 public class MappingController {
 	
 	private UMPSTProject umpstProject;
+	
+	private List<UndefinedNode> undefinedNodeList;
 	 
 	private FirstCriterionOfSelection firstCriterion;
 	private SecondCriterionOfSelection secondCriterion;
@@ -81,6 +84,7 @@ public class MappingController {
 		
 		this.umpstProject = umpstProject;		
 		setMapMFragExtension(new HashMap<String, MFragExtension>());
+		setUndefinedNodeList(new ArrayList<UndefinedNode>());
 		
 		// temporary method to create mtheory
 		MultiEntityBayesianNetwork tmpMebn = createMebnInstance(null);
@@ -116,7 +120,7 @@ public class MappingController {
 		firstCriterion = new FirstCriterionOfSelection(umpstProject, this, mebn);
 		secondCriterion = new SecondCriterionOfSelection(umpstProject, this, mebn);
 		
-		testMTheory(mebn);
+//		testMTheory(mebn);
 		printMTheory(mebn);
 	}
 	
@@ -153,7 +157,15 @@ public class MappingController {
 				
 				InputNode input = mfrag.getInputNodeList().get(j);
 				System.out.println(input.getLabel());
-			}
+			}			
+		}
+		
+		System.out.println("== UndefinedNodeList");
+		for (int i = 0; i < getUndefinedNodeList().size(); i++) {
+			
+			UndefinedNode un = getUndefinedNodeList().get(i);
+			System.out.println(((CauseVariableModel)un.getEventRelated()).getRelationship() + " in " +
+					un.getMfragExtension().getName());
 		}
 	}
 	
@@ -945,5 +957,19 @@ public class MappingController {
 	 */
 	public void setMapMFragExtension(Map<String, MFragExtension> mapMFragExtension) {
 		this.mapMFragExtension = mapMFragExtension;
+	}
+
+	/**
+	 * @return the undefinedNodeList
+	 */
+	public List<UndefinedNode> getUndefinedNodeList() {
+		return undefinedNodeList;
+	}
+
+	/**
+	 * @param undefinedNodeList the undefinedNodeList to set
+	 */
+	public void setUndefinedNodeList(List<UndefinedNode> undefinedNodeList) {
+		this.undefinedNodeList = undefinedNodeList;
 	}	
 }

@@ -155,6 +155,15 @@ public class DefineDependenceRelation {
 //					// TODO the input node does not have a resident node instance. So it is a null node.
 //				}
 			}
+			
+			/**
+			 * If the cause variable is not presented in group as effect, then it will be mapped to a
+			 * undefined node.
+			 */
+			else {
+				UndefinedNode undefinedNode = new UndefinedNode(cause, mfragExtensionActive);
+				mappingController.getUndefinedNodeList().add(undefinedNode);
+			}
 //			// Verify if there are nodes that were not mapped.
 //			// Usually, these are nodes that were not mapped in other rule as effect.
 //			else if(searchInputNode(cause) == null) {
