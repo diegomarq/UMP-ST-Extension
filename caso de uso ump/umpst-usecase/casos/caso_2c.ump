@@ -6,7 +6,7 @@
         <modelName>caso_2c</modelName>
         <author/>
         <date>03/09/2016</date>
-        <updateDate>19/09/2016</updateDate>
+        <updateDate>20/09/2016</updateDate>
     </header>
     <model>
         <entity>
@@ -139,10 +139,12 @@
             <entityList>
                 <entityId>1</entityId>
                 <entityId>2</entityId>
+                <entityId>3</entityId>
             </entityList>
             <relationshipList>
                 <relationshipId>2</relationshipId>
                 <relationshipId>3</relationshipId>
+                <relationshipId>4</relationshipId>
             </relationshipList>
             <implementation>
                 <ordinaryVariableList>
@@ -156,6 +158,11 @@
                         <ovInstance>o4</ovInstance>
                         <entityId>2</entityId>
                     </ordinaryVariable>
+                    <ordinaryVariable>
+                        <ovId>4</ovId>
+                        <ovInstance>o5</ovInstance>
+                        <entityId>3</entityId>
+                    </ordinaryVariable>
                 </ordinaryVariableList>
                 <causeVariableList>
                     <causeVariable>
@@ -167,6 +174,16 @@
                         </causeArgumentList>
                         <causeRelationshipModel>
                             <relationshipId>2</relationshipId>
+                        </causeRelationshipModel>
+                    </causeVariable>
+                    <causeVariable>
+                        <causeId>2</causeId>
+                        <causeRelationship>Rel4</causeRelationship>
+                        <causeArgumentList>
+                            <causeArgument>o5</causeArgument>
+                        </causeArgumentList>
+                        <causeRelationshipModel>
+                            <relationshipId>4</relationshipId>
                         </causeRelationshipModel>
                     </causeVariable>
                 </causeVariableList>
@@ -197,12 +214,10 @@
             <backtrackingEntitiesList>
                 <entityId>1</entityId>
                 <entityId>2</entityId>
-                <entityId>3</entityId>
             </backtrackingEntitiesList>
             <backtrackingRelationshipList>
                 <relationshipId>1</relationshipId>
                 <relationshipId>2</relationshipId>
-                <relationshipId>4</relationshipId>
             </backtrackingRelationshipList>
         </group>
         <group>
@@ -217,10 +232,25 @@
             <backtrackingEntitiesList>
                 <entityId>1</entityId>
                 <entityId>2</entityId>
+                <entityId>3</entityId>
             </backtrackingEntitiesList>
             <backtrackingRelationshipList>
                 <relationshipId>2</relationshipId>
                 <relationshipId>3</relationshipId>
+                <relationshipId>4</relationshipId>
+            </backtrackingRelationshipList>
+        </group>
+        <group>
+            <groupId>3</groupId>
+            <name>Group3</name>
+            <comments/>
+            <author/>
+            <date>20/09/2016</date>
+            <backtrackingEntitiesList>
+                <entityId>3</entityId>
+            </backtrackingEntitiesList>
+            <backtrackingRelationshipList>
+                <relationshipId>4</relationshipId>
             </backtrackingRelationshipList>
         </group>
     </model>

@@ -138,7 +138,7 @@ public class MappingController {
 			System.out.println(mfrag.getName());
 			
 			// OV
-			System.out.println("== OV");
+//			System.out.println("== OV");
 			for (int j = 0; j < mfrag.getOrdinaryVariableList().size(); j++) {
 				
 				OrdinaryVariable ov = mfrag.getOrdinaryVariableList().get(j);
@@ -211,7 +211,35 @@ public class MappingController {
 	
 	
 	/**
-	 * Verify if there any {@link ResidentNodeExtension} related to the {@link RelationshipModel} compared in the
+	 * Verify if there is any {@link ResidentNodeExtension} related to the {@link CauseVariableModel} in any {@link MFragExtension} of
+	 * the model except the {@link MFragExtension} passed as parameter.
+	 * @param event
+	 * @param mfragExtension
+	 * @return
+	 */
+	public ResidentNodeExtension getResidentNodeRelatedToAny(Object eventRelated, MFragExtension mfragExtensionRelated) {
+		
+		Map<String, MFragExtension> mapMFragExtension = getMapMFragExtension();
+		Set<String> keys = mapMFragExtension.keySet();
+		TreeSet<String> sortedKeys = new TreeSet<String>(keys);
+		
+		for (String groupId : sortedKeys) {	
+			MFragExtension mfragExtensionCompared = mapMFragExtension.get(groupId);
+			
+			if(!mfragExtensionRelated.equals(mfragExtensionCompared)) {
+				
+				ResidentNodeExtension residentNodeRelated = getResidentNodeRelatedTo(eventRelated, mfragExtensionCompared);
+				if(residentNodeRelated != null) {
+					return residentNodeRelated;
+				}
+			}
+		}
+		return null;
+	}
+	
+	
+	/**
+	 * Verify if there is any {@link ResidentNodeExtension} related to the {@link RelationshipModel} compared in the
 	 * {@link MFragExtension} selected.
 	 * @param relationshipCompared
 	 * @param mfragExtension

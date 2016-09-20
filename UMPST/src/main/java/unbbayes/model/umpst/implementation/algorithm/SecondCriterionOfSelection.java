@@ -7,18 +7,22 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import com.hp.hpl.jena.reasoner.rulesys.GenericRuleReasoner.RuleMode;
+
 import unbbayes.controller.umpst.MappingController;
 import unbbayes.model.umpst.ObjectModel;
 import unbbayes.model.umpst.entity.EntityModel;
 import unbbayes.model.umpst.entity.RelationshipModel;
 import unbbayes.model.umpst.group.GroupModel;
+import unbbayes.model.umpst.implementation.CauseVariableModel;
 import unbbayes.model.umpst.implementation.OrdinaryVariableModel;
+import unbbayes.model.umpst.implementation.node.InputNodeExtension;
 import unbbayes.model.umpst.implementation.node.MFragExtension;
 import unbbayes.model.umpst.implementation.node.NodeObjectModel;
 import unbbayes.model.umpst.implementation.node.ResidentNodeExtension;
+import unbbayes.model.umpst.implementation.node.UndefinedNode;
 import unbbayes.model.umpst.project.UMPSTProject;
 import unbbayes.model.umpst.rule.RuleModel;
-import unbbayes.prs.mebn.Argument;
 import unbbayes.prs.mebn.MultiEntityBayesianNetwork;
 import unbbayes.prs.mebn.OrdinaryVariable;
 import unbbayes.prs.mebn.exception.ArgumentNodeAlreadySetException;
@@ -60,7 +64,6 @@ public class SecondCriterionOfSelection {
 		List<RuleModel> listRules = new ArrayList<RuleModel>();
 		DefineDependenceRelation ruleRelation;
 		
-		// Verify list of rules related to each group		
 		Map<String, MFragExtension> mapMFragExtension = mappingController.getMapMFragExtension();
 		Set<String> keys = mapMFragExtension.keySet();
 		TreeSet<String> sortedKeys = new TreeSet<String>(keys);
@@ -68,8 +71,10 @@ public class SecondCriterionOfSelection {
 		for (String groupId : sortedKeys) {	
 			MFragExtension mfragExtension = mapMFragExtension.get(groupId);
 			GroupModel group = mfragExtension.getGroupRelated();
-			
-			// Mapping of causal relation defined by rule
+			/**
+			 * == VERIFY RULES
+			 * Verify list of rules related to each group and map the causal relation defined 		
+			 */
 			listRules = group.getBacktrackingRules();
 			for (int i = 0; i < listRules.size(); i++) {
 				
@@ -95,10 +100,8 @@ public class SecondCriterionOfSelection {
 				}
 			}
 			
-			// Add missing OrdinaryVariables. Entities present in group but not defined in any rule.
-//			insertMissingOV(group);
-			
 			/**
+			 * == RELATIONSHIP WITHOUT RULE
 			 * Map relationships that are not defined in a rule. This kind of relationship can be in a group that
 			 * has rules.
 			 */
@@ -106,7 +109,8 @@ public class SecondCriterionOfSelection {
 			for (int i = 0; i < relationshipModelList.size(); i++) {
 				
 				RelationshipModel relationship = relationshipModelList.get(i);
-				if(relationship.getFowardtrackingRules().size() == 0) {
+				
+				if(!containsRuleRelatedTo(group, relationship)) {		
 					
 					 /**
 					  * First verify if there any residentNode related to the relationshipModel that was
@@ -130,6 +134,69 @@ public class SecondCriterionOfSelection {
 				}
 			}
 		}
+		
+		// Verify if there is a list of undefined nodes and map them to resident or input nodes
+		if(mappingController.getUndefinedNodeList().size() > 0) {
+			
+			List<UndefinedNode> undefinedNodeList = mappingController.getUndefinedNodeList();
+			for (int i = 0; i < undefinedNodeList.size(); i++) {
+				
+				UndefinedNode undefinedNode = undefinedNodeList.get(i);
+				
+				if(undefinedNode.getEventRelated().getClass().equals(CauseVariableModel.class)) {
+					// The event is an cause variable
+					Object eventRelated = undefinedNode.getEventRelated();
+					MFragExtension mfragExtensionRelated = undefinedNode.getMfragExtension();
+					
+					ResidentNodeExtension residentNodeRelated = mappingController.getResidentNodeRelatedToAny(
+							eventRelated, mfragExtensionRelated);
+					
+					if(residentNodeRelated != null) {
+						 // TODO map the undefined node to input node and link to the effects
+						
+//						InputNodeExtension inputNode = mappingController.mapToInputNode((CauseVariableModel)eventRelated,
+//								mfragExtensionRelated, residentNodeRelated);
+//						mappingController.mapAllEffectsToResident(inputNode, mfragExtensionRelated, ((CauseVariableModel)eventRelated).get);
+					}
+					else {
+						// TODO mapt the undefined node to resident node and link to the effects
+						
+						System.out.println("R=="+((CauseVariableModel)eventRelated).getRelationship());
+					}
+				}
+				
+			}
+		}
+	}
+	
+	/**
+	 * Verify if the {@link RelationshipModel} is defined in {@link RuleModel} present in the {@link GroupModel}
+	 * passed as parameter.
+	 * @param group
+	 * @param relationship
+	 * @return
+	 */
+	public boolean containsRuleRelatedTo(GroupModel group, RelationshipModel relationship) {
+		
+		if(relationship.getFowardtrackingRules().size() == 0) {
+			return false;
+		}
+		else {
+		
+			Set<RuleModel> ruleSet = relationship.getFowardtrackingRules();
+			for (RuleModel ruleRelated : ruleSet) {
+				
+				for (int i = 0; i < group.getBacktrackingRules().size(); i++) {
+					RuleModel ruleCompared = group.getBacktrackingRules().get(i);
+					
+					if(ruleRelated.equals(ruleCompared)) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+		
 	}
 	
 	public void classifyInputNode(RuleModel rule, GroupModel group) {
