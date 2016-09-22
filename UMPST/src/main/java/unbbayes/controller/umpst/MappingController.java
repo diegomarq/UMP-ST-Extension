@@ -21,6 +21,7 @@ import unbbayes.io.mebn.exceptions.IOMebnException;
 import unbbayes.io.mebn.owlapi.OWLAPICompatiblePROWL2IO;
 import unbbayes.model.umpst.entity.EntityModel;
 import unbbayes.model.umpst.entity.RelationshipModel;
+import unbbayes.model.umpst.exception.IncompatibleRuleForGroupException;
 import unbbayes.model.umpst.group.GroupModel;
 import unbbayes.model.umpst.implementation.CauseVariableModel;
 import unbbayes.model.umpst.implementation.EffectVariableModel;
@@ -86,12 +87,12 @@ public class MappingController {
 		setMapMFragExtension(new HashMap<String, MFragExtension>());
 		setUndefinedNodeList(new ArrayList<UndefinedNode>());
 		
-		// temporary method to create mtheory
+		// temporary MTheory
 		MultiEntityBayesianNetwork tmpMebn = createMebnInstance(null);
 		Debug.println("-----------------");
 		Debug.println("Created temporary mtheory: " + tmpMebn.getName());
 		
-		// create model to define mebn elements
+		// MTheory
 		MultiEntityBayesianNetwork mebn = createMebnInstance(tmpMebn);
 		Debug.println("Created working version of mtheory: " + mebn.getName());
 		
@@ -114,14 +115,33 @@ public class MappingController {
 //		MEBNController mebnController = new MEBNController(mebn, null);
 //		createAllContextNodes(mebnController);
 		
-		// Undefined Nodes
-//		createAllUndefinedNodes(mebn);
-//		
 		firstCriterion = new FirstCriterionOfSelection(umpstProject, this, mebn);
-		secondCriterion = new SecondCriterionOfSelection(umpstProject, this, mebn);
 		
-//		testMTheory(mebn);
-		printMTheory(mebn);
+		try {
+			secondCriterion = new SecondCriterionOfSelection(umpstProject, this, mebn);
+			
+			testMTheory(mebn);
+//			printMTheory(mebn);
+//			printUndefinedNodes();
+			
+		} catch (IncompatibleRuleForGroupException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	/**
+	 * Print UndefinedNodes
+	 */
+	public void printUndefinedNodes() {
+		System.out.println("== UndefinedNodeList");
+		for (int i = 0; i < getUndefinedNodeList().size(); i++) {
+			
+			UndefinedNode un = getUndefinedNodeList().get(i);
+			System.out.println(((CauseVariableModel)un.getEventRelated()).getRelationship() + " in " +
+					un.getMfragExtension().getName());
+		}
 	}
 	
 	/**
@@ -159,14 +179,7 @@ public class MappingController {
 				System.out.println(input.getLabel());
 			}			
 		}
-		
-		System.out.println("== UndefinedNodeList");
-		for (int i = 0; i < getUndefinedNodeList().size(); i++) {
-			
-			UndefinedNode un = getUndefinedNodeList().get(i);
-			System.out.println(((CauseVariableModel)un.getEventRelated()).getRelationship() + " in " +
-					un.getMfragExtension().getName());
-		}
+		printUndefinedNodes();
 	}
 	
 	/**
@@ -228,10 +241,30 @@ public class MappingController {
 			
 			if(!mfragExtensionRelated.equals(mfragExtensionCompared)) {
 				
-				ResidentNodeExtension residentNodeRelated = getResidentNodeRelatedTo(eventRelated, mfragExtensionCompared);
-				if(residentNodeRelated != null) {
-					return residentNodeRelated;
+				List<ResidentNodeExtension> residentNodeExtensionList = mfragExtensionCompared.getResidentNodeExtensionList();
+				for (int i = 0; i < residentNodeExtensionList.size(); i++) {
+					
+					// Verify the residentNode
+					ResidentNodeExtension residentNodeCompared = residentNodeExtensionList.get(i);
+					if(residentNodeCompared.getEventRelated().getClass().equals(RelationshipModel.class)) {
+						
+						RelationshipModel relationshipCompared = (RelationshipModel)residentNodeCompared.getEventRelated();
+						RelationshipModel relationshipRelated = ((CauseVariableModel)eventRelated).getRelationshipModel();
+						
+						/**
+						 * Compare the relationship related to the cause of eventRelated and the relationship related
+						 * to the residentNode compared
+						 */
+						if(relationshipCompared.equals(relationshipRelated)) {							
+							return residentNodeCompared;
+						}
+					}
 				}
+				
+//				ResidentNodeExtension residentNodeRelated = getResidentNodeRelatedTo(eventRelated, mfragExtensionCompared);
+//				if(residentNodeRelated != null) {
+//					return residentNodeRelated;
+//				}
 			}
 		}
 		return null;
@@ -609,18 +642,19 @@ public class MappingController {
 	}
 	
 	/**
-	 * Maps {@link UndefinedNode} to {@link ResidentNodeExtension} without a proper integration between
-	 * its arguments. 
-	 * @param undefinedNode
-	 * @return residentNode
+	 * Maps {@link RelationshipModel} to {@link ResidentNodeExtension} without a proper integration between
+	 * its arguments. But if the event passed as parameter is not null, then the method will map the arguments
+	 * related to the event to {@link OrdinaryVariable} related to the {@link ResidentNodeExtension}.
+	 * @param relationship
+	 * @param mfragExtension
+	 * @param event
+	 * @return
 	 */
 	public ResidentNodeExtension mapToResidentNode(RelationshipModel relationship, MFragExtension mfragExtension,
 			Object event) {
 		
 		// Set unique name
 		String name = null;
-//		int residentNodeNum = mfragExtension.getDomainResidentNodeNum();
-
 		while (name == null){
 			name = resourceMebn.getString("residentNodeName") +
 			                        mfragExtension.getMultiEntityBayesianNetwork().getDomainResidentNodeNum();

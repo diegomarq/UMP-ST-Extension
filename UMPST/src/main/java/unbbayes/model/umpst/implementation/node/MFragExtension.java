@@ -47,6 +47,24 @@ public class MFragExtension extends MFrag {
 	}
 	
 	/**
+	 * Verify if the {@link MFragExtension} has the {@link OrdinaryVariableModel} passed as parameter.
+	 * @param ovModel
+	 * @return
+	 */
+	public OrdinaryVariableModel getOrdinaryVariableModelByName(String name) {
+		
+		for (int i = 0; i < getOrdinaryVariablevModelList().size(); i++) {
+			
+			OrdinaryVariableModel ovCompared = getOrdinaryVariablevModelList().get(i);
+			
+			if (name.equals(ovCompared.getVariable())) {
+				return ovCompared;
+			}
+		}
+		return null;
+	}
+	
+	/**
 	 * Returns the index of {@link OrdinaryVariable} related to {@link OrdinaryVariableModel}
 	 * @param ovModel
 	 * @param mfragExtension

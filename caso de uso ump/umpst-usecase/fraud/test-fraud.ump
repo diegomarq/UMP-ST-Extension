@@ -6,7 +6,7 @@
         <modelName>prowl</modelName>
         <author>diego</author>
         <date>23/08/2015</date>
-        <updateDate>14/08/2016</updateDate>
+        <updateDate>21/09/2016</updateDate>
     </header>
     <model>
         <goal>
@@ -507,7 +507,7 @@
         </relationship>
         <rule>
             <ruleId>1</ruleId>
-            <name>If two different people live at the same address, then they are related.</name>
+            <name>1- If two different people live at the same address, then they are related.</name>
             <comments/>
             <author>Diego Marques</author>
             <date>24/09/2015</date>
@@ -609,7 +609,7 @@
         </rule>
         <rule>
             <ruleId>10</ruleId>
-            <name>If the member of commitee in an procurement has not a clean history or/and was related to previous participants, then this procurement has a suspicious committee.</name>
+            <name>10- If the member of commitee in an procurement has not a clean history or/and was related to previous participants, then this procurement has a suspicious committee.</name>
             <comments/>
             <author>Diego Marques</author>
             <date>25/09/2015</date>
@@ -702,7 +702,7 @@
         </rule>
         <rule>
             <ruleId>11</ruleId>
-            <name>If a person responsible for an enterprise which is participant in a procurement owns suspended enterprise or/and this procurement has suspicious commitee or/and is its competition compromised, then this procurement is suspended.</name>
+            <name>11- If a person responsible for an enterprise which is participant in a procurement owns suspended enterprise or/and this procurement has suspicious commitee or/and is its competition compromised, then this procurement is suspended.</name>
             <comments/>
             <author>Diego Marques</author>
             <date>25/09/2015</date>
@@ -832,7 +832,7 @@
         </rule>
         <rule>
             <ruleId>2</ruleId>
-            <name>If the member of commitee in a procurement is related to a person that is responsible for an enterprise that participates in the same procurement, then this procurement has a member related to participant.</name>
+            <name>2- If the member of commitee in a procurement is related to a person that is responsible for an enterprise that participates in the same procurement, then this procurement has a member related to participant.</name>
             <comments/>
             <author>Diego Marques</author>
             <date>24/09/2015</date>
@@ -1007,7 +1007,7 @@
         </rule>
         <rule>
             <ruleId>3</ruleId>
-            <name>If a person is responsible for a winner enterprise in a finished procurement with high value and this person has low education level or/and has low annual income, then he/she is likely to be a front for the enterprise.</name>
+            <name>3- If a person is responsible for a winner enterprise in a finished procurement with high value and this person has low education level or/and has low annual income, then he/she is likely to be a front for the enterprise.</name>
             <comments>hasCleanHistory relationship needs to be deleted</comments>
             <author>Diego Marques</author>
             <date>24/09/2015</date>
@@ -1174,7 +1174,7 @@
         </rule>
         <rule>
             <ruleId>4</ruleId>
-            <name>If a person responsible for an enterprise is front for this enterprise, then exists front in enterprise.</name>
+            <name>4- If a person responsible for an enterprise is front for this enterprise, then exists front in enterprise.</name>
             <comments/>
             <author>Diego Marques</author>
             <date>24/09/2015</date>
@@ -1257,7 +1257,7 @@
         </rule>
         <rule>
             <ruleId>5</ruleId>
-            <name>If the responsible person of an enterprise is also responsible for another enterprise which is suspended, then is more likely that this person owns suspended enterprise.</name>
+            <name>5- If the responsible person of an enterprise is also responsible for another enterprise which is suspended, then is more likely that this person owns suspended enterprise.</name>
             <comments/>
             <author>Diego Marques</author>
             <date>24/09/2015</date>
@@ -1339,7 +1339,7 @@
         </rule>
         <rule>
             <ruleId>6</ruleId>
-            <name>If two different people who is responsible for two different enterprises which are participant in the same procurement are related, then this procurement has related participants.</name>
+            <name>6- If two different people who is responsible for two different enterprises which are participant in the same procurement are related, then this procurement has related participants.</name>
             <comments/>
             <author>Diego Marques</author>
             <date>24/09/2015</date>
@@ -1570,7 +1570,7 @@
         </rule>
         <rule>
             <ruleId>7</ruleId>
-            <name>If an enterprise is participant in a procurement which has related participants or/and has member related to participant or/and exists front in enterprise, then this procurement has its competition compromised.</name>
+            <name>7- If an enterprise is participant in a procurement which has related participants or/and has member related to participant or/and exists front in enterprise, then this procurement has its competition compromised.</name>
             <comments>Goals 1.4, 1.1 and 1.2 can be deleted, because the dependency rules already have its.</comments>
             <author>Diego Marques</author>
             <date>24/09/2015</date>
@@ -1678,7 +1678,7 @@
         </rule>
         <rule>
             <ruleId>8</ruleId>
-            <name>If a person has criminal history or/and has administrative history, then this person has not a clean history</name>
+            <name>8- If a person has criminal history or/and has administrative history, then this person has not a clean history</name>
             <comments/>
             <author>Diego Marques</author>
             <date>24/09/2015</date>
@@ -1745,7 +1745,7 @@
         </rule>
         <rule>
             <ruleId>9</ruleId>
-            <name>If a member of commitee in a previous procurement is related to a person responsible for an enterprise which is participant in a finished previous procurement, then this member was related to previous participants.</name>
+            <name>9- If a member of commitee in a previous procurement is related to a person responsible for an enterprise which is participant in a finished previous procurement, then this member was related to previous participants.</name>
             <comments/>
             <author>Diego Marques</author>
             <date>25/09/2015</date>

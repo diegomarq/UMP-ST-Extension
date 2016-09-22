@@ -67,8 +67,6 @@ public class DefineDependenceRelation {
 		this.umpstProject = umpstProject;
 		this.secondCriterion = secondCriterion;
 		
-//		setCauseWasEffect(null); // To prevent some errors
-		
 		try {
 			mapCausalRelation();
 		} catch (ArgumentNodeAlreadySetException e) {
@@ -162,6 +160,8 @@ public class DefineDependenceRelation {
 			 */
 			else {
 				UndefinedNode undefinedNode = new UndefinedNode(cause, mfragExtensionActive);
+				// Add the rule related to the causeVariable
+				undefinedNode.setRuleRelated(rule);
 				mappingController.getUndefinedNodeList().add(undefinedNode);
 			}
 //			// Verify if there are nodes that were not mapped.

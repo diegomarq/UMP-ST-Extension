@@ -1,12 +1,12 @@
 % Cabeçalho UBF
 Version=2.0
-PrOwl="prowl.owl"
+PrOwl="test-fraud.owl"
 
 % Declaração de MTheory - UBF
 MTheory=prowl
 NextMFrag=14
-NextResident=13
-NextInput=9
+NextResident=24
+NextInput=11
 NextContext=1
 NextEntity=1
 
@@ -14,7 +14,7 @@ NextEntity=1
 
 % MFrag
 MFrag=Personal_Information
-NextOrdinaryVar=3
+NextOrdinaryVar=4
 
 % Nós Residentes
 
@@ -33,6 +33,20 @@ Size=80,60
 Color=-66914
 PossibleValuesOrder=
 
+Node=hasAnnualIncome
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+Node=hasEducationLevel
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
 % Variáveis Ordinárias
 
 
@@ -43,6 +57,12 @@ Size=80,60
 Color=-5178237
 
 Node=person2
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+Node=person
 Type=OrdinalVar
 Position=0.0,0.0
 Size=80,60
@@ -225,7 +245,7 @@ Color=-5178237
 
 % MFrag
 MFrag=Procurement_Information
-NextOrdinaryVar=1
+NextOrdinaryVar=4
 
 % Nós Residentes
 
@@ -237,13 +257,126 @@ Size=80,60
 Color=-66914
 PossibleValuesOrder=
 
+Node=hasWinnerOfProcurement
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+Node=isParticipantIn
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+Node=isMemberOfCommitee
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+Node=hasValue
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+Node=isProcurementFinished
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+% Variáveis Ordinárias
+
+
+Node=procurement
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+Node=enterprise
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+Node=person
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
 % MFrag
 MFrag=Enterprise_Information
-NextOrdinaryVar=1
+NextOrdinaryVar=3
+
+% Nós Residentes
+
+
+Node=isSuspended
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+Node=isResponsibleFor
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+% Variáveis Ordinárias
+
+
+Node=enterprise
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+Node=person
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
 
 % MFrag
 MFrag=Front_of_Enterprise
 NextOrdinaryVar=4
+
+% Nós Residentes
+
+
+Node=isFrontFor
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+% nós Input
+
+
+Node=IX9
+Type=GenerativeInputNode
+Position=0.0,0.0
+Size=100,60
+Color=-2302756
+
+Node=IX10
+Type=GenerativeInputNode
+Position=0.0,0.0
+Size=100,60
+Color=-2302756
 
 % Variáveis Ordinárias
 
@@ -399,6 +532,13 @@ NextOrdinaryVar=3
 
 
 Node=isCompetitionCompromised
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+Node=hasMemberRelatedToParticipant
 Type=DomainResidentNode
 Position=0.0,0.0
 Size=80,60

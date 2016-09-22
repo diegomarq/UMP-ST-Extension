@@ -3,7 +3,7 @@ Version=2.0
 PrOwl="ubfTmpFile.owl"
 
 % Declaração de MTheory - UBF
-MTheory=caso_2c
+MTheory=caso
 NextMFrag=1
 NextResident=1
 NextInput=1

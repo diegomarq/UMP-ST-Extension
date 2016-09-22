@@ -1,16 +1,13 @@
 package unbbayes.model.umpst.implementation.node;
 
-import java.awt.Color;
-
-import unbbayes.model.umpst.entity.RelationshipModel;
 import unbbayes.model.umpst.implementation.CauseVariableModel;
-import unbbayes.prs.mebn.MFrag;
-import unbbayes.prs.mebn.MultiEntityNode;
+import unbbayes.model.umpst.rule.RuleModel;
 
 public class UndefinedNode {
 	
 	private MFragExtension mfragExtension;
 	private Object eventRelated;
+	private RuleModel ruleRelated;
 	
 	/**
 	 * Node that was not defined in the criteria of selection.
@@ -18,8 +15,9 @@ public class UndefinedNode {
 	 * @param mfragExtension
 	 */
 	public UndefinedNode(Object event, MFragExtension mfragExtension) {
-		setEventRelated(event);		
+		setEventRelated(event);
 		setMfragExtension(mfragExtension);
+		setRuleRelated(null);
 	}
 
 	/**
@@ -50,5 +48,13 @@ public class UndefinedNode {
 	 */
 	public void setEventRelated(Object eventRelated) {
 		this.eventRelated = eventRelated;
+	}
+
+	public RuleModel getRuleRelated() {
+		return ruleRelated;
+	}
+
+	public void setRuleRelated(RuleModel ruleRelated) {
+		this.ruleRelated = ruleRelated;
 	}	
 }

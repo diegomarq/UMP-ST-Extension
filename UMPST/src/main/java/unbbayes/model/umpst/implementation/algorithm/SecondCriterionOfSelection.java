@@ -7,12 +7,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import com.hp.hpl.jena.reasoner.rulesys.GenericRuleReasoner.RuleMode;
-
 import unbbayes.controller.umpst.MappingController;
 import unbbayes.model.umpst.ObjectModel;
 import unbbayes.model.umpst.entity.EntityModel;
 import unbbayes.model.umpst.entity.RelationshipModel;
+import unbbayes.model.umpst.exception.IncompatibleRuleForGroupException;
 import unbbayes.model.umpst.group.GroupModel;
 import unbbayes.model.umpst.implementation.CauseVariableModel;
 import unbbayes.model.umpst.implementation.OrdinaryVariableModel;
@@ -23,9 +22,11 @@ import unbbayes.model.umpst.implementation.node.ResidentNodeExtension;
 import unbbayes.model.umpst.implementation.node.UndefinedNode;
 import unbbayes.model.umpst.project.UMPSTProject;
 import unbbayes.model.umpst.rule.RuleModel;
+import unbbayes.prs.exception.InvalidParentException;
 import unbbayes.prs.mebn.MultiEntityBayesianNetwork;
 import unbbayes.prs.mebn.OrdinaryVariable;
 import unbbayes.prs.mebn.exception.ArgumentNodeAlreadySetException;
+import unbbayes.prs.mebn.exception.OVDontIsOfTypeExpected;
 import unbbayes.prs.mebn.exception.OVariableAlreadyExistsInArgumentList;
 
 /**
@@ -45,7 +46,8 @@ public class SecondCriterionOfSelection {
 	
 	
 	public SecondCriterionOfSelection(UMPSTProject umpstProject,
-			MappingController mappingController, MultiEntityBayesianNetwork mebn) {
+			MappingController mappingController, MultiEntityBayesianNetwork mebn)
+					throws IncompatibleRuleForGroupException {
 		
 		this.umpstProject = umpstProject;
 		this.mappingController = mappingController;
@@ -54,15 +56,15 @@ public class SecondCriterionOfSelection {
 		mapRule = new HashMap<String, RuleModel>();
 		mapDoubtNodes = new HashMap<String, NodeObjectModel>();
 		
-		secondSelection(mebn);		
+		secondSelection(mebn);
+
 	}
 	
 	/**
 	 * Second Selection based on Second Criterion Of Selection algorithm.
+	 * @throws IncompatibleRuleForGroupException 
 	 */
-	public void secondSelection(MultiEntityBayesianNetwork mebn) {
-		List<RuleModel> listRules = new ArrayList<RuleModel>();
-		DefineDependenceRelation ruleRelation;
+	public void secondSelection(MultiEntityBayesianNetwork mebn) throws IncompatibleRuleForGroupException {		
 		
 		Map<String, MFragExtension> mapMFragExtension = mappingController.getMapMFragExtension();
 		Set<String> keys = mapMFragExtension.keySet();
@@ -71,71 +73,34 @@ public class SecondCriterionOfSelection {
 		for (String groupId : sortedKeys) {	
 			MFragExtension mfragExtension = mapMFragExtension.get(groupId);
 			GroupModel group = mfragExtension.getGroupRelated();
+			
 			/**
 			 * == VERIFY RULES
-			 * Verify list of rules related to each group and map the causal relation defined 		
+			 * Verify list of rules related to each group and map the causal relation defined
 			 */
-			listRules = group.getBacktrackingRules();
-			for (int i = 0; i < listRules.size(); i++) {
-				
-				// Compare if rule and group have the same elements
-				RuleModel rule = group.getBacktrackingRules().get(i);
-				if (compareElements(rule, group)) {
-					
-//					mappingController.addOrdinaryVariable(rule, mfragExtension);
-//					mappingController.addNecessaryConditionFromRule(rule, mfragExtension);
-					ruleRelation = new DefineDependenceRelation(rule, group, mfragExtension, mappingController,
-							umpstProject, this);
-//					searchOVMissing(rule, group);
-//					defineMFragCausal(rule, group, mfragExtension);
-					
-				} else {
-					System.err.println("Number of element in rule: " + rule.getId() +
-							" " + "does not match with group: " + group.getId());
-					
-					// Elements of rule that does not check
-					for (int j = 0; j < objectModel.size(); j++) {
-						System.err.println(objectModel.get(j).getName());
-					}
-				}
-			}
+			defineMfragRelation(group, mfragExtension);			
 			
 			/**
 			 * == RELATIONSHIP WITHOUT RULE
 			 * Map relationships that are not defined in a rule. This kind of relationship can be in a group that
 			 * has rules.
 			 */
-			List<RelationshipModel> relationshipModelList = group.getBacktrackingRelationship();
-			for (int i = 0; i < relationshipModelList.size(); i++) {
-				
-				RelationshipModel relationship = relationshipModelList.get(i);
-				
-				if(!containsRuleRelatedTo(group, relationship)) {		
-					
-					 /**
-					  * First verify if there any residentNode related to the relationshipModel that was
-					  * created during the First Criteria of Selection. If it exists, then inserMissingOrdinaryVariable
-					  * related to the node. Case it was not created, then map the relationshipModel to residentNode.
-					  */
-					ResidentNodeExtension residentNode = mappingController.getResidentNodeRelatedTo(relationship, mfragExtension);
-					if(residentNode == null) {
-						residentNode = mappingController.mapToResidentNode(relationship, mfragExtension, null);
-					}
-					
-					try {
-						insertMissingOrdinaryVariableIn(residentNode, mfragExtension);
-					} catch (ArgumentNodeAlreadySetException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (OVariableAlreadyExistsInArgumentList e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}
+			defineMfragInfo(group, mfragExtension);			
 		}
 		
-		// Verify if there is a list of undefined nodes and map them to resident or input nodes
+		/**
+		 * == TREAT THE LIST OF DOUBTS 
+		 * Verify if there is a list of undefined nodes and map them to resident or input nodes
+		 */
+		treatDoubtCase();
+		
+	}
+	
+	/**
+	 * Verify if there is a list of {@link UndefinedNode} and map them to {@link ResidentNodeExtension} or
+	 * {@link InputNodeExtension}
+	 */
+	public void treatDoubtCase() {
 		if(mappingController.getUndefinedNodeList().size() > 0) {
 			
 			List<UndefinedNode> undefinedNodeList = mappingController.getUndefinedNodeList();
@@ -152,19 +117,136 @@ public class SecondCriterionOfSelection {
 							eventRelated, mfragExtensionRelated);
 					
 					if(residentNodeRelated != null) {
-						 // TODO map the undefined node to input node and link to the effects
 						
-//						InputNodeExtension inputNode = mappingController.mapToInputNode((CauseVariableModel)eventRelated,
-//								mfragExtensionRelated, residentNodeRelated);
-//						mappingController.mapAllEffectsToResident(inputNode, mfragExtensionRelated, ((CauseVariableModel)eventRelated).get);
+						// Maps the undefinedNode to inputNode
+						try {
+							InputNodeExtension inputNode = mappingController.mapToInputNode((CauseVariableModel)eventRelated,
+									mfragExtensionRelated, residentNodeRelated);
+							
+							// Map the effect event related to the cause (mapped to inputNode)
+							if(undefinedNode.getRuleRelated() != null) {
+								RuleModel ruleRelated = undefinedNode.getRuleRelated();
+								try {
+									mappingController.mapAllEffectsToResident(inputNode, mfragExtensionRelated, ruleRelated);
+								} catch (OVariableAlreadyExistsInArgumentList e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								} catch (InvalidParentException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}
+							
+						} catch (OVDontIsOfTypeExpected e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (ArgumentNodeAlreadySetException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 					else {
-						// TODO mapt the undefined node to resident node and link to the effects
+						// Maps the undefinedNode to residentNode
+						RelationshipModel relationshipRelated = ((CauseVariableModel)eventRelated).getRelationshipModel();
+						ResidentNodeExtension residentNode = mappingController.mapToResidentNode(relationshipRelated,
+								mfragExtensionRelated, (CauseVariableModel)eventRelated);
 						
-						System.out.println("R=="+((CauseVariableModel)eventRelated).getRelationship());
+						// Map the effect event related to the cause (mapped to inputNode)
+						if(undefinedNode.getRuleRelated() != null) {
+							RuleModel ruleRelated = undefinedNode.getRuleRelated();
+							
+							try {
+								mappingController.mapAllEffectsToResident(residentNode, mfragExtensionRelated, ruleRelated);
+							} catch (ArgumentNodeAlreadySetException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (OVariableAlreadyExistsInArgumentList e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (InvalidParentException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							
+						}
 					}
+					// Remove the undefinedNode to the list of doubts
+					mappingController.getUndefinedNodeList().remove(undefinedNode);
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Map {@link RelationshipModel} that are not defined in a {@link RuleModel}. This kind of {@link RelationshipModel}
+	 * can be in a {@link GroupModel} that has {@link RuleModel}.
+	 * @param group
+	 * @param mfragExtension
+	 */
+	public void defineMfragInfo(GroupModel group, MFragExtension mfragExtension) {
+		List<RelationshipModel> relationshipModelList = group.getBacktrackingRelationship();
+		for (int i = 0; i < relationshipModelList.size(); i++) {
+			
+			RelationshipModel relationship = relationshipModelList.get(i);
+			
+			if(!containsRuleRelatedTo(group, relationship)) {		
+				
+				 /**
+				  * First verify if there any residentNode related to the relationshipModel that was
+				  * created during the First Criteria of Selection. If it exists, then inserMissingOrdinaryVariable
+				  * related to the node. Case it was not created, then map the relationshipModel to residentNode.
+				  */
+				ResidentNodeExtension residentNode = mappingController.getResidentNodeRelatedTo(relationship, mfragExtension);
+				if(residentNode == null) {
+					residentNode = mappingController.mapToResidentNode(relationship, mfragExtension, null);
 				}
 				
+				// Insert ordinary variable if the resident node does not have.
+				if(residentNode.getOrdinaryVariableList().size() == 0) { 
+					try {
+						insertMissingOrdinaryVariableIn(residentNode, mfragExtension);
+					} catch (ArgumentNodeAlreadySetException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (OVariableAlreadyExistsInArgumentList e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Verify list of {@link RuleModel} related to each {@link GroupModel} and map the causal relation defined
+	 * @param group
+	 * @param mfragExtension
+	 * @throws IncompatibleRuleForGroupException 
+	 */
+	public void defineMfragRelation(GroupModel group, MFragExtension mfragExtension) 
+			throws IncompatibleRuleForGroupException {
+		List<RuleModel> listRules = new ArrayList<RuleModel>();
+		DefineDependenceRelation ruleRelation;
+		
+		listRules = group.getBacktrackingRules();
+		for (int i = 0; i < listRules.size(); i++) {
+			
+			// Compare if rule and group have the same elements
+			RuleModel rule = group.getBacktrackingRules().get(i);
+			
+			if (compareElements(rule, group)) {
+				
+				ruleRelation = new DefineDependenceRelation(rule, group, mfragExtension, mappingController,
+						umpstProject, this);
+				
+			} else {
+				String msg = "Number of element in rule: " + rule.getId() + " " +
+						"does not match with group: " + group.getId();
+				
+				throw new IncompatibleRuleForGroupException(msg);
+//				for (int j = 0; j < objectModel.size(); j++) {
+//					System.err.println(objectModel.get(j).getName());
+//				}
 			}
 		}
 	}
@@ -317,14 +399,24 @@ public class SecondCriterionOfSelection {
 			String variable = entity.getName().toLowerCase();
 			String typeEntity = entity.getName();
 			
-			OrdinaryVariableModel ovModel = new OrdinaryVariableModel(id, variable, typeEntity, entity);
-//				String name = "isA( " + variable + ", " + typeEntity + " )";
-//			NodeContextModel contextNode = new NodeContextModel(
-//					ov.getId(), name, NodeType.CONTEXT, ov);
-			//			mappingController.addContextNodeInMFrag(group.getId(), contextNode);
+			OrdinaryVariable ov = null;
+			OrdinaryVariableModel ovModel = mfragExtension.getOrdinaryVariableModelByName(variable);
+			if(ovModel == null) {
 			
-			// Map the ordinaryVariableModel to the ordinaryVariable and add it to the mfragExtension
-			OrdinaryVariable ov = mappingController.mapToOrdinaryVariable(ovModel, mfragExtension);
+				ovModel = new OrdinaryVariableModel(id, variable, typeEntity, entity);
+				mfragExtension.getOrdinaryVariablevModelList().add(ovModel);
+	//				String name = "isA( " + variable + ", " + typeEntity + " )";
+	//			NodeContextModel contextNode = new NodeContextModel(
+	//					ov.getId(), name, NodeType.CONTEXT, ov);
+				//			mappingController.addContextNodeInMFrag(group.getId(), contextNode);
+				
+				// Map the ordinaryVariableModel to the ordinaryVariable and add it to the mfragExtension
+				ov = mappingController.mapToOrdinaryVariable(ovModel, mfragExtension);
+			}
+			else {
+				// Get the ordinaryVariable by the name of the variable of the ordinaryVariableModel
+				ov = mfragExtension.getOrdinaryVariableByName(ovModel.getVariable());
+			}
 			
 			// Add the ordinaryVariable to residentNode
 			residentNode.addArgument(ov, true);
@@ -491,19 +583,4 @@ public class SecondCriterionOfSelection {
 		}
 		return "0";
 	}
-
-	/**
-	 * @return the mapDoubtNodes
-	 */
-	public Map<String, NodeObjectModel> getMapDoubtNodes() {
-		return mapDoubtNodes;
-	}
-
-	/**
-	 * @param mapDoubtNodes the mapDoubtNodes to set
-	 */
-	public void setMapDoubtNodes(Map<String, NodeObjectModel> mapDoubtNodes) {
-		this.mapDoubtNodes = mapDoubtNodes;
-	}
-
 }
