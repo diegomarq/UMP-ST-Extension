@@ -5,8 +5,8 @@ PrOwl="test-fraud.owl"
 % Declaração de MTheory - UBF
 MTheory=prowl
 NextMFrag=14
-NextResident=24
-NextInput=11
+NextResident=25
+NextInput=13
 NextContext=1
 NextEntity=1
 
@@ -378,6 +378,12 @@ Position=0.0,0.0
 Size=100,60
 Color=-2302756
 
+Node=IX11
+Type=GenerativeInputNode
+Position=0.0,0.0
+Size=100,60
+Color=-2302756
+
 % Variáveis Ordinárias
 
 
@@ -578,6 +584,25 @@ Color=-5178237
 % MFrag
 MFrag=Owns_Suspended_Enterprise
 NextOrdinaryVar=3
+
+% Nós Residentes
+
+
+Node=ownsSuspendedEnterprise
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+% nós Input
+
+
+Node=IX12
+Type=GenerativeInputNode
+Position=0.0,0.0
+Size=100,60
+Color=-2302756
 
 % Variáveis Ordinárias
 

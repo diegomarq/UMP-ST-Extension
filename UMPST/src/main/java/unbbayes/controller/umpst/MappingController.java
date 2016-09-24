@@ -300,13 +300,52 @@ public class MappingController {
 	}
 	
 	/**
-	 * Verify if {@link CauseVariableModel} or {@link EffectVariableModel} defined in {@link RuleModel} were mapped as 
+	 * Verify if{@link EffectVariableModel} defined in {@link RuleModel} were mapped as 
 	 * {@link ResidentNodeExtension} in {@link MFragExtension} related to {@link RuleModel}. If it is, then return
 	 * {@link ResidentNodeExtension} identified.
 	 * @param cause or effect
 	 * @return residentNode
 	 */
-	public ResidentNodeExtension getResidentNodeRelatedTo(Object event, MFragExtension mfrag) {
+	public ResidentNodeExtension getResidentNodeRelatedToEffectIn(Object event, MFragExtension mfrag) {
+		
+		List<ResidentNodeExtension> residentNodeExtensionList = mfrag.getResidentNodeExtensionList();
+		
+		for (int i = 0; i < residentNodeExtensionList.size(); i++) {
+			
+			// Resident node is random variable related to an attribute or relationship.
+			if (residentNodeExtensionList.get(i).getEventRelated().getClass().equals(
+					RelationshipModel.class)) {
+				
+				ResidentNodeExtension residentNode = residentNodeExtensionList.get(i);
+				RelationshipModel relationshipModel = (RelationshipModel)residentNode.getEventRelated();
+
+				// This event can be a cause or effect variable
+//				if(event.getClass().equals(CauseVariableModel.class)) {
+//					if (relationshipModel.equals(((CauseVariableModel)event).getRelationshipModel())) {
+//						return residentNode;
+//					}
+//				}
+//				if { // It is EffectVariableModel
+				if(event.getClass().equals(EffectVariableModel.class)) {
+					if (relationshipModel.equals(((EffectVariableModel)event).getRelationshipModel())) {
+						return residentNode;
+					}
+				}
+			}
+			
+			// TODO if the model there is attribute as random variable it is necessary to make other option
+		}
+		return null;
+	}
+	
+	/**
+	 * Verify if {@link CauseVariableModel} defined in {@link RuleModel} were mapped as 
+	 * {@link ResidentNodeExtension} in {@link MFragExtension} related to {@link RuleModel}. If it is, then return
+	 * {@link ResidentNodeExtension} identified.
+	 * @param cause or effect
+	 * @return residentNode
+	 */
+	public ResidentNodeExtension getResidentNodeRelatedToCauseIn(Object event, MFragExtension mfrag) {
 		
 		List<ResidentNodeExtension> residentNodeExtensionList = mfrag.getResidentNodeExtensionList();
 		
@@ -325,11 +364,11 @@ public class MappingController {
 						return residentNode;
 					}
 				}
-				else { // It is EffectVariableModel
-					if (relationshipModel.equals(((EffectVariableModel)event).getRelationshipModel())) {
-						return residentNode;
-					}
-				}
+//				else { // It is EffectVariableModel
+//					if (relationshipModel.equals(((EffectVariableModel)event).getRelationshipModel())) {
+//						return residentNode;
+//					}
+//				}
 			}
 			
 			// TODO if the model there is attribute as random variable it is necessary to make other option
@@ -432,7 +471,7 @@ public class MappingController {
 			throws ArgumentNodeAlreadySetException, OVariableAlreadyExistsInArgumentList {
 		
 		// Only add arguments if the ordinaryVariableList of resident has anyone ordinaryVariable
-//		if(residentNode.getArgumentList().size() == 0) {
+		if(residentNode.getArgumentList().size() == 0) {
 				
 			List<OrdinaryVariableModel> ovEventModelList = null;
 			
@@ -473,7 +512,7 @@ public class MappingController {
 //					}
 				}
 			}
-//		}
+		}
 		if(residentNode.getOrdinaryVariableList().size() == 0) {
 			System.err.println(this.getClass() + " - ERROR. NUMBER OF ARGUMENT INVALID - " + residentNode.getName());
 		}
@@ -1053,6 +1092,18 @@ public class MappingController {
 	 */
 	public void setMapMFragExtension(Map<String, MFragExtension> mapMFragExtension) {
 		this.mapMFragExtension = mapMFragExtension;
+	}
+	
+	/**
+	 * Update {@link UndefinedNode} list comparing with the list passed as parameter
+	 * @param treatedNodeList
+	 */
+	public void updatedUndefinedNodeList(List<UndefinedNode> treatedNodeList) {
+		
+		for (int j = 0; j < treatedNodeList.size(); j++) {
+			UndefinedNode nodeTreated = treatedNodeList.get(j);
+			getUndefinedNodeList().remove(nodeTreated);
+		}
 	}
 
 	/**

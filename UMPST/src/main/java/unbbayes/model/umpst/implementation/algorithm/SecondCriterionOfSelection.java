@@ -103,6 +103,8 @@ public class SecondCriterionOfSelection {
 	public void treatDoubtCase() {
 		if(mappingController.getUndefinedNodeList().size() > 0) {
 			
+			List<UndefinedNode> treatedNodeList = new ArrayList<UndefinedNode>();
+			
 			List<UndefinedNode> undefinedNodeList = mappingController.getUndefinedNodeList();
 			for (int i = 0; i < undefinedNodeList.size(); i++) {
 				
@@ -137,6 +139,10 @@ public class SecondCriterionOfSelection {
 								}
 							}
 							
+							// Remove the undefinedNode to the list of doubts
+							treatedNodeList.add(undefinedNode);
+//							mappingController.getUndefinedNodeList().remove(undefinedNode);
+							
 						} catch (OVDontIsOfTypeExpected e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -145,35 +151,34 @@ public class SecondCriterionOfSelection {
 							e.printStackTrace();
 						}
 					}
-					else {
-						// Maps the undefinedNode to residentNode
-						RelationshipModel relationshipRelated = ((CauseVariableModel)eventRelated).getRelationshipModel();
-						ResidentNodeExtension residentNode = mappingController.mapToResidentNode(relationshipRelated,
-								mfragExtensionRelated, (CauseVariableModel)eventRelated);
-						
-						// Map the effect event related to the cause (mapped to inputNode)
-						if(undefinedNode.getRuleRelated() != null) {
-							RuleModel ruleRelated = undefinedNode.getRuleRelated();
-							
-							try {
-								mappingController.mapAllEffectsToResident(residentNode, mfragExtensionRelated, ruleRelated);
-							} catch (ArgumentNodeAlreadySetException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							} catch (OVariableAlreadyExistsInArgumentList e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							} catch (InvalidParentException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-							
-						}
-					}
-					// Remove the undefinedNode to the list of doubts
-					mappingController.getUndefinedNodeList().remove(undefinedNode);
+//					else {
+//						// Maps the undefinedNode to residentNode
+//						RelationshipModel relationshipRelated = ((CauseVariableModel)eventRelated).getRelationshipModel();
+//						ResidentNodeExtension residentNode = mappingController.mapToResidentNode(relationshipRelated,
+//								mfragExtensionRelated, (CauseVariableModel)eventRelated);
+//						
+//						// Map the effect event related to the cause (mapped to inputNode)
+//						if(undefinedNode.getRuleRelated() != null) {
+//							RuleModel ruleRelated = undefinedNode.getRuleRelated();
+//							
+//							try {
+//								mappingController.mapAllEffectsToResident(residentNode, mfragExtensionRelated, ruleRelated);
+//							} catch (ArgumentNodeAlreadySetException e) {
+//								// TODO Auto-generated catch block
+//								e.printStackTrace();
+//							} catch (OVariableAlreadyExistsInArgumentList e) {
+//								// TODO Auto-generated catch block
+//								e.printStackTrace();
+//							} catch (InvalidParentException e) {
+//								// TODO Auto-generated catch block
+//								e.printStackTrace();
+//							}
+//							
+//						}
+//					}
 				}
 			}
+			mappingController.updatedUndefinedNodeList(treatedNodeList);
 		}
 	}
 	
@@ -202,7 +207,7 @@ public class SecondCriterionOfSelection {
 				}
 				
 				// Insert ordinary variable if the resident node does not have.
-				if(residentNode.getOrdinaryVariableList().size() == 0) { 
+				if(residentNode.getOrdinaryVariableList().size() == 0) {
 					try {
 						insertMissingOrdinaryVariableIn(residentNode, mfragExtension);
 					} catch (ArgumentNodeAlreadySetException e) {

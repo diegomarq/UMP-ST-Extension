@@ -97,9 +97,10 @@ public class DefineDependenceRelation {
 			CauseVariableModel cause = rule.getCauseVariableList().get(j);
 
 			/**
-			 * Cause was mapped as resident node in first criterion of selection
+			 * Cause was mapped as resident node in first criterion of selection. Search for a node
+			 * that was mapped from cause statement
 			 */
-			ResidentNodeExtension residentNode = mappingController.getResidentNodeRelatedTo(
+			ResidentNodeExtension residentNode = mappingController.getResidentNodeRelatedToCauseIn(
 					cause, mfragExtensionActive);
 			
 			/**
@@ -128,7 +129,7 @@ public class DefineDependenceRelation {
 						getGroupRelatedToEffect());
 				EffectVariableModel effectRelatedToCause = getEffectRelatedToCause();
 				
-				ResidentNodeExtension residentNodeRelated = mappingController.getResidentNodeRelatedTo(
+				ResidentNodeExtension residentNodeRelated = mappingController.getResidentNodeRelatedToEffectIn(
 						effectRelatedToCause, mfragRelatedEffect);
 				
 				if (residentNodeRelated != null) {
