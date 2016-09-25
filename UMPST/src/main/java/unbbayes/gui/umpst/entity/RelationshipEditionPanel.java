@@ -219,21 +219,58 @@ public class RelationshipEditionPanel extends IUMPSTPanel {
 
 
 	}
+	
+	/**
+	 * Determine the id of the {@link RelationshipModel} created
+	 * @return
+	 */
+	public String createRelationshipId() {
+		String idAux = "";
+		Set<String> keys = getUmpstProject().getMapRelationship().keySet();
+		TreeSet<String> sortedKeys = new TreeSet<String>(keys);
+		
+		int maior = 0;
+		String idAux2 = "";
+		int intAux;
+
+		if ( getUmpstProject().getMapRelationship().size()!=0){
+			for (String key: sortedKeys){
+				idAux= getUmpstProject().getMapRelationship().get(key).getId();
+				if (idAux.contains(".")){
+					intAux = idAux.indexOf(".");
+					idAux2 = idAux.substring(0, intAux);
+					if (maior<Integer.parseInt(idAux2)){
+						maior = Integer.parseInt(idAux2);
+					}
+				}
+				else{
+					if (maior< Integer.parseInt(idAux)){
+						maior = Integer.parseInt(idAux);
+					}
+				}
+			}
+			maior++;
+			return idAux = maior+"";
+		}
+		else{
+			return idAux = 1+"";
+		}
+	}
 
 
 	public RelationshipModel createRelationshipModel(){
 
-		String idAux = "";
-
-		int tamanho = getUmpstProject().getMapRelationship().size()+1;
-
-		if ( getUmpstProject().getMapRelationship().size() != 0){
-			idAux = tamanho+"";
-		}
-		else{
-			idAux = "1";
-		}
-
+//		String idAux = "";
+//		int tamanho = getUmpstProject().getMapRelationship().size()+1;
+//
+//		if ( getUmpstProject().getMapRelationship().size() != 0){
+//			idAux = tamanho+"";
+//		}
+//		else{
+//			idAux = "1";
+//		}
+		
+		String idAux = createRelationshipId();
 
 		RelationshipModel relationshipModel = new RelationshipModel(idAux,
 				mainPropertiesEditionPane.getTitleText(),

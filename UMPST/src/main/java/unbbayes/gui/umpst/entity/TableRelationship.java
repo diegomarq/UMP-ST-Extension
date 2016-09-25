@@ -127,7 +127,8 @@ public class TableRelationship extends TableObject{
 					getUmpstProject().getMapRelationship().remove(key);
 
 					UmpstModule pai = getFatherPanel();
-					changePanel(pai.getMenuPanel().getEntitiesPane());
+//					changePanel(pai.getMenuPanel().getEntitiesPane());
+					changePanel(pai.getMenuPanel());
 
 					JTable table = createTable();
 

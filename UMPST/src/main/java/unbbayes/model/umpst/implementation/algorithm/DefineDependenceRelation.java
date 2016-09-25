@@ -150,9 +150,13 @@ public class DefineDependenceRelation {
 						}
 					}
 				}
-//				else {
-//					// TODO the input node does not have a resident node instance. So it is a null node.
-//				}
+				else {
+					// ATTENTION
+					UndefinedNode undefinedNode = new UndefinedNode(cause, mfragExtensionActive);
+					// Add the rule related to the causeVariable
+					undefinedNode.setRuleRelated(rule);
+					mappingController.getUndefinedNodeList().add(undefinedNode);
+				}
 			}
 			
 			/**

@@ -245,21 +245,59 @@ public class GroupsEditionPanel extends IUMPSTPanel {
 			}
 		});
 	}
+	
+	/**
+	 * Determine the id of the {@link GroupModel} created
+	 * @return
+	 */
+	public String createGroupId() {
+		String idAux = "";
+		Set<String> keys = getUmpstProject().getMapGroups().keySet();
+		TreeSet<String> sortedKeys = new TreeSet<String>(keys);
+		
+		int maior = 0;
+		String idAux2 = "";
+		int intAux;
+
+		if ( getUmpstProject().getMapGroups().size()!=0){
+			for (String key: sortedKeys){
+				idAux= getUmpstProject().getMapGroups().get(key).getId();
+				if (idAux.contains(".")){
+					intAux = idAux.indexOf(".");
+					idAux2 = idAux.substring(0, intAux);
+					if (maior<Integer.parseInt(idAux2)){
+						maior = Integer.parseInt(idAux2);
+					}
+				}
+				else{
+					if (maior< Integer.parseInt(idAux)){
+						maior = Integer.parseInt(idAux);
+					}
+				}
+			}
+			maior++;
+			return idAux = maior+"";
+		}
+		else{
+			return idAux = 1+"";
+		}
+	}
 
 
 	public GroupModel updateMapGroups(){
-		String idAux = "";
+//		String idAux = "";
+//
+//		int tamanho = getUmpstProject().getMapGroups().size()+1;
+//
+//		if ( getUmpstProject().getMapGroups().size()!=0){
+//			idAux = tamanho+"";
+//		}
+//		else{
+//			idAux = "1";
+//		}
 
-		int tamanho = getUmpstProject().getMapGroups().size()+1;
-
-		if ( getUmpstProject().getMapGroups().size()!=0){
-			idAux = tamanho+"";
-		}
-		else{
-			idAux = "1";
-		}
-
-
+		String idAux = createGroupId();
+		
 		GroupModel groupAdd = new GroupModel(idAux,
 				mainPropertiesEditionPane.getTitleText(),
 				mainPropertiesEditionPane.getCommentsText(), 

@@ -1,12 +1,12 @@
 % Cabeçalho UBF
 Version=2.0
-PrOwl="test-fraud.owl"
+PrOwl="caso.owl"
 
 % Declaração de MTheory - UBF
 MTheory=prowl
-NextMFrag=14
-NextResident=26
-NextInput=16
+NextMFrag=9
+NextResident=18
+NextInput=10
 NextContext=1
 NextEntity=1
 
@@ -63,187 +63,6 @@ Size=80,60
 Color=-5178237
 
 Node=person
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-% MFrag
-MFrag=Judgement_History
-NextOrdinaryVar=2
-
-% Nós Residentes
-
-
-Node=hasAdministrativeHistory
-Type=DomainResidentNode
-Position=0.0,0.0
-Size=80,60
-Color=-66914
-PossibleValuesOrder=
-
-Node=hasCriminalHistory
-Type=DomainResidentNode
-Position=0.0,0.0
-Size=80,60
-Color=-66914
-PossibleValuesOrder=
-
-Node=hasCleanHistory
-Type=DomainResidentNode
-Position=0.0,0.0
-Size=80,60
-Color=-66914
-PossibleValuesOrder=
-
-% Variáveis Ordinárias
-
-
-Node=person
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-% MFrag
-MFrag=Related_to_Previous_Participants
-NextOrdinaryVar=5
-
-% Nós Residentes
-
-
-Node=wasRelatedToPreviousParticipants
-Type=DomainResidentNode
-Position=0.0,0.0
-Size=80,60
-Color=-66914
-PossibleValuesOrder=
-
-% nós Input
-
-
-Node=IX1
-Type=GenerativeInputNode
-Position=0.0,0.0
-Size=100,60
-Color=-2302756
-
-% Variáveis Ordinárias
-
-
-Node=member
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-Node=person
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-Node=previous_procurement
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-Node=enterprise
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-% MFrag
-MFrag=Suspicious_Commitee
-NextOrdinaryVar=3
-
-% Nós Residentes
-
-
-Node=hasSuspiciousCommitee
-Type=DomainResidentNode
-Position=0.0,0.0
-Size=80,60
-Color=-66914
-PossibleValuesOrder=
-
-% nós Input
-
-
-Node=IX2
-Type=GenerativeInputNode
-Position=0.0,0.0
-Size=100,60
-Color=-2302756
-
-Node=IX3
-Type=GenerativeInputNode
-Position=0.0,0.0
-Size=100,60
-Color=-2302756
-
-% Variáveis Ordinárias
-
-
-Node=member
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-Node=procurement
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-% MFrag
-MFrag=Suspicious_Procurement
-NextOrdinaryVar=4
-
-% Nós Residentes
-
-
-Node=isSuspendedProcurement
-Type=DomainResidentNode
-Position=0.0,0.0
-Size=80,60
-Color=-66914
-PossibleValuesOrder=
-
-% nós Input
-
-
-Node=IX4
-Type=GenerativeInputNode
-Position=0.0,0.0
-Size=100,60
-Color=-2302756
-
-Node=IX9
-Type=GenerativeInputNode
-Position=0.0,0.0
-Size=100,60
-Color=-2302756
-
-% Variáveis Ordinárias
-
-
-Node=person
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-Node=enterprise
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-Node=procurement
 Type=OrdinalVar
 Position=0.0,0.0
 Size=80,60
@@ -372,19 +191,19 @@ PossibleValuesOrder=
 % nós Input
 
 
-Node=IX10
+Node=IX5
 Type=GenerativeInputNode
 Position=0.0,0.0
 Size=100,60
 Color=-2302756
 
-Node=IX11
+Node=IX6
 Type=GenerativeInputNode
 Position=0.0,0.0
 Size=100,60
 Color=-2302756
 
-Node=IX12
+Node=IX7
 Type=GenerativeInputNode
 Position=0.0,0.0
 Size=100,60
@@ -428,7 +247,7 @@ PossibleValuesOrder=
 % nós Input
 
 
-Node=IX13
+Node=IX8
 Type=GenerativeInputNode
 Position=0.0,0.0
 Size=100,60
@@ -466,7 +285,7 @@ PossibleValuesOrder=
 % nós Input
 
 
-Node=IX5
+Node=IX1
 Type=GenerativeInputNode
 Position=0.0,0.0
 Size=100,60
@@ -522,7 +341,7 @@ PossibleValuesOrder=
 % nós Input
 
 
-Node=IX6
+Node=IX2
 Type=GenerativeInputNode
 Position=0.0,0.0
 Size=100,60
@@ -569,29 +388,22 @@ Size=80,60
 Color=-66914
 PossibleValuesOrder=
 
-Node=hasMemberRelatedToParticipant
-Type=DomainResidentNode
-Position=0.0,0.0
-Size=80,60
-Color=-66914
-PossibleValuesOrder=
-
 % nós Input
 
 
-Node=IX7
+Node=IX3
 Type=GenerativeInputNode
 Position=0.0,0.0
 Size=100,60
 Color=-2302756
 
-Node=IX8
+Node=IX4
 Type=GenerativeInputNode
 Position=0.0,0.0
 Size=100,60
 Color=-2302756
 
-Node=IX14
+Node=IX9
 Type=GenerativeInputNode
 Position=0.0,0.0
 Size=100,60
@@ -601,44 +413,6 @@ Color=-2302756
 
 
 Node=procurement
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-Node=enterprise
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-% MFrag
-MFrag=Owns_Suspended_Enterprise
-NextOrdinaryVar=3
-
-% Nós Residentes
-
-
-Node=ownsSuspendedEnterprise
-Type=DomainResidentNode
-Position=0.0,0.0
-Size=80,60
-Color=-66914
-PossibleValuesOrder=
-
-% nós Input
-
-
-Node=IX15
-Type=GenerativeInputNode
-Position=0.0,0.0
-Size=100,60
-Color=-2302756
-
-% Variáveis Ordinárias
-
-
-Node=person
 Type=OrdinalVar
 Position=0.0,0.0
 Size=80,60

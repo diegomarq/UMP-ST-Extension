@@ -1,6 +1,8 @@
 package unbbayes.controller.umpst;
 
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.swing.JOptionPane;
 
@@ -71,22 +73,60 @@ public class Controller {
 		this.umpstProject.getMapGoal().remove(goalToBeDeleted.getId());
 	}
 	
+	/**
+	 * Determine the id of the {@link EntityModel} created
+	 * @return
+	 */
+	public String createEntityId() {
+		String idAux = "";
+		Set<String> keys = umpstProject.getMapEntity().keySet();
+		TreeSet<String> sortedKeys = new TreeSet<String>(keys);
+		
+		int maior = 0;
+		String idAux2 = "";
+		int intAux;
+
+		if ( umpstProject.getMapEntity().size()!=0){
+			for (String key: sortedKeys){
+				idAux= umpstProject.getMapEntity().get(key).getId();
+				if (idAux.contains(".")){
+					intAux = idAux.indexOf(".");
+					idAux2 = idAux.substring(0, intAux);
+					if (maior<Integer.parseInt(idAux2)){
+						maior = Integer.parseInt(idAux2);
+					}
+				}
+				else{
+					if (maior< Integer.parseInt(idAux)){
+						maior = Integer.parseInt(idAux);
+					}
+				}
+			}
+			maior++;
+			return idAux = maior+"";
+		}
+		else{
+			return idAux = 1+"";
+		}
+	}
+	
 	public EntityModel createNewEntity(String titleText, 
 			String commentsText,
 			String authorText, 
 			String dateText){
 
-		String idAux = "";
-		int intAux = 0;
-
-		int tamanho = umpstProject.getMapEntity().size()+1;
-
-		if ( umpstProject.getMapEntity().size()!=0){
-			idAux = tamanho+"";
-		}
-		else{
-			idAux = "1";
-		}
+//		String idAux = "";
+//		int intAux = 0;
+//
+//		int tamanho = umpstProject.getMapEntity().size()+1;
+//
+//		if ( umpstProject.getMapEntity().size()!=0){
+//			idAux = tamanho+"";
+//		}
+//		else{
+//			idAux = "1";
+//		}
+		String idAux = createEntityId();
 
 		EntityModel newEntity = new EntityModel(
 				idAux,

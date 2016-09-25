@@ -121,7 +121,7 @@ public class MappingController {
 			secondCriterion = new SecondCriterionOfSelection(umpstProject, this, mebn);
 			
 			testMTheory(mebn);
-//			printMTheory(mebn);
+			printMTheory(mebn);
 //			printUndefinedNodes();
 			
 		} catch (IncompatibleRuleForGroupException e) {
