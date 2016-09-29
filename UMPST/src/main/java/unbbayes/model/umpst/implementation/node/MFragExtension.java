@@ -26,9 +26,11 @@ public class MFragExtension extends MFrag {
 	private static ResourceBundle resource = unbbayes.util.ResourceController.newInstance().getBundle(
 			unbbayes.controller.mebn.resources.Resources.class.getName());
 	private MultiEntityBayesianNetwork mebn;
-	private List<ResidentNodeExtension> residentNodeExtensionList;
+	
+	private List<ResidentNodeExtension> residentNodeExtensionList;	
 	private List<InputNodeExtension> inputNodeExtensionList;
 	private List<OrdinaryVariableModel> ordinaryVariablevModelList;
+	private List<ContextNodeExtension> contextNodeExtensionList;
 	
 
 	/**
@@ -44,6 +46,7 @@ public class MFragExtension extends MFrag {
 		setResidentNodeExtensionList(new ArrayList<ResidentNodeExtension>());
 		setInputNodeExtensionList(new ArrayList<InputNodeExtension>());
 		setOrdinaryVariablevModelList(new ArrayList<OrdinaryVariableModel>());
+		setContextNodeExtensionList(new ArrayList<ContextNodeExtension>());
 	}
 	
 	/**
@@ -99,6 +102,11 @@ public class MFragExtension extends MFrag {
 		return false;
 	}
 	
+	public void addContextNodeExtension(ContextNodeExtension contextNode) {
+		getContextNodeExtensionList().add(contextNode);
+		super.addContextNode(contextNode);
+	}
+	
 	public void addInputNodeExtension(InputNodeExtension inputNode) {
 		getInputNodeExtensionList().add(inputNode);
 		super.addInputNode(inputNode);
@@ -120,38 +128,13 @@ public class MFragExtension extends MFrag {
 	}
 	
 	/**
-	 * Create {@link ContextNode} from {@link NecessaryConditionVariableModel} of 
-	 * UMP-ST implementation panel
-	 * @param ncModel
-	 * @return
-	 */
-	public ContextNode addContextNode(NecessaryConditionVariableModel ncModel) {
-		
-		String name = null;
-		while (name == null){
-			name = resource.getString("contextNodeName") + mebn.getContextNodeNum(); 
-			if(mebn.getNamesUsed().contains(name)){
-				name = null;
-				mebn.plusContextNodeNul();
-			}
-		}
-		
-		ContextNode node = new ContextNode(name, this);
-		mebn.getNamesUsed().add(name);
-		super.addContextNode(node);
-		return node;
-	}
-	
-	/**
 	 * Adds an {@link OrdinaryVariable} to the {@link MultiEntityBayesianNetwork}
 	 * @param ordinaryVariableModel
 	 */
-	public void addOrdinaryVariable(OrdinaryVariable ordinaryVariable) {
-		super.addOrdinaryVariable(ordinaryVariable);
-	}
-	
-	public void addOrdinaryVariableModel(OrdinaryVariableModel ovModel) {
+	public void addOrdinaryVariable(OrdinaryVariable ordinaryVariable,
+			OrdinaryVariableModel ovModel) {
 		getOrdinaryVariablevModelList().add(ovModel);
+		super.addOrdinaryVariable(ordinaryVariable);
 	}
 
 	/**
@@ -210,6 +193,20 @@ public class MFragExtension extends MFrag {
 	public void setOrdinaryVariablevModelList(
 			List<OrdinaryVariableModel> ordinaryVariablevModelList) {
 		this.ordinaryVariablevModelList = ordinaryVariablevModelList;
+	}
+
+	/**
+	 * @return the contextNodeExtensionList
+	 */
+	public List<ContextNodeExtension> getContextNodeExtensionList() {
+		return contextNodeExtensionList;
+	}
+
+	/**
+	 * @param contextNodeExtensionList the contextNodeExtensionList to set
+	 */
+	public void setContextNodeExtensionList(List<ContextNodeExtension> contextNodeExtensionList) {
+		this.contextNodeExtensionList = contextNodeExtensionList;
 	}
 
 }

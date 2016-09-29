@@ -15,7 +15,6 @@ import javax.swing.tree.DefaultTreeModel;
 
 import org.eclipse.osgi.framework.debug.Debug;
 
-import unbbayes.controller.mebn.MEBNController;
 import unbbayes.io.mebn.UbfIO2;
 import unbbayes.io.mebn.exceptions.IOMebnException;
 import unbbayes.io.mebn.owlapi.OWLAPICompatiblePROWL2IO;
@@ -25,10 +24,14 @@ import unbbayes.model.umpst.exception.IncompatibleRuleForGroupException;
 import unbbayes.model.umpst.group.GroupModel;
 import unbbayes.model.umpst.implementation.CauseVariableModel;
 import unbbayes.model.umpst.implementation.EffectVariableModel;
+import unbbayes.model.umpst.implementation.EventNCPointer;
+import unbbayes.model.umpst.implementation.EventVariableObjectModel;
 import unbbayes.model.umpst.implementation.NecessaryConditionVariableModel;
+import unbbayes.model.umpst.implementation.NodeFormulaTreeUMP;
 import unbbayes.model.umpst.implementation.OrdinaryVariableModel;
 import unbbayes.model.umpst.implementation.algorithm.FirstCriterionOfSelection;
 import unbbayes.model.umpst.implementation.algorithm.SecondCriterionOfSelection;
+import unbbayes.model.umpst.implementation.node.ContextNodeExtension;
 import unbbayes.model.umpst.implementation.node.InputNodeExtension;
 import unbbayes.model.umpst.implementation.node.MFragExtension;
 import unbbayes.model.umpst.implementation.node.ResidentNodeExtension;
@@ -37,6 +40,7 @@ import unbbayes.model.umpst.project.UMPSTProject;
 import unbbayes.model.umpst.rule.RuleModel;
 import unbbayes.prs.Edge;
 import unbbayes.prs.exception.InvalidParentException;
+import unbbayes.prs.mebn.BuiltInRV;
 import unbbayes.prs.mebn.ContextNode;
 import unbbayes.prs.mebn.InputNode;
 import unbbayes.prs.mebn.MFrag;
@@ -44,6 +48,9 @@ import unbbayes.prs.mebn.MultiEntityBayesianNetwork;
 import unbbayes.prs.mebn.OrdinaryVariable;
 import unbbayes.prs.mebn.ResidentNode;
 import unbbayes.prs.mebn.ResidentNodePointer;
+import unbbayes.prs.mebn.context.EnumSubType;
+import unbbayes.prs.mebn.context.EnumType;
+import unbbayes.prs.mebn.context.NodeFormulaTree;
 import unbbayes.prs.mebn.entity.ObjectEntity;
 import unbbayes.prs.mebn.entity.ObjectEntityContainer;
 import unbbayes.prs.mebn.entity.Type;
@@ -52,6 +59,7 @@ import unbbayes.prs.mebn.entity.exception.TypeException;
 import unbbayes.prs.mebn.exception.ArgumentNodeAlreadySetException;
 import unbbayes.prs.mebn.exception.CycleFoundException;
 import unbbayes.prs.mebn.exception.MEBNConstructionException;
+import unbbayes.prs.mebn.exception.NodeNotPresentInMTheoryException;
 import unbbayes.prs.mebn.exception.OVDontIsOfTypeExpected;
 import unbbayes.prs.mebn.exception.OVariableAlreadyExistsInArgumentList;
 
@@ -111,23 +119,24 @@ public class MappingController {
 		createAllOrdinaryVariables();
 		Debug.println("Create all OVs from the rules");
 		
-		// Context Nodes
-//		MEBNController mebnController = new MEBNController(mebn, null);
-//		createAllContextNodes(mebnController);
-		
+		// Map relationships according to criteria of selection
 		firstCriterion = new FirstCriterionOfSelection(umpstProject, this, mebn);
 		
 		try {
 			secondCriterion = new SecondCriterionOfSelection(umpstProject, this, mebn);
 			
+			// Context Nodes
+			createAllContextNodes(mebn);
+			
 			testMTheory(mebn);
-			printMTheory(mebn);
+//			printMTheory(mebn);
 //			printUndefinedNodes();
 			
 		} catch (IncompatibleRuleForGroupException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		
 	}
 	
@@ -177,7 +186,14 @@ public class MappingController {
 				
 				InputNode input = mfrag.getInputNodeList().get(j);
 				System.out.println(input.getLabel());
-			}			
+			}
+			
+			System.out.println("== ContextNode");
+			for (int j = 0; j < mfrag.getContextNodeCount(); j++) {
+				
+				ContextNode context = mfrag.getContextNodeList().get(j);
+				System.out.println(context.updateLabel());
+			}
 		}
 		printUndefinedNodes();
 	}
@@ -596,19 +612,172 @@ public class MappingController {
 		}
 	}
 	
+	public void mapNodeFormulaChildren(NodeFormulaTreeUMP nodeFormulaUMP, NodeFormulaTree nodeFormulaMebn,
+			ContextNodeExtension contextNodeExtension, MFragExtension mfragExtension){
+		
+		for(NodeFormulaTreeUMP childFormulaUMP: nodeFormulaUMP.getChildrenUMP()){
+			
+			NodeFormulaTree childFormulaMebn = mapPropertiesOf(nodeFormulaUMP, contextNodeExtension, mfragExtension); 
+			nodeFormulaMebn.addChild(childFormulaMebn);
+			
+			mapNodeFormulaChildren(childFormulaUMP, childFormulaMebn, contextNodeExtension, mfragExtension);
+		}
+	}
+	
+	
+	public NodeFormulaTreeUMP mapNodeFormulaOf(ContextNodeExtension contextNodeExtension, MFragExtension mfragExtension) {
+		
+		NecessaryConditionVariableModel ncModel = contextNodeExtension.getNecessaryConditionModel();		
+		NodeFormulaTreeUMP rootFormulaUMP = ncModel.getFormulaTree();
+		
+//		NodeFormulaTree mappedFormula = buildTree(nodeFormulaUMP);
+//		recursiveMapOf(nodeFormulaUMP, mappedFormula, contextNodeExtension, mfragExtension);
+		
+		NodeFormulaTree rootFormulaMebn = mapPropertiesOf(rootFormulaUMP, contextNodeExtension, mfragExtension);
+		mapNodeFormulaChildren(rootFormulaUMP, rootFormulaMebn, contextNodeExtension, mfragExtension); 
+		
+		return rootFormulaUMP;
+	}
+	
+	public NodeFormulaTree mapPropertiesOf(NodeFormulaTreeUMP nodeFormulaUMP, ContextNodeExtension contextNodeExtension,
+			MFragExtension mfragExtension) {
+		
+		// Get variable from nodeFormulaUMP
+		EnumType type = nodeFormulaUMP.getTypeNode();
+		EnumSubType subType = nodeFormulaUMP.getSubTypeNode();
+//		ArrayList<NodeFormulaTreeUMP> children = nodeFormulaUMP.getChildrenUMP();
+		
+		// Build nodeFormula from nodeFormula of UMP
+//		NodeFormulaTree nodeFormulaMebn = new NodeFormulaTree(name, type, subType, null);
+		
+		switch(type){
+		
+			case OPERAND:
+				
+				switch(subType){
+				case NODE:
+					
+					try {
+						EventNCPointer eventPointer = (EventNCPointer)nodeFormulaUMP.getNodeVariable();
+						ResidentNodePointer pointer = mapToResidentNodePointer(eventPointer, mfragExtension,
+								contextNodeExtension);
+						
+						return new NodeFormulaTree(nodeFormulaUMP.getName(), EnumType.OPERAND,
+								EnumSubType.NODE, pointer);
+						
+					} catch (NodeNotPresentInMTheoryException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();						
+					}
+					
+				case VARIABLE:
+					
+					OrdinaryVariableModel ovModelVAR = (OrdinaryVariableModel)nodeFormulaUMP.getNodeVariable();					
+					int indexVAR = mfragExtension.getOrdinaryVariableIndexOf(ovModelVAR);
+					OrdinaryVariable ovVAR = mfragExtension.getOrdinaryVariableList().get(indexVAR);
+					
+					return new NodeFormulaTree(ovVAR.getName(), EnumType.OPERAND, EnumSubType.VARIABLE, ovVAR);
+					
+				case OVARIABLE:
+					
+					OrdinaryVariableModel ovModelOVAR = (OrdinaryVariableModel)nodeFormulaUMP.getNodeVariable();					
+					int indexOVAR = mfragExtension.getOrdinaryVariableIndexOf(ovModelOVAR);
+					OrdinaryVariable ovOVAR = mfragExtension.getOrdinaryVariableList().get(indexOVAR);
+					
+					return new NodeFormulaTree(ovOVAR.getName(), EnumType.OPERAND, EnumSubType.OVARIABLE, ovOVAR);
+					
+				case ENTITY:					
+					// The plug-in does not implement this type
+					return null;
+				default: 
+					return null;
+				}
+				
+//			case SIMPLE_OPERATOR:
+//				
+//				BuiltInRV builtInRV = (BuiltInRV)nodeFormulaUMP.getNodeVariable();
+//				NodeFormulaTree nodeFormulaMebn = new NodeFormulaTree(builtInRV.getName(), EnumType.SIMPLE_OPERATOR,
+//						nodeFormulaUMP.getSubTypeNode(), builtInRV);
+//				nodeFormulaMebn.setMnemonic(builtInRV.getMnemonic());
+							
+			case VARIABLE:
+				switch(subType){
+				
+				case VARIABLE:
+					OrdinaryVariableModel ovModel = (OrdinaryVariableModel)nodeFormulaUMP.getNodeVariable();
+					int index = mfragExtension.getOrdinaryVariableIndexOf(ovModel);
+					OrdinaryVariable ov = mfragExtension.getOrdinaryVariableList().get(index);
+					
+					return new NodeFormulaTree(ov.getName(), EnumType.VARIABLE, EnumSubType.VARIABLE, ov);
+				default:
+					return null;
+				}
+				
+			default:
+				return (NodeFormulaTree)nodeFormulaUMP;
+			}
+	}
+	
+	
+	/**
+	 * Maps {@link EventNCPointer} related to the NecessaryConditionVariableModel to a {@link ResidentNodePointer}.
+	 * @param eventPointer
+	 * @param mfragExtension
+	 * @param contextNodeExtension
+	 * @return
+	 * @throws NodeNotPresentInMTheoryException 
+	 */
+	public ResidentNodePointer mapToResidentNodePointer(EventNCPointer eventPointer, MFragExtension mfragExtension,
+			ContextNodeExtension contextNodeExtension) throws NodeNotPresentInMTheoryException {
+		
+		 EventVariableObjectModel eventVariable = eventPointer.getEventVariable();
+		 RelationshipModel relationshipRelated = eventVariable.getRelationshipModel();
+		 
+		 // Get residentNode related to the relationship
+		 ResidentNode residentNodeRelated = getResidentNodeRelatedTo(relationshipRelated, mfragExtension);
+		 if(residentNodeRelated != null) {
+			 
+			 // Add the arguments related to the residentNodePointer
+			 ResidentNodePointer residentNodePointer = new ResidentNodePointer(residentNodeRelated, (ContextNode)contextNodeExtension);
+			 try { 
+				 residentNodePointer = mapResidentNodePointerArgument(eventPointer, residentNodePointer, mfragExtension);
+			 } catch (OVDontIsOfTypeExpected e) {
+				 // TODO Auto-generated catch block
+				 e.printStackTrace();
+			 }			 
+			 return residentNodePointer;
+		 }
+		 else {
+			 throw new NodeNotPresentInMTheoryException("ResidentNode refered by ContextNode is not present");
+		 }
+	}
+	
 	/**
 	 * Maps the {@link OrdinaryVariableModel} of the {@link CauseVariableModel} to {@link OrdinaryVariable} of the {@link ResidentNodePointer}.
 	 * @param cause
 	 * @param pointer
 	 * @param mfragExtension
 	 * @return
+	 * @throws OVDontIsOfTypeExpected 
 	 */
-	public ResidentNodePointer mapResidentNodePointerArgument(CauseVariableModel cause, ResidentNodePointer pointer, MFragExtension mfragExtension) {
+	public ResidentNodePointer mapResidentNodePointerArgument(Object eventRelated, ResidentNodePointer pointer, MFragExtension mfragExtension) throws OVDontIsOfTypeExpected {
+		
+		List<OrdinaryVariableModel> ovModelList = null;
 		
 		// Add arguments related to the event
-		List<OrdinaryVariableModel> causeOvModelList = cause.getOvArgumentList();
-		for (int i = 0; i < causeOvModelList.size(); i++) {
-			OrdinaryVariableModel ovModel = causeOvModelList.get(i);
+		if(eventRelated.getClass().equals(EventNCPointer.class)) {
+			ovModelList = ((EventNCPointer)eventRelated).getOvArgumentList();
+		}
+		else if(eventRelated.getClass().equals(CauseVariableModel.class)) {
+			ovModelList = ((CauseVariableModel)eventRelated).getOvArgumentList();
+		}
+		else {
+			// Error: the type of argument is not expected
+			throw new OVDontIsOfTypeExpected("CauseVariableModel or EventNCPointer");
+		}
+
+		for (int i = 0; i < ovModelList.size(); i++) {
+			OrdinaryVariableModel ovModel = ovModelList.get(i);
 			
 			// OrdinaryVariable from MEBN
 			List<OrdinaryVariable> ovList = mfragExtension.getOrdinaryVariableList();
@@ -787,11 +956,36 @@ public class MappingController {
 //					ordinaryVariableModel.getVariable(), type, mfrag);
 		
 		// Add ov in the ontology and ovModel in the MFragExtension
-		mfragExtension.addOrdinaryVariable(ov);
-		mfragExtension.addOrdinaryVariableModel(ovModel);
+		mfragExtension.addOrdinaryVariable(ov, ovModel);
 		
 		return ov;
-	}	
+	}
+	
+	public ContextNodeExtension mapToContextNode(NecessaryConditionVariableModel ncModel,
+			MFragExtension mfragExtension) {
+		String name = null; 
+		
+		while (name == null){
+			name = resourceMebn.getString("contextNodeName") + mfragExtension.getMultiEntityBayesianNetwork().getContextNodeNum(); 
+			if(mfragExtension.getMultiEntityBayesianNetwork().getNamesUsed().contains(name)){
+				name = null; 
+				mfragExtension.getMultiEntityBayesianNetwork().plusContextNodeNul(); 
+			}
+		}
+		
+		ContextNodeExtension contextNode = new ContextNodeExtension(name, mfragExtension, ncModel);
+		mfragExtension.getMultiEntityBayesianNetwork().getNamesUsed().add(name); 
+		
+		contextNode.setDescription(contextNode.getName());
+		mfragExtension.addContextNodeExtension(contextNode);
+		
+		// Maps the nodeFormula properties to nodeFormulaUMP
+		NodeFormulaTree nodeFormula = mapNodeFormulaOf(contextNode, mfragExtension);
+		contextNode.setFormulaTree(nodeFormula);
+		contextNode.updateLabel();
+		
+		return contextNode;
+	}
 	
 //	public void mapContextNodeFormula(ContextNode node, NecessaryConditionVariableModel ncModel,
 //			MEBNController mebnController) {
@@ -908,7 +1102,7 @@ public class MappingController {
 	 * keep all {@link NecessaryConditionVariableModel} from UMP-ST {@link RuleModel} and create {@link ContextNode}
 	 * related to MEBN structure
 	 */
-	public void createAllContextNodes(MEBNController mebnController) {
+	public void createAllContextNodes(MultiEntityBayesianNetwork mebn) {
 		Map<String, RuleModel> mapRule = umpstProject.getMapRules();
 		Set<String> keys = mapRule.keySet();
 		TreeSet<String> sortedKeys = new TreeSet<String>(keys);
@@ -921,12 +1115,15 @@ public class MappingController {
 				
 				for (int i = 0; i < groupList.size(); i++) {
 					GroupModel group = groupList.get(i);					
-					MFragExtension mfrag = mapMFragExtension.get(group.getId());
+					MFragExtension mfragExtension = mapMFragExtension.get(group.getId());
 					
 					List<NecessaryConditionVariableModel> ncModelList = rule.getNecessaryConditionList();
 					for (int j = 0; j < ncModelList.size(); j++) {
+						
 						NecessaryConditionVariableModel ncModel = ncModelList.get(j);
-						ContextNode contextNode = mfrag.addContextNode(ncModel);
+						ContextNodeExtension contextNodeExtension = mapToContextNode(ncModel, mfragExtension);
+								
+//						ContextNode contextNode = mfrag.addContextNode(ncModel);
 //						mfrag.mapContextNodeFormula(contextNode, ncModel, mebnController);
 					}
 				}

@@ -88,6 +88,9 @@ public class FormulaTreeControllerUMP {
 		}
 		return nodeTreeFather;
 	}
+	
+	// TODO how include addEntity method in formula
+	// TODO how include addStateLink method in formula
 
 	/**
 	 * add one {@link RelationshipModel} defined by relationship structure in the formula tree

@@ -21,7 +21,7 @@
 package unbbayes.model.umpst.implementation;
 
 /**
- * 
+ * The {@link EventType} can be cause, effect or other.
  * @author Diego Marques
  * @see EnumSubType
  */
