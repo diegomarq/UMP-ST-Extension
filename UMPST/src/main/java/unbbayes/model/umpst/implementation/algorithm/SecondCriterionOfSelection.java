@@ -11,6 +11,7 @@ import unbbayes.controller.umpst.MappingController;
 import unbbayes.model.umpst.ObjectModel;
 import unbbayes.model.umpst.entity.EntityModel;
 import unbbayes.model.umpst.entity.RelationshipModel;
+import unbbayes.model.umpst.exception.IncompatibleEventException;
 import unbbayes.model.umpst.exception.IncompatibleRuleForGroupException;
 import unbbayes.model.umpst.group.GroupModel;
 import unbbayes.model.umpst.implementation.CauseVariableModel;
@@ -92,15 +93,21 @@ public class SecondCriterionOfSelection {
 		 * == TREAT THE LIST OF DOUBTS 
 		 * Verify if there is a list of undefined nodes and map them to resident or input nodes
 		 */
-		treatDoubtCase();
+		try {
+			treatDoubtCase();
+		} catch (IncompatibleEventException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
 	/**
 	 * Verify if there is a list of {@link UndefinedNode} and map them to {@link ResidentNodeExtension} or
 	 * {@link InputNodeExtension}
+	 * @throws IncompatibleEventException 
 	 */
-	public void treatDoubtCase() {
+	public void treatDoubtCase() throws IncompatibleEventException {
 		if(mappingController.getUndefinedNodeList().size() > 0) {
 			
 			List<UndefinedNode> treatedNodeList = new ArrayList<UndefinedNode>();
