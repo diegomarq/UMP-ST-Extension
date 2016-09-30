@@ -157,6 +157,30 @@
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="http://www.pr-owl.org/pr-owl2.owl#MExpression"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX2"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.pr-owl.org/pr-owl2.owl#OrdinaryVariableArgument"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX2_1"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.pr-owl.org/pr-owl2.owl#OrdinaryVariableArgument"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX2_2"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.pr-owl.org/pr-owl2.owl#MExpression"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX3"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.pr-owl.org/pr-owl2.owl#OrdinaryVariableArgument"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX3_1"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.pr-owl.org/pr-owl2.owl#OrdinaryVariableArgument"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX3_2"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.pr-owl.org/pr-owl2.owl#MExpression"/>
         <NamedIndividual IRI="#MEXPRESSION_IX1"/>
     </ClassAssertion>
     <ClassAssertion>
@@ -394,9 +418,19 @@
         <NamedIndividual IRI="#Domain_MFrag.Personal_Information"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasMExpression"/>
+        <NamedIndividual IRI="#CX2"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX2"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isContextNodeIn"/>
         <NamedIndividual IRI="#CX2"/>
         <NamedIndividual IRI="#Domain_MFrag.Front_of_Enterprise"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasMExpression"/>
+        <NamedIndividual IRI="#CX3"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX3"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isContextNodeIn"/>
@@ -461,17 +495,22 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasInputNode"/>
         <NamedIndividual IRI="#Domain_MFrag.Front_of_Enterprise"/>
-        <NamedIndividual IRI="#IX3"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasInputNode"/>
-        <NamedIndividual IRI="#Domain_MFrag.Front_of_Enterprise"/>
         <NamedIndividual IRI="#IX2"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasInputNode"/>
         <NamedIndividual IRI="#Domain_MFrag.Front_of_Enterprise"/>
         <NamedIndividual IRI="#IX1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasInputNode"/>
+        <NamedIndividual IRI="#Domain_MFrag.Front_of_Enterprise"/>
+        <NamedIndividual IRI="#IX3"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasOrdinaryVariable"/>
+        <NamedIndividual IRI="#Domain_MFrag.Front_of_Enterprise"/>
+        <NamedIndividual IRI="#Front_of_Enterprise.p"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasOrdinaryVariable"/>
@@ -482,11 +521,6 @@
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasOrdinaryVariable"/>
         <NamedIndividual IRI="#Domain_MFrag.Front_of_Enterprise"/>
         <NamedIndividual IRI="#Front_of_Enterprise.e"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasOrdinaryVariable"/>
-        <NamedIndividual IRI="#Domain_MFrag.Front_of_Enterprise"/>
-        <NamedIndividual IRI="#Front_of_Enterprise.p"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasResidentNode"/>
@@ -506,11 +540,6 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasOrdinaryVariable"/>
         <NamedIndividual IRI="#Domain_MFrag.Personal_Information"/>
-        <NamedIndividual IRI="#Personal_Information.p2"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasOrdinaryVariable"/>
-        <NamedIndividual IRI="#Domain_MFrag.Personal_Information"/>
         <NamedIndividual IRI="#Personal_Information.p1"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
@@ -519,14 +548,19 @@
         <NamedIndividual IRI="#Personal_Information.person"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasResidentNode"/>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasOrdinaryVariable"/>
         <NamedIndividual IRI="#Domain_MFrag.Personal_Information"/>
-        <NamedIndividual IRI="#Domain_Res.hasAnnualIncome"/>
+        <NamedIndividual IRI="#Personal_Information.p2"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasResidentNode"/>
         <NamedIndividual IRI="#Domain_MFrag.Personal_Information"/>
         <NamedIndividual IRI="#Domain_Res.isRelated"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasResidentNode"/>
+        <NamedIndividual IRI="#Domain_MFrag.Personal_Information"/>
+        <NamedIndividual IRI="#Domain_Res.hasAnnualIncome"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasResidentNode"/>
@@ -686,6 +720,11 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
         <NamedIndividual IRI="#Enterprise_Information.enterprise"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX3_2"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
+        <NamedIndividual IRI="#Enterprise_Information.enterprise"/>
         <NamedIndividual IRI="#existsFrontInEnterprise_1"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
@@ -701,12 +740,12 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
         <NamedIndividual IRI="#Enterprise_Information.person"/>
-        <NamedIndividual IRI="#hasEducationLevel_1"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX3_1"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
         <NamedIndividual IRI="#Enterprise_Information.person"/>
-        <NamedIndividual IRI="#isResponsibleFor_1"/>
+        <NamedIndividual IRI="#hasEducationLevel_1"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
@@ -720,13 +759,18 @@
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
+        <NamedIndividual IRI="#Enterprise_Information.person"/>
+        <NamedIndividual IRI="#isResponsibleFor_1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
         <NamedIndividual IRI="#Front_of_Enterprise.e"/>
         <NamedIndividual IRI="#isFrontFor_2"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Front_of_Enterprise.p"/>
-        <NamedIndividual IRI="#IX2_1"/>
+        <NamedIndividual IRI="#Front_of_Enterprise.e"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX2_2"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
@@ -737,6 +781,16 @@
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
         <NamedIndividual IRI="#Front_of_Enterprise.p"/>
         <NamedIndividual IRI="#isFrontFor_1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
+        <NamedIndividual IRI="#Front_of_Enterprise.p"/>
+        <NamedIndividual IRI="#IX2_1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
+        <NamedIndividual IRI="#Front_of_Enterprise.p"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX2_1"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
@@ -840,6 +894,86 @@
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasArgument"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX2"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX2_2"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasArgument"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX2"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX2_1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isMExpressionOf"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX2"/>
+        <NamedIndividual IRI="#CX2"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfMExpression"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX2"/>
+        <NamedIndividual IRI="#RV_isResponsibleFor"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isArgumentOf"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX2_1"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX2"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX2_1"/>
+        <NamedIndividual IRI="#Front_of_Enterprise.p"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isArgumentOf"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX2_2"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX2"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX2_2"/>
+        <NamedIndividual IRI="#Front_of_Enterprise.e"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasArgument"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX3"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX3_2"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasArgument"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX3"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX3_1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isMExpressionOf"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX3"/>
+        <NamedIndividual IRI="#CX3"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfMExpression"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX3"/>
+        <NamedIndividual IRI="#RV_isFrontFor"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isArgumentOf"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX3_1"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX3"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX3_1"/>
+        <NamedIndividual IRI="#Enterprise_Information.person"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isArgumentOf"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX3_2"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX3"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX3_2"/>
+        <NamedIndividual IRI="#Enterprise_Information.enterprise"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasArgument"/>
         <NamedIndividual IRI="#MEXPRESSION_IX1"/>
         <NamedIndividual IRI="#IX1_1"/>
     </ObjectPropertyAssertion>
@@ -1056,12 +1190,12 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
         <NamedIndividual IRI="#Personal_Information.p2"/>
-        <NamedIndividual IRI="#isRelated_2"/>
+        <NamedIndividual IRI="#livesAtSameAddress_2"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
         <NamedIndividual IRI="#Personal_Information.p2"/>
-        <NamedIndividual IRI="#livesAtSameAddress_2"/>
+        <NamedIndividual IRI="#isRelated_2"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
@@ -1161,6 +1295,11 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfMExpression"/>
         <NamedIndividual IRI="#RV_isFrontFor"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX3"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfMExpression"/>
+        <NamedIndividual IRI="#RV_isFrontFor"/>
         <NamedIndividual IRI="#MEXPRESSION_isFrontFor"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
@@ -1211,6 +1350,11 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfMExpression"/>
         <NamedIndividual IRI="#RV_isResponsibleFor"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX2"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfMExpression"/>
+        <NamedIndividual IRI="#RV_isResponsibleFor"/>
         <NamedIndividual IRI="#MEXPRESSION_isResponsibleFor"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
@@ -1251,16 +1395,6 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasMFrag"/>
         <NamedIndividual IRI="#caso"/>
-        <NamedIndividual IRI="#Domain_MFrag.Enterprise_Information"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasMFrag"/>
-        <NamedIndividual IRI="#caso"/>
-        <NamedIndividual IRI="#Domain_MFrag.Procurement_Information"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasMFrag"/>
-        <NamedIndividual IRI="#caso"/>
         <NamedIndividual IRI="#Domain_MFrag.Personal_Information"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
@@ -1272,6 +1406,16 @@
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasMFrag"/>
         <NamedIndividual IRI="#caso"/>
         <NamedIndividual IRI="#Domain_MFrag.Exists_Front_In_Enterprise"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasMFrag"/>
+        <NamedIndividual IRI="#caso"/>
+        <NamedIndividual IRI="#Domain_MFrag.Enterprise_Information"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasMFrag"/>
+        <NamedIndividual IRI="#caso"/>
+        <NamedIndividual IRI="#Domain_MFrag.Procurement_Information"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isArgumentOf"/>
@@ -1451,6 +1595,26 @@
     <DataPropertyAssertion>
         <DataProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasArgumentNumber"/>
         <NamedIndividual IRI="#IX4_2"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasArgumentNumber"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX2_1"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">1</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasArgumentNumber"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX2_2"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasArgumentNumber"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX3_1"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">1</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasArgumentNumber"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX3_2"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>

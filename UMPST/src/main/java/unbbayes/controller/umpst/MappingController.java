@@ -194,7 +194,7 @@ public class MappingController {
 			for (int j = 0; j < mfrag.getContextNodeCount(); j++) {
 				
 				ContextNode context = mfrag.getContextNodeList().get(j);
-				System.out.println(context.updateLabel());
+				System.out.println(context.getFormulaTree().getFormulaViewText());
 			}
 		}
 		printUndefinedNodes();
@@ -249,7 +249,7 @@ public class MappingController {
 	 * @return
 	 * @throws IncompatibleEventException 
 	 */
-	public ResidentNodeExtension getResidentNodeRelatedToAny(Object eventRelated, MFragExtension mfragExtensionRelated) throws IncompatibleEventException {
+	public ResidentNodeExtension getResidentNodeRelatedToAny(Object eventRelated, MFragExtension mfragExtensionRelated){
 		
 		Map<String, MFragExtension> mapMFragExtension = getMapMFragExtension();
 		Set<String> keys = mapMFragExtension.keySet();
@@ -276,9 +276,6 @@ public class MappingController {
 						}
 						else if(eventRelated.getClass().equals(EventNCPointer.class)) {
 							relationshipRelated = ((EventNCPointer)eventRelated).getEventVariable().getRelationshipModel();
-						}
-						else {
-							throw new IncompatibleEventException("The event does not macth to the possible values");
 						}
 						
 						/**
@@ -627,7 +624,7 @@ public class MappingController {
 	}
 	
 	public void mapNodeFormulaChildren(NodeFormulaTreeUMP nodeFormulaUMP, NodeFormulaTree nodeFormulaMebn,
-			ContextNodeExtension contextNodeExtension, MFragExtension mfragExtension) throws FormulaSintaxeException, IncompatibleEventException{
+			ContextNodeExtension contextNodeExtension, MFragExtension mfragExtension) throws FormulaSintaxeException{
 		
 		for(NodeFormulaTreeUMP childFormulaUMP: nodeFormulaUMP.getChildrenUMP()){
 			
@@ -642,8 +639,8 @@ public class MappingController {
 	}
 	
 	
-	public NodeFormulaTreeUMP mapNodeFormulaOf(ContextNodeExtension contextNodeExtension, MFragExtension mfragExtension)
-			throws FormulaSintaxeException, IncompatibleEventException {
+	public NodeFormulaTree mapNodeFormulaOf(ContextNodeExtension contextNodeExtension, MFragExtension mfragExtension)
+			throws FormulaSintaxeException {
 		
 		NecessaryConditionVariableModel ncModel = contextNodeExtension.getNecessaryConditionModel();		
 		NodeFormulaTreeUMP rootFormulaUMP = ncModel.getFormulaTree();
@@ -657,11 +654,11 @@ public class MappingController {
 		}		
 		mapNodeFormulaChildren(rootFormulaUMP, rootFormulaMebn, contextNodeExtension, mfragExtension); 
 		
-		return rootFormulaUMP;
+		return rootFormulaMebn;
 	}
 	
 	public NodeFormulaTree mapPropertiesOf(NodeFormulaTreeUMP nodeFormulaUMP, ContextNodeExtension contextNodeExtension,
-			MFragExtension mfragExtension) throws IncompatibleEventException {
+			MFragExtension mfragExtension) {
 		
 		// Get variable from nodeFormulaUMP
 		EnumType type = nodeFormulaUMP.getTypeNode();
@@ -682,9 +679,12 @@ public class MappingController {
 						EventNCPointer eventPointer = (EventNCPointer)nodeFormulaUMP.getNodeVariable();
 						ResidentNodePointer pointer = mapToResidentNodePointer(eventPointer, mfragExtension,
 								contextNodeExtension);
+						
 						//The name of the node is a relationship name
-						return new NodeFormulaTree(nodeFormulaUMP.getName(), EnumType.OPERAND,
+						NodeFormulaTree nodeFormula = new NodeFormulaTree(pointer.getResidentNode().getName(), EnumType.OPERAND,
 								EnumSubType.NODE, pointer);
+						
+						return nodeFormula;
 						
 					} catch (NodeNotPresentInMTheoryException e) {
 						// TODO Auto-generated catch block
@@ -750,17 +750,17 @@ public class MappingController {
 	 * @throws IncompatibleEventException 
 	 */
 	public ResidentNodePointer mapToResidentNodePointer(EventNCPointer eventPointer, MFragExtension mfragExtension,
-			ContextNodeExtension contextNodeExtension) throws NodeNotPresentInMTheoryException, IncompatibleEventException {
+			ContextNodeExtension contextNodeExtension) throws NodeNotPresentInMTheoryException {
 		
-		 EventVariableObjectModel eventVariable = eventPointer.getEventVariable();
-		 RelationshipModel relationshipRelated = eventVariable.getRelationshipModel();
+//		 EventVariableObjectModel eventVariable = eventPointer.getEventVariable();
+//		 RelationshipModel relationshipRelated = eventVariable.getRelationshipModel();
 		 
 		 // Get residentNode related to the relationship
-		 ResidentNode residentNodeRelated = getResidentNodeRelatedToAny(relationshipRelated, mfragExtension);
+		 ResidentNode residentNodeRelated = getResidentNodeRelatedToAny(eventPointer, mfragExtension);
 		 if(residentNodeRelated != null) {
 			 
 			 // Add the arguments related to the residentNodePointer
-			 ResidentNodePointer residentNodePointer = new ResidentNodePointer(residentNodeRelated, (ContextNode)contextNodeExtension);
+			 ResidentNodePointer residentNodePointer = new ResidentNodePointer(residentNodeRelated, contextNodeExtension);
 			 try { 
 				 residentNodePointer = mapResidentNodePointerArgument(eventPointer, residentNodePointer, mfragExtension);
 			 } catch (OVDontIsOfTypeExpected e) {
@@ -1003,14 +1003,10 @@ public class MappingController {
 		mfragExtension.addContextNodeExtension(contextNode);
 		
 		// Maps the nodeFormula properties to nodeFormulaUMP
-		try {
-			NodeFormulaTree nodeFormula = mapNodeFormulaOf(contextNode, mfragExtension);
-			contextNode.setFormulaTree(nodeFormula);
-			contextNode.updateLabel();
-		} catch (IncompatibleEventException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		NodeFormulaTree nodeFormula = mapNodeFormulaOf(contextNode, mfragExtension);
+		contextNode.setFormulaTree(nodeFormula);
+		contextNode.updateLabel();
+		
 		
 		return contextNode;
 	}

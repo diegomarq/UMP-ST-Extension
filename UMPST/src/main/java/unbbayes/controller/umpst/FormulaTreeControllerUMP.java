@@ -108,7 +108,7 @@ public class FormulaTreeControllerUMP {
 //			String residentNodePointer = new ResidentNodePointer(node, contextNode);
 			nodePlace.setNodeVariable(eventNCPointer);
 
-			nodePlace.setTypeNode(EnumType.OPERAND); 
+			nodePlace.setTypeNode(EnumType.OPERAND);
 			nodePlace.setSubTypeNode(EnumSubType.NODE); 
 
 			formulaViewTreePane.updateTree();
@@ -129,7 +129,7 @@ public class FormulaTreeControllerUMP {
 			if(nodePlace.getTypeNode() == EnumType.VARIABLE_SEQUENCE){
 				NodeFormulaTreeUMP nodeExemplar = new NodeFormulaTreeUMP(ov.getVariable(), 
 						EnumType.VARIABLE, EnumSubType.VARIABLE, ov); 
-				nodePlace.addChild(nodeExemplar); 
+				nodePlace.addChild(nodeExemplar);
 				formulaViewTreePane.addNewNodeInTree(nodeExemplar);  
 			}
 			else{

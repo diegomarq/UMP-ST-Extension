@@ -3,11 +3,11 @@ Version=2.0
 PrOwl="caso.owl"
 
 % Declaração de MTheory - UBF
-MTheory=prowl
+MTheory=caso
 NextMFrag=9
 NextResident=18
 NextInput=10
-NextContext=1
+NextContext=16
 NextEntity=1
 
 % Declaração de MFrags e nós UBF
@@ -46,6 +46,15 @@ Position=0.0,0.0
 Size=80,60
 Color=-66914
 PossibleValuesOrder=
+
+% Nós de Contexto
+
+
+Node=CX1
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
 
 % Variáveis Ordinárias
 
@@ -209,6 +218,21 @@ Position=0.0,0.0
 Size=100,60
 Color=-2302756
 
+% Nós de Contexto
+
+
+Node=CX6
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
+
+Node=CX7
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
+
 % Variáveis Ordinárias
 
 
@@ -253,6 +277,15 @@ Position=0.0,0.0
 Size=100,60
 Color=-2302756
 
+% Nós de Contexto
+
+
+Node=CX8
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
+
 % Variáveis Ordinárias
 
 
@@ -290,6 +323,45 @@ Type=GenerativeInputNode
 Position=0.0,0.0
 Size=100,60
 Color=-2302756
+
+% Nós de Contexto
+
+
+Node=CX9
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
+
+Node=CX10
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
+
+Node=CX11
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
+
+Node=CX12
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
+
+Node=CX13
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
+
+Node=CX14
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
 
 % Variáveis Ordinárias
 
@@ -346,6 +418,33 @@ Type=GenerativeInputNode
 Position=0.0,0.0
 Size=100,60
 Color=-2302756
+
+% Nós de Contexto
+
+
+Node=CX2
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
+
+Node=CX3
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
+
+Node=CX4
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
+
+Node=CX5
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
 
 % Variáveis Ordinárias
 
@@ -408,6 +507,15 @@ Type=GenerativeInputNode
 Position=0.0,0.0
 Size=100,60
 Color=-2302756
+
+% Nós de Contexto
+
+
+Node=CX15
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
 
 % Variáveis Ordinárias
 

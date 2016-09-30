@@ -7,7 +7,7 @@ MTheory=caso
 NextMFrag=4
 NextResident=5
 NextInput=3
-NextContext=1
+NextContext=2
 NextEntity=1
 
 % Declaração de MFrags e nós UBF
@@ -32,6 +32,15 @@ Position=0.0,0.0
 Size=80,60
 Color=-66914
 PossibleValuesOrder=
+
+% Nós de Contexto
+
+
+Node=CX1
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
 
 % Variáveis Ordinárias
 

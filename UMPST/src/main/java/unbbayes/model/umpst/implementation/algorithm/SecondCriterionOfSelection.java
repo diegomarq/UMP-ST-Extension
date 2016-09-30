@@ -93,12 +93,9 @@ public class SecondCriterionOfSelection {
 		 * == TREAT THE LIST OF DOUBTS 
 		 * Verify if there is a list of undefined nodes and map them to resident or input nodes
 		 */
-		try {
-			treatDoubtCase();
-		} catch (IncompatibleEventException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		treatDoubtCase();
+		
 		
 	}
 	
@@ -107,7 +104,7 @@ public class SecondCriterionOfSelection {
 	 * {@link InputNodeExtension}
 	 * @throws IncompatibleEventException 
 	 */
-	public void treatDoubtCase() throws IncompatibleEventException {
+	public void treatDoubtCase() {
 		if(mappingController.getUndefinedNodeList().size() > 0) {
 			
 			List<UndefinedNode> treatedNodeList = new ArrayList<UndefinedNode>();
