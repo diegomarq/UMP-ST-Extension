@@ -6,7 +6,7 @@
         <modelName>caso</modelName>
         <author>diego</author>
         <date>23/08/2015</date>
-        <updateDate>25/09/2016</updateDate>
+        <updateDate>06/10/2016</updateDate>
     </header>
     <model>
         <goal>
@@ -564,7 +564,7 @@
                                             <ncNodeVariableOV>Person</ncNodeVariableOV>
                                         </ncNodeVariable>
                                         <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                        <ncNodeSubTypeNode>VARIABLE</ncNodeSubTypeNode>
+                                        <ncNodeSubTypeNode>OVARIABLE</ncNodeSubTypeNode>
                                     </ncNode>
                                     <ncNode>
                                         <ncNodeName>person2</ncNodeName>
@@ -572,7 +572,7 @@
                                             <ncNodeVariableOV>Person</ncNodeVariableOV>
                                         </ncNodeVariable>
                                         <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                        <ncNodeSubTypeNode>VARIABLE</ncNodeSubTypeNode>
+                                        <ncNodeSubTypeNode>OVARIABLE</ncNodeSubTypeNode>
                                     </ncNode>
                                 </ncNode>
                             </ncNode>
@@ -683,7 +683,7 @@
                                             <ncNodeVariableOV>Person</ncNodeVariableOV>
                                         </ncNodeVariable>
                                         <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                        <ncNodeSubTypeNode>VARIABLE</ncNodeSubTypeNode>
+                                        <ncNodeSubTypeNode>OVARIABLE</ncNodeSubTypeNode>
                                     </ncNode>
                                     <ncNode>
                                         <ncNodeName>person</ncNodeName>
@@ -691,7 +691,7 @@
                                             <ncNodeVariableOV>Person</ncNodeVariableOV>
                                         </ncNodeVariable>
                                         <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                        <ncNodeSubTypeNode>VARIABLE</ncNodeSubTypeNode>
+                                        <ncNodeSubTypeNode>OVARIABLE</ncNodeSubTypeNode>
                                     </ncNode>
                                 </ncNode>
                             </ncNode>
@@ -880,7 +880,7 @@
                                             <ncNodeVariableOV>Enterprise</ncNodeVariableOV>
                                         </ncNodeVariable>
                                         <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                        <ncNodeSubTypeNode>VARIABLE</ncNodeSubTypeNode>
+                                        <ncNodeSubTypeNode>OVARIABLE</ncNodeSubTypeNode>
                                     </ncNode>
                                     <ncNode>
                                         <ncNodeName>hasWinnerOfProcurement(procurement)</ncNodeName>
@@ -1103,7 +1103,7 @@
                                             <ncNodeVariableOV>Person</ncNodeVariableOV>
                                         </ncNodeVariable>
                                         <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                        <ncNodeSubTypeNode>VARIABLE</ncNodeSubTypeNode>
+                                        <ncNodeSubTypeNode>OVARIABLE</ncNodeSubTypeNode>
                                     </ncNode>
                                     <ncNode>
                                         <ncNodeName>person2</ncNodeName>
@@ -1111,7 +1111,7 @@
                                             <ncNodeVariableOV>Person</ncNodeVariableOV>
                                         </ncNodeVariable>
                                         <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                        <ncNodeSubTypeNode>VARIABLE</ncNodeSubTypeNode>
+                                        <ncNodeSubTypeNode>OVARIABLE</ncNodeSubTypeNode>
                                     </ncNode>
                                 </ncNode>
                             </ncNode>
@@ -1140,7 +1140,7 @@
                                             <ncNodeVariableOV>Enterprise</ncNodeVariableOV>
                                         </ncNodeVariable>
                                         <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                        <ncNodeSubTypeNode>VARIABLE</ncNodeSubTypeNode>
+                                        <ncNodeSubTypeNode>OVARIABLE</ncNodeSubTypeNode>
                                     </ncNode>
                                     <ncNode>
                                         <ncNodeName>enterprise2</ncNodeName>
@@ -1148,7 +1148,7 @@
                                             <ncNodeVariableOV>Enterprise</ncNodeVariableOV>
                                         </ncNodeVariable>
                                         <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                        <ncNodeSubTypeNode>VARIABLE</ncNodeSubTypeNode>
+                                        <ncNodeSubTypeNode>OVARIABLE</ncNodeSubTypeNode>
                                     </ncNode>
                                 </ncNode>
                             </ncNode>

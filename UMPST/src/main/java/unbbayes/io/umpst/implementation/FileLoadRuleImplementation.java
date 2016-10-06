@@ -13,7 +13,6 @@ import org.w3c.dom.NodeList;
 
 import unbbayes.model.umpst.entity.EntityModel;
 import unbbayes.model.umpst.entity.RelationshipModel;
-import unbbayes.model.umpst.implementation.BuiltInConditionUMP;
 import unbbayes.model.umpst.implementation.CauseVariableModel;
 import unbbayes.model.umpst.implementation.EffectVariableModel;
 import unbbayes.model.umpst.implementation.EventNCPointer;
@@ -24,6 +23,7 @@ import unbbayes.model.umpst.implementation.NodeFormulaTreeUMP;
 import unbbayes.model.umpst.implementation.OrdinaryVariableModel;
 import unbbayes.model.umpst.project.UMPSTProject;
 import unbbayes.model.umpst.rule.RuleModel;
+import unbbayes.prs.mebn.BuiltInRV;
 import unbbayes.prs.mebn.context.EnumSubType;
 import unbbayes.prs.mebn.context.EnumType;
 
@@ -45,7 +45,7 @@ public class FileLoadRuleImplementation {
 	
 	private NodeFormulaTreeUMP rootFormula;
 	private List<NodeFormulaTreeUMP> nodeFormulaFather;
-	private BuiltInConditionUMP builtInRV = null;
+	private BuiltInRV builtInRV = null;
 	private int index;
 
 	public void loadOVNode (RuleModel rule, NodeList ovNodeList) {
@@ -105,14 +105,14 @@ public class FileLoadRuleImplementation {
 				NodeList listRootChild = listRootNode.item(i).getChildNodes();
 				
 				NodeFormulaTreeUMP nodeFormula = loaderNCNode(rule, listRootChild);
-				if (nodeFormula.getNodeVariable().getClass() == BuiltInConditionUMP.class) {
+				if (nodeFormula.getNodeVariable() instanceof BuiltInRV) {
 					nodeFormulaFather.add(nodeFormula);
 					index += 1;
 					
 				} else {
 					
 					if (nodeFormulaFather.size() > 0) {	
-						if (((BuiltInConditionUMP)nodeFormulaFather.get(index).getNodeVariable()).getNumOperandos() ==
+						if (((BuiltInRV)nodeFormulaFather.get(index).getNodeVariable()).getNumOperandos() ==
 								nodeFormulaFather.get(index).getChildrenUMP().size()) {
 							index -= 1;							
 						}
@@ -142,7 +142,7 @@ public class FileLoadRuleImplementation {
 	public void addChildNode(NodeFormulaTreeUMP nodeFormula) {
 		if ((nodeFormulaFather.size() > 0) && (index > -1)) {
 			if (index < nodeFormulaFather.size()-1) {
-				if (((BuiltInConditionUMP)nodeFormulaFather.get(index).getNodeVariable()).getNumOperandos() ==
+				if (((BuiltInRV)nodeFormulaFather.get(index).getNodeVariable()).getNumOperandos() ==
 						nodeFormulaFather.get(index).getChildrenUMP().size()+1) {
 					index -= 1;
 					addChildNode(nodeFormula);
@@ -150,7 +150,7 @@ public class FileLoadRuleImplementation {
 					nodeFormulaFather.get(index).addChild(nodeFormula);
 				}
 			} else {
-				if (((BuiltInConditionUMP)nodeFormulaFather.get(index).getNodeVariable()).getNumOperandos() ==
+				if (((BuiltInRV)nodeFormulaFather.get(index).getNodeVariable()).getNumOperandos() ==
 						nodeFormulaFather.get(index).getChildrenUMP().size()) {
 					nodeFormulaFather.get(index).addChild(nodeFormula);
 					index -= 1;
@@ -225,7 +225,7 @@ public class FileLoadRuleImplementation {
 			}
 			
 		} else {
-			builtInRV = new BuiltInConditionUMP(ncNodeName, ncNodeMnemonic);
+			builtInRV = new BuiltInRV(ncNodeName, ncNodeMnemonic);
 			nodeVariableObject = builtInRV;
 		}
 		
@@ -242,11 +242,11 @@ public class FileLoadRuleImplementation {
 		
 		
 		NodeFormulaTreeUMP nodeFormula;
-		if (nodeVariableObject.getClass() == BuiltInConditionUMP.class) {
+		if (nodeVariableObject instanceof BuiltInRV) {
 			nodeFormula = new NodeFormulaTreeUMP(ncNodeName, EnumType.valueOf(ncNodeTypeNode),
 					EnumSubType.valueOf(ncNodeSubTypeNode), nodeVariableObject);
 			nodeFormula.setMnemonic(builtInRV.getMnemonic());
-			((BuiltInConditionUMP)nodeFormula.getNodeVariable()).setNumOperandos(
+			((BuiltInRV)nodeFormula.getNodeVariable()).setNumOperandos(
 					Integer.parseInt(ncNodeNumOperands));
 		} else {
 			nodeFormula = new NodeFormulaTreeUMP(ncNodeName, EnumType.valueOf(ncNodeTypeNode),

@@ -27,7 +27,6 @@ import unbbayes.model.umpst.group.GroupModel;
 import unbbayes.model.umpst.implementation.CauseVariableModel;
 import unbbayes.model.umpst.implementation.EffectVariableModel;
 import unbbayes.model.umpst.implementation.EventNCPointer;
-import unbbayes.model.umpst.implementation.EventVariableObjectModel;
 import unbbayes.model.umpst.implementation.NecessaryConditionVariableModel;
 import unbbayes.model.umpst.implementation.NodeFormulaTreeUMP;
 import unbbayes.model.umpst.implementation.OrdinaryVariableModel;
@@ -623,20 +622,20 @@ public class MappingController {
 		}
 	}
 	
-	public void mapNodeFormulaChildren(NodeFormulaTreeUMP nodeFormulaUMP, NodeFormulaTree nodeFormulaMebn,
-			ContextNodeExtension contextNodeExtension, MFragExtension mfragExtension) throws FormulaSintaxeException{
-		
-		for(NodeFormulaTreeUMP childFormulaUMP: nodeFormulaUMP.getChildrenUMP()){
-			
-			NodeFormulaTree childFormulaMebn = mapPropertiesOf(nodeFormulaUMP, contextNodeExtension, mfragExtension);			
-			if(childFormulaMebn == null) {
-				throw new FormulaSintaxeException("NodeFormula related to "+childFormulaUMP.getFormulaViewText()+" is null");
-			}		
-			nodeFormulaMebn.addChild(childFormulaMebn);
-			
-			mapNodeFormulaChildren(childFormulaUMP, childFormulaMebn, contextNodeExtension, mfragExtension);
-		}
-	}
+//	public void mapNodeFormulaChildren(NodeFormulaTreeUMP nodeFormulaUMP, NodeFormulaTree nodeFormulaMebn,
+//			ContextNodeExtension contextNodeExtension, MFragExtension mfragExtension) throws FormulaSintaxeException{
+//		
+//		for(NodeFormulaTreeUMP childFormulaUMP: nodeFormulaUMP.getChildrenUMP()){
+//			
+//			NodeFormulaTree childFormulaMebn = mapPropertiesOf(nodeFormulaUMP, contextNodeExtension, mfragExtension);			
+//			if(childFormulaMebn == null) {
+//				throw new FormulaSintaxeException("NodeFormula related to "+childFormulaUMP.getFormulaViewText()+" is null");
+//			}		
+//			nodeFormulaMebn.addChild(childFormulaMebn);
+//			
+//			mapNodeFormulaChildren(childFormulaUMP, childFormulaMebn, contextNodeExtension, mfragExtension);
+//		}
+//	}
 	
 	
 	public NodeFormulaTree mapNodeFormulaOf(ContextNodeExtension contextNodeExtension, MFragExtension mfragExtension)
@@ -652,13 +651,13 @@ public class MappingController {
 		if(rootFormulaMebn == null) {
 			throw new FormulaSintaxeException("NodeFormula related to "+rootFormulaUMP.getFormulaViewText()+" is null");
 		}		
-		mapNodeFormulaChildren(rootFormulaUMP, rootFormulaMebn, contextNodeExtension, mfragExtension); 
+//		mapNodeFormulaChildren(rootFormulaUMP, rootFormulaMebn, contextNodeExtension, mfragExtension); 
 		
 		return rootFormulaMebn;
 	}
 	
 	public NodeFormulaTree mapPropertiesOf(NodeFormulaTreeUMP nodeFormulaUMP, ContextNodeExtension contextNodeExtension,
-			MFragExtension mfragExtension) {
+			MFragExtension mfragExtension) throws FormulaSintaxeException {
 		
 		// Get variable from nodeFormulaUMP
 		EnumType type = nodeFormulaUMP.getTypeNode();
@@ -691,13 +690,13 @@ public class MappingController {
 						e.printStackTrace();						
 					}
 					
-				case VARIABLE:
-					
-					OrdinaryVariableModel ovModelVAR = (OrdinaryVariableModel)nodeFormulaUMP.getNodeVariable();					
-					int indexVAR = mfragExtension.getOrdinaryVariableIndexOf(ovModelVAR);
-					OrdinaryVariable ovVAR = mfragExtension.getOrdinaryVariableList().get(indexVAR);
-					
-					return new NodeFormulaTree(ovVAR.getName(), EnumType.OPERAND, EnumSubType.VARIABLE, ovVAR);
+//				case VARIABLE:
+//					
+//					OrdinaryVariableModel ovModelVAR = (OrdinaryVariableModel)nodeFormulaUMP.getNodeVariable();
+//					int indexVAR = mfragExtension.getOrdinaryVariableIndexOf(ovModelVAR);
+//					OrdinaryVariable ovVAR = mfragExtension.getOrdinaryVariableList().get(indexVAR);
+//					
+//					return new NodeFormulaTree(ovVAR.getName(), EnumType.OPERAND, EnumSubType.VARIABLE, ovVAR);
 					
 				case OVARIABLE:
 					
@@ -707,11 +706,9 @@ public class MappingController {
 					
 					return new NodeFormulaTree(ovOVAR.getName(), EnumType.OPERAND, EnumSubType.OVARIABLE, ovOVAR);
 					
-				case ENTITY:					
-					// The plug-in does not implement this type
-					return null;
-				default: 
-					return null;
+//				case ENTITY:					
+//					// The plug-in does not implement this type
+//					return null;
 				}
 				
 //			case SIMPLE_OPERATOR:
@@ -721,22 +718,112 @@ public class MappingController {
 //						nodeFormulaUMP.getSubTypeNode(), builtInRV);
 //				nodeFormulaMebn.setMnemonic(builtInRV.getMnemonic());
 							
-			case VARIABLE:
-				switch(subType){
+//			case VARIABLE:
+//				switch(subType){
+//				
+//				case VARIABLE:
+//					OrdinaryVariableModel ovModel = (OrdinaryVariableModel)nodeFormulaUMP.getNodeVariable();
+//					int index = mfragExtension.getOrdinaryVariableIndexOf(ovModel);
+//					OrdinaryVariable ov = mfragExtension.getOrdinaryVariableList().get(index);
+//					
+//					return new NodeFormulaTree(ov.getName(), EnumType.VARIABLE, EnumSubType.VARIABLE, ov);
+//				default:
+//					return null;
+//				}
 				
-				case VARIABLE:
-					OrdinaryVariableModel ovModel = (OrdinaryVariableModel)nodeFormulaUMP.getNodeVariable();
-					int index = mfragExtension.getOrdinaryVariableIndexOf(ovModel);
-					OrdinaryVariable ov = mfragExtension.getOrdinaryVariableList().get(index);
+			case SIMPLE_OPERATOR:
+				
+				NodeFormulaTree father = null;				
+				if(nodeFormulaUMP.getChildrenUMP().size() == 2){
+					NodeFormulaTree child1 = mapPropertiesOf(nodeFormulaUMP.getChildrenUMP().get(0), contextNodeExtension, mfragExtension);
+					NodeFormulaTree child2 = mapPropertiesOf(nodeFormulaUMP.getChildrenUMP().get(1), contextNodeExtension, mfragExtension);
 					
-					return new NodeFormulaTree(ov.getName(), EnumType.VARIABLE, EnumSubType.VARIABLE, ov);
-				default:
-					return null;
+					
+					if(nodeFormulaUMP.getNodeVariable() instanceof BuiltInRV) {
+						BuiltInRV builtInRV = (BuiltInRV)nodeFormulaUMP.getNodeVariable();
+						father = new NodeFormulaTree(
+								nodeFormulaUMP.getName(),
+								nodeFormulaUMP.getTypeNode(),
+								nodeFormulaUMP.getSubTypeNode(),
+								(BuiltInRV)nodeFormulaUMP.getNodeVariable());
+						father.setMnemonic(builtInRV.getMnemonic());
+						
+						father.addChild(child1);
+						father.addChild(child2);
+					}
+					else {
+						System.err.println("NODEFORMULAUMP VARIABLE :" + nodeFormulaUMP.getNodeVariable().getClass().toString());
+					}
 				}
+				else if(nodeFormulaUMP.getChildrenUMP().size() == 1){
+					NodeFormulaTree child1 = mapPropertiesOf(nodeFormulaUMP.getChildrenUMP().get(0), contextNodeExtension, mfragExtension);
+					
+					if(nodeFormulaUMP.getNodeVariable() instanceof BuiltInRV) {
+						BuiltInRV builtInRV = (BuiltInRV)nodeFormulaUMP.getNodeVariable();
+						father = new NodeFormulaTree(
+								nodeFormulaUMP.getName(),
+								nodeFormulaUMP.getTypeNode(),
+								nodeFormulaUMP.getSubTypeNode(),
+								(BuiltInRV)nodeFormulaUMP.getNodeVariable());
+						
+						father.setMnemonic(builtInRV.getMnemonic());
+						father.addChild(child1);
+					}
+					else {
+						System.err.println("NODEFORMULAUMP VARIABLE :" + nodeFormulaUMP.getNodeVariable().getClass().toString());
+					}
+				}
+				else {
+//					System.err.println("NODEFORMULAUMP VARIABLE :" + nodeFormulaUMP.getNodeVariable().getClass().toString());
+					throw new FormulaSintaxeException("Node variable is null: "+nodeFormulaUMP.getNodeVariable().getClass().toString() + 
+							" - type: " + nodeFormulaUMP.getTypeNode().toString()+ " - sybtype: " + nodeFormulaUMP.getSubTypeNode());
+				}
+				return father;
 				
+//			case VARIABLE_SEQUENCE:
+//				switch(subType){
+//				
+//				case VARIABLE:
+//					if(nodeFormulaUMP.getChildrenUMP().size() == 1) {
+//						NodeFormulaTree child1 = mapPropertiesOf(nodeFormulaUMP.getChildrenUMP().get(0), contextNodeExtension, mfragExtension);
+//						
+//						OrdinaryVariableModel ovModel = (OrdinaryVariableModel)nodeFormulaUMP.getNodeVariable();
+//						int index = mfragExtension.getOrdinaryVariableIndexOf(ovModel);
+//						OrdinaryVariable ov = mfragExtension.getOrdinaryVariableList().get(index);
+//						
+//						father = new NodeFormulaTree(ov.getName(), EnumType.VARIABLE, EnumSubType.VARIABLE, ov);
+//						father.addChild(child1);
+//						return father;
+//					}
+//				default:
+//					
+//					NodeFormulaTree nodeFormulaMebn = new NodeFormulaTree(
+//							nodeFormulaUMP.getName(),
+//							nodeFormulaUMP.getTypeNode(),
+//							nodeFormulaUMP.getSubTypeNode(),
+//							nodeFormulaUMP.getNodeVariable());
+//					nodeFormulaMebn.setMnemonic(nodeFormulaUMP.getMnemonic());
+//					return nodeFormulaMebn;
+//				}
+				
+							
+//			default:
+				
+//				NodeFormulaTree nodeFormulaMebn = new NodeFormulaTree(
+//						nodeFormulaUMP.getName(),
+//						nodeFormulaUMP.getTypeNode(),
+//						nodeFormulaUMP.getSubTypeNode(),
+//						nodeFormulaUMP.getNodeVariable());
+//				nodeFormulaMebn.setMnemonic(nodeFormulaUMP.getMnemonic());
+//				return nodeFormulaMebn;
+			
 			default:
-				return (NodeFormulaTree)nodeFormulaUMP;
-			}
+				System.err.println("PASSED IN DEFAULT - NODEFORMULAUMP:"+
+			nodeFormulaUMP.getFormulaViewText() +" OF TYPE: "+ nodeFormulaUMP.getTypeNode().toString() +" AND SUBTYPE: "+nodeFormulaUMP.getSubTypeNode().toString());
+				
+				System.err.println(" -- NODEFORMULAUMP VARIABLE: " + nodeFormulaUMP.getNodeVariable().getClass().toString());
+				return null;
+		}
 	}
 	
 	
@@ -1005,8 +1092,7 @@ public class MappingController {
 		// Maps the nodeFormula properties to nodeFormulaUMP
 		NodeFormulaTree nodeFormula = mapNodeFormulaOf(contextNode, mfragExtension);
 		contextNode.setFormulaTree(nodeFormula);
-		contextNode.updateLabel();
-		
+		contextNode.updateLabel();		
 		
 		return contextNode;
 	}

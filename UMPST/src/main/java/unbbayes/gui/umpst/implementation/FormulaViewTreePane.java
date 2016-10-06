@@ -31,18 +31,18 @@ import javax.swing.tree.TreePath;
 
 import unbbayes.controller.umpst.FormulaTreeControllerUMP;
 import unbbayes.gui.umpst.implementation.exception.FormulaTreeConstructionException;
-import unbbayes.model.umpst.implementation.BuiltInConditionUMP;
 import unbbayes.model.umpst.implementation.NecessaryConditionVariableModel;
 import unbbayes.model.umpst.implementation.NodeFormulaTreeUMP;
-import unbbayes.model.umpst.implementation.builtInRV.BuiltInRVAnd;
-import unbbayes.model.umpst.implementation.builtInRV.BuiltInRVEqualTo;
-import unbbayes.model.umpst.implementation.builtInRV.BuiltInRVExists;
-import unbbayes.model.umpst.implementation.builtInRV.BuiltInRVForAll;
-import unbbayes.model.umpst.implementation.builtInRV.BuiltInRVIff;
-import unbbayes.model.umpst.implementation.builtInRV.BuiltInRVImplies;
-import unbbayes.model.umpst.implementation.builtInRV.BuiltInRVNot;
-import unbbayes.model.umpst.implementation.builtInRV.BuiltInRVOr;
 import unbbayes.model.umpst.rule.RuleModel;
+import unbbayes.prs.mebn.BuiltInRV;
+import unbbayes.prs.mebn.builtInRV.BuiltInRVAnd;
+import unbbayes.prs.mebn.builtInRV.BuiltInRVEqualTo;
+import unbbayes.prs.mebn.builtInRV.BuiltInRVExists;
+import unbbayes.prs.mebn.builtInRV.BuiltInRVForAll;
+import unbbayes.prs.mebn.builtInRV.BuiltInRVIff;
+import unbbayes.prs.mebn.builtInRV.BuiltInRVImplies;
+import unbbayes.prs.mebn.builtInRV.BuiltInRVNot;
+import unbbayes.prs.mebn.builtInRV.BuiltInRVOr;
 import unbbayes.prs.mebn.context.EnumSubType;
 import unbbayes.prs.mebn.context.EnumType;
 
@@ -192,43 +192,48 @@ public class FormulaViewTreePane extends JTree {
 		}
 	}
 	
+	/**
+	 * The operands used in this methods is defined by MEBN plug-in.
+	 * @throws Exception
+	 */
+	
 	public void addOperatorExists() throws Exception{
-		BuiltInConditionUMP builtInRV = new BuiltInRVExists(); 
+		BuiltInRV builtInRV = new BuiltInRVExists(); 
 		addQuantifierOperatorInTree(builtInRV, EnumSubType.EXISTS); 
 	}
 	
 	public void addOperatorForAll() throws Exception{
-		BuiltInConditionUMP builtInRV = new BuiltInRVForAll(); 
+		BuiltInRV builtInRV = new BuiltInRVForAll(); 
 		addQuantifierOperatorInTree(builtInRV, EnumSubType.FORALL); 
 	}
 	
 	public void addOperatorImplies() throws Exception{
-		BuiltInConditionUMP builtInRV = new BuiltInRVImplies(); 
+		BuiltInRV builtInRV = new BuiltInRVImplies(); 
 		addSimpleOperatorInTree(builtInRV, EnumSubType.IMPLIES); 
 	}
 	
 	public void addOperatorIf() throws Exception{
-		BuiltInConditionUMP builtInRV = new BuiltInRVIff(); 
+		BuiltInRV builtInRV = new BuiltInRVIff(); 
 		addSimpleOperatorInTree(builtInRV,EnumSubType.IFF); 
 	}
 	
 	public void addOperatorEqualTo()  throws Exception{
-		BuiltInConditionUMP builtInRV = new BuiltInRVEqualTo(); 
+		BuiltInRV builtInRV = new BuiltInRVEqualTo(); 
 		addSimpleOperatorInTree(builtInRV,EnumSubType.EQUALTO); 
 	}
 	
 	public void addOperatorNot()  throws Exception{
-		BuiltInConditionUMP builtInRV = new BuiltInRVNot(); 
+		BuiltInRV builtInRV = new BuiltInRVNot(); 
 		addSimpleOperatorInTree(builtInRV, EnumSubType.NOT); 
 	}
 	
 	public void addOperatorOr()  throws Exception{
-		BuiltInConditionUMP builtInRV = new BuiltInRVOr(); 
+		BuiltInRV builtInRV = new BuiltInRVOr(); 
 		addSimpleOperatorInTree(builtInRV, EnumSubType.OR); 	
 	}
 	
 	public void addOperatorAnd() throws Exception{
-		BuiltInConditionUMP builtInRV = new BuiltInRVAnd(); 
+		BuiltInRV builtInRV = new BuiltInRVAnd(); 
 		addSimpleOperatorInTree(builtInRV, EnumSubType.AND);
 	}
 	
@@ -241,7 +246,7 @@ public class FormulaViewTreePane extends JTree {
 	 * @param subType type of the operator
 	 */	
 	
-	public void addQuantifierOperatorInTree(BuiltInConditionUMP builtInRV, EnumSubType subType) throws FormulaTreeConstructionException{
+	public void addQuantifierOperatorInTree(BuiltInRV builtInRV, EnumSubType subType) throws FormulaTreeConstructionException{
 		
 		NodeFormulaTreeUMP nodeFormula = (NodeFormulaTreeUMP)nodeActive.getUserObject(); 
 		
@@ -285,7 +290,7 @@ public class FormulaViewTreePane extends JTree {
 	 * @param builtInRV builtIn of operator
 	 * @param subType type of the operator
 	 */
-	public void addSimpleOperatorInTree(BuiltInConditionUMP builtInRV, EnumSubType subType) throws FormulaTreeConstructionException{
+	public void addSimpleOperatorInTree(BuiltInRV builtInRV, EnumSubType subType) throws FormulaTreeConstructionException{
 //		
 		NodeFormulaTreeUMP nodeFormula = (NodeFormulaTreeUMP)nodeActive.getUserObject(); 
 		NodeFormulaTreeUMP operandoChild; 

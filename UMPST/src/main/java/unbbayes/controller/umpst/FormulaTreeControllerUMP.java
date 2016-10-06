@@ -136,7 +136,7 @@ public class FormulaTreeControllerUMP {
 				nodePlace.setName(ov.getVariable());
 				nodePlace.setNodeVariable(ov);
 				nodePlace.setTypeNode(EnumType.OPERAND); 
-				nodePlace.setSubTypeNode(EnumSubType.VARIABLE);
+				nodePlace.setSubTypeNode(EnumSubType.OVARIABLE);
 			}
 			formulaViewTreePane.updateTree();
 		}

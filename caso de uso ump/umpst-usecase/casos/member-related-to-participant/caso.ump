@@ -6,7 +6,7 @@
         <modelName>caso</modelName>
         <author/>
         <date>22/09/2016</date>
-        <updateDate>24/09/2016</updateDate>
+        <updateDate>06/10/2016</updateDate>
     </header>
     <model>
         <entity>
@@ -175,7 +175,7 @@
                                             <ncNodeVariableOV>Person</ncNodeVariableOV>
                                         </ncNodeVariable>
                                         <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                        <ncNodeSubTypeNode>VARIABLE</ncNodeSubTypeNode>
+                                        <ncNodeSubTypeNode>OVARIABLE</ncNodeSubTypeNode>
                                     </ncNode>
                                     <ncNode>
                                         <ncNodeName>p2</ncNodeName>
@@ -183,7 +183,7 @@
                                             <ncNodeVariableOV>Person</ncNodeVariableOV>
                                         </ncNodeVariable>
                                         <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                        <ncNodeSubTypeNode>VARIABLE</ncNodeSubTypeNode>
+                                        <ncNodeSubTypeNode>OVARIABLE</ncNodeSubTypeNode>
                                     </ncNode>
                                 </ncNode>
                             </ncNode>
