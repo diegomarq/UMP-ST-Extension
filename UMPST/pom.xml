@@ -176,6 +176,7 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
 				<configuration>
 					<source>1.5</source>
 					<target>1.5</target>
@@ -215,10 +216,7 @@
 				<groupId>br.unb.cic</groupId>
 				<artifactId>unbbayes.prs.mebn</artifactId>
 				<version>1.14.13</version>
-			</dependency>
-			
-			
-			
+			</dependency>		
 	</dependencies>
 	<reporting>
 		<plugins>

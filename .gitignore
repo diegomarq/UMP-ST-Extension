@@ -1,6 +1,8 @@
-Plugins/
 UnBBayes/
+umpstPlugin/
 MEBN/
 PR-OWL2/
+unbbayes.gui.mebn.ontology.protege/
 *.tar.gz
 .metadata/
+./recommenders

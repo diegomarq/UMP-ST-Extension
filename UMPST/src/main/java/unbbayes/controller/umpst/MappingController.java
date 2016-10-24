@@ -98,27 +98,27 @@ public class MappingController {
 		
 		// temporary MTheory
 		MultiEntityBayesianNetwork tmpMebn = createMebnInstance(null);
-		Debug.println("-----------------");
-		Debug.println("Created temporary mtheory: " + tmpMebn.getName());
+//		Debug.println("-----------------");
+//		Debug.println("Created temporary mtheory: " + tmpMebn.getName());
 		
 		// MTheory
 		MultiEntityBayesianNetwork mebn = createMebnInstance(tmpMebn);
-		Debug.println("Created working version of mtheory: " + mebn.getName());
+//		Debug.println("Created working version of mtheory: " + mebn.getName());
 		
 		//Entities
 		rootObjectEntity = mebn.getObjectEntityContainer().getRootObjectEntity();
 		typeContainer = mebn.getTypeContainer();
 				
 		createAllEntities(mebn);
-		Debug.println("All entities defined in MEBN");
+//		Debug.println("All entities defined in MEBN");
 		
 		// MFrags	
 		createAllMFrags(mebn);
-		Debug.println("MFrags created: " + getMapMFragExtension().size());
+//		Debug.println("MFrags created: " + getMapMFragExtension().size());
 		
 		// Ordinary Variables
 		createAllOrdinaryVariables();
-		Debug.println("Create all OVs from the rules");
+//		Debug.println("Create all OVs from the rules");
 		
 		// Map relationships according to criteria of selection
 		firstCriterion = new FirstCriterionOfSelection(umpstProject, this, mebn);
