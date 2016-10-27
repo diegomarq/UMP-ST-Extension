@@ -11,11 +11,14 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import javax.swing.JFileChooser;
+import javax.swing.JPanel;
 import javax.swing.tree.DefaultTreeModel;
 
 import org.eclipse.osgi.framework.debug.Debug;
 
 import unbbayes.gui.mebn.formula.exception.FormulaSintaxeException;
+import unbbayes.gui.umpst.implementation.ImplementationMainPanel;
+import unbbayes.gui.umpst.implementation.ThirdCriterionPanel;
 import unbbayes.io.mebn.UbfIO2;
 import unbbayes.io.mebn.exceptions.IOMebnException;
 import unbbayes.io.mebn.owlapi.OWLAPICompatiblePROWL2IO;
@@ -32,6 +35,7 @@ import unbbayes.model.umpst.implementation.NodeFormulaTreeUMP;
 import unbbayes.model.umpst.implementation.OrdinaryVariableModel;
 import unbbayes.model.umpst.implementation.algorithm.FirstCriterionOfSelection;
 import unbbayes.model.umpst.implementation.algorithm.SecondCriterionOfSelection;
+import unbbayes.model.umpst.implementation.algorithm.ThirdCriterionOfSelection;
 import unbbayes.model.umpst.implementation.node.ContextNodeExtension;
 import unbbayes.model.umpst.implementation.node.InputNodeExtension;
 import unbbayes.model.umpst.implementation.node.MFragExtension;
@@ -70,11 +74,14 @@ import unbbayes.prs.mebn.exception.OVariableAlreadyExistsInArgumentList;
 public class MappingController {
 	
 	private UMPSTProject umpstProject;
+	private ImplementationMainPanel implementationPanel;
 	
 	private List<UndefinedNode> undefinedNodeList;
+	private List<UndefinedNode> hypothesisListCase;
 	 
 	private FirstCriterionOfSelection firstCriterion;
 	private SecondCriterionOfSelection secondCriterion;
+	private ThirdCriterionOfSelection thirdCriterion;
 	
 	private Controller controller; 
 	private ResourceBundle resourceUmp = unbbayes.util.ResourceController.newInstance().getBundle(
@@ -90,54 +97,58 @@ public class MappingController {
 	
 	private Map<String, MFragExtension> mapMFragExtension;
 	
-	public MappingController (UMPSTProject umpstProject) {
+	public MappingController (ImplementationMainPanel implementationPanel, UMPSTProject umpstProject) {
 		
-		this.umpstProject = umpstProject;		
+		this.umpstProject = umpstProject;
+		this.implementationPanel = implementationPanel;
+		
 		setMapMFragExtension(new HashMap<String, MFragExtension>());
 		setUndefinedNodeList(new ArrayList<UndefinedNode>());
+		setHypothesisListCase(new ArrayList<UndefinedNode>());
 		
 		// temporary MTheory
 		MultiEntityBayesianNetwork tmpMebn = createMebnInstance(null);
-//		Debug.println("-----------------");
-//		Debug.println("Created temporary mtheory: " + tmpMebn.getName());
+		Debug.println("-----------------");
+		Debug.println("Created temporary mtheory: " + tmpMebn.getName());
 		
 		// MTheory
 		MultiEntityBayesianNetwork mebn = createMebnInstance(tmpMebn);
-//		Debug.println("Created working version of mtheory: " + mebn.getName());
+		Debug.println("Created working version of mtheory: " + mebn.getName());
 		
 		//Entities
 		rootObjectEntity = mebn.getObjectEntityContainer().getRootObjectEntity();
 		typeContainer = mebn.getTypeContainer();
 				
 		createAllEntities(mebn);
-//		Debug.println("All entities defined in MEBN");
+		Debug.println("All entities defined in MEBN");
 		
 		// MFrags	
 		createAllMFrags(mebn);
-//		Debug.println("MFrags created: " + getMapMFragExtension().size());
+		Debug.println("MFrags created: " + getMapMFragExtension().size());
 		
 		// Ordinary Variables
 		createAllOrdinaryVariables();
-//		Debug.println("Create all OVs from the rules");
+		Debug.println("Create all OVs from the rules");
 		
 		// Map relationships according to criteria of selection
 		firstCriterion = new FirstCriterionOfSelection(umpstProject, this, mebn);
 		
 		try {
-			secondCriterion = new SecondCriterionOfSelection(umpstProject, this, mebn);
-			
+			secondCriterion = new SecondCriterionOfSelection(this, mebn);
+			thirdCriterion = new ThirdCriterionOfSelection(this, mebn);
 			// Context Nodes
 			createAllContextNodes(mebn);
-			
-			testMTheory(mebn);
-//			printMTheory(mebn);
-//			printUndefinedNodes();
 			
 		} catch (IncompatibleRuleForGroupException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+		
+			testMTheory(mebn);
+		
+//		printMTheory(mebn);
+//		printUndefinedNodes();
 		
 	}
 	
@@ -239,6 +250,14 @@ public class MappingController {
 		}
 	}
 	
+	/**
+	 * Create Panel to the user chooses the type of the {@link UndefinedNode}
+	 * @param undefinedNodeList
+	 * @param mebn
+	 */
+	public void createThirdCriterionPanel(List<UndefinedNode> undefinedNodeList, MultiEntityBayesianNetwork mebn) {
+		JPanel thirdCriterionPanel = new ThirdCriterionPanel(this, undefinedNodeList, mebn);		
+	}
 	
 	/**
 	 * Verify if there is any {@link ResidentNodeExtension} related to the {@link CauseVariableModel} in any {@link MFragExtension} of
@@ -378,14 +397,13 @@ public class MappingController {
 		for (int i = 0; i < residentNodeExtensionList.size(); i++) {
 			
 			// Resident node is random variable related to an attribute or relationship.
-			if (residentNodeExtensionList.get(i).getEventRelated().getClass().equals(
-					RelationshipModel.class)) {
+			if (residentNodeExtensionList.get(i).getEventRelated() instanceof RelationshipModel) {
 				
 				ResidentNodeExtension residentNode = residentNodeExtensionList.get(i);
 				RelationshipModel relationshipModel = (RelationshipModel)residentNode.getEventRelated();
 
 				// This event can be a cause or effect variable
-				if(event.getClass().equals(CauseVariableModel.class)) {
+				if(event instanceof CauseVariableModel) {
 					if (relationshipModel.equals(((CauseVariableModel)event).getRelationshipModel())) {
 						return residentNode;
 					}
@@ -502,7 +520,7 @@ public class MappingController {
 			List<OrdinaryVariableModel> ovEventModelList = null;
 			
 			// Verify if the event it is cause or effect
-			if(event.getClass().equals(CauseVariableModel.class)) { 
+			if(event instanceof CauseVariableModel) { 
 				ovEventModelList = ((CauseVariableModel)event).getOvArgumentList();
 			}
 			// the event it is effect
@@ -1430,5 +1448,13 @@ public class MappingController {
 	 */
 	public void setUndefinedNodeList(List<UndefinedNode> undefinedNodeList) {
 		this.undefinedNodeList = undefinedNodeList;
-	}	
+	}
+
+	public List<UndefinedNode> getHypothesisListCase() {
+		return hypothesisListCase;
+	}
+
+	public void setHypothesisListCase(List<UndefinedNode> hypothesisListCase) {
+		this.hypothesisListCase = hypothesisListCase;
+	}		
 }

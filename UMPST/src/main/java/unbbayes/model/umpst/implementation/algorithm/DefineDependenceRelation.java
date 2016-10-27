@@ -288,39 +288,41 @@ public class DefineDependenceRelation {
 		/**
 		 * Keep all the groups in the project
 		 */
-		Map<String, GroupModel> mapGroup = umpstProject.getMapGroups();
-		Set<String> keys = mapGroup.keySet();
-		TreeSet<String> sortedKeys = new TreeSet<String>(keys);
-
-		for (String key : sortedKeys) {
-			GroupModel groupSearched = mapGroup.get(key);
-			
-			/**
-			 * Search in a group that is different from the group related passed as parameter
-			 */
-			if (!groupSearched.equals(groupRelated)) {
-			
-				for (int i = 0; i < groupSearched.getBacktrackingRules().size(); i++) {
-			
-					RuleModel ruleSearched = groupSearched.getBacktrackingRules().get(i);
-					
-					/**
-					 * Search in all rules related to the group searched if there are effects related
-					 * to the cause passed as parameter.
-					 */					
-					List<EffectVariableModel> effectList = ruleSearched.getEffectVariableList();
-					for (int j = 0; j < effectList.size(); j++) {
+		if(umpstProject != null) {
+			Map<String, GroupModel> mapGroup = umpstProject.getMapGroups();
+			Set<String> keys = mapGroup.keySet();
+			TreeSet<String> sortedKeys = new TreeSet<String>(keys);
+	
+			for (String key : sortedKeys) {
+				GroupModel groupSearched = mapGroup.get(key);
+				
+				/**
+				 * Search in a group that is different from the group related passed as parameter
+				 */
+				if (!groupSearched.equals(groupRelated)) {
+				
+					for (int i = 0; i < groupSearched.getBacktrackingRules().size(); i++) {
+				
+						RuleModel ruleSearched = groupSearched.getBacktrackingRules().get(i);
 						
-						RelationshipModel relationshipEffect = effectList.get(j).getRelationshipModel();
-						RelationshipModel relationshipCause = cause.getRelationshipModel();
-						if (relationshipCause.equals(relationshipEffect)) {
+						/**
+						 * Search in all rules related to the group searched if there are effects related
+						 * to the cause passed as parameter.
+						 */					
+						List<EffectVariableModel> effectList = ruleSearched.getEffectVariableList();
+						for (int j = 0; j < effectList.size(); j++) {
 							
-							/**
-							 * Set the effect and group identified
-							 */
-							setEffectRelatedToCause(effectList.get(j));
-							setGroupRelatedToEffect(groupSearched);
-							return true;
+							RelationshipModel relationshipEffect = effectList.get(j).getRelationshipModel();
+							RelationshipModel relationshipCause = cause.getRelationshipModel();
+							if (relationshipCause.equals(relationshipEffect)) {
+								
+								/**
+								 * Set the effect and group identified
+								 */
+								setEffectRelatedToCause(effectList.get(j));
+								setGroupRelatedToEffect(groupSearched);
+								return true;
+							}
 						}
 					}
 				}

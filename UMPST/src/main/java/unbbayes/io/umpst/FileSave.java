@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
 import java.util.EmptyStackException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -50,11 +52,15 @@ public class FileSave {
 		if (index >= 0) {
 			fileExtension = fileName.substring(index + 1);
 		}
-
-		if ((fileExtension == null) || (!fileExtension.equals("ump"))) {
-			file = new File(file.getPath() + ".ump");
+		// Valid file name
+		Matcher matcher = Pattern.compile("[a-zA-Z_0-9]*").matcher(fileName.substring(0, index-1));
+		if (!matcher.matches()) {
+			throw new IllegalArgumentException("Invalid name: " + fileName);
 		}
-
+		// Valid file extension
+		if ((fileExtension == null) || (!fileExtension.equals("ump"))) {
+			file = new File(file.getPath() + ".ump");	
+		}
 		Document doc = null;
 		Element root = null;
 

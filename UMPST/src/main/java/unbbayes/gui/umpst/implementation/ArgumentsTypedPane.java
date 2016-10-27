@@ -66,7 +66,8 @@ public class ArgumentsTypedPane extends JPanel {
 		JPanel listPane =  new JPanel(new BorderLayout());
 		listPane.setLayout(new GridLayout(numberArguments + 1, 1));
 		
-		JComboBox argument[] = new JComboBox[numberArguments];			
+		JComboBox argument[] = new JComboBox[numberArguments];
+		
 		JLabel variableName = new JLabel(eventVariable.getRelationship()); 
 		variableName.setOpaque(true); 
 		variableName.setHorizontalAlignment(JLabel.CENTER); 

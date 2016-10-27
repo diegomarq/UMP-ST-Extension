@@ -1,6 +1,7 @@
 package unbbayes.model.umpst.implementation.node;
 
 import unbbayes.model.umpst.implementation.CauseVariableModel;
+import unbbayes.model.umpst.implementation.EventMappingType;
 import unbbayes.model.umpst.rule.RuleModel;
 
 public class UndefinedNode {
@@ -8,6 +9,7 @@ public class UndefinedNode {
 	private MFragExtension mfragExtension;
 	private Object eventRelated;
 	private RuleModel ruleRelated;
+	private EventMappingType mappingType;
 	
 	/**
 	 * Node that was not defined in the criteria of selection.
@@ -18,6 +20,7 @@ public class UndefinedNode {
 		setEventRelated(event);
 		setMfragExtension(mfragExtension);
 		setRuleRelated(null);
+		setMappingType(EventMappingType.UNDEFINED);
 	}
 
 	/**
@@ -56,5 +59,13 @@ public class UndefinedNode {
 
 	public void setRuleRelated(RuleModel ruleRelated) {
 		this.ruleRelated = ruleRelated;
+	}
+
+	public EventMappingType getMappingType() {
+		return mappingType;
+	}
+
+	public void setMappingType(EventMappingType mappingType) {
+		this.mappingType = mappingType;
 	}	
 }

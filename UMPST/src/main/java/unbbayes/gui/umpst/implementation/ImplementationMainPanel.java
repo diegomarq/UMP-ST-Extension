@@ -57,7 +57,7 @@ public class ImplementationMainPanel extends IUMPSTPanel{
 		descriptionPanel = createRuleDescriptionPanel();
 		implementationPanel = new TableImplementation(getFatherPanel(), getUmpstProject());
 		
-		createAddUpdateButton();
+		createGenerateModelButton();
 		btnPane =  new JSplitPane(JSplitPane.VERTICAL_SPLIT,
 				implementationPanel, generatePanel);
 		btnPane.setDividerLocation(260);
@@ -73,7 +73,7 @@ public class ImplementationMainPanel extends IUMPSTPanel{
 		
 	}
 	
-	public void createAddUpdateButton() {
+	public void createGenerateModelButton() {
 		generatePanel = new JPanel();
 		generatePanel.setLayout(new GridBagLayout());
 		
@@ -87,10 +87,12 @@ public class ImplementationMainPanel extends IUMPSTPanel{
 		c.gridwidth = 1;
 		generatePanel.add(btnGenerate, c);
 		
+		final ImplementationMainPanel objectClass = this;
+		
 		btnGenerate.addActionListener(new ActionListener() {			
 			public void actionPerformed(ActionEvent e) {
 				
-				mappingController = new MappingController(getUmpstProject());
+				mappingController = new MappingController(objectClass, getUmpstProject());
 			}
 		});
 	}
