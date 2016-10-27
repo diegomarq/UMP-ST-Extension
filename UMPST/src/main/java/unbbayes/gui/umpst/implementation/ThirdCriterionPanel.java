@@ -156,7 +156,7 @@ public class ThirdCriterionPanel extends JPanel {
 		return nodePanel;
 	}
 	
-	public void createMappingPanel(final List<UndefinedNode> undefinedNodeList, MultiEntityBayesianNetwork mebn)
+	public void createMappingPanel(final List<UndefinedNode> undefinedNodeList, final MultiEntityBayesianNetwork mebn)
 			throws IncompatibleEventException {
 		
 		final JFrame frame = new JFrame("Select event type");
@@ -193,8 +193,8 @@ public class ThirdCriterionPanel extends JPanel {
 				
 				// Check if there are null arguments
 				if (getUserHypothesisList().size() > 0) {
-					mappingController.setHypothesisListCase(getUserHypothesisList());
 					frame.dispose();
+					mappingController.mapUndefinedNode(getUserHypothesisList(), mebn);
 				}
 				else {
 					try {

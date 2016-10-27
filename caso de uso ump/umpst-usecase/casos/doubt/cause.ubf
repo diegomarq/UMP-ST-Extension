@@ -1,0 +1,89 @@
+% Cabeçalho UBF
+Version=2.0
+PrOwl="cause.owl"
+
+% Declaração de MTheory - UBF
+MTheory=cause
+NextMFrag=3
+NextResident=4
+NextInput=2
+NextContext=1
+NextEntity=1
+
+% Declaração de MFrags e nós UBF
+
+% MFrag
+MFrag=Grel1Arel2B
+NextOrdinaryVar=3
+
+% Nós Residentes
+
+
+Node=rel2
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+% nós Input
+
+
+Node=IX1
+Type=GenerativeInputNode
+Position=0.0,0.0
+Size=100,60
+Color=-2302756
+
+% Variáveis Ordinárias
+
+
+Node=a
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+Node=b
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+% MFrag
+MFrag=Grel1Arel3B
+NextOrdinaryVar=3
+
+% Nós Residentes
+
+
+Node=rel3
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+Node=rel1
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+% Variáveis Ordinárias
+
+
+Node=a
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+Node=b
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+% Instâncias de Entidades Objetos

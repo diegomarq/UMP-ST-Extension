@@ -25,6 +25,7 @@ import unbbayes.io.mebn.owlapi.OWLAPICompatiblePROWL2IO;
 import unbbayes.model.umpst.entity.EntityModel;
 import unbbayes.model.umpst.entity.RelationshipModel;
 import unbbayes.model.umpst.exception.IncompatibleEventException;
+import unbbayes.model.umpst.exception.IncompatibleQuantityException;
 import unbbayes.model.umpst.exception.IncompatibleRuleForGroupException;
 import unbbayes.model.umpst.group.GroupModel;
 import unbbayes.model.umpst.implementation.CauseVariableModel;
@@ -135,7 +136,6 @@ public class MappingController {
 		
 		try {
 			secondCriterion = new SecondCriterionOfSelection(this, mebn);
-			thirdCriterion = new ThirdCriterionOfSelection(this, mebn);
 			// Context Nodes
 			createAllContextNodes(mebn);
 			
@@ -143,9 +143,11 @@ public class MappingController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		thirdCriterion = new ThirdCriterionOfSelection(this, mebn);
 		
-		
-			testMTheory(mebn);
+//		if(isPassedByThirdCriteria()) {
+//			testMTheory(mebn);
+//		}
 		
 //		printMTheory(mebn);
 //		printUndefinedNodes();
@@ -257,6 +259,34 @@ public class MappingController {
 	 */
 	public void createThirdCriterionPanel(List<UndefinedNode> undefinedNodeList, MultiEntityBayesianNetwork mebn) {
 		JPanel thirdCriterionPanel = new ThirdCriterionPanel(this, undefinedNodeList, mebn);		
+	}
+	
+	/**
+	 * Map {@link UndefinedNode} defined by the user calling
+	 * {@link ThirdCriterionOfSelection#mapUndefinedNode(List, MultiEntityBayesianNetwork)}
+	 * @param hypothesisListCase
+	 * @param mebn
+	 */
+	public void mapUndefinedNode(List<UndefinedNode> hypothesisListCase, MultiEntityBayesianNetwork mebn) {
+		this.setHypothesisListCase(hypothesisListCase);
+		try {
+			thirdCriterion.mapUndefinedNode(hypothesisListCase, mebn);
+			testMTheory(mebn);
+			
+			
+		} catch (IncompatibleQuantityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ArgumentNodeAlreadySetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (OVariableAlreadyExistsInArgumentList e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidParentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -1456,5 +1486,5 @@ public class MappingController {
 
 	public void setHypothesisListCase(List<UndefinedNode> hypothesisListCase) {
 		this.hypothesisListCase = hypothesisListCase;
-	}		
+	}
 }
