@@ -13,7 +13,7 @@
     <Import>http://www.pr-owl.org/pr-owl2.owl</Import>
     <ClassAssertion>
         <Class IRI="http://www.pr-owl.org/pr-owl2.owl#MTheory"/>
-        <NamedIndividual IRI="#cause"/>
+        <NamedIndividual IRI="#startrek"/>
     </ClassAssertion>
 </Ontology>
 

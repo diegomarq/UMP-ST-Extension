@@ -21,14 +21,16 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
+import javax.swing.border.TitledBorder;
 
+import edu.isi.stella.UndefinedClassException;
 import unbbayes.controller.umpst.MappingController;
 import unbbayes.model.umpst.exception.IncompatibleEventException;
 import unbbayes.model.umpst.exception.IncompatibleQuantityException;
 import unbbayes.model.umpst.implementation.CauseVariableModel;
+import unbbayes.model.umpst.implementation.EffectVariableModel;
 import unbbayes.model.umpst.implementation.EventMappingType;
 import unbbayes.model.umpst.implementation.node.MFragExtension;
 import unbbayes.model.umpst.implementation.node.UndefinedNode;
@@ -104,16 +106,28 @@ public class ThirdCriterionPanel extends JPanel {
 		}		
 	}
 	
+	/**
+	 * Create the panel related to each {@link UndefinedClassException}
+	 * @param mfragRelated
+	 * @param undefinedNodeListRelated
+	 * @return
+	 * @throws IncompatibleEventException
+	 */
 	public JPanel createSelectionTypePanel(MFragExtension mfragRelated, List<UndefinedNode> undefinedNodeListRelated)
 			throws IncompatibleEventException {
 		
-		JLabel mfragName = new JLabel(mfragRelated.getName());
-		mfragName.setOpaque(true); 
-		mfragName.setHorizontalAlignment(JLabel.CENTER); 
-		mfragName.setBorder(BorderFactory.createLineBorder(Color.BLACK)); 
+//		JLabel mfragName = new JLabel(mfragRelated.getName());
+//		mfragName.setOpaque(true); 
+//		mfragName.setHorizontalAlignment(JLabel.CENTER); 
+//		mfragName.setBorder(BorderFactory.createLineBorder(Color.BLACK)); 
+		
+		TitledBorder title;
+		title = BorderFactory.createTitledBorder(mfragRelated.getName());
 		
 		JPanel nodePanel = new JPanel(new BorderLayout());		
-		nodePanel.add(mfragName, BorderLayout.CENTER);
+//		nodePanel.add(mfragName, BorderLayout.CENTER);
+		nodePanel.setBorder(title);
+//		nodePanel.add(mfragName);
 		
 		JComboBox typeArgument[] = new JComboBox[undefinedNodeListRelated.size()+1];
 		
@@ -131,15 +145,23 @@ public class ThirdCriterionPanel extends JPanel {
 			typeArgument[i].addItemListener(new ComboListener(undefinedNodeListRelated.get(i), argList)); 
 			
 			//Adding components to panel
-			// Number of event
-			btnNodeNumber = new JButton("" + (i+1));
-			btnNodeNumber.setBackground(new Color(193, 207, 180));
-			
 			// Event name			
 			Object event = undefinedNodeListRelated.get(i).getEventRelated();
 			if(event instanceof CauseVariableModel) {				
+				// Type of event
+				btnNodeNumber = new JButton("Cause");
+				btnNodeNumber.setBackground(new Color(193, 207, 180));
+				
 				btnNodeType = new JButton(((CauseVariableModel)event).getRelationship()); 
 				btnNodeType.setBackground(new Color(193, 210, 205)); 
+			}
+			else if(event instanceof EffectVariableModel) {
+				// Type of event
+				btnNodeNumber = new JButton("Effect");
+				btnNodeNumber.setBackground(new Color(193, 207, 180));
+				
+				btnNodeType = new JButton(((CauseVariableModel)event).getRelationship()); 
+				btnNodeType.setBackground(new Color(193, 210, 205));
 			}
 			else {
 				throw new IncompatibleEventException("Invalid event. It suposes to be " + CauseVariableModel.class);
@@ -156,6 +178,12 @@ public class ThirdCriterionPanel extends JPanel {
 		return nodePanel;
 	}
 	
+	/**
+	 * Create the Frame to the user choose 
+	 * @param undefinedNodeList
+	 * @param mebn
+	 * @throws IncompatibleEventException
+	 */
 	public void createMappingPanel(final List<UndefinedNode> undefinedNodeList, final MultiEntityBayesianNetwork mebn)
 			throws IncompatibleEventException {
 		
@@ -165,7 +193,7 @@ public class ThirdCriterionPanel extends JPanel {
 		int numberOfMFrag = getMapMFragRelated().size();
 		
 		JPanel listPane =  new JPanel(new BorderLayout());
-		listPane.setLayout(new GridLayout(2*numberOfMFrag + undefinedNodeList.size(), 1));
+		listPane.setLayout(new GridLayout(numberOfMFrag + undefinedNodeList.size(), 1));
 		
 		Map<MFragExtension, List<UndefinedNode>> _mapMFragRelated = getMapMFragRelated();
 		Set<MFragExtension> keyMap = _mapMFragRelated.keySet();
@@ -174,8 +202,9 @@ public class ThirdCriterionPanel extends JPanel {
 			List<UndefinedNode> undefinedNodeListRelated = _mapMFragRelated.get(mFragExtension);			
 			
 			JPanel itemPanel = createSelectionTypePanel(mFragExtension, undefinedNodeListRelated);
+			
 			listPane.add(itemPanel);
-			listPane.add(new JPanel());
+//			listPane.add(new JPanel());
 		}
 
 		argPane.add(listPane);		

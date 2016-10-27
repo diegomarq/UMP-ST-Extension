@@ -6,7 +6,7 @@
         <modelName>startrek</modelName>
         <author>Diego</author>
         <date>01/07/2016</date>
-        <updateDate>07/07/2016</updateDate>
+        <updateDate>27/10/2016</updateDate>
     </header>
     <model>
         <entity>
@@ -251,7 +251,7 @@
                 <necessaryConditionList>
                     <necessaryCondition>
                         <ncId>0</ncId>
-                        <ncNodeFormulaTree>
+                        <ncNodeFormulaTreeUMP>
                             <ncNode>
                                 <ncNodeName>not</ncNodeName>
                                 <ncNodeMnemonic>&#172;</ncNodeMnemonic>
@@ -272,7 +272,7 @@
                                             <ncNodeVariableOV>Starship</ncNodeVariableOV>
                                         </ncNodeVariable>
                                         <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                        <ncNodeSubTypeNode>VARIABLE</ncNodeSubTypeNode>
+                                        <ncNodeSubTypeNode>OVARIABLE</ncNodeSubTypeNode>
                                     </ncNode>
                                     <ncNode>
                                         <ncNodeName>st</ncNodeName>
@@ -280,15 +280,15 @@
                                             <ncNodeVariableOV>Starship</ncNodeVariableOV>
                                         </ncNodeVariable>
                                         <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                        <ncNodeSubTypeNode>VARIABLE</ncNodeSubTypeNode>
+                                        <ncNodeSubTypeNode>OVARIABLE</ncNodeSubTypeNode>
                                     </ncNode>
                                 </ncNode>
                             </ncNode>
-                        </ncNodeFormulaTree>
+                        </ncNodeFormulaTreeUMP>
                     </necessaryCondition>
                     <necessaryCondition>
                         <ncId>1</ncId>
-                        <ncNodeFormulaTree>
+                        <ncNodeFormulaTreeUMP>
                             <ncNode>
                                 <ncNodeName>IsOwnStarship(s)</ncNodeName>
                                 <ncNodeVariable>
@@ -301,7 +301,7 @@
                                 <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
                                 <ncNodeSubTypeNode>NODE</ncNodeSubTypeNode>
                             </ncNode>
-                        </ncNodeFormulaTree>
+                        </ncNodeFormulaTreeUMP>
                     </necessaryCondition>
                 </necessaryConditionList>
                 <causeVariableList>
@@ -377,7 +377,7 @@
                 <necessaryConditionList>
                     <necessaryCondition>
                         <ncId>0</ncId>
-                        <ncNodeFormulaTree>
+                        <ncNodeFormulaTreeUMP>
                             <ncNode>
                                 <ncNodeName>ItExists(st)</ncNodeName>
                                 <ncNodeVariable>
@@ -390,11 +390,11 @@
                                 <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
                                 <ncNodeSubTypeNode>NODE</ncNodeSubTypeNode>
                             </ncNode>
-                        </ncNodeFormulaTree>
+                        </ncNodeFormulaTreeUMP>
                     </necessaryCondition>
                     <necessaryCondition>
                         <ncId>1</ncId>
-                        <ncNodeFormulaTree>
+                        <ncNodeFormulaTreeUMP>
                             <ncNode>
                                 <ncNodeName>not</ncNodeName>
                                 <ncNodeMnemonic>&#172;</ncNodeMnemonic>
@@ -415,11 +415,11 @@
                                     <ncNodeSubTypeNode>NODE</ncNodeSubTypeNode>
                                 </ncNode>
                             </ncNode>
-                        </ncNodeFormulaTree>
+                        </ncNodeFormulaTreeUMP>
                     </necessaryCondition>
                     <necessaryCondition>
                         <ncId>2</ncId>
-                        <ncNodeFormulaTree>
+                        <ncNodeFormulaTreeUMP>
                             <ncNode>
                                 <ncNodeName>equalto</ncNodeName>
                                 <ncNodeMnemonic>=</ncNodeMnemonic>
@@ -445,10 +445,10 @@
                                         <ncNodeVariableOV>Zone</ncNodeVariableOV>
                                     </ncNodeVariable>
                                     <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                    <ncNodeSubTypeNode>VARIABLE</ncNodeSubTypeNode>
+                                    <ncNodeSubTypeNode>OVARIABLE</ncNodeSubTypeNode>
                                 </ncNode>
                             </ncNode>
-                        </ncNodeFormulaTree>
+                        </ncNodeFormulaTreeUMP>
                     </necessaryCondition>
                 </necessaryConditionList>
                 <causeVariableList>
@@ -518,7 +518,7 @@
                 <necessaryConditionList>
                     <necessaryCondition>
                         <ncId>0</ncId>
-                        <ncNodeFormulaTree>
+                        <ncNodeFormulaTreeUMP>
                             <ncNode>
                                 <ncNodeName>not</ncNodeName>
                                 <ncNodeMnemonic>&#172;</ncNodeMnemonic>
@@ -539,11 +539,11 @@
                                     <ncNodeSubTypeNode>NODE</ncNodeSubTypeNode>
                                 </ncNode>
                             </ncNode>
-                        </ncNodeFormulaTree>
+                        </ncNodeFormulaTreeUMP>
                     </necessaryCondition>
                     <necessaryCondition>
                         <ncId>1</ncId>
-                        <ncNodeFormulaTree>
+                        <ncNodeFormulaTreeUMP>
                             <ncNode>
                                 <ncNodeName>equalto</ncNodeName>
                                 <ncNodeMnemonic>=</ncNodeMnemonic>
@@ -569,10 +569,10 @@
                                         <ncNodeVariableOV>Starship</ncNodeVariableOV>
                                     </ncNodeVariable>
                                     <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                    <ncNodeSubTypeNode>VARIABLE</ncNodeSubTypeNode>
+                                    <ncNodeSubTypeNode>OVARIABLE</ncNodeSubTypeNode>
                                 </ncNode>
                             </ncNode>
-                        </ncNodeFormulaTree>
+                        </ncNodeFormulaTreeUMP>
                     </necessaryCondition>
                 </necessaryConditionList>
                 <causeVariableList>
@@ -663,7 +663,7 @@
                 <necessaryConditionList>
                     <necessaryCondition>
                         <ncId>0</ncId>
-                        <ncNodeFormulaTree>
+                        <ncNodeFormulaTreeUMP>
                             <ncNode>
                                 <ncNodeName>not</ncNodeName>
                                 <ncNodeMnemonic>&#172;</ncNodeMnemonic>
@@ -684,11 +684,11 @@
                                     <ncNodeSubTypeNode>NODE</ncNodeSubTypeNode>
                                 </ncNode>
                             </ncNode>
-                        </ncNodeFormulaTree>
+                        </ncNodeFormulaTreeUMP>
                     </necessaryCondition>
                     <necessaryCondition>
                         <ncId>1</ncId>
-                        <ncNodeFormulaTree>
+                        <ncNodeFormulaTreeUMP>
                             <ncNode>
                                 <ncNodeName>equalto</ncNodeName>
                                 <ncNodeMnemonic>=</ncNodeMnemonic>
@@ -714,10 +714,10 @@
                                         <ncNodeVariableOV>Starship</ncNodeVariableOV>
                                     </ncNodeVariable>
                                     <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                    <ncNodeSubTypeNode>VARIABLE</ncNodeSubTypeNode>
+                                    <ncNodeSubTypeNode>OVARIABLE</ncNodeSubTypeNode>
                                 </ncNode>
                             </ncNode>
-                        </ncNodeFormulaTree>
+                        </ncNodeFormulaTreeUMP>
                     </necessaryCondition>
                 </necessaryConditionList>
                 <causeVariableList>
@@ -806,7 +806,7 @@
                 <necessaryConditionList>
                     <necessaryCondition>
                         <ncId>0</ncId>
-                        <ncNodeFormulaTree>
+                        <ncNodeFormulaTreeUMP>
                             <ncNode>
                                 <ncNodeName>IsOwnStarship(s)</ncNodeName>
                                 <ncNodeVariable>
@@ -819,11 +819,11 @@
                                 <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
                                 <ncNodeSubTypeNode>NODE</ncNodeSubTypeNode>
                             </ncNode>
-                        </ncNodeFormulaTree>
+                        </ncNodeFormulaTreeUMP>
                     </necessaryCondition>
                     <necessaryCondition>
                         <ncId>1</ncId>
-                        <ncNodeFormulaTree>
+                        <ncNodeFormulaTreeUMP>
                             <ncNode>
                                 <ncNodeName>not</ncNodeName>
                                 <ncNodeMnemonic>&#172;</ncNodeMnemonic>
@@ -844,7 +844,7 @@
                                             <ncNodeVariableOV>Starship</ncNodeVariableOV>
                                         </ncNodeVariable>
                                         <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                        <ncNodeSubTypeNode>VARIABLE</ncNodeSubTypeNode>
+                                        <ncNodeSubTypeNode>OVARIABLE</ncNodeSubTypeNode>
                                     </ncNode>
                                     <ncNode>
                                         <ncNodeName>st</ncNodeName>
@@ -852,11 +852,11 @@
                                             <ncNodeVariableOV>Starship</ncNodeVariableOV>
                                         </ncNodeVariable>
                                         <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                        <ncNodeSubTypeNode>VARIABLE</ncNodeSubTypeNode>
+                                        <ncNodeSubTypeNode>OVARIABLE</ncNodeSubTypeNode>
                                     </ncNode>
                                 </ncNode>
                             </ncNode>
-                        </ncNodeFormulaTree>
+                        </ncNodeFormulaTreeUMP>
                     </necessaryCondition>
                 </necessaryConditionList>
                 <causeVariableList>
@@ -930,7 +930,7 @@
                 <necessaryConditionList>
                     <necessaryCondition>
                         <ncId>0</ncId>
-                        <ncNodeFormulaTree>
+                        <ncNodeFormulaTreeUMP>
                             <ncNode>
                                 <ncNodeName>equalto</ncNodeName>
                                 <ncNodeMnemonic>=</ncNodeMnemonic>
@@ -956,10 +956,10 @@
                                         <ncNodeVariableOV>Zone</ncNodeVariableOV>
                                     </ncNodeVariable>
                                     <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                    <ncNodeSubTypeNode>VARIABLE</ncNodeSubTypeNode>
+                                    <ncNodeSubTypeNode>OVARIABLE</ncNodeSubTypeNode>
                                 </ncNode>
                             </ncNode>
-                        </ncNodeFormulaTree>
+                        </ncNodeFormulaTreeUMP>
                     </necessaryCondition>
                 </necessaryConditionList>
                 <causeVariableList>
@@ -1042,7 +1042,7 @@
                 <necessaryConditionList>
                     <necessaryCondition>
                         <ncId>0</ncId>
-                        <ncNodeFormulaTree>
+                        <ncNodeFormulaTreeUMP>
                             <ncNode>
                                 <ncNodeName>equalto</ncNodeName>
                                 <ncNodeMnemonic>=</ncNodeMnemonic>
@@ -1068,10 +1068,10 @@
                                         <ncNodeVariableOV>Zone</ncNodeVariableOV>
                                     </ncNodeVariable>
                                     <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                    <ncNodeSubTypeNode>VARIABLE</ncNodeSubTypeNode>
+                                    <ncNodeSubTypeNode>OVARIABLE</ncNodeSubTypeNode>
                                 </ncNode>
                             </ncNode>
-                        </ncNodeFormulaTree>
+                        </ncNodeFormulaTreeUMP>
                     </necessaryCondition>
                 </necessaryConditionList>
                 <causeVariableList>
@@ -1167,7 +1167,7 @@
                 <necessaryConditionList>
                     <necessaryCondition>
                         <ncId>0</ncId>
-                        <ncNodeFormulaTree>
+                        <ncNodeFormulaTreeUMP>
                             <ncNode>
                                 <ncNodeName>equalto</ncNodeName>
                                 <ncNodeMnemonic>=</ncNodeMnemonic>
@@ -1193,10 +1193,10 @@
                                         <ncNodeVariableOV>Zone</ncNodeVariableOV>
                                     </ncNodeVariable>
                                     <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                    <ncNodeSubTypeNode>VARIABLE</ncNodeSubTypeNode>
+                                    <ncNodeSubTypeNode>OVARIABLE</ncNodeSubTypeNode>
                                 </ncNode>
                             </ncNode>
-                        </ncNodeFormulaTree>
+                        </ncNodeFormulaTreeUMP>
                     </necessaryCondition>
                 </necessaryConditionList>
                 <causeVariableList>
@@ -1290,7 +1290,7 @@
                 <necessaryConditionList>
                     <necessaryCondition>
                         <ncId>0</ncId>
-                        <ncNodeFormulaTree>
+                        <ncNodeFormulaTreeUMP>
                             <ncNode>
                                 <ncNodeName>ItExists(st)</ncNodeName>
                                 <ncNodeVariable>
@@ -1303,11 +1303,11 @@
                                 <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
                                 <ncNodeSubTypeNode>NODE</ncNodeSubTypeNode>
                             </ncNode>
-                        </ncNodeFormulaTree>
+                        </ncNodeFormulaTreeUMP>
                     </necessaryCondition>
                     <necessaryCondition>
                         <ncId>1</ncId>
-                        <ncNodeFormulaTree>
+                        <ncNodeFormulaTreeUMP>
                             <ncNode>
                                 <ncNodeName>not</ncNodeName>
                                 <ncNodeMnemonic>&#172;</ncNodeMnemonic>
@@ -1328,11 +1328,11 @@
                                     <ncNodeSubTypeNode>NODE</ncNodeSubTypeNode>
                                 </ncNode>
                             </ncNode>
-                        </ncNodeFormulaTree>
+                        </ncNodeFormulaTreeUMP>
                     </necessaryCondition>
                     <necessaryCondition>
                         <ncId>2</ncId>
-                        <ncNodeFormulaTree>
+                        <ncNodeFormulaTreeUMP>
                             <ncNode>
                                 <ncNodeName>equalto</ncNodeName>
                                 <ncNodeMnemonic>=</ncNodeMnemonic>
@@ -1358,10 +1358,10 @@
                                         <ncNodeVariableOV>Zone</ncNodeVariableOV>
                                     </ncNodeVariable>
                                     <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                    <ncNodeSubTypeNode>VARIABLE</ncNodeSubTypeNode>
+                                    <ncNodeSubTypeNode>OVARIABLE</ncNodeSubTypeNode>
                                 </ncNode>
                             </ncNode>
-                        </ncNodeFormulaTree>
+                        </ncNodeFormulaTreeUMP>
                     </necessaryCondition>
                 </necessaryConditionList>
                 <causeVariableList>
@@ -1438,7 +1438,7 @@
                 <necessaryConditionList>
                     <necessaryCondition>
                         <ncId>0</ncId>
-                        <ncNodeFormulaTree>
+                        <ncNodeFormulaTreeUMP>
                             <ncNode>
                                 <ncNodeName>ItExists(st)</ncNodeName>
                                 <ncNodeVariable>
@@ -1451,11 +1451,11 @@
                                 <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
                                 <ncNodeSubTypeNode>NODE</ncNodeSubTypeNode>
                             </ncNode>
-                        </ncNodeFormulaTree>
+                        </ncNodeFormulaTreeUMP>
                     </necessaryCondition>
                     <necessaryCondition>
                         <ncId>1</ncId>
-                        <ncNodeFormulaTree>
+                        <ncNodeFormulaTreeUMP>
                             <ncNode>
                                 <ncNodeName>not</ncNodeName>
                                 <ncNodeMnemonic>&#172;</ncNodeMnemonic>
@@ -1476,11 +1476,11 @@
                                     <ncNodeSubTypeNode>NODE</ncNodeSubTypeNode>
                                 </ncNode>
                             </ncNode>
-                        </ncNodeFormulaTree>
+                        </ncNodeFormulaTreeUMP>
                     </necessaryCondition>
                     <necessaryCondition>
                         <ncId>3</ncId>
-                        <ncNodeFormulaTree>
+                        <ncNodeFormulaTreeUMP>
                             <ncNode>
                                 <ncNodeName>equalto</ncNodeName>
                                 <ncNodeMnemonic>=</ncNodeMnemonic>
@@ -1506,10 +1506,10 @@
                                         <ncNodeVariableOV>Zone</ncNodeVariableOV>
                                     </ncNodeVariable>
                                     <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                    <ncNodeSubTypeNode>VARIABLE</ncNodeSubTypeNode>
+                                    <ncNodeSubTypeNode>OVARIABLE</ncNodeSubTypeNode>
                                 </ncNode>
                             </ncNode>
-                        </ncNodeFormulaTree>
+                        </ncNodeFormulaTreeUMP>
                     </necessaryCondition>
                 </necessaryConditionList>
                 <causeVariableList>
@@ -1594,7 +1594,7 @@
                 <necessaryConditionList>
                     <necessaryCondition>
                         <ncId>0</ncId>
-                        <ncNodeFormulaTree>
+                        <ncNodeFormulaTreeUMP>
                             <ncNode>
                                 <ncNodeName>ItExists(st)</ncNodeName>
                                 <ncNodeVariable>
@@ -1607,11 +1607,11 @@
                                 <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
                                 <ncNodeSubTypeNode>NODE</ncNodeSubTypeNode>
                             </ncNode>
-                        </ncNodeFormulaTree>
+                        </ncNodeFormulaTreeUMP>
                     </necessaryCondition>
                     <necessaryCondition>
                         <ncId>1</ncId>
-                        <ncNodeFormulaTree>
+                        <ncNodeFormulaTreeUMP>
                             <ncNode>
                                 <ncNodeName>not</ncNodeName>
                                 <ncNodeMnemonic>&#172;</ncNodeMnemonic>
@@ -1632,11 +1632,11 @@
                                     <ncNodeSubTypeNode>NODE</ncNodeSubTypeNode>
                                 </ncNode>
                             </ncNode>
-                        </ncNodeFormulaTree>
+                        </ncNodeFormulaTreeUMP>
                     </necessaryCondition>
                     <necessaryCondition>
                         <ncId>2</ncId>
-                        <ncNodeFormulaTree>
+                        <ncNodeFormulaTreeUMP>
                             <ncNode>
                                 <ncNodeName>equalto</ncNodeName>
                                 <ncNodeMnemonic>=</ncNodeMnemonic>
@@ -1662,10 +1662,10 @@
                                         <ncNodeVariableOV>Zone</ncNodeVariableOV>
                                     </ncNodeVariable>
                                     <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                    <ncNodeSubTypeNode>VARIABLE</ncNodeSubTypeNode>
+                                    <ncNodeSubTypeNode>OVARIABLE</ncNodeSubTypeNode>
                                 </ncNode>
                             </ncNode>
-                        </ncNodeFormulaTree>
+                        </ncNodeFormulaTreeUMP>
                     </necessaryCondition>
                 </necessaryConditionList>
                 <causeVariableList>
@@ -1752,7 +1752,7 @@
                 <necessaryConditionList>
                     <necessaryCondition>
                         <ncId>0</ncId>
-                        <ncNodeFormulaTree>
+                        <ncNodeFormulaTreeUMP>
                             <ncNode>
                                 <ncNodeName>ItExists(st)</ncNodeName>
                                 <ncNodeVariable>
@@ -1765,11 +1765,11 @@
                                 <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
                                 <ncNodeSubTypeNode>NODE</ncNodeSubTypeNode>
                             </ncNode>
-                        </ncNodeFormulaTree>
+                        </ncNodeFormulaTreeUMP>
                     </necessaryCondition>
                     <necessaryCondition>
                         <ncId>1</ncId>
-                        <ncNodeFormulaTree>
+                        <ncNodeFormulaTreeUMP>
                             <ncNode>
                                 <ncNodeName>not</ncNodeName>
                                 <ncNodeMnemonic>&#172;</ncNodeMnemonic>
@@ -1790,11 +1790,11 @@
                                     <ncNodeSubTypeNode>NODE</ncNodeSubTypeNode>
                                 </ncNode>
                             </ncNode>
-                        </ncNodeFormulaTree>
+                        </ncNodeFormulaTreeUMP>
                     </necessaryCondition>
                     <necessaryCondition>
                         <ncId>2</ncId>
-                        <ncNodeFormulaTree>
+                        <ncNodeFormulaTreeUMP>
                             <ncNode>
                                 <ncNodeName>equalto</ncNodeName>
                                 <ncNodeMnemonic>=</ncNodeMnemonic>
@@ -1820,10 +1820,10 @@
                                         <ncNodeVariableOV>Zone</ncNodeVariableOV>
                                     </ncNodeVariable>
                                     <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                    <ncNodeSubTypeNode>VARIABLE</ncNodeSubTypeNode>
+                                    <ncNodeSubTypeNode>OVARIABLE</ncNodeSubTypeNode>
                                 </ncNode>
                             </ncNode>
-                        </ncNodeFormulaTree>
+                        </ncNodeFormulaTreeUMP>
                     </necessaryCondition>
                 </necessaryConditionList>
                 <causeVariableList>
