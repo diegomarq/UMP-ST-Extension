@@ -1,0 +1,38 @@
+% Cabeçalho UBF
+Version=2.0
+PrOwl="srdata.owl"
+
+% Declaração de MTheory - UBF
+MTheory=srdata
+NextMFrag=2
+NextResident=2
+NextInput=1
+NextContext=1
+NextEntity=1
+
+% Declaração de MFrags e nós UBF
+
+% MFrag
+MFrag=SRData
+NextOrdinaryVar=2
+
+% Nós Residentes
+
+
+Node=Subject
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+% Variáveis Ordinárias
+
+
+Node=sensorreport
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+% Instâncias de Entidades Objetos

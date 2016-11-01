@@ -109,44 +109,51 @@ public class MappingController {
 		
 		// temporary MTheory
 		MultiEntityBayesianNetwork tmpMebn = createMebnInstance(null);
-		Debug.println("-----------------");
-		Debug.println("Created temporary mtheory: " + tmpMebn.getName());
+		Debug.println("[PLUG-IN EXT] Created temporary mtheory: " + tmpMebn.getName());
 		
 		// MTheory
 		MultiEntityBayesianNetwork mebn = createMebnInstance(tmpMebn);
-		Debug.println("Created working version of mtheory: " + mebn.getName());
+		Debug.println("[PLUG-IN EXT] Created working version of mtheory: " + mebn.getName());
 		
 		//Entities
 		rootObjectEntity = mebn.getObjectEntityContainer().getRootObjectEntity();
 		typeContainer = mebn.getTypeContainer();
 				
+		Debug.println("[PLUG-IN EXT] Mapping Entities");
 		createAllEntities(mebn);
-		Debug.println("All entities defined in MEBN");
 		
-		// MFrags	
-		createAllMFrags(mebn);
-		Debug.println("MFrags created: " + getMapMFragExtension().size());
+		// MFrags
+		Debug.println("[PLUG-IN EXT] Mapping MFrags");
+		createAllMFrags(mebn);		
 		
 		// Ordinary Variables
-		createAllOrdinaryVariables();
-		Debug.println("Create all OVs from the rules");
+		Debug.println("[PLUG-IN EXT] Mapping Ordinary Variables");
+		createAllOrdinaryVariables();		
 		
 		// Map relationships according to criteria of selection
+		Debug.println("[PLUG-IN EXT] Applicating the algorithm to map the nodes");
+		Debug.println("[PLUG-IN EXT] First Criterion of Condition");
 		firstCriterion = new FirstCriterionOfSelection(umpstProject, this, mebn);
 		
 		try {
+			Debug.println("[PLUG-IN EXT] Second Criterion of Condition");
 			secondCriterion = new SecondCriterionOfSelection(this, mebn);
 			// Context Nodes
+			Debug.println("[PLUG-IN EXT] Mapping ContextNodes");
 			createAllContextNodes(mebn);
 			
 		} catch (IncompatibleRuleForGroupException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		Debug.println("[PLUG-IN EXT] Third Criterion of Condition");
 		thirdCriterion = new ThirdCriterionOfSelection(this, mebn);
 		
+		if(getUndefinedNodeList().size() == 0) {
+			testMTheory(mebn);			
+		}
+		
 //		if(isPassedByThirdCriteria()) {
-//			testMTheory(mebn);
 //		}
 		
 //		printMTheory(mebn);
@@ -1004,6 +1011,8 @@ public class MappingController {
 		inputNode.updateLabel();
 //		inputNode.updateResidentNodePointer();
 		
+		Debug.println("[PLUG-IN EXT] MFrag: "+mfragExtension.getName()+". Mapped "+inputNode.getName()+ " to InputNode");
+		
 		return inputNode;
 	}
 	
@@ -1065,6 +1074,9 @@ public class MappingController {
 			
 //			residentNode.setDescription(residentNode.getName());
 //			mfragExtension.addResidentNodeExtension(residentNode);
+			
+			Debug.println("[PLUG-IN EXT] Mapped "+relationship.getName()+" to Resident");
+			
 			return residentNode;
 //		}
 //		else {
@@ -1116,6 +1128,8 @@ public class MappingController {
 		// Add ov in the ontology and ovModel in the MFragExtension
 		mfragExtension.addOrdinaryVariable(ov, ovModel);
 		
+		Debug.println("[PLUG-IN EXT] Mapped OV:" + ov.getName());
+		
 		return ov;
 	}
 	
@@ -1140,7 +1154,9 @@ public class MappingController {
 		// Maps the nodeFormula properties to nodeFormulaUMP
 		NodeFormulaTree nodeFormula = mapNodeFormulaOf(contextNode, mfragExtension);
 		contextNode.setFormulaTree(nodeFormula);
-		contextNode.updateLabel();		
+		contextNode.updateLabel();
+		
+		Debug.println("[PLUG-IN EXT] Mapped "+ncModel.getFormula()+ " to " + contextNode.getFormula()+ " -- ContextNode");
 		
 		return contextNode;
 	}
@@ -1315,6 +1331,8 @@ public class MappingController {
 				ObjectEntity objectEntity = mebn.getObjectEntityContainer().
 						createObjectEntity(name,rootObjectEntity);
 				mebn.getNamesUsed().add(name);
+				
+				Debug.println("[PLUG-IN EXT] Created entity: " + name);
 //				typeContainer.createType(name);
 			} catch (TypeException e) {
 				// TODO Auto-generated catch block
@@ -1435,6 +1453,8 @@ public class MappingController {
 			MFragExtension mfrag = new MFragExtension(name, mebn, group);
 			mebn.addDomainMFrag(mfrag);
 			getMapMFragExtension().put(id, mfrag);
+			
+			Debug.println("[PLUG-IN EXT] Created MFrag: "+mfrag.getName());
 		}
 	}
 

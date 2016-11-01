@@ -20,6 +20,7 @@ import unbbayes.prs.mebn.MultiEntityBayesianNetwork;
 import unbbayes.prs.mebn.exception.ArgumentNodeAlreadySetException;
 import unbbayes.prs.mebn.exception.OVDontIsOfTypeExpected;
 import unbbayes.prs.mebn.exception.OVariableAlreadyExistsInArgumentList;
+import unbbayes.util.Debug;
 
 /**
  * Maps an event related to the model to resident or input node manually by the user.
@@ -33,7 +34,7 @@ public class ThirdCriterionOfSelection {
 	
 	public ThirdCriterionOfSelection(MappingController mappingController, MultiEntityBayesianNetwork mebn) {
 		
-		this.mappingController = mappingController;		
+		this.mappingController = mappingController;
 		thirdCriterion(mebn);				
 	}
 	
@@ -60,9 +61,11 @@ public class ThirdCriterionOfSelection {
 				MFragExtension mfragRelated = nodeMapped.getMfragExtension();
 				RuleModel ruleRelated = nodeMapped.getRuleRelated();
 				
+				Debug.println("[PLUG-IN EXT] Mapping UndefinedNode To Resident");
+				
 				ResidentNodeExtension residentNode = mappingController.mapToResidentNode(
 						relationship, mfragRelated, nodeMapped.getEventRelated());
-				mappingController.mapAllEffectsToResident(residentNode, mfragRelated, ruleRelated);
+				mappingController.mapAllEffectsToResident(residentNode, mfragRelated, ruleRelated);				
 			}				
 		}
 		
@@ -77,16 +80,20 @@ public class ThirdCriterionOfSelection {
 				RuleModel ruleRelated = nodeMapped.getRuleRelated();
 				
 				ResidentNodeExtension residentNodeRelated = mappingController.getResidentNodeRelatedToAny(nodeMapped.getEventRelated(), mfragRelated);
-
-				try {
-					InputNodeExtension inputNode = mappingController.mapToInputNode(causeRelated, mfragRelated, residentNodeRelated);
-					mappingController.mapAllEffectsToResident(inputNode, mfragRelated, ruleRelated);
-				} catch (OVDontIsOfTypeExpected e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (ArgumentNodeAlreadySetException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				
+				Debug.println("[PLUG-IN EXT] Mapping UndefinedNode To Input");
+				
+				if(residentNodeRelated != null) {
+					try {
+						InputNodeExtension inputNode = mappingController.mapToInputNode(causeRelated, mfragRelated, residentNodeRelated);
+						mappingController.mapAllEffectsToResident(inputNode, mfragRelated, ruleRelated);
+					} catch (OVDontIsOfTypeExpected e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (ArgumentNodeAlreadySetException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}				
 		}			

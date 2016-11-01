@@ -5,9 +5,9 @@ PrOwl="starstrek.owl"
 % Declaração de MTheory - UBF
 MTheory=startrek
 NextMFrag=9
-NextResident=6
-NextInput=1
-NextContext=1
+NextResident=15
+NextInput=7
+NextContext=27
 NextEntity=1
 
 % Declaração de MFrags e nós UBF
@@ -25,6 +25,21 @@ Position=0.0,0.0
 Size=80,60
 Color=-66914
 PossibleValuesOrder=
+
+% Nós de Contexto
+
+
+Node=CX1
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
+
+Node=CX2
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
 
 % Variáveis Ordinárias
 
@@ -61,6 +76,21 @@ Size=80,60
 Color=-66914
 PossibleValuesOrder=
 
+% Nós de Contexto
+
+
+Node=CX10
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
+
+Node=CX11
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
+
 % Variáveis Ordinárias
 
 
@@ -86,6 +116,40 @@ Color=-5178237
 MFrag=Starship_Existence
 NextOrdinaryVar=3
 
+% Nós Residentes
+
+
+Node=ItExists
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+% nós Input
+
+
+Node=IX1
+Type=GenerativeInputNode
+Position=0.0,0.0
+Size=100,60
+Color=-2302756
+
+Node=IX2
+Type=GenerativeInputNode
+Position=0.0,0.0
+Size=100,60
+Color=-2302756
+
+% Nós de Contexto
+
+
+Node=CX12
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
+
 % Variáveis Ordinárias
 
 
@@ -103,11 +167,63 @@ Color=-5178237
 
 % MFrag
 MFrag=SR_Data
-NextOrdinaryVar=1
+NextOrdinaryVar=2
+
+% Nós Residentes
+
+
+Node=Subject
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+% Variáveis Ordinárias
+
+
+Node=sensorreport
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
 
 % MFrag
 MFrag=Starship_Data
-NextOrdinaryVar=1
+NextOrdinaryVar=2
+
+% Nós Residentes
+
+
+Node=ItExists
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+Node=StarshipZone
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+Node=IsOwnStarship
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+% Variáveis Ordinárias
+
+
+Node=starship
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
 
 % MFrag
 MFrag=Zone
@@ -122,6 +238,42 @@ Position=0.0,0.0
 Size=80,60
 Color=-66914
 PossibleValuesOrder=
+
+Node=ZoneNature
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+Node=ZoneFShips
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+Node=ZoneEShips
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+% Nós de Contexto
+
+
+Node=CX13
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
+
+Node=CX14
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
 
 % Variáveis Ordinárias
 
@@ -178,6 +330,124 @@ Color=-5178237
 MFrag=Starship
 NextOrdinaryVar=21
 
+% Nós Residentes
+
+
+Node=OperatorSpecies
+Type=DomainResidentNode
+Position=0.0,0.0
+Size=80,60
+Color=-66914
+PossibleValuesOrder=
+
+% nós Input
+
+
+Node=IX3
+Type=GenerativeInputNode
+Position=0.0,0.0
+Size=100,60
+Color=-2302756
+
+Node=IX4
+Type=GenerativeInputNode
+Position=0.0,0.0
+Size=100,60
+Color=-2302756
+
+% Nós de Contexto
+
+
+Node=CX3
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
+
+Node=CX4
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
+
+Node=CX5
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
+
+Node=CX15
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
+
+Node=CX16
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
+
+Node=CX17
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
+
+Node=CX18
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
+
+Node=CX19
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
+
+Node=CX20
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
+
+Node=CX21
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
+
+Node=CX22
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
+
+Node=CX23
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
+
+Node=CX24
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
+
+Node=CX25
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
+
+Node=CX26
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
+
 % Variáveis Ordinárias
 
 
@@ -187,12 +457,6 @@ Position=0.0,0.0
 Size=80,60
 Color=-5178237
 
-Node=st
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
 Node=t
 Type=OrdinalVar
 Position=0.0,0.0
@@ -200,6 +464,12 @@ Size=80,60
 Color=-5178237
 
 Node=tPrev
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+Node=st
 Type=OrdinalVar
 Position=0.0,0.0
 Size=80,60
@@ -235,6 +505,12 @@ Position=0.0,0.0
 Size=80,60
 Color=-5178237
 
+Node=st
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
 Node=t
 Type=OrdinalVar
 Position=0.0,0.0
@@ -242,12 +518,6 @@ Size=80,60
 Color=-5178237
 
 Node=tPrev
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-Node=st
 Type=OrdinalVar
 Position=0.0,0.0
 Size=80,60
@@ -321,6 +591,48 @@ Position=0.0,0.0
 Size=80,60
 Color=-66914
 PossibleValuesOrder=
+
+% nós Input
+
+
+Node=IX5
+Type=GenerativeInputNode
+Position=0.0,0.0
+Size=100,60
+Color=-2302756
+
+Node=IX6
+Type=GenerativeInputNode
+Position=0.0,0.0
+Size=100,60
+Color=-2302756
+
+% Nós de Contexto
+
+
+Node=CX6
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
+
+Node=CX7
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
+
+Node=CX8
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
+
+Node=CX9
+Type=ContextNode
+Position=0.0,0.0
+Size=100,60
+Color=-5178237
 
 % Variáveis Ordinárias
 

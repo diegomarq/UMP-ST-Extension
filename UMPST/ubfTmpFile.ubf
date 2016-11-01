@@ -3,7 +3,7 @@ Version=2.0
 PrOwl="ubfTmpFile.owl"
 
 % Declaração de MTheory - UBF
-MTheory=startrek
+MTheory=srdata
 NextMFrag=1
 NextResident=1
 NextInput=1
