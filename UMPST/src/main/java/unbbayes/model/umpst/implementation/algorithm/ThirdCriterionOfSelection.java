@@ -61,7 +61,7 @@ public class ThirdCriterionOfSelection {
 				MFragExtension mfragRelated = nodeMapped.getMfragExtension();
 				RuleModel ruleRelated = nodeMapped.getRuleRelated();
 				
-				Debug.println("[PLUG-IN EXT] Mapping UndefinedNode To Resident");
+				Debug.println("[PLUG-IN EXT] Mapping UndefinedNode "+ ((CauseVariableModel)nodeMapped.getEventRelated()).getRelationship()+" To Resident");
 				
 				ResidentNodeExtension residentNode = mappingController.mapToResidentNode(
 						relationship, mfragRelated, nodeMapped.getEventRelated());
@@ -81,7 +81,7 @@ public class ThirdCriterionOfSelection {
 				
 				ResidentNodeExtension residentNodeRelated = mappingController.getResidentNodeRelatedToAny(nodeMapped.getEventRelated(), mfragRelated);
 				
-				Debug.println("[PLUG-IN EXT] Mapping UndefinedNode To Input");
+				Debug.println("[PLUG-IN EXT] Mapping UndefinedNode "+ ((CauseVariableModel)nodeMapped.getEventRelated()).getRelationship()+"  To Input");
 				
 				if(residentNodeRelated != null) {
 					try {

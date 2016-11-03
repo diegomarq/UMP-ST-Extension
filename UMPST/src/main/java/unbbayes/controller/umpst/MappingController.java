@@ -149,9 +149,9 @@ public class MappingController {
 		Debug.println("[PLUG-IN EXT] Third Criterion of Condition");
 		thirdCriterion = new ThirdCriterionOfSelection(this, mebn);
 		
-		if(getUndefinedNodeList().size() == 0) {
-			testMTheory(mebn);			
-		}
+//		if(getUndefinedNodeList().size() == 0) {
+//			testMTheory(mebn);			
+//		}
 		
 //		if(isPassedByThirdCriteria()) {
 //		}

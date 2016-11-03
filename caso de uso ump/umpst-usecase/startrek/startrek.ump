@@ -6,7 +6,7 @@
         <modelName>startrek</modelName>
         <author>Diego</author>
         <date>01/07/2016</date>
-        <updateDate>27/10/2016</updateDate>
+        <updateDate>03/11/2016</updateDate>
     </header>
     <model>
         <entity>
@@ -349,7 +349,7 @@
                 <relationshipId>1</relationshipId>
                 <relationshipId>7</relationshipId>
                 <relationshipId>15</relationshipId>
-                <relationshipId>4</relationshipId>
+                <relationshipId>12</relationshipId>
             </relationshipList>
             <implementation>
                 <ordinaryVariableList>
@@ -453,25 +453,25 @@
                 </necessaryConditionList>
                 <causeVariableList>
                     <causeVariable>
-                        <causeId>0</causeId>
-                        <causeRelationship>OperatorSpecies</causeRelationship>
+                        <causeId>1</causeId>
+                        <causeRelationship>StarshipClass</causeRelationship>
                         <causeArgumentList>
                             <causeArgument>st</causeArgument>
                         </causeArgumentList>
                         <causeRelationshipModel>
-                            <relationshipId>4</relationshipId>
+                            <relationshipId>15</relationshipId>
                         </causeRelationshipModel>
                     </causeVariable>
                 </causeVariableList>
                 <effectVariableList>
                     <effectVariable>
-                        <effectId>0</effectId>
-                        <effectRelationship>StarshipClass</effectRelationship>
+                        <effectId>1</effectId>
+                        <effectRelationship>CloakMode</effectRelationship>
                         <effectArgumentList>
                             <effectArgument>st</effectArgument>
                         </effectArgumentList>
                         <effectRelationshipModel>
-                            <relationshipId>15</relationshipId>
+                            <relationshipId>12</relationshipId>
                         </effectRelationshipModel>
                     </effectVariable>
                 </effectVariableList>
@@ -1837,16 +1837,6 @@
                             <relationshipId>4</relationshipId>
                         </causeRelationshipModel>
                     </causeVariable>
-                    <causeVariable>
-                        <causeId>1</causeId>
-                        <causeRelationship>StarshipClass</causeRelationship>
-                        <causeArgumentList>
-                            <causeArgument>st</causeArgument>
-                        </causeArgumentList>
-                        <causeRelationshipModel>
-                            <relationshipId>15</relationshipId>
-                        </causeRelationshipModel>
-                    </causeVariable>
                 </causeVariableList>
                 <effectVariableList>
                     <effectVariable>
@@ -1857,6 +1847,16 @@
                         </effectArgumentList>
                         <effectRelationshipModel>
                             <relationshipId>12</relationshipId>
+                        </effectRelationshipModel>
+                    </effectVariable>
+                    <effectVariable>
+                        <effectId>1</effectId>
+                        <effectRelationship>StarshipClass</effectRelationship>
+                        <effectArgumentList>
+                            <effectArgument>st</effectArgument>
+                        </effectArgumentList>
+                        <effectRelationshipModel>
+                            <relationshipId>15</relationshipId>
                         </effectRelationshipModel>
                     </effectVariable>
                 </effectVariableList>
