@@ -12,6 +12,7 @@ import java.util.TreeSet;
 
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.tree.DefaultTreeModel;
 
 import org.eclipse.osgi.framework.debug.Debug;
@@ -139,26 +140,41 @@ public class MappingController {
 			Debug.println("[PLUG-IN EXT] Second Criterion of Condition");
 			secondCriterion = new SecondCriterionOfSelection(this, mebn);
 			// Context Nodes
+			
 			Debug.println("[PLUG-IN EXT] Mapping ContextNodes");
-			createAllContextNodes(mebn);
+//			createAllContextNodes(mebn);
 			
 		} catch (IncompatibleRuleForGroupException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Debug.println("[PLUG-IN EXT] Third Criterion of Condition");
-		thirdCriterion = new ThirdCriterionOfSelection(this, mebn);
 		
-//		if(getUndefinedNodeList().size() == 0) {
-//			testMTheory(mebn);			
-//		}
+		if (getUndefinedNodeList().size() > 0) {
+			Debug.println("[PLUG-IN EXT] Third Criterion of Condition");
+			thirdCriterion = new ThirdCriterionOfSelection(this, mebn, getUndefinedNodeList());			
+		}
 		
-//		if(isPassedByThirdCriteria()) {
-//		}
+		// Create all context nodes and build the model in pr-owl
+		 buildModel(mebn);
 		
 //		printMTheory(mebn);
 //		printUndefinedNodes();
 		
+	}
+	
+	/**
+	 * 
+	 */
+	public void buildModel(MultiEntityBayesianNetwork mebn) {
+		
+		System.out.println("=== > < ===");
+		System.out.println(getUndefinedNodeList().size());
+		System.out.println(getHypothesisListCase().size());
+		
+		if(getUndefinedNodeList().size() == getHypothesisListCase().size()) {			
+			createAllContextNodes(mebn);
+			testMTheory(mebn);
+		}
 	}
 	
 	/**
@@ -223,6 +239,7 @@ public class MappingController {
 	 * MTHEORY DEBBUG METHOD
 	 */
 	public void testMTheory(MultiEntityBayesianNetwork mebn) {
+		
 		File newFile = null;
 		
 		//Save MTheory in another format .model
@@ -278,8 +295,8 @@ public class MappingController {
 		this.setHypothesisListCase(hypothesisListCase);
 		try {
 			thirdCriterion.mapUndefinedNode(hypothesisListCase, mebn);
-			testMTheory(mebn);
 			
+			buildModel(mebn);
 			
 		} catch (IncompatibleQuantityException e) {
 			// TODO Auto-generated catch block
@@ -1478,7 +1495,7 @@ public class MappingController {
 	 * Update {@link UndefinedNode} list comparing with the list passed as parameter
 	 * @param treatedNodeList
 	 */
-	public void updatedUndefinedNodeList(List<UndefinedNode> treatedNodeList) {
+	public void updateUndefinedNodeList(List<UndefinedNode> treatedNodeList) {
 		
 		for (int j = 0; j < treatedNodeList.size(); j++) {
 			UndefinedNode nodeTreated = treatedNodeList.get(j);

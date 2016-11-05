@@ -32,15 +32,16 @@ public class ThirdCriterionOfSelection {
 
 	private MappingController mappingController;	
 	
-	public ThirdCriterionOfSelection(MappingController mappingController, MultiEntityBayesianNetwork mebn) {
+	public ThirdCriterionOfSelection(MappingController mappingController, MultiEntityBayesianNetwork mebn,
+			List<UndefinedNode> undefinedNodeList) {
 		
 		this.mappingController = mappingController;
-		thirdCriterion(mebn);				
+		thirdCriterion(mebn, undefinedNodeList);				
 	}
 	
-	public void thirdCriterion(MultiEntityBayesianNetwork mebn) {
+	public void thirdCriterion(MultiEntityBayesianNetwork mebn, List<UndefinedNode> undefinedNodeList) {
 		
-		List<UndefinedNode> undefinedNodeList = mappingController.getUndefinedNodeList();
+//		List<UndefinedNode> undefinedNodeList = mappingController.getUndefinedNodeList();
 		if(undefinedNodeList.size() > 0) {			
 			mappingController.createThirdCriterionPanel(undefinedNodeList, mebn);
 		}			
@@ -65,7 +66,7 @@ public class ThirdCriterionOfSelection {
 				
 				ResidentNodeExtension residentNode = mappingController.mapToResidentNode(
 						relationship, mfragRelated, nodeMapped.getEventRelated());
-				mappingController.mapAllEffectsToResident(residentNode, mfragRelated, ruleRelated);				
+				mappingController.mapAllEffectsToResident(residentNode, mfragRelated, ruleRelated);
 			}				
 		}
 		

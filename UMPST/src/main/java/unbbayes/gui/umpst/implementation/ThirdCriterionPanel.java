@@ -22,8 +22,11 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
 import javax.swing.border.TitledBorder;
+
+import org.semanticweb.owlapi.io.SystemOutDocumentTarget;
 
 import edu.isi.stella.UndefinedClassException;
 import unbbayes.controller.umpst.MappingController;
@@ -50,13 +53,19 @@ public class ThirdCriterionPanel extends JPanel {
 	private String inputType = "Input Type";
 	private String residentType = "Resident Type";
 	
-	public ThirdCriterionPanel(MappingController mappingController, List<UndefinedNode> undefinedNodeList,
+	public ThirdCriterionPanel(MappingController mappingController, List<UndefinedNode> _undefinedNodeList,
 			MultiEntityBayesianNetwork mebn) {
 		super();
 		this.mappingController = mappingController;
 		
 		// Map all mfrag related to the undefined nodes
 		setMapMFragRelated(new HashMap<MFragExtension, List<UndefinedNode>>());
+		
+		// Create a new instance of undefinedNodeList and work with it
+		List<UndefinedNode> undefinedNodeList = new ArrayList<UndefinedNode>();
+		for (int i = 0; i < _undefinedNodeList.size(); i++) {
+			undefinedNodeList.add(_undefinedNodeList.get(i));
+		}
 		mapAllMFragRelatedTo(undefinedNodeList, 0);
 		
 		// Initialize node type map
@@ -145,7 +154,7 @@ public class ThirdCriterionPanel extends JPanel {
 			typeArgument[i].addItemListener(new ComboListener(undefinedNodeListRelated.get(i), argList)); 
 			
 			//Adding components to panel
-			// Event name			
+			// Event name
 			Object event = undefinedNodeListRelated.get(i).getEventRelated();
 			if(event instanceof CauseVariableModel) {				
 				// Type of event
@@ -206,8 +215,9 @@ public class ThirdCriterionPanel extends JPanel {
 			listPane.add(itemPanel);
 //			listPane.add(new JPanel());
 		}
-
-		argPane.add(listPane);		
+		
+		JScrollPane scroll = new JScrollPane(listPane);
+		argPane.add(scroll);
 		
 		JButton btnClose = new JButton("Close");
 		btnClose.addActionListener(new ActionListener(){
@@ -239,7 +249,7 @@ public class ThirdCriterionPanel extends JPanel {
 		JToolBar tbArgX;
 		tbArgX = new JToolBar();		
 		tbArgX.setFloatable(false);
-//		tbArgX.setLayout(new GridLayout());	
+//		tbArgX.setLayout(new GridLayout());
 		tbArgX.add(new JPanel());
 		tbArgX.add(btnOk);
 		tbArgX.add(btnClose);
@@ -273,7 +283,7 @@ public class ThirdCriterionPanel extends JPanel {
 	}
 	
 	/**
-	 * Keep {@link UndefinedNode} related to the {@link UndefinedNode} related to the {@link MFragExtension} and 
+	 * Keep {@link UndefinedNode} related to the {@link MFragExtension} and 
 	 * remove their of the {@link UndefinedNode} list passed as parameter.
 	 * @param undefinedNodeSearched
 	 * @param undefinedNodeList
@@ -305,7 +315,7 @@ public class ThirdCriterionPanel extends JPanel {
 		// Put the mfragRelated and the undefinedNodeList Related in a map
 		MFragExtension mfragRelated = undefinedNodeSearched.getMfragExtension();
 		getMapMFragRelated().put(mfragRelated, undefinedNodeListRelated);
-		
+				
 		return newUndefinedNodeList;
 	}
 
