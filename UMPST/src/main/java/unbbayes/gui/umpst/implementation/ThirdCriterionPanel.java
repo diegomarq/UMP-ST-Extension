@@ -78,7 +78,7 @@ public class ThirdCriterionPanel extends JPanel {
 		getArgList().add(residentType);
 		
 		try {
-			createMappingPanel(undefinedNodeList, mebn);
+			createMappingPanel(_undefinedNodeList, mebn);
 		} catch (IncompatibleEventException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -136,18 +136,19 @@ public class ThirdCriterionPanel extends JPanel {
 		JPanel nodePanel = new JPanel(new BorderLayout());		
 //		nodePanel.add(mfragName, BorderLayout.CENTER);
 		nodePanel.setBorder(title);
+		nodePanel.setLayout(new GridLayout(undefinedNodeListRelated.size(), 1));
 //		nodePanel.add(mfragName);
 		
-		JComboBox typeArgument[] = new JComboBox[undefinedNodeListRelated.size()+1];
+		JComboBox typeArgument[] = new JComboBox[undefinedNodeListRelated.size()];
 		
-		JToolBar nodeItem;
+//		JToolBar nodeItem;
 		JButton btnNodeNumber;
 		JButton btnNodeType;
 		
 		//Build ComboBox for each undefinedNode
 		for(int i = 0; i < undefinedNodeListRelated.size(); i++){
 			
-			nodeItem = new JToolBar();
+			JToolBar nodeItem = new JToolBar();
 			
 			// Event options type
 			typeArgument[i] = new JComboBox(getArgList());
@@ -201,8 +202,8 @@ public class ThirdCriterionPanel extends JPanel {
 		
 		int numberOfMFrag = getMapMFragRelated().size();
 		
-		JPanel listPane =  new JPanel(new BorderLayout());
-		listPane.setLayout(new GridLayout(numberOfMFrag + undefinedNodeList.size(), 1));
+		JPanel listPane =  new JPanel(new BorderLayout());		
+		listPane.setLayout(new GridLayout(numberOfMFrag, 1));
 		
 		Map<MFragExtension, List<UndefinedNode>> _mapMFragRelated = getMapMFragRelated();
 		Set<MFragExtension> keyMap = _mapMFragRelated.keySet();
@@ -211,6 +212,10 @@ public class ThirdCriterionPanel extends JPanel {
 			List<UndefinedNode> undefinedNodeListRelated = _mapMFragRelated.get(mFragExtension);			
 			
 			JPanel itemPanel = createSelectionTypePanel(mFragExtension, undefinedNodeListRelated);
+			
+			System.out.println(" ==> < ==");
+			System.out.println(mFragExtension.getName()+ " -> "+ undefinedNodeListRelated.size());
+			
 			
 			listPane.add(itemPanel);
 //			listPane.add(new JPanel());
@@ -294,27 +299,32 @@ public class ThirdCriterionPanel extends JPanel {
 		
 		List<UndefinedNode> newUndefinedNodeList = undefinedNodeList;
 		newUndefinedNodeList.remove(undefinedNodeSearched);
+		undefinedNodeList.remove(undefinedNodeSearched);
 		
 		// Get undefined node related to mfrag
 		List<UndefinedNode> undefinedNodeListRelated = new ArrayList<UndefinedNode>();
 		undefinedNodeListRelated.add(undefinedNodeSearched);
+		
+		MFragExtension mfragRelated = undefinedNodeSearched.getMfragExtension();
 		
 		// Remove and get all undefined node related to the undefined node searched
 		for (int i = 0; i < undefinedNodeList.size(); i++) {
 			UndefinedNode undefinedNodeCompared = undefinedNodeList.get(i);
 			
 			MFragExtension mfragCompared = undefinedNodeCompared.getMfragExtension();
-			MFragExtension mfragSearched = undefinedNodeSearched.getMfragExtension();
 			
-			if(mfragSearched.equals(mfragCompared)) {
+			if(mfragRelated.equals(mfragCompared)) {
 				newUndefinedNodeList.remove(undefinedNodeCompared);
 				undefinedNodeListRelated.add(undefinedNodeCompared);
 			}
 		}
 		
 		// Put the mfragRelated and the undefinedNodeList Related in a map
-		MFragExtension mfragRelated = undefinedNodeSearched.getMfragExtension();
 		getMapMFragRelated().put(mfragRelated, undefinedNodeListRelated);
+		
+		
+		System.out.println(mfragRelated.getName() + " -> UN: "+undefinedNodeListRelated.size());
+		
 				
 		return newUndefinedNodeList;
 	}

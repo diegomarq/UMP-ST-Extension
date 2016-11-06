@@ -117,14 +117,15 @@ public class DefineDependenceRelation {
 				mappingController.mapAllEffectsToResident(residentNode, mfragExtensionActive, rule);
 			}
 			/**
-			 * Cause is Effect in other rule
+			 * Cause is Effect in a rule
 			 */
-			else if ((residentNode == null) && (containsCauseRelatedToEffect(cause, group, umpstProject))) {				
+			else if ((residentNode == null) && (containsCauseRelatedToEffect(cause, umpstProject))) {				
 				
 				/**
 				 * Verify if the input node related to the cause has an instance related to the resident node created
 				 * from the effect searched
 				 */
+				
 				MFragExtension mfragRelatedEffect = mappingController.getMFragRelatedToGroup(
 						getGroupRelatedToEffect());
 				EffectVariableModel effectRelatedToCause = getEffectRelatedToCause();
@@ -132,26 +133,30 @@ public class DefineDependenceRelation {
 				ResidentNodeExtension residentNodeRelated = mappingController.getResidentNodeRelatedToEffectIn(
 						effectRelatedToCause, mfragRelatedEffect);
 				
-				if (residentNodeRelated != null) {
-					
+				if(residentNodeRelated != null) {
 					/**
 					 * The resident node needs to have ordinary variables because during the mapping process the residentPointer
 					 * will be setted as the instance and its arguments will be the input node argument.
 					 */
-					if(residentNodeRelated.getOrdinaryVariableList().size() > 0) {
+//					if(residentNodeRelated.getOrdinaryVariableList().size() > 0) {
 						try {
 							InputNodeExtension inputNode = mappingController.mapToInputNode(cause, mfragExtensionActive, residentNodeRelated);
-//							inputNode.updateResidentNodePointer();
+	//							inputNode.updateResidentNodePointer();
 							mappingController.mapAllEffectsToResident(inputNode, mfragExtensionActive, rule);
 							
 						} catch (OVDontIsOfTypeExpected e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-					}
+//					}
 				}
 				else {
 					// ATTENTION
+					// Map the effect related to the cause to resident.
+					residentNodeRelated = mappingController.mapToResidentNode(
+							effectRelatedToCause.getRelationshipModel(), mfragRelatedEffect, effectRelatedToCause);
+					
+					// Include the cause in undefinedNode list because then the node will be mapped to input.
 					UndefinedNode undefinedNode = new UndefinedNode(cause, mfragExtensionActive);
 					// Add the rule related to the causeVariable
 					undefinedNode.setRuleRelated(rule);
@@ -180,98 +185,98 @@ public class DefineDependenceRelation {
 		}
 	}
 	
-	public void mapMissingRelationships() {
-		List<RelationshipModel> listMissingRelationship = searchMissingRelationship();
-		
+//	public void mapMissingRelationships() {
+//		List<RelationshipModel> listMissingRelationship = searchMissingRelationship();
+//		
 //		for (int i = 0; i < listMissingRelationship.size(); i++) {
 //			System.out.println(listMissingRelationship.get(i).getName());
 //		}		
-	}
+//	}
 	
 	/**
 	 * Verify if there are relationships that were not defined in rule definition as cause or effect.
 	 * If it exist, then it is added in list of missing relationships.
 	 * @return List<RelationshipModel>
 	 */
-	public List<RelationshipModel> searchMissingRelationship() {
-		List<RelationshipModel> listMissingRelationship = new ArrayList<RelationshipModel>();
-		boolean exist;
-		
-		for (int i = 0; i < group.getBacktrackingRelationship().size(); i++) {
-			RelationshipModel relationshipOfGroup = group.
-					getBacktrackingRelationship().get(i);			
-			exist = false;
-			
-			for (int j = 0; j < rule.getCauseVariableList().size(); j++) {
-				CauseVariableModel causeVar = rule.getCauseVariableList().get(j);				
-				RelationshipModel relationshipOfCause = causeVar.getRelationshipModel();
-				
-				if (relationshipOfGroup.equals(relationshipOfCause)) {
-					exist = true;
-					break;
-				}
-			}
-			for (int j = 0; j < rule.getEffectVariableList().size(); j++) {
-				EffectVariableModel effectVar = rule.getEffectVariableList().get(j);				
-				RelationshipModel relationshipOfEffect = effectVar.getRelationshipModel();
-				
-				if (relationshipOfGroup.equals(relationshipOfEffect)) {
-					exist = true;
-					break;
-				}
-			}
-			
-			// TODO recognize structures like isProcurementFinished(proc)^(enterprise = hasWinnerOfProcurement(proc))
-			exist = existsAsNecessaryCondition(relationshipOfGroup);
-				
-			
-//			for (int j = 0; j < rule.getRelationshipList().size(); j++) {								
-//				RelationshipModel relationshipOfRule = rule.getRelationshipList().get(j);
+//	public List<RelationshipModel> searchMissingRelationship() {
+//		List<RelationshipModel> listMissingRelationship = new ArrayList<RelationshipModel>();
+//		boolean exist;
+//		
+//		for (int i = 0; i < group.getBacktrackingRelationship().size(); i++) {
+//			RelationshipModel relationshipOfGroup = group.
+//					getBacktrackingRelationship().get(i);			
+//			exist = false;
+//			
+//			for (int j = 0; j < rule.getCauseVariableList().size(); j++) {
+//				CauseVariableModel causeVar = rule.getCauseVariableList().get(j);				
+//				RelationshipModel relationshipOfCause = causeVar.getRelationshipModel();
 //				
-//				if (relationshipOfGroup.equals(relationshipOfRule)) {
+//				if (relationshipOfGroup.equals(relationshipOfCause)) {
 //					exist = true;
 //					break;
 //				}
 //			}
-			if (!exist) {
-//				System.out.println("--"+group.getName()+"--");
-//				System.out.println(relationshipOfGroup.getName());
-				listMissingRelationship.add(relationshipOfGroup);
-			}
-		}
-		return listMissingRelationship;
-	}
+//			for (int j = 0; j < rule.getEffectVariableList().size(); j++) {
+//				EffectVariableModel effectVar = rule.getEffectVariableList().get(j);				
+//				RelationshipModel relationshipOfEffect = effectVar.getRelationshipModel();
+//				
+//				if (relationshipOfGroup.equals(relationshipOfEffect)) {
+//					exist = true;
+//					break;
+//				}
+//			}
+//			
+//			// TODO recognize structures like isProcurementFinished(proc)^(enterprise = hasWinnerOfProcurement(proc))
+//			exist = existsAsNecessaryCondition(relationshipOfGroup);
+//				
+//			
+////			for (int j = 0; j < rule.getRelationshipList().size(); j++) {								
+////				RelationshipModel relationshipOfRule = rule.getRelationshipList().get(j);
+////				
+////				if (relationshipOfGroup.equals(relationshipOfRule)) {
+////					exist = true;
+////					break;
+////				}
+////			}
+//			if (!exist) {
+////				System.out.println("--"+group.getName()+"--");
+////				System.out.println(relationshipOfGroup.getName());
+//				listMissingRelationship.add(relationshipOfGroup);
+//			}
+//		}
+//		return listMissingRelationship;
+//	}
 	
 	// The algorithm maps all relationship as resident node at some MFrag related to group.
-	public boolean existsAsNecessaryCondition(RelationshipModel relationship) {
-		boolean exists = false;		
-		for (int j = 0; j < rule.getNecessaryConditionList().size(); j++) {
-			NecessaryConditionVariableModel nc = rule.getNecessaryConditionList().get(j);			
-			NodeFormulaTreeUMP formulaTree = nc.getFormulaTree();
-			
-			exists = compareNodeFormula(formulaTree, relationship);
-			if (exists) {
-//				System.out.println("--"+group.getName()+"--");
-//				System.out.println(relationship.getName());
-				return true;
-			}
-		}
-		return false;
-	}
+//	public boolean existsAsNecessaryCondition(RelationshipModel relationship) {
+//		boolean exists = false;		
+//		for (int j = 0; j < rule.getNecessaryConditionList().size(); j++) {
+//			NecessaryConditionVariableModel nc = rule.getNecessaryConditionList().get(j);			
+//			NodeFormulaTreeUMP formulaTree = nc.getFormulaTree();
+//			
+//			exists = compareNodeFormula(formulaTree, relationship);
+//			if (exists) {
+////				System.out.println("--"+group.getName()+"--");
+////				System.out.println(relationship.getName());
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
 	
-	public boolean compareNodeFormula(NodeFormulaTreeUMP node, RelationshipModel relationship) {
-		if (node.getTypeNode() == EnumType.OPERAND) {
-			EventNCPointer event = (EventNCPointer)node.getNodeVariable();
-			RelationshipModel ncRelationship = event.getEventVariable().getRelationshipModel();
-			if (ncRelationship.equals(relationship)) {
-				return true;
-			}
-			if (node.getChildren().size() > 0) {
-				compareNodeFormula(node.getChildrenUMP().get(0), relationship);			
-			}
-		}
-		return false;
-	}
+//	public boolean compareNodeFormula(NodeFormulaTreeUMP node, RelationshipModel relationship) {
+//		if (node.getTypeNode() == EnumType.OPERAND) {
+//			EventNCPointer event = (EventNCPointer)node.getNodeVariable();
+//			RelationshipModel ncRelationship = event.getEventVariable().getRelationshipModel();
+//			if (ncRelationship.equals(relationship)) {
+//				return true;
+//			}
+//			if (node.getChildren().size() > 0) {
+//				compareNodeFormula(node.getChildrenUMP().get(0), relationship);			
+//			}
+//		}
+//		return false;
+//	}
 	
 	/**
 	 * Keep all the {@link GroupModel} in the model and compare the {@link EffectVariableModel} present in {@link RuleModel}
@@ -279,11 +284,10 @@ public class DefineDependenceRelation {
 	 * {@link EffectVariableModel} related to {@link CauseVariableModel} compared.
 	 * 
 	 * @param cause
-	 * @param groupRelated
 	 * @param umpstProject
 	 * @return
 	 */
-	public boolean containsCauseRelatedToEffect(CauseVariableModel cause, GroupModel groupRelated, UMPSTProject umpstProject) {
+	public boolean containsCauseRelatedToEffect(CauseVariableModel cause, UMPSTProject umpstProject) {
 		
 		/**
 		 * Keep all the groups in the project
@@ -297,9 +301,9 @@ public class DefineDependenceRelation {
 				GroupModel groupSearched = mapGroup.get(key);
 				
 				/**
-				 * Search in a group that is different from the group related passed as parameter
+				 * Search in a group if there is an effect related to the cause
 				 */
-				if (!groupSearched.equals(groupRelated)) {
+//				if (!groupSearched.equals(groupRelated)) {
 				
 					for (int i = 0; i < groupSearched.getBacktrackingRules().size(); i++) {
 				
@@ -325,7 +329,7 @@ public class DefineDependenceRelation {
 							}
 						}
 					}
-				}
+//				}
 			}
 		}
 		return false;
@@ -333,7 +337,7 @@ public class DefineDependenceRelation {
 	
 	
 	
-	public void mapCauseAsNotDefined(CauseVariableModel cause) {
+//	public void mapCauseAsNotDefined(CauseVariableModel cause) {
 //		String sentence = cause.getRelationship() + "(";
 //		for (int k = 0; k < cause.getArgumentList().size(); k++) {				
 //			sentence = sentence + cause.getArgumentList().get(k) + ", ";
@@ -344,7 +348,7 @@ public class DefineDependenceRelation {
 //		
 //		String id = cause.getId();
 //		notDefinedNode = new NodeInputModel(id, sentence, NodeType.NOT_DEFINED, cause);
-	}
+//	}
 	
 	/**
 	 * Verify if rule defines cause selected as effect and returns the effect related. If rule defines, then

@@ -314,14 +314,14 @@ public class MappingController {
 	}
 	
 	/**
-	 * Verify if there is any {@link ResidentNodeExtension} related to the {@link CauseVariableModel} in any {@link MFragExtension} of
-	 * the model except the {@link MFragExtension} passed as parameter.
+	 * Verify if there is any {@link ResidentNodeExtension} related to the {@link CauseVariableModel} in any {@link MFragExtension}.
+	 * The {@link ResidentNodeExtension} can be in the same {@link MFragExtension}.
 	 * @param event
 	 * @param mfragExtension
 	 * @return
 	 * @throws IncompatibleEventException 
 	 */
-	public ResidentNodeExtension getResidentNodeRelatedToAny(Object eventRelated, MFragExtension mfragExtensionRelated){
+	public ResidentNodeExtension getResidentNodeRelatedToAny(Object eventRelated){
 		
 		Map<String, MFragExtension> mapMFragExtension = getMapMFragExtension();
 		Set<String> keys = mapMFragExtension.keySet();
@@ -330,23 +330,23 @@ public class MappingController {
 		for (String groupId : sortedKeys) {	
 			MFragExtension mfragExtensionCompared = mapMFragExtension.get(groupId);
 			
-			if(!mfragExtensionRelated.equals(mfragExtensionCompared)) {
+//			if(!mfragExtensionRelated.equals(mfragExtensionCompared)) {
 				
 				List<ResidentNodeExtension> residentNodeExtensionList = mfragExtensionCompared.getResidentNodeExtensionList();
 				for (int i = 0; i < residentNodeExtensionList.size(); i++) {
 					
 					// Verify the residentNode
 					ResidentNodeExtension residentNodeCompared = residentNodeExtensionList.get(i);
-					if(residentNodeCompared.getEventRelated().getClass().equals(RelationshipModel.class)) {
+					if(residentNodeCompared.getEventRelated() instanceof RelationshipModel) {
 						
 						RelationshipModel relationshipCompared = (RelationshipModel)residentNodeCompared.getEventRelated();
 						RelationshipModel relationshipRelated = null;
 						
 						// The event can be a CauseVariableModel or an EventNCPointer
-						if(eventRelated.getClass().equals(CauseVariableModel.class)) {
+						if(eventRelated instanceof CauseVariableModel) {
 							relationshipRelated = ((CauseVariableModel)eventRelated).getRelationshipModel();
 						}
-						else if(eventRelated.getClass().equals(EventNCPointer.class)) {
+						else if(eventRelated instanceof EventNCPointer) {
 							relationshipRelated = ((EventNCPointer)eventRelated).getEventVariable().getRelationshipModel();
 						}
 						
@@ -365,7 +365,7 @@ public class MappingController {
 //					return residentNodeRelated;
 //				}
 			}
-		}
+//		}
 		return null;
 	}
 	
@@ -412,20 +412,12 @@ public class MappingController {
 		for (int i = 0; i < residentNodeExtensionList.size(); i++) {
 			
 			// Resident node is random variable related to an attribute or relationship.
-			if (residentNodeExtensionList.get(i).getEventRelated().getClass().equals(
-					RelationshipModel.class)) {
+			if (residentNodeExtensionList.get(i).getEventRelated() instanceof RelationshipModel) {
 				
 				ResidentNodeExtension residentNode = residentNodeExtensionList.get(i);
 				RelationshipModel relationshipModel = (RelationshipModel)residentNode.getEventRelated();
 
-				// This event can be a cause or effect variable
-//				if(event.getClass().equals(CauseVariableModel.class)) {
-//					if (relationshipModel.equals(((CauseVariableModel)event).getRelationshipModel())) {
-//						return residentNode;
-//					}
-//				}
-//				if { // It is EffectVariableModel
-				if(event.getClass().equals(EffectVariableModel.class)) {
+				if(event instanceof EffectVariableModel) {
 					if (relationshipModel.equals(((EffectVariableModel)event).getRelationshipModel())) {
 						return residentNode;
 					}
@@ -915,7 +907,7 @@ public class MappingController {
 //		 RelationshipModel relationshipRelated = eventVariable.getRelationshipModel();
 		 
 		 // Get residentNode related to the relationship
-		 ResidentNode residentNodeRelated = getResidentNodeRelatedToAny(eventPointer, mfragExtension);
+		 ResidentNode residentNodeRelated = getResidentNodeRelatedToAny(eventPointer);
 		 if(residentNodeRelated != null) {
 			 
 			 // Add the arguments related to the residentNodePointer
@@ -1028,7 +1020,7 @@ public class MappingController {
 		inputNode.updateLabel();
 //		inputNode.updateResidentNodePointer();
 		
-		Debug.println("[PLUG-IN EXT] MFrag: "+mfragExtension.getName()+". Mapped "+inputNode.getName()+ " to InputNode");
+		Debug.println("[PLUG-IN EXT] MFrag: "+mfragExtension.getName()+". Mapped "+inputNode.getResidentNodePointer().getResidentNode().getName()+ " to InputNode");
 		
 		return inputNode;
 	}

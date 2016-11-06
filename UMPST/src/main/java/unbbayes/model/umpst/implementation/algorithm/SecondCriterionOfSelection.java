@@ -112,8 +112,7 @@ public class SecondCriterionOfSelection {
 					Object eventRelated = undefinedNode.getEventRelated();
 					MFragExtension mfragExtensionRelated = undefinedNode.getMfragExtension();
 					
-					ResidentNodeExtension residentNodeRelated = mappingController.getResidentNodeRelatedToAny(
-							eventRelated, mfragExtensionRelated);
+					ResidentNodeExtension residentNodeRelated = mappingController.getResidentNodeRelatedToAny(eventRelated);
 					
 					if(residentNodeRelated != null) {
 						
