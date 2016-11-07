@@ -156,11 +156,16 @@ public class DefineDependenceRelation {
 					residentNodeRelated = mappingController.mapToResidentNode(
 							effectRelatedToCause.getRelationshipModel(), mfragRelatedEffect, effectRelatedToCause);
 					
+					System.out.println("=====");
+					System.out.println("Cause->UN: "+cause.getRelationship()+ " Effect->Resident: "+residentNode.getName() +" of "+mfragRelatedEffect.getName());
+					
 					// Include the cause in undefinedNode list because then the node will be mapped to input.
 					UndefinedNode undefinedNode = new UndefinedNode(cause, mfragExtensionActive);
 					// Add the rule related to the causeVariable
 					undefinedNode.setRuleRelated(rule);
 					mappingController.getUndefinedNodeList().add(undefinedNode);
+					
+					Debug.println("[PLUG-IN EXT] UndefinedNode added "+((CauseVariableModel)undefinedNode.getEventRelated()).getRelationship()+ " at "+undefinedNode.getMfragExtension().getName());
 				}
 			}
 			
@@ -173,6 +178,7 @@ public class DefineDependenceRelation {
 				// Add the rule related to the causeVariable
 				undefinedNode.setRuleRelated(rule);
 				mappingController.getUndefinedNodeList().add(undefinedNode);
+				Debug.println("[PLUG-IN EXT] UndefinedNode added "+((CauseVariableModel)undefinedNode.getEventRelated()).getRelationship()+" at "+undefinedNode.getMfragExtension().getName());
 			}
 //			// Verify if there are nodes that were not mapped.
 //			// Usually, these are nodes that were not mapped in other rule as effect.

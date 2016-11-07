@@ -6,7 +6,7 @@
         <modelName>startrek</modelName>
         <author>Diego</author>
         <date>01/07/2016</date>
-        <updateDate>03/11/2016</updateDate>
+        <updateDate>07/11/2016</updateDate>
     </header>
     <model>
         <entity>
@@ -766,6 +766,48 @@
                         </effectRelationshipModel>
                     </effectVariable>
                 </effectVariableList>
+            </implementation>
+        </rule>
+        <rule>
+            <ruleId>13</ruleId>
+            <name>Rule 1 - Group Starship Data</name>
+            <comments/>
+            <author>Diego</author>
+            <date>07/11/2016</date>
+            <ruleType>Not Deterministic</ruleType>
+            <entityList>
+                <entityId>2</entityId>
+            </entityList>
+            <relationshipList>
+                <relationshipId>10</relationshipId>
+            </relationshipList>
+            <implementation>
+                <ordinaryVariableList>
+                    <ordinaryVariable>
+                        <ovId>0</ovId>
+                        <ovInstance>st</ovInstance>
+                        <entityId>2</entityId>
+                    </ordinaryVariable>
+                </ordinaryVariableList>
+                <necessaryConditionList>
+                    <necessaryCondition>
+                        <ncId>0</ncId>
+                        <ncNodeFormulaTreeUMP>
+                            <ncNode>
+                                <ncNodeName>ItExists(st)</ncNodeName>
+                                <ncNodeVariable>
+                                    <ncNodeVariableEventId>10</ncNodeVariableEventId>
+                                    <ncNodeVariableEventType>OTHER</ncNodeVariableEventType>
+                                    <ncNodeVariableEventOVList>
+                                        <ncNodeVariableEventOVId>0</ncNodeVariableEventOVId>
+                                    </ncNodeVariableEventOVList>
+                                </ncNodeVariable>
+                                <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
+                                <ncNodeSubTypeNode>NODE</ncNodeSubTypeNode>
+                            </ncNode>
+                        </ncNodeFormulaTreeUMP>
+                    </necessaryCondition>
+                </necessaryConditionList>
             </implementation>
         </rule>
         <rule>
@@ -1940,6 +1982,9 @@
             <comments/>
             <author>Diego</author>
             <date>01/07/2016</date>
+            <backtrackingRulesList>
+                <ruleId>13</ruleId>
+            </backtrackingRulesList>
             <backtrackingEntitiesList>
                 <entityId>2</entityId>
             </backtrackingEntitiesList>

@@ -1020,7 +1020,7 @@ public class MappingController {
 		inputNode.updateLabel();
 //		inputNode.updateResidentNodePointer();
 		
-		Debug.println("[PLUG-IN EXT] MFrag: "+mfragExtension.getName()+". Mapped "+inputNode.getResidentNodePointer().getResidentNode().getName()+ " to InputNode");
+		Debug.println("[PLUG-IN EXT] MFrag: "+mfragExtension.getName()+". Mapped "+inputNode.getResidentNodePointer().getResidentNode().getName()+ " to InputNode at "+mfragExtension.getName());
 		
 		return inputNode;
 	}
@@ -1084,7 +1084,7 @@ public class MappingController {
 //			residentNode.setDescription(residentNode.getName());
 //			mfragExtension.addResidentNodeExtension(residentNode);
 			
-			Debug.println("[PLUG-IN EXT] Mapped "+relationship.getName()+" to Resident");
+			Debug.println("[PLUG-IN EXT] Mapped "+relationship.getName()+" to Resident at "+mfragExtension.getName());
 			
 			return residentNode;
 //		}
@@ -1165,7 +1165,7 @@ public class MappingController {
 		contextNode.setFormulaTree(nodeFormula);
 		contextNode.updateLabel();
 		
-		Debug.println("[PLUG-IN EXT] Mapped "+ncModel.getFormula()+ " to " + contextNode.getFormula()+ " -- ContextNode");
+		Debug.println("[PLUG-IN EXT] Mapped "+ncModel.getFormula()+ " to " + contextNode.getFormula()+ " ContextNode at "+mfragExtension.getName());
 		
 		return contextNode;
 	}

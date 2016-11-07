@@ -213,8 +213,8 @@ public class ThirdCriterionPanel extends JPanel {
 			
 			JPanel itemPanel = createSelectionTypePanel(mFragExtension, undefinedNodeListRelated);
 			
-			System.out.println(" ==> < ==");
-			System.out.println(mFragExtension.getName()+ " -> "+ undefinedNodeListRelated.size());
+//			System.out.println(" ==> < ==");
+//			System.out.println(mFragExtension.getName()+ " -> "+ undefinedNodeListRelated.size());
 			
 			
 			listPane.add(itemPanel);
