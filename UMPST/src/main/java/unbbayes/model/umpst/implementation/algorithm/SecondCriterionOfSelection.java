@@ -46,10 +46,11 @@ public class SecondCriterionOfSelection {
 	private List<ObjectModel> objectModel;
 	
 	
-	public SecondCriterionOfSelection(MappingController mappingController, MultiEntityBayesianNetwork mebn)
-					throws IncompatibleRuleForGroupException {
+	public SecondCriterionOfSelection(MappingController mappingController, MultiEntityBayesianNetwork mebn, UMPSTProject umpstProject)
+			throws IncompatibleRuleForGroupException {
 		
 		this.mappingController = mappingController;
+		this.umpstProject = umpstProject;
 		secondSelection(mebn);
 
 	}

@@ -139,7 +139,7 @@ public class DefineDependenceRelation {
 					 * will be setted as the instance and its arguments will be the input node argument.
 					 */
 //					if(residentNodeRelated.getOrdinaryVariableList().size() > 0) {
-						try {
+						try {							
 							InputNodeExtension inputNode = mappingController.mapToInputNode(cause, mfragExtensionActive, residentNodeRelated);
 	//							inputNode.updateResidentNodePointer();
 							mappingController.mapAllEffectsToResident(inputNode, mfragExtensionActive, rule);
@@ -157,7 +157,7 @@ public class DefineDependenceRelation {
 							effectRelatedToCause.getRelationshipModel(), mfragRelatedEffect, effectRelatedToCause);
 					
 					System.out.println("=====");
-					System.out.println("Cause->UN: "+cause.getRelationship()+ " Effect->Resident: "+residentNode.getName() +" of "+mfragRelatedEffect.getName());
+					System.out.println("Cause->UN: "+cause.getRelationship()+ " Effect->Resident: "+residentNodeRelated.getName() +" of "+mfragRelatedEffect.getName());
 					
 					// Include the cause in undefinedNode list because then the node will be mapped to input.
 					UndefinedNode undefinedNode = new UndefinedNode(cause, mfragExtensionActive);

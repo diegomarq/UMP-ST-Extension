@@ -138,7 +138,7 @@ public class MappingController {
 		
 		try {
 			Debug.println("[PLUG-IN EXT] Second Criterion of Condition");
-			secondCriterion = new SecondCriterionOfSelection(this, mebn);
+			secondCriterion = new SecondCriterionOfSelection(this, mebn, umpstProject);
 			// Context Nodes
 			
 			Debug.println("[PLUG-IN EXT] Mapping ContextNodes");
@@ -314,6 +314,35 @@ public class MappingController {
 	}
 	
 	/**
+	 * Verify if there is any {@link InputNodeExtension} related to the CauseVariableModel in the {@link MFragExtension} passed
+	 * as parameter.
+	 * @param eventRelated
+	 * @param mfragExtension
+	 * @return
+	 */
+	public InputNodeExtension getInputNodeRelatedToCauseIn(Object eventRelated, MFragExtension mfragExtension) {
+		
+		List<InputNodeExtension> inputNodeExtensionList = mfragExtension.getInputNodeExtensionList();		
+		for (int i = 0; i < inputNodeExtensionList.size(); i++) {
+			
+			// Input node is random variable related to an attribute or relationship.
+			if (inputNodeExtensionList.get(i).getEventRelated() instanceof RelationshipModel) {
+				
+				InputNodeExtension inputNode = inputNodeExtensionList.get(i);
+				RelationshipModel relationshipRelated = (RelationshipModel)inputNode.getEventRelated();
+				
+				// The event only can be a cause
+				RelationshipModel relationshipCompared = ((CauseVariableModel)eventRelated).getRelationshipModel();
+				
+				if (relationshipCompared.equals(relationshipRelated)) {
+					return inputNode;
+				}
+			}
+		}
+		return null;
+	}
+	
+	/**
 	 * Verify if there is any {@link ResidentNodeExtension} related to the {@link CauseVariableModel} in any {@link MFragExtension}.
 	 * The {@link ResidentNodeExtension} can be in the same {@link MFragExtension}.
 	 * @param event
@@ -384,8 +413,7 @@ public class MappingController {
 		for (int i = 0; i < residentNodeExtensionList.size(); i++) {
 			
 			// Resident node is random variable related to an attribute or relationship.
-			if (residentNodeExtensionList.get(i).getEventRelated().getClass().equals(
-					RelationshipModel.class)) {
+			if (residentNodeExtensionList.get(i).getEventRelated() instanceof RelationshipModel) {
 				
 				ResidentNodeExtension residentNode = residentNodeExtensionList.get(i);
 				RelationshipModel relationshipRelated = (RelationshipModel)residentNode.getEventRelated();
@@ -486,7 +514,7 @@ public class MappingController {
 		for (int l = 0; l < rule.getEffectVariableList().size(); l++) {
 			
 			EffectVariableModel effect = rule.getEffectVariableList().get(l);
-			ResidentNodeExtension residentNode = getResidentNodeRelatedToEffect(effect, mfragExtension);
+			ResidentNodeExtension residentNode = getResidentNodeRelatedToEffectIn(effect, mfragExtension);
 			
 			if(residentNode == null) {
 				
@@ -640,23 +668,23 @@ public class MappingController {
 	 * @param mfragExtension
 	 * @return
 	 */
-	public ResidentNodeExtension getResidentNodeRelatedToEffect(EffectVariableModel effect,
-			MFragExtension mfragExtension) {
-		
-		List<ResidentNodeExtension> residentNodeList = mfragExtension.getResidentNodeExtensionList();
-		for (int i = 0; i < residentNodeList.size(); i++) {
-			
-			ResidentNodeExtension node = residentNodeList.get(i);
-			if ((node.getEventRelated().getClass().equals(RelationshipModel.class))) {
-				
-				RelationshipModel relationshipRelated = (RelationshipModel)node.getEventRelated();
-				if(relationshipRelated.equals(effect.getRelationshipModel())) {
-					return node;
-				}
-			}
-		}
-		return null;
-	}
+//	public ResidentNodeExtension getResidentNodeRelatedToEffect(EffectVariableModel effect,
+//			MFragExtension mfragExtension) {
+//		
+//		List<ResidentNodeExtension> residentNodeList = mfragExtension.getResidentNodeExtensionList();
+//		for (int i = 0; i < residentNodeList.size(); i++) {
+//			
+//			ResidentNodeExtension node = residentNodeList.get(i);
+//			if ((node.getEventRelated().getClass().equals(RelationshipModel.class))) {
+//				
+//				RelationshipModel relationshipRelated = (RelationshipModel)node.getEventRelated();
+//				if(relationshipRelated.equals(effect.getRelationshipModel())) {
+//					return node;
+//				}
+//			}
+//		}
+//		return null;
+//	}
 	
 	/**
 	 * Get {@link MFragExtension} related to {@link GroupModel} passed in parameter.
@@ -996,32 +1024,35 @@ public class MappingController {
 		 * The input node does not have as parent another node, only if it is a resident node in other mfrag.
 		 */
 		
-		String name = null;
-		while (name == null){
-			name = resourceMebn.getString("inputNodeName") + mfragExtension.getMultiEntityBayesianNetwork().getGenerativeInputNodeNum(); 
-			if(mfragExtension.getMultiEntityBayesianNetwork().getNamesUsed().contains(name)){
-				name = null; 
-				mfragExtension.getMultiEntityBayesianNetwork().plusGenerativeInputNodeNum(); 
+		InputNodeExtension inputNode = getInputNodeRelatedToCauseIn(cause, mfragExtension);
+		if(inputNode == null) {
+		
+			String name = null;
+			while (name == null){
+				name = resourceMebn.getString("inputNodeName") + mfragExtension.getMultiEntityBayesianNetwork().getGenerativeInputNodeNum(); 
+				if(mfragExtension.getMultiEntityBayesianNetwork().getNamesUsed().contains(name)){
+					name = null; 
+					mfragExtension.getMultiEntityBayesianNetwork().plusGenerativeInputNodeNum(); 
+				}
 			}
+			
+			inputNode = new InputNodeExtension(name, mfragExtension, cause);
+			mfragExtension.getMultiEntityBayesianNetwork().getNamesUsed().add(name);
+			inputNode.setDescription(inputNode.getName());
+			mfragExtension.addInputNodeExtension(inputNode);
+			
+	//		InputNodeExtension inputNode = new InputNodeExtension(cause.getRelationship(), mfragExtension);
+	//		mfragExtension.addInputNodeExtension(inputNode);
+			
+			inputNode.setInputInstanceOf((ResidentNode)resident);
+	//		inputNode.updateResidentNodePointer();
+			ResidentNodePointer pointer = mapResidentNodePointerArgument((CauseVariableModel)inputNode.getEventRelated(),
+					inputNode.getResidentNodePointer(), mfragExtension);
+			inputNode.updateLabel();
+	//		inputNode.updateResidentNodePointer();
+			
+			Debug.println("[PLUG-IN EXT] Mapped "+inputNode.getResidentNodePointer().getResidentNode().getName()+ " to InputNode at "+mfragExtension.getName());			
 		}
-		
-		InputNodeExtension inputNode = new InputNodeExtension(name, mfragExtension, cause);
-		mfragExtension.getMultiEntityBayesianNetwork().getNamesUsed().add(name);
-		inputNode.setDescription(inputNode.getName());
-		mfragExtension.addInputNodeExtension(inputNode);
-		
-//		InputNodeExtension inputNode = new InputNodeExtension(cause.getRelationship(), mfragExtension);
-//		mfragExtension.addInputNodeExtension(inputNode);
-		
-		inputNode.setInputInstanceOf((ResidentNode)resident);
-//		inputNode.updateResidentNodePointer();
-		ResidentNodePointer pointer = mapResidentNodePointerArgument((CauseVariableModel)inputNode.getEventRelated(),
-				inputNode.getResidentNodePointer(), mfragExtension);
-		inputNode.updateLabel();
-//		inputNode.updateResidentNodePointer();
-		
-		Debug.println("[PLUG-IN EXT] MFrag: "+mfragExtension.getName()+". Mapped "+inputNode.getResidentNodePointer().getResidentNode().getName()+ " to InputNode at "+mfragExtension.getName());
-		
 		return inputNode;
 	}
 	
