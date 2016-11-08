@@ -6,7 +6,7 @@
         <modelName>caso</modelName>
         <author/>
         <date>22/09/2016</date>
-        <updateDate>06/10/2016</updateDate>
+        <updateDate>07/11/2016</updateDate>
     </header>
     <model>
         <entity>
@@ -345,9 +345,9 @@
                         <ncId>0</ncId>
                         <ncNodeFormulaTreeUMP>
                             <ncNode>
-                                <ncNodeName>isFrontFor(person, enterprise)</ncNodeName>
+                                <ncNodeName>isResponsibleFor(person, enterprise)</ncNodeName>
                                 <ncNodeVariable>
-                                    <ncNodeVariableEventId>6</ncNodeVariableEventId>
+                                    <ncNodeVariableEventId>8</ncNodeVariableEventId>
                                     <ncNodeVariableEventType>OTHER</ncNodeVariableEventType>
                                     <ncNodeVariableEventOVList>
                                         <ncNodeVariableEventOVId>0</ncNodeVariableEventOVId>

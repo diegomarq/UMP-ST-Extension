@@ -11,10 +11,31 @@
     <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
     <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
     <Import>http://www.pr-owl.org/pr-owl2.owl</Import>
+    <SubClassOf>
+        <Class IRI="#SensorReport"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Starship"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TimeStep"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Zone"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </SubClassOf>
     <ClassAssertion>
         <Class IRI="http://www.pr-owl.org/pr-owl2.owl#MTheory"/>
         <NamedIndividual IRI="#new_startrek"/>
     </ClassAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#new_startrek</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#string"></Literal>
+    </AnnotationAssertion>
 </Ontology>
 
 

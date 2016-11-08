@@ -314,6 +314,29 @@ public class MappingController {
 	}
 	
 	/**
+	 * Verify if there is a {@link ContextNodeExtension} related to the {@link NecessaryConditionVariableModel} in the
+	 * {@link MFragExtension} passed as parameter.
+	 * @param ncModel
+	 * @param mfragExtension
+	 * @return
+	 */
+	public ContextNodeExtension getContextNodeRelatedTo(NecessaryConditionVariableModel ncModel, MFragExtension mfragExtension) {
+		
+		List<ContextNodeExtension> contextNodeList = mfragExtension.getContextNodeExtensionList();
+		for (int i = 0; i < contextNodeList.size(); i++) {
+			
+			ContextNodeExtension contextNodeRelated = contextNodeList.get(i);
+			String formulaRelated = contextNodeRelated.getNecessaryConditionModel().getFormula();
+			String formulaCompared = ncModel.getFormula();
+			
+			if(formulaRelated.equals(formulaCompared)) {
+				return contextNodeRelated;
+			}
+		}
+		return null;
+	}
+	
+	/**
 	 * Verify if there is any {@link InputNodeExtension} related to the CauseVariableModel in the {@link MFragExtension} passed
 	 * as parameter.
 	 * @param eventRelated
@@ -1175,29 +1198,31 @@ public class MappingController {
 	
 	public ContextNodeExtension mapToContextNode(NecessaryConditionVariableModel ncModel,
 			MFragExtension mfragExtension) throws FormulaSintaxeException {
-		String name = null; 
 		
-		while (name == null){
-			name = resourceMebn.getString("contextNodeName") + mfragExtension.getMultiEntityBayesianNetwork().getContextNodeNum(); 
-			if(mfragExtension.getMultiEntityBayesianNetwork().getNamesUsed().contains(name)){
-				name = null; 
-				mfragExtension.getMultiEntityBayesianNetwork().plusContextNodeNul(); 
+		ContextNodeExtension contextNode = getContextNodeRelatedTo(ncModel, mfragExtension);
+		if(contextNode == null) {
+			String name = null; 		
+			while (name == null){
+				name = resourceMebn.getString("contextNodeName") + mfragExtension.getMultiEntityBayesianNetwork().getContextNodeNum(); 
+				if(mfragExtension.getMultiEntityBayesianNetwork().getNamesUsed().contains(name)){
+					name = null; 
+					mfragExtension.getMultiEntityBayesianNetwork().plusContextNodeNul(); 
+				}
 			}
-		}
-		
-		ContextNodeExtension contextNode = new ContextNodeExtension(name, mfragExtension, ncModel);
-		mfragExtension.getMultiEntityBayesianNetwork().getNamesUsed().add(name); 
-		
-		contextNode.setDescription(contextNode.getName());
-		mfragExtension.addContextNodeExtension(contextNode);
-		
-		// Maps the nodeFormula properties to nodeFormulaUMP
-		NodeFormulaTree nodeFormula = mapNodeFormulaOf(contextNode, mfragExtension);
-		contextNode.setFormulaTree(nodeFormula);
-		contextNode.updateLabel();
-		
-		Debug.println("[PLUG-IN EXT] Mapped "+ncModel.getFormula()+ " to " + contextNode.getFormula()+ " ContextNode at "+mfragExtension.getName());
-		
+			
+			contextNode = new ContextNodeExtension(name, mfragExtension, ncModel);
+			mfragExtension.getMultiEntityBayesianNetwork().getNamesUsed().add(name); 
+			
+			contextNode.setDescription(contextNode.getName());
+			mfragExtension.addContextNodeExtension(contextNode);
+			
+			// Maps the nodeFormula properties to nodeFormulaUMP
+			NodeFormulaTree nodeFormula = mapNodeFormulaOf(contextNode, mfragExtension);
+			contextNode.setFormulaTree(nodeFormula);
+			contextNode.updateLabel();
+			
+			Debug.println("[PLUG-IN EXT] Mapped "+ncModel.getFormula()+ " to " + contextNode.getFormulaTree().getFormulaViewText()+ " ContextNode at "+mfragExtension.getName());
+		}		
 		return contextNode;
 	}
 	

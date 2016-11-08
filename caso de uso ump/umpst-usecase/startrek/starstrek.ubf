@@ -7,7 +7,7 @@ MTheory=startrek
 NextMFrag=9
 NextResident=18
 NextInput=16
-NextContext=28
+NextContext=13
 NextEntity=1
 
 % Declaração de MFrags e nós UBF
@@ -103,13 +103,13 @@ Color=-2302756
 % Nós de Contexto
 
 
-Node=CX11
+Node=CX9
 Type=ContextNode
 Position=0.0,0.0
 Size=100,60
 Color=-5178237
 
-Node=CX12
+Node=CX10
 Type=ContextNode
 Position=0.0,0.0
 Size=100,60
@@ -168,7 +168,7 @@ Color=-2302756
 % Nós de Contexto
 
 
-Node=CX13
+Node=CX11
 Type=ContextNode
 Position=0.0,0.0
 Size=100,60
@@ -236,7 +236,7 @@ PossibleValuesOrder=
 % Nós de Contexto
 
 
-Node=CX10
+Node=CX8
 Type=ContextNode
 Position=0.0,0.0
 Size=100,60
@@ -304,13 +304,7 @@ Color=-2302756
 % Nós de Contexto
 
 
-Node=CX14
-Type=ContextNode
-Position=0.0,0.0
-Size=100,60
-Color=-5178237
-
-Node=CX15
+Node=CX12
 Type=ContextNode
 Position=0.0,0.0
 Size=100,60
@@ -446,78 +440,6 @@ Size=100,60
 Color=-5178237
 
 Node=CX5
-Type=ContextNode
-Position=0.0,0.0
-Size=100,60
-Color=-5178237
-
-Node=CX16
-Type=ContextNode
-Position=0.0,0.0
-Size=100,60
-Color=-5178237
-
-Node=CX17
-Type=ContextNode
-Position=0.0,0.0
-Size=100,60
-Color=-5178237
-
-Node=CX18
-Type=ContextNode
-Position=0.0,0.0
-Size=100,60
-Color=-5178237
-
-Node=CX19
-Type=ContextNode
-Position=0.0,0.0
-Size=100,60
-Color=-5178237
-
-Node=CX20
-Type=ContextNode
-Position=0.0,0.0
-Size=100,60
-Color=-5178237
-
-Node=CX21
-Type=ContextNode
-Position=0.0,0.0
-Size=100,60
-Color=-5178237
-
-Node=CX22
-Type=ContextNode
-Position=0.0,0.0
-Size=100,60
-Color=-5178237
-
-Node=CX23
-Type=ContextNode
-Position=0.0,0.0
-Size=100,60
-Color=-5178237
-
-Node=CX24
-Type=ContextNode
-Position=0.0,0.0
-Size=100,60
-Color=-5178237
-
-Node=CX25
-Type=ContextNode
-Position=0.0,0.0
-Size=100,60
-Color=-5178237
-
-Node=CX26
-Type=ContextNode
-Position=0.0,0.0
-Size=100,60
-Color=-5178237
-
-Node=CX27
 Type=ContextNode
 Position=0.0,0.0
 Size=100,60
@@ -716,18 +638,6 @@ Size=100,60
 Color=-5178237
 
 Node=CX7
-Type=ContextNode
-Position=0.0,0.0
-Size=100,60
-Color=-5178237
-
-Node=CX8
-Type=ContextNode
-Position=0.0,0.0
-Size=100,60
-Color=-5178237
-
-Node=CX9
 Type=ContextNode
 Position=0.0,0.0
 Size=100,60

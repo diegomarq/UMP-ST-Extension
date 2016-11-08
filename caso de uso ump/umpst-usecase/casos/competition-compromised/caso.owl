@@ -1229,7 +1229,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#CX1_1_inner_1"/>
-        <NamedIndividual IRI="#Related_Participant_Enterprises.person1"/>
+        <NamedIndividual IRI="#Personal_Information.person1"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isArgumentOf"/>
@@ -1239,7 +1239,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#CX1_1_inner_2"/>
-        <NamedIndividual IRI="#Related_Participant_Enterprises.person2"/>
+        <NamedIndividual IRI="#Personal_Information.person2"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasMExpression"/>
@@ -1369,7 +1369,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#CX7_1_inner_1"/>
-        <NamedIndividual IRI="#Competition_Compromised.procurement"/>
+        <NamedIndividual IRI="#Front_of_Enterprise.procurement"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isArgumentOf"/>
@@ -1409,7 +1409,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#CX7_2_inner_1"/>
-        <NamedIndividual IRI="#Competition_Compromised.enterprise"/>
+        <NamedIndividual IRI="#Front_of_Enterprise.enterprise"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isArgumentOf"/>
@@ -1429,7 +1429,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#CX7_2_inner_2_inner_1"/>
-        <NamedIndividual IRI="#Competition_Compromised.procurement"/>
+        <NamedIndividual IRI="#Front_of_Enterprise.procurement"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasMExpression"/>
@@ -1504,87 +1504,12 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
         <NamedIndividual IRI="#Competition_Compromised.enterprise"/>
-        <NamedIndividual IRI="#isSuspended_1"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Competition_Compromised.enterprise"/>
-        <NamedIndividual IRI="#isResponsibleFor_2"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Competition_Compromised.enterprise"/>
-        <NamedIndividual IRI="#isFrontFor_2"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Competition_Compromised.enterprise"/>
         <NamedIndividual IRI="#IX9_1"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
         <NamedIndividual IRI="#Competition_Compromised.enterprise"/>
-        <NamedIndividual IRI="#MEXPRESSION_CX6_2"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Competition_Compromised.enterprise"/>
-        <NamedIndividual IRI="#MEXPRESSION_CX8_2"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Competition_Compromised.enterprise"/>
-        <NamedIndividual IRI="#MEXPRESSION_CX5_1"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Competition_Compromised.enterprise"/>
-        <NamedIndividual IRI="#IX8_2"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Competition_Compromised.enterprise"/>
-        <NamedIndividual IRI="#CX7_2_inner_1"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Competition_Compromised.enterprise"/>
         <NamedIndividual IRI="#MEXPRESSION_CX15_1"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Competition_Compromised.enterprise"/>
-        <NamedIndividual IRI="#isParticipantIn_1"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Competition_Compromised.enterprise"/>
-        <NamedIndividual IRI="#MEXPRESSION_CX4_2"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Competition_Compromised.enterprise"/>
-        <NamedIndividual IRI="#existsFrontInEnterprise_1"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Competition_Compromised.procurement"/>
-        <NamedIndividual IRI="#isProcurementFinished_1"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Competition_Compromised.procurement"/>
-        <NamedIndividual IRI="#CX7_2_inner_2_inner_1"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Competition_Compromised.procurement"/>
-        <NamedIndividual IRI="#CX7_1_inner_1"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Competition_Compromised.procurement"/>
-        <NamedIndividual IRI="#hasMemberRelatedToParticipant_1"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
@@ -1594,32 +1519,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
         <NamedIndividual IRI="#Competition_Compromised.procurement"/>
-        <NamedIndividual IRI="#MEXPRESSION_CX12_2"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Competition_Compromised.procurement"/>
-        <NamedIndividual IRI="#isParticipantIn_2"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Competition_Compromised.procurement"/>
         <NamedIndividual IRI="#IX3_1"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Competition_Compromised.procurement"/>
-        <NamedIndividual IRI="#hasRelatedParticipants_1"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Competition_Compromised.procurement"/>
-        <NamedIndividual IRI="#isMemberOfCommitee_2"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Competition_Compromised.procurement"/>
-        <NamedIndividual IRI="#MEXPRESSION_CX3_2"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
@@ -1629,37 +1529,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
         <NamedIndividual IRI="#Competition_Compromised.procurement"/>
-        <NamedIndividual IRI="#hasWinnerOfProcurement_1"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Competition_Compromised.procurement"/>
-        <NamedIndividual IRI="#MEXPRESSION_CX14_2"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Competition_Compromised.procurement"/>
-        <NamedIndividual IRI="#IX5_1"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Competition_Compromised.procurement"/>
         <NamedIndividual IRI="#isCompetitionCompromised_1"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Competition_Compromised.procurement"/>
-        <NamedIndividual IRI="#hasValue_1"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Competition_Compromised.procurement"/>
-        <NamedIndividual IRI="#hasProcurementOwner_1"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Competition_Compromised.procurement"/>
-        <NamedIndividual IRI="#MEXPRESSION_CX5_2"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasContextNode"/>
@@ -2292,6 +2162,96 @@
         <NamedIndividual IRI="#Domain_MFrag.Personal_Information"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
+        <NamedIndividual IRI="#Enterprise_Information.enterprise"/>
+        <NamedIndividual IRI="#isResponsibleFor_2"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
+        <NamedIndividual IRI="#Enterprise_Information.enterprise"/>
+        <NamedIndividual IRI="#isSuspended_1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
+        <NamedIndividual IRI="#Enterprise_Information.person"/>
+        <NamedIndividual IRI="#isResponsibleFor_1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
+        <NamedIndividual IRI="#Exists_Front_in_Enterprise.enterprise"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX8_2"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
+        <NamedIndividual IRI="#Exists_Front_in_Enterprise.enterprise"/>
+        <NamedIndividual IRI="#IX8_2"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
+        <NamedIndividual IRI="#Exists_Front_in_Enterprise.enterprise"/>
+        <NamedIndividual IRI="#existsFrontInEnterprise_1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
+        <NamedIndividual IRI="#Exists_Front_in_Enterprise.person"/>
+        <NamedIndividual IRI="#IX8_1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
+        <NamedIndividual IRI="#Exists_Front_in_Enterprise.person"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX8_1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
+        <NamedIndividual IRI="#Front_of_Enterprise.enterprise"/>
+        <NamedIndividual IRI="#CX7_2_inner_1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
+        <NamedIndividual IRI="#Front_of_Enterprise.enterprise"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX6_2"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
+        <NamedIndividual IRI="#Front_of_Enterprise.enterprise"/>
+        <NamedIndividual IRI="#isFrontFor_2"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
+        <NamedIndividual IRI="#Front_of_Enterprise.person"/>
+        <NamedIndividual IRI="#IX6_1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
+        <NamedIndividual IRI="#Front_of_Enterprise.person"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX6_1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
+        <NamedIndividual IRI="#Front_of_Enterprise.person"/>
+        <NamedIndividual IRI="#isFrontFor_1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
+        <NamedIndividual IRI="#Front_of_Enterprise.person"/>
+        <NamedIndividual IRI="#IX7_1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
+        <NamedIndividual IRI="#Front_of_Enterprise.procurement"/>
+        <NamedIndividual IRI="#CX7_1_inner_1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
+        <NamedIndividual IRI="#Front_of_Enterprise.procurement"/>
+        <NamedIndividual IRI="#IX5_1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
+        <NamedIndividual IRI="#Front_of_Enterprise.procurement"/>
+        <NamedIndividual IRI="#CX7_2_inner_2_inner_1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasMExpression"/>
         <NamedIndividual IRI="#IX1"/>
         <NamedIndividual IRI="#MEXPRESSION_IX1"/>
@@ -2409,7 +2369,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#IX5_1"/>
-        <NamedIndividual IRI="#Competition_Compromised.procurement"/>
+        <NamedIndividual IRI="#Front_of_Enterprise.procurement"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasMExpression"/>
@@ -2429,7 +2389,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#IX6_1"/>
-        <NamedIndividual IRI="#Member_Related_to_Participant.person"/>
+        <NamedIndividual IRI="#Front_of_Enterprise.person"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasMExpression"/>
@@ -2449,7 +2409,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#IX7_1"/>
-        <NamedIndividual IRI="#Member_Related_to_Participant.person"/>
+        <NamedIndividual IRI="#Front_of_Enterprise.person"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasMExpression"/>
@@ -2469,7 +2429,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#IX8_1"/>
-        <NamedIndividual IRI="#Member_Related_to_Participant.person"/>
+        <NamedIndividual IRI="#Exists_Front_in_Enterprise.person"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isArgumentOf"/>
@@ -2479,7 +2439,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#IX8_2"/>
-        <NamedIndividual IRI="#Competition_Compromised.enterprise"/>
+        <NamedIndividual IRI="#Exists_Front_in_Enterprise.enterprise"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasMExpression"/>
@@ -2609,7 +2569,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#MEXPRESSION_CX12_2"/>
-        <NamedIndividual IRI="#Competition_Compromised.procurement"/>
+        <NamedIndividual IRI="#Related_Participant_Enterprises.procurement"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasArgument"/>
@@ -2689,7 +2649,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#MEXPRESSION_CX14_2"/>
-        <NamedIndividual IRI="#Competition_Compromised.procurement"/>
+        <NamedIndividual IRI="#Related_Participant_Enterprises.procurement"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasArgument"/>
@@ -2784,7 +2744,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#MEXPRESSION_CX3_2"/>
-        <NamedIndividual IRI="#Competition_Compromised.procurement"/>
+        <NamedIndividual IRI="#Member_Related_to_Participant.procurement"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasArgument"/>
@@ -2824,7 +2784,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#MEXPRESSION_CX4_2"/>
-        <NamedIndividual IRI="#Competition_Compromised.enterprise"/>
+        <NamedIndividual IRI="#Member_Related_to_Participant.enterprise"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasArgument"/>
@@ -2854,7 +2814,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#MEXPRESSION_CX5_1"/>
-        <NamedIndividual IRI="#Competition_Compromised.enterprise"/>
+        <NamedIndividual IRI="#Member_Related_to_Participant.enterprise"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isArgumentOf"/>
@@ -2864,7 +2824,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#MEXPRESSION_CX5_2"/>
-        <NamedIndividual IRI="#Competition_Compromised.procurement"/>
+        <NamedIndividual IRI="#Member_Related_to_Participant.procurement"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasArgument"/>
@@ -2894,7 +2854,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#MEXPRESSION_CX6_1"/>
-        <NamedIndividual IRI="#Member_Related_to_Participant.person"/>
+        <NamedIndividual IRI="#Front_of_Enterprise.person"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isArgumentOf"/>
@@ -2904,7 +2864,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#MEXPRESSION_CX6_2"/>
-        <NamedIndividual IRI="#Competition_Compromised.enterprise"/>
+        <NamedIndividual IRI="#Front_of_Enterprise.enterprise"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasArgument"/>
@@ -2954,7 +2914,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#MEXPRESSION_CX8_1"/>
-        <NamedIndividual IRI="#Member_Related_to_Participant.person"/>
+        <NamedIndividual IRI="#Exists_Front_in_Enterprise.person"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isArgumentOf"/>
@@ -2964,7 +2924,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#MEXPRESSION_CX8_2"/>
-        <NamedIndividual IRI="#Competition_Compromised.enterprise"/>
+        <NamedIndividual IRI="#Exists_Front_in_Enterprise.enterprise"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasArgument"/>
@@ -3418,6 +3378,16 @@
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
+        <NamedIndividual IRI="#Member_Related_to_Participant.enterprise"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX5_1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
+        <NamedIndividual IRI="#Member_Related_to_Participant.enterprise"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX4_2"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
         <NamedIndividual IRI="#Member_Related_to_Participant.member"/>
         <NamedIndividual IRI="#MEXPRESSION_CX3_1"/>
     </ObjectPropertyAssertion>
@@ -3444,57 +3414,102 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
         <NamedIndividual IRI="#Member_Related_to_Participant.person"/>
-        <NamedIndividual IRI="#hasAnnualIncome_1"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Member_Related_to_Participant.person"/>
-        <NamedIndividual IRI="#MEXPRESSION_CX8_1"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Member_Related_to_Participant.person"/>
         <NamedIndividual IRI="#IX2_2"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Member_Related_to_Participant.person"/>
+        <NamedIndividual IRI="#Member_Related_to_Participant.procurement"/>
+        <NamedIndividual IRI="#hasMemberRelatedToParticipant_1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
+        <NamedIndividual IRI="#Member_Related_to_Participant.procurement"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX5_2"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
+        <NamedIndividual IRI="#Member_Related_to_Participant.procurement"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX3_2"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
+        <NamedIndividual IRI="#Personal_Information.person"/>
         <NamedIndividual IRI="#hasEducationLevel_1"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Member_Related_to_Participant.person"/>
-        <NamedIndividual IRI="#IX8_1"/>
+        <NamedIndividual IRI="#Personal_Information.person"/>
+        <NamedIndividual IRI="#hasAnnualIncome_1"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Member_Related_to_Participant.person"/>
-        <NamedIndividual IRI="#isResponsibleFor_1"/>
+        <NamedIndividual IRI="#Personal_Information.person1"/>
+        <NamedIndividual IRI="#isRelated_1"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Member_Related_to_Participant.person"/>
-        <NamedIndividual IRI="#IX6_1"/>
+        <NamedIndividual IRI="#Personal_Information.person1"/>
+        <NamedIndividual IRI="#CX1_1_inner_1"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Member_Related_to_Participant.person"/>
+        <NamedIndividual IRI="#Personal_Information.person1"/>
+        <NamedIndividual IRI="#livesAtSameAddress_1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
+        <NamedIndividual IRI="#Personal_Information.person2"/>
+        <NamedIndividual IRI="#livesAtSameAddress_2"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
+        <NamedIndividual IRI="#Personal_Information.person2"/>
+        <NamedIndividual IRI="#isRelated_2"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
+        <NamedIndividual IRI="#Personal_Information.person2"/>
+        <NamedIndividual IRI="#CX1_1_inner_2"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
+        <NamedIndividual IRI="#Procurement_Information.enterprise"/>
+        <NamedIndividual IRI="#isParticipantIn_1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
+        <NamedIndividual IRI="#Procurement_Information.person"/>
         <NamedIndividual IRI="#isMemberOfCommitee_1"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Member_Related_to_Participant.person"/>
-        <NamedIndividual IRI="#IX7_1"/>
+        <NamedIndividual IRI="#Procurement_Information.procurement"/>
+        <NamedIndividual IRI="#hasProcurementOwner_1"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Member_Related_to_Participant.person"/>
-        <NamedIndividual IRI="#isFrontFor_1"/>
+        <NamedIndividual IRI="#Procurement_Information.procurement"/>
+        <NamedIndividual IRI="#isParticipantIn_2"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Member_Related_to_Participant.person"/>
-        <NamedIndividual IRI="#MEXPRESSION_CX6_1"/>
+        <NamedIndividual IRI="#Procurement_Information.procurement"/>
+        <NamedIndividual IRI="#hasWinnerOfProcurement_1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
+        <NamedIndividual IRI="#Procurement_Information.procurement"/>
+        <NamedIndividual IRI="#hasValue_1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
+        <NamedIndividual IRI="#Procurement_Information.procurement"/>
+        <NamedIndividual IRI="#isProcurementFinished_1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
+        <NamedIndividual IRI="#Procurement_Information.procurement"/>
+        <NamedIndividual IRI="#isMemberOfCommitee_2"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasArgument"/>
@@ -3949,16 +3964,6 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
         <NamedIndividual IRI="#Related_Participant_Enterprises.person1"/>
-        <NamedIndividual IRI="#isRelated_1"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Related_Participant_Enterprises.person1"/>
-        <NamedIndividual IRI="#CX1_1_inner_1"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Related_Participant_Enterprises.person1"/>
         <NamedIndividual IRI="#MEXPRESSION_CX11_1"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
@@ -3973,23 +3978,8 @@
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Related_Participant_Enterprises.person1"/>
-        <NamedIndividual IRI="#livesAtSameAddress_1"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Related_Participant_Enterprises.person2"/>
-        <NamedIndividual IRI="#livesAtSameAddress_2"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
         <NamedIndividual IRI="#Related_Participant_Enterprises.person2"/>
         <NamedIndividual IRI="#CX9_1_inner_2"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Related_Participant_Enterprises.person2"/>
-        <NamedIndividual IRI="#isRelated_2"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
@@ -4003,8 +3993,18 @@
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
-        <NamedIndividual IRI="#Related_Participant_Enterprises.person2"/>
-        <NamedIndividual IRI="#CX1_1_inner_2"/>
+        <NamedIndividual IRI="#Related_Participant_Enterprises.procurement"/>
+        <NamedIndividual IRI="#hasRelatedParticipants_1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
+        <NamedIndividual IRI="#Related_Participant_Enterprises.procurement"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX12_2"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isTypeOfArgumentIn"/>
+        <NamedIndividual IRI="#Related_Participant_Enterprises.procurement"/>
+        <NamedIndividual IRI="#MEXPRESSION_CX14_2"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasMFrag"/>
@@ -4054,7 +4054,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#existsFrontInEnterprise_1"/>
-        <NamedIndividual IRI="#Competition_Compromised.enterprise"/>
+        <NamedIndividual IRI="#Exists_Front_in_Enterprise.enterprise"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isArgumentOf"/>
@@ -4064,7 +4064,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#hasAnnualIncome_1"/>
-        <NamedIndividual IRI="#Member_Related_to_Participant.person"/>
+        <NamedIndividual IRI="#Personal_Information.person"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isArgumentOf"/>
@@ -4074,7 +4074,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#hasEducationLevel_1"/>
-        <NamedIndividual IRI="#Member_Related_to_Participant.person"/>
+        <NamedIndividual IRI="#Personal_Information.person"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isArgumentOf"/>
@@ -4084,7 +4084,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#hasMemberRelatedToParticipant_1"/>
-        <NamedIndividual IRI="#Competition_Compromised.procurement"/>
+        <NamedIndividual IRI="#Member_Related_to_Participant.procurement"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isArgumentOf"/>
@@ -4094,7 +4094,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#hasProcurementOwner_1"/>
-        <NamedIndividual IRI="#Competition_Compromised.procurement"/>
+        <NamedIndividual IRI="#Procurement_Information.procurement"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isArgumentOf"/>
@@ -4104,7 +4104,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#hasRelatedParticipants_1"/>
-        <NamedIndividual IRI="#Competition_Compromised.procurement"/>
+        <NamedIndividual IRI="#Related_Participant_Enterprises.procurement"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isArgumentOf"/>
@@ -4114,7 +4114,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#hasValue_1"/>
-        <NamedIndividual IRI="#Competition_Compromised.procurement"/>
+        <NamedIndividual IRI="#Procurement_Information.procurement"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isArgumentOf"/>
@@ -4124,7 +4124,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#hasWinnerOfProcurement_1"/>
-        <NamedIndividual IRI="#Competition_Compromised.procurement"/>
+        <NamedIndividual IRI="#Procurement_Information.procurement"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isArgumentOf"/>
@@ -4144,7 +4144,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#isFrontFor_1"/>
-        <NamedIndividual IRI="#Member_Related_to_Participant.person"/>
+        <NamedIndividual IRI="#Front_of_Enterprise.person"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isArgumentOf"/>
@@ -4154,7 +4154,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#isFrontFor_2"/>
-        <NamedIndividual IRI="#Competition_Compromised.enterprise"/>
+        <NamedIndividual IRI="#Front_of_Enterprise.enterprise"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isArgumentOf"/>
@@ -4164,7 +4164,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#isMemberOfCommitee_1"/>
-        <NamedIndividual IRI="#Member_Related_to_Participant.person"/>
+        <NamedIndividual IRI="#Procurement_Information.person"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isArgumentOf"/>
@@ -4174,7 +4174,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#isMemberOfCommitee_2"/>
-        <NamedIndividual IRI="#Competition_Compromised.procurement"/>
+        <NamedIndividual IRI="#Procurement_Information.procurement"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isArgumentOf"/>
@@ -4184,7 +4184,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#isParticipantIn_1"/>
-        <NamedIndividual IRI="#Competition_Compromised.enterprise"/>
+        <NamedIndividual IRI="#Procurement_Information.enterprise"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isArgumentOf"/>
@@ -4194,7 +4194,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#isParticipantIn_2"/>
-        <NamedIndividual IRI="#Competition_Compromised.procurement"/>
+        <NamedIndividual IRI="#Procurement_Information.procurement"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isArgumentOf"/>
@@ -4204,7 +4204,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#isProcurementFinished_1"/>
-        <NamedIndividual IRI="#Competition_Compromised.procurement"/>
+        <NamedIndividual IRI="#Procurement_Information.procurement"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isArgumentOf"/>
@@ -4214,7 +4214,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#isRelated_1"/>
-        <NamedIndividual IRI="#Related_Participant_Enterprises.person1"/>
+        <NamedIndividual IRI="#Personal_Information.person1"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isArgumentOf"/>
@@ -4224,7 +4224,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#isRelated_2"/>
-        <NamedIndividual IRI="#Related_Participant_Enterprises.person2"/>
+        <NamedIndividual IRI="#Personal_Information.person2"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isArgumentOf"/>
@@ -4234,7 +4234,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#isResponsibleFor_1"/>
-        <NamedIndividual IRI="#Member_Related_to_Participant.person"/>
+        <NamedIndividual IRI="#Enterprise_Information.person"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isArgumentOf"/>
@@ -4244,7 +4244,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#isResponsibleFor_2"/>
-        <NamedIndividual IRI="#Competition_Compromised.enterprise"/>
+        <NamedIndividual IRI="#Enterprise_Information.enterprise"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isArgumentOf"/>
@@ -4254,7 +4254,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#isSuspended_1"/>
-        <NamedIndividual IRI="#Competition_Compromised.enterprise"/>
+        <NamedIndividual IRI="#Enterprise_Information.enterprise"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isArgumentOf"/>
@@ -4264,7 +4264,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#livesAtSameAddress_1"/>
-        <NamedIndividual IRI="#Related_Participant_Enterprises.person1"/>
+        <NamedIndividual IRI="#Personal_Information.person1"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#isArgumentOf"/>
@@ -4274,7 +4274,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#typeOfArgument"/>
         <NamedIndividual IRI="#livesAtSameAddress_2"/>
-        <NamedIndividual IRI="#Related_Participant_Enterprises.person2"/>
+        <NamedIndividual IRI="#Personal_Information.person2"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.pr-owl.org/pr-owl2.owl#hasArgument"/>
@@ -5059,7 +5059,7 @@
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Domain_Res.hasMemberRelatedToParticipant</IRI>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#string">RX15</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#string">RX16</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -5069,7 +5069,7 @@
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Domain_Res.hasRelatedParticipants</IRI>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#string">RX14</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#string">RX15</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -5089,7 +5089,7 @@
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Domain_Res.isFrontFor</IRI>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#string">RX16</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#string">RX14</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
