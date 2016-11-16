@@ -132,6 +132,17 @@
             </backtrackingEntitiesList>
         </relationship>
         <relationship>
+            <relationshipId>18</relationshipId>
+            <name>DistFromOwn</name>
+            <comments/>
+            <author/>
+            <date>08/11/2016</date>
+            <backtrackingEntitiesList>
+                <entityId>1</entityId>
+                <entityId>2</entityId>
+            </backtrackingEntitiesList>
+        </relationship>
+        <relationship>
             <relationshipId>2</relationshipId>
             <name>DangerToSelf</name>
             <comments/>
@@ -183,17 +194,6 @@
             </backtrackingEntitiesList>
         </relationship>
         <relationship>
-            <relationshipId>7</relationshipId>
-            <name>DistFromOwn</name>
-            <comments/>
-            <author>Diego</author>
-            <date>08/11/2016</date>
-            <backtrackingEntitiesList>
-                <entityId>1</entityId>
-                <entityId>2</entityId>
-            </backtrackingEntitiesList>
-        </relationship>
-        <relationship>
             <relationshipId>8</relationshipId>
             <name>HarmPotencial</name>
             <comments/>
@@ -214,124 +214,6 @@
                 <entityId>1</entityId>
             </backtrackingEntitiesList>
         </relationship>
-        <rule>
-            <ruleId>1</ruleId>
-            <name>R1_DangerToOthers</name>
-            <comments/>
-            <author>Diego</author>
-            <date>08/11/2016</date>
-            <ruleType>Not Deterministic</ruleType>
-            <entityList>
-                <entityId>1</entityId>
-                <entityId>2</entityId>
-            </entityList>
-            <relationshipList>
-                <relationshipId>6</relationshipId>
-                <relationshipId>1</relationshipId>
-                <relationshipId>7</relationshipId>
-            </relationshipList>
-            <implementation>
-                <ordinaryVariableList>
-                    <ordinaryVariable>
-                        <ovId>0</ovId>
-                        <ovInstance>s</ovInstance>
-                        <entityId>1</entityId>
-                    </ordinaryVariable>
-                    <ordinaryVariable>
-                        <ovId>1</ovId>
-                        <ovInstance>st</ovInstance>
-                        <entityId>1</entityId>
-                    </ordinaryVariable>
-                    <ordinaryVariable>
-                        <ovId>2</ovId>
-                        <ovInstance>t</ovInstance>
-                        <entityId>2</entityId>
-                    </ordinaryVariable>
-                </ordinaryVariableList>
-                <necessaryConditionList>
-                    <necessaryCondition>
-                        <ncId>0</ncId>
-                        <ncNodeFormulaTreeUMP>
-                            <ncNode>
-                                <ncNodeName>IsOwnStarship(s)</ncNodeName>
-                                <ncNodeVariable>
-                                    <ncNodeVariableEventId>6</ncNodeVariableEventId>
-                                    <ncNodeVariableEventType>OTHER</ncNodeVariableEventType>
-                                    <ncNodeVariableEventOVList>
-                                        <ncNodeVariableEventOVId>0</ncNodeVariableEventOVId>
-                                    </ncNodeVariableEventOVList>
-                                </ncNodeVariable>
-                                <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                <ncNodeSubTypeNode>NODE</ncNodeSubTypeNode>
-                            </ncNode>
-                        </ncNodeFormulaTreeUMP>
-                    </necessaryCondition>
-                    <necessaryCondition>
-                        <ncId>1</ncId>
-                        <ncNodeFormulaTreeUMP>
-                            <ncNode>
-                                <ncNodeName>not</ncNodeName>
-                                <ncNodeMnemonic>&#172;</ncNodeMnemonic>
-                                <ncNodeVariable>BuiltInRV</ncNodeVariable>
-                                <ncNodeVariableNumOperands>1</ncNodeVariableNumOperands>
-                                <ncNodeTypeNode>SIMPLE_OPERATOR</ncNodeTypeNode>
-                                <ncNodeSubTypeNode>NOT</ncNodeSubTypeNode>
-                                <ncNode>
-                                    <ncNodeName>equalto</ncNodeName>
-                                    <ncNodeMnemonic>=</ncNodeMnemonic>
-                                    <ncNodeVariable>BuiltInRV</ncNodeVariable>
-                                    <ncNodeVariableNumOperands>2</ncNodeVariableNumOperands>
-                                    <ncNodeTypeNode>SIMPLE_OPERATOR</ncNodeTypeNode>
-                                    <ncNodeSubTypeNode>EQUALTO</ncNodeSubTypeNode>
-                                    <ncNode>
-                                        <ncNodeName>s</ncNodeName>
-                                        <ncNodeVariable>
-                                            <ncNodeVariableOV>Starship</ncNodeVariableOV>
-                                        </ncNodeVariable>
-                                        <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                        <ncNodeSubTypeNode>OVARIABLE</ncNodeSubTypeNode>
-                                    </ncNode>
-                                    <ncNode>
-                                        <ncNodeName>st</ncNodeName>
-                                        <ncNodeVariable>
-                                            <ncNodeVariableOV>Starship</ncNodeVariableOV>
-                                        </ncNodeVariable>
-                                        <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                        <ncNodeSubTypeNode>OVARIABLE</ncNodeSubTypeNode>
-                                    </ncNode>
-                                </ncNode>
-                            </ncNode>
-                        </ncNodeFormulaTreeUMP>
-                    </necessaryCondition>
-                </necessaryConditionList>
-                <causeVariableList>
-                    <causeVariable>
-                        <causeId>1</causeId>
-                        <causeRelationship>DistFromOwn</causeRelationship>
-                        <causeArgumentList>
-                            <causeArgument>s</causeArgument>
-                            <causeArgument>t</causeArgument>
-                        </causeArgumentList>
-                        <causeRelationshipModel>
-                            <relationshipId>7</relationshipId>
-                        </causeRelationshipModel>
-                    </causeVariable>
-                </causeVariableList>
-                <effectVariableList>
-                    <effectVariable>
-                        <effectId>0</effectId>
-                        <effectRelationship>DangeToOthers</effectRelationship>
-                        <effectArgumentList>
-                            <effectArgument>s</effectArgument>
-                            <effectArgument>t</effectArgument>
-                        </effectArgumentList>
-                        <effectRelationshipModel>
-                            <relationshipId>1</relationshipId>
-                        </effectRelationshipModel>
-                    </effectVariable>
-                </effectVariableList>
-            </implementation>
-        </rule>
         <rule>
             <ruleId>2</ruleId>
             <name>R1_DangerToSelf</name>
@@ -605,68 +487,121 @@
             </implementation>
         </rule>
         <rule>
-            <ruleId>6</ruleId>
-            <name>R2_Starship</name>
+            <ruleId>5</ruleId>
+            <name>R1_DangerToOthers</name>
             <comments/>
-            <author>Diego</author>
-            <date>08/11/2016</date>
-            <ruleType>Not Deterministic</ruleType>
-            <entityList>
-                <entityId>1</entityId>
-                <entityId>3</entityId>
-                <entityId>2</entityId>
-            </entityList>
-            <relationshipList>
-                <relationshipId>6</relationshipId>
-                <relationshipId>3</relationshipId>
-                <relationshipId>5</relationshipId>
-                <relationshipId>7</relationshipId>
-                <relationshipId>9</relationshipId>
-                <relationshipId>8</relationshipId>
-            </relationshipList>
-            <implementation/>
-        </rule>
-        <rule>
-            <ruleId>7</ruleId>
-            <name>R1_Starship</name>
-            <comments/>
-            <author>Diego</author>
+            <author/>
             <date>08/11/2016</date>
             <ruleType>Not Deterministic</ruleType>
             <entityList>
                 <entityId>1</entityId>
                 <entityId>2</entityId>
-                <entityId>3</entityId>
             </entityList>
             <relationshipList>
                 <relationshipId>6</relationshipId>
-                <relationshipId>5</relationshipId>
-                <relationshipId>3</relationshipId>
-                <relationshipId>7</relationshipId>
+                <relationshipId>18</relationshipId>
+                <relationshipId>1</relationshipId>
             </relationshipList>
             <implementation>
                 <ordinaryVariableList>
                     <ordinaryVariable>
                         <ovId>0</ovId>
-                        <ovInstance>st</ovInstance>
+                        <ovInstance>s</ovInstance>
                         <entityId>1</entityId>
                     </ordinaryVariable>
                     <ordinaryVariable>
                         <ovId>1</ovId>
-                        <ovInstance>t</ovInstance>
-                        <entityId>2</entityId>
+                        <ovInstance>st</ovInstance>
+                        <entityId>1</entityId>
                     </ordinaryVariable>
                     <ordinaryVariable>
                         <ovId>2</ovId>
-                        <ovInstance>tPrev</ovInstance>
+                        <ovInstance>t</ovInstance>
                         <entityId>2</entityId>
                     </ordinaryVariable>
-                    <ordinaryVariable>
-                        <ovId>3</ovId>
-                        <ovInstance>z</ovInstance>
-                        <entityId>3</entityId>
-                    </ordinaryVariable>
                 </ordinaryVariableList>
+                <necessaryConditionList>
+                    <necessaryCondition>
+                        <ncId>0</ncId>
+                        <ncNodeFormulaTreeUMP>
+                            <ncNode>
+                                <ncNodeName>not</ncNodeName>
+                                <ncNodeMnemonic>&#172;</ncNodeMnemonic>
+                                <ncNodeVariable>BuiltInRV</ncNodeVariable>
+                                <ncNodeVariableNumOperands>1</ncNodeVariableNumOperands>
+                                <ncNodeTypeNode>SIMPLE_OPERATOR</ncNodeTypeNode>
+                                <ncNodeSubTypeNode>NOT</ncNodeSubTypeNode>
+                                <ncNode>
+                                    <ncNodeName>equalto</ncNodeName>
+                                    <ncNodeMnemonic>=</ncNodeMnemonic>
+                                    <ncNodeVariable>BuiltInRV</ncNodeVariable>
+                                    <ncNodeVariableNumOperands>2</ncNodeVariableNumOperands>
+                                    <ncNodeTypeNode>SIMPLE_OPERATOR</ncNodeTypeNode>
+                                    <ncNodeSubTypeNode>EQUALTO</ncNodeSubTypeNode>
+                                    <ncNode>
+                                        <ncNodeName>s</ncNodeName>
+                                        <ncNodeVariable>
+                                            <ncNodeVariableOV>Starship</ncNodeVariableOV>
+                                        </ncNodeVariable>
+                                        <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
+                                        <ncNodeSubTypeNode>OVARIABLE</ncNodeSubTypeNode>
+                                    </ncNode>
+                                    <ncNode>
+                                        <ncNodeName>st</ncNodeName>
+                                        <ncNodeVariable>
+                                            <ncNodeVariableOV>Starship</ncNodeVariableOV>
+                                        </ncNodeVariable>
+                                        <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
+                                        <ncNodeSubTypeNode>OVARIABLE</ncNodeSubTypeNode>
+                                    </ncNode>
+                                </ncNode>
+                            </ncNode>
+                        </ncNodeFormulaTreeUMP>
+                    </necessaryCondition>
+                    <necessaryCondition>
+                        <ncId>1</ncId>
+                        <ncNodeFormulaTreeUMP>
+                            <ncNode>
+                                <ncNodeName>IsOwnStarship(s)</ncNodeName>
+                                <ncNodeVariable>
+                                    <ncNodeVariableEventId>6</ncNodeVariableEventId>
+                                    <ncNodeVariableEventType>OTHER</ncNodeVariableEventType>
+                                    <ncNodeVariableEventOVList>
+                                        <ncNodeVariableEventOVId>0</ncNodeVariableEventOVId>
+                                    </ncNodeVariableEventOVList>
+                                </ncNodeVariable>
+                                <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
+                                <ncNodeSubTypeNode>NODE</ncNodeSubTypeNode>
+                            </ncNode>
+                        </ncNodeFormulaTreeUMP>
+                    </necessaryCondition>
+                </necessaryConditionList>
+                <causeVariableList>
+                    <causeVariable>
+                        <causeId>1</causeId>
+                        <causeRelationship>DistFromOwn</causeRelationship>
+                        <causeArgumentList>
+                            <causeArgument>st</causeArgument>
+                            <causeArgument>t</causeArgument>
+                        </causeArgumentList>
+                        <causeRelationshipModel>
+                            <relationshipId>18</relationshipId>
+                        </causeRelationshipModel>
+                    </causeVariable>
+                </causeVariableList>
+                <effectVariableList>
+                    <effectVariable>
+                        <effectId>0</effectId>
+                        <effectRelationship>DangeToOthers</effectRelationship>
+                        <effectArgumentList>
+                            <effectArgument>s</effectArgument>
+                            <effectArgument>t</effectArgument>
+                        </effectArgumentList>
+                        <effectRelationshipModel>
+                            <relationshipId>1</relationshipId>
+                        </effectRelationshipModel>
+                    </effectVariable>
+                </effectVariableList>
             </implementation>
         </rule>
     </model>

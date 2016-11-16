@@ -274,7 +274,7 @@ public class EffectEditPanel extends IUMPSTPanel{
 			setVariableInstEntityList(new ArrayList<OrdinaryVariableModel>());
 			for (int i = 0; i < boxArray.size(); i++) {
 				
-				final String[] elementBox = new String[boxArray.get(0).size()];
+				final String[] elementBox = new String[boxArray.get(i).size()];
 				final ArrayList<OrdinaryVariableModel> ovModelList = boxArray.get(i); 
 				for (int j = 0; j < ovModelList.size(); j++) {
 					elementBox[j] = ovModelList.get(j).getVariable();
@@ -599,7 +599,10 @@ public class EffectEditPanel extends IUMPSTPanel{
 				// Just edit relationship
 				if ((getRelationshipSelected() != null) && (getAttributeSelected() == null)) {
 					
-					if (getRelationshipSelected().getEntityList().size() > 0) {
+					int numberOfArguments = getVariableInstEntityList().size();
+					int numberOfEntities = getRelationshipSelected().getEntityList().size();
+					
+					if(numberOfArguments == numberOfEntities) {
 						
 						String relationship = getVariableRelationshipName();
 						if (getEffectVariableEdited() != null) {
@@ -621,6 +624,7 @@ public class EffectEditPanel extends IUMPSTPanel{
 								System.err.println("Error. Select relationship arguments.");
 							}
 						}
+						setVariableInstEntityList(new ArrayList<OrdinaryVariableModel>());
 						
 						if (!mainPropertiesEditionPane.isVariableDuplicated(effectVariable)) {
 							if (getEffectVariableEdited() != null) {
@@ -647,94 +651,10 @@ public class EffectEditPanel extends IUMPSTPanel{
 						}
 						updateEffectVariableTable();
 					}
+					else {
+						System.err.println("Error. Number of arguments invalid.");
+					}
 					
-//					if (getRelationshipSelected().getEntityList().size() == 2) {
-//						String relationship = getVariableRelationshipName();
-//						String arg1 = getVariableInstEntity1();
-//						String arg2 = getVariableInstEntity2();						
-//						
-//						if(relationship == null || arg1 == null || arg2 == null) {
-//							System.err.println("Error. Select relationship and set its arguments.");
-//						} else {						
-//							if (getEffectVariableEdited() != null) {
-//								effectVariable = new EffectVariableModel(effectVariableEdited.getId());								
-//							} else {
-//								String key = Integer.toString(ID);
-//								effectVariable = new EffectVariableModel(key);
-//							}
-//							effectVariable.setRelationshipModel(getRelationshipSelected());
-//							effectVariable.setRelationship(relationship);
-//							effectVariable.getArgumentList().add(arg1);
-//							effectVariable.getArgumentList().add(arg2);
-//							if (!mainPropertiesEditionPane.isVariableDuplicated(effectVariable)) {
-//								if (getEffectVariableEdited() != null) {
-//									int i = 0;
-//									while (i < rule.getEffectVariableList().size()) {				
-//										if (rule.getEffectVariableList().get(i).getId().equals(effectVariable.getId())) {
-//											rule.getEffectVariableList().get(i).setRelationshipModel(effectVariable.getRelationshipModel());
-//											rule.getEffectVariableList().get(i).setRelationship(effectVariable.getRelationship());
-//											rule.getEffectVariableList().get(i).setArgumentList(effectVariable.getArgumentList());
-//											
-//											rule.changeEventVariableObject(effectVariable);
-//											break;
-//										}
-//										i++;
-//									}
-//									setEffectVariableEdited(null);
-//								} else {
-//									rule.getEffectVariableList().add(effectVariable);
-//									rule.getEventVariableObjectList().add(effectVariable);
-//									ID++;
-//								}
-//							} else {
-//								System.err.println("Variable duplicated.");
-//							}							
-//							updateEffectVariableTable();
-//						}
-//					} else if (getRelationshipSelected().getEntityList().size() == 1) {
-//						String relationship = getVariableRelationshipName();
-//						String arg1 = getVariableInstEntity1();
-//						
-//						if(relationship == null || arg1 == null) {
-//							System.err.println("Error. Select relationship and set its arguments.");
-//						} else {
-//							if (getEffectVariableEdited() != null) {
-//								effectVariable = new EffectVariableModel(effectVariableEdited.getId());								
-//							} else {
-//								String key = Integer.toString(ID);
-//								effectVariable = new EffectVariableModel(key);
-//							}
-//							effectVariable.setRelationshipModel(getRelationshipSelected());
-//							effectVariable.setRelationship(relationship);
-//							effectVariable.getArgumentList().add(arg1);
-//							if (!mainPropertiesEditionPane.isVariableDuplicated(effectVariable)) {
-//								if (getEffectVariableEdited() != null) {
-//									int i = 0;
-//									while (i < rule.getEffectVariableList().size()) {				
-//										if (rule.getEffectVariableList().get(i).getId().equals(effectVariable.getId())) {
-//											rule.getEffectVariableList().get(i).setRelationshipModel(effectVariable.getRelationshipModel());
-//											rule.getEffectVariableList().get(i).setRelationship(effectVariable.getRelationship());
-//											rule.getEffectVariableList().get(i).setArgumentList(effectVariable.getArgumentList());
-//											
-//											rule.changeEventVariableObject(effectVariable);
-//											break;
-//										}
-//										i++;
-//									}
-//									setEffectVariableEdited(null);
-//								} else {
-//									rule.getEffectVariableList().add(effectVariable);
-//									rule.getEventVariableObjectList().add(effectVariable);
-//									ID++;
-//								}
-//							} else {
-//								System.err.println("Variable duplicated.");
-//							}
-//							updateEffectVariableTable();
-//						}
-//					} else {
-//						System.err.println("Error add relationship.");
-//					}
 				} else if ((getRelationshipSelected() == null) && (getAttributeSelected() != null)) {
 					String key = Integer.toString(ID);
 					effectVariable = new EffectVariableModel(key);
