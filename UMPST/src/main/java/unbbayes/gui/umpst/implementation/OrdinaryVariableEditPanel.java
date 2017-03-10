@@ -85,7 +85,7 @@ public class OrdinaryVariableEditPanel extends IUMPSTPanel{
 		
 		mainPropertiesEditionPane =  new ImplementationMainPropertiesEditionPane(
 				janelaPai, umpstProject, rule);		
-		titlePanel = mainPropertiesEditionPane.createTitleLabel("Ordinary Variables");
+		titlePanel = mainPropertiesEditionPane.createTitleLabel("Identifiers");
 		variablePane = createOrdinaryVariableTableAndEdit(rule.getOrdinaryVariableList());
 		
 		panelSet = new JSplitPane(JSplitPane.VERTICAL_SPLIT); // panel to edit ov

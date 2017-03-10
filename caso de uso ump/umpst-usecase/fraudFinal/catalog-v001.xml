@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" id="XML Catalog File (see http://www.oasis-open.org/committees/entity/spec-2001-08-06.html) - Created By Protege 4" prefer="public">
+<uri id="User Entered Import Resolution" name="http://www.pr-owl.org/pr-owl2.owl" uri="file:/home/diego/Documents/Mono/pr-owl2.owl"/>
+<group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=1" prefer="public" xml:base="">
+<uri id="Automatically generated entry, Timestamp=1488812851787" name="file:/home/diego/Documents/Mono/UMP-ST-Extension/UMPST/./ubfTmpFile.owl" uri="fraudPersonalInfo.owl"/>
+<uri id="Automatically generated entry, Timestamp=1488813846861" name="file:/home/diego/Documents/Mono/UMP-ST-Extension/UMPST/./ubfTmpFile.owl" uri="fraudFrontOfEnterprise.owl"/>
+<uri id="Automatically generated entry, Timestamp=1488814475161" name="file:/home/diego/Documents/Mono/UMP-ST-Extension/UMPST/./ubfTmpFile.owl" uri="fraudExistsFrontInEnterprise.owl"/>
+<uri id="Automatically generated entry, Timestamp=1488822352247" name="file:/home/diego/Documents/Mono/UMP-ST-Extension/UMPST/./ubfTmpFile.owl" uri="fraudCompetitionCompromised.owl"/>
+<uri id="Automatically generated entry, Timestamp=1488826373178" name="file:/home/diego/Documents/Mono/UMP-ST-Extension/UMPST/./ubfTmpFile.owl" uri="fraudRelatedParticipantEnterprises.owl"/>
+<uri id="Automatically generated entry, Timestamp=1488827455887" name="file:/home/diego/Documents/Mono/UMP-ST-Extension/UMPST/./ubfTmpFile.owl" uri="fraudMemberRelatedToParticipant.owl"/>
+<uri id="Automatically generated entry, Timestamp=1488827836771" name="file:/home/diego/Documents/Mono/UMP-ST-Extension/UMPST/./ubfTmpFile.owl" uri="fraudJudgmentHistory.owl"/>
+<uri id="Automatically generated entry, Timestamp=1488828136486" name="file:/home/diego/Documents/Mono/UMP-ST-Extension/UMPST/./ubfTmpFile.owl" uri="fraudOwnsSuspendedEnterprise.owl"/>
+<uri id="Automatically generated entry, Timestamp=1488828840096" name="file:/home/diego/Documents/Mono/UMP-ST-Extension/UMPST/./ubfTmpFile.owl" uri="fraudRelatedToPreviousParticipants.owl"/>
+<uri id="Automatically generated entry, Timestamp=1488908148129" name="file:/home/diego/Documents/Mono/UMP-ST-Extension/UMPST/./ubfTmpFile.owl" uri="fraudSuspiciousCommitteeErr.owl"/>
+<uri id="Automatically generated entry, Timestamp=1488908148129" name="file:/home/diego/Documents/Mono/UMP-ST-Extension/UMPST/./ubfTmpFile.owl" uri="fraudSuspiciousCommittee.owl"/>
+<uri id="Automatically generated entry, Timestamp=1488908255157" name="file:/home/diego/Documents/Mono/UMP-ST-Extension/UMPST/./ubfTmpFile.owl" uri="fraudSuspiciousCommitteeAfter.owl"/>
+</group>
+</catalog>

@@ -123,7 +123,7 @@ public class ImplementationEditPanel extends IUMPSTPanel {
 				getUmpstProject(), rule);
 		ordVariablePane.setPreferredSize(new Dimension(500, 300));
 //		tabbedPane.addTab(resource.getString("ttOrdinaryVariable"),
-		tabbedPane.addTab("Ordinary Variable",
+		tabbedPane.addTab("Identifiers",
 				iconController.getImplementingIcon(),
 				ordVariablePane,
 				resource.getString("hpOrdinaryVariableTab"));

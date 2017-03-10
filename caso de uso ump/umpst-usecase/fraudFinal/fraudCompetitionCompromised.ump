@@ -3,10 +3,10 @@
     <header>
         <versionPlugin>0</versionPlugin>
         <versionUnBBayes>0</versionUnBBayes>
-        <modelName>fraude-model2</modelName>
+        <modelName>fraudCompetitionCompromised</modelName>
         <author>diego</author>
         <date>23/08/2015</date>
-        <updateDate>28/03/2016</updateDate>
+        <updateDate>06/03/2017</updateDate>
     </header>
     <model>
         <goal>
@@ -507,11 +507,11 @@
         </relationship>
         <rule>
             <ruleId>1</ruleId>
-            <name>If two different people live at the same address, then they are related.</name>
+            <name>1- If two different people live at the same address, then they are related.</name>
             <comments/>
             <author>Diego Marques</author>
             <date>24/09/2015</date>
-            <ruleType>Deterministic</ruleType>
+            <ruleType>Not Deterministic</ruleType>
             <entityList>
                 <entityId>1</entityId>
             </entityList>
@@ -535,7 +535,7 @@
                         <entityId>1</entityId>
                     </ordinaryVariable>
                     <ordinaryVariable>
-                        <ovId>1</ovId>
+                        <ovId>3</ovId>
                         <ovInstance>person2</ovInstance>
                         <entityId>1</entityId>
                     </ordinaryVariable>
@@ -564,7 +564,7 @@
                                             <ncNodeVariableOV>Person</ncNodeVariableOV>
                                         </ncNodeVariable>
                                         <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                        <ncNodeSubTypeNode>VARIABLE</ncNodeSubTypeNode>
+                                        <ncNodeSubTypeNode>OVARIABLE</ncNodeSubTypeNode>
                                     </ncNode>
                                     <ncNode>
                                         <ncNodeName>person2</ncNodeName>
@@ -572,7 +572,7 @@
                                             <ncNodeVariableOV>Person</ncNodeVariableOV>
                                         </ncNodeVariable>
                                         <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                        <ncNodeSubTypeNode>VARIABLE</ncNodeSubTypeNode>
+                                        <ncNodeSubTypeNode>OVARIABLE</ncNodeSubTypeNode>
                                     </ncNode>
                                 </ncNode>
                             </ncNode>
@@ -609,11 +609,11 @@
         </rule>
         <rule>
             <ruleId>10</ruleId>
-            <name>If the member of commitee in an procurement has not a clean history or/and was related to previous participants, then this procurement has a suspicious committee.</name>
+            <name>10- If the member of commitee in an procurement has not a clean history or/and was related to previous participants, then this procurement has a suspicious committee.</name>
             <comments/>
             <author>Diego Marques</author>
             <date>25/09/2015</date>
-            <ruleType>Deterministic</ruleType>
+            <ruleType>Not Deterministic</ruleType>
             <entityList>
                 <entityId>1</entityId>
                 <entityId>2</entityId>
@@ -624,89 +624,18 @@
                 <relationshipId>20</relationshipId>
                 <relationshipId>22</relationshipId>
             </relationshipList>
-            <childrenRuleList>
-                <ruleId>8</ruleId>
-                <ruleId>9</ruleId>
-            </childrenRuleList>
             <backtrackingGoalsList>
                 <goalId>2</goalId>
             </backtrackingGoalsList>
-            <implementation>
-                <ordinaryVariableList>
-                    <ordinaryVariable>
-                        <ovId>0</ovId>
-                        <ovInstance>member</ovInstance>
-                        <entityId>1</entityId>
-                    </ordinaryVariable>
-                    <ordinaryVariable>
-                        <ovId>1</ovId>
-                        <ovInstance>procurement</ovInstance>
-                        <entityId>2</entityId>
-                    </ordinaryVariable>
-                </ordinaryVariableList>
-                <necessaryConditionList>
-                    <necessaryCondition>
-                        <ncId>0</ncId>
-                        <ncNodeFormulaTreeUMP>
-                            <ncNode>
-                                <ncNodeName>isMemberOfCommitee(member, procurement)</ncNodeName>
-                                <ncNodeVariable>
-                                    <ncNodeVariableEventId>7</ncNodeVariableEventId>
-                                    <ncNodeVariableEventType>OTHER</ncNodeVariableEventType>
-                                    <ncNodeVariableEventOVList>
-                                        <ncNodeVariableEventOVId>0</ncNodeVariableEventOVId>
-                                        <ncNodeVariableEventOVId>1</ncNodeVariableEventOVId>
-                                    </ncNodeVariableEventOVList>
-                                </ncNodeVariable>
-                                <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                <ncNodeSubTypeNode>NODE</ncNodeSubTypeNode>
-                            </ncNode>
-                        </ncNodeFormulaTreeUMP>
-                    </necessaryCondition>
-                </necessaryConditionList>
-                <causeVariableList>
-                    <causeVariable>
-                        <causeId>0</causeId>
-                        <causeRelationship>wasRelatedToPreviousParticipants</causeRelationship>
-                        <causeArgumentList>
-                            <causeArgument>member</causeArgument>
-                        </causeArgumentList>
-                        <causeRelationshipModel>
-                            <relationshipId>21</relationshipId>
-                        </causeRelationshipModel>
-                    </causeVariable>
-                    <causeVariable>
-                        <causeId>1</causeId>
-                        <causeRelationship>hasCleanHistory</causeRelationship>
-                        <causeArgumentList>
-                            <causeArgument>member</causeArgument>
-                        </causeArgumentList>
-                        <causeRelationshipModel>
-                            <relationshipId>20</relationshipId>
-                        </causeRelationshipModel>
-                    </causeVariable>
-                </causeVariableList>
-                <effectVariableList>
-                    <effectVariable>
-                        <effectId>1</effectId>
-                        <effectRelationship>hasSuspiciousCommitee</effectRelationship>
-                        <effectArgumentList>
-                            <effectArgument>procurement</effectArgument>
-                        </effectArgumentList>
-                        <effectRelationshipModel>
-                            <relationshipId>22</relationshipId>
-                        </effectRelationshipModel>
-                    </effectVariable>
-                </effectVariableList>
-            </implementation>
+            <implementation/>
         </rule>
         <rule>
             <ruleId>11</ruleId>
-            <name>If a person responsible for an enterprise which is participant in a procurement owns suspended enterprise or/and this procurement has suspicious commitee or/and is its competition compromised, then this procurement is suspended.</name>
+            <name>11- If a person responsible for an enterprise which is participant in a procurement owns suspended enterprise or/and this procurement has suspicious commitee or/and is its competition compromised, then this procurement is suspended.</name>
             <comments/>
             <author>Diego Marques</author>
             <date>25/09/2015</date>
-            <ruleType>Deterministic</ruleType>
+            <ruleType>Not Deterministic</ruleType>
             <entityList>
                 <entityId>1</entityId>
                 <entityId>3</entityId>
@@ -720,138 +649,30 @@
                 <relationshipId>16</relationshipId>
                 <relationshipId>23</relationshipId>
             </relationshipList>
-            <childrenRuleList>
-                <ruleId>5</ruleId>
-                <ruleId>7</ruleId>
-                <ruleId>10</ruleId>
-            </childrenRuleList>
             <backtrackingGoalsList>
                 <goalId>1</goalId>
             </backtrackingGoalsList>
-            <implementation>
-                <ordinaryVariableList>
-                    <ordinaryVariable>
-                        <ovId>0</ovId>
-                        <ovInstance>person</ovInstance>
-                        <entityId>1</entityId>
-                    </ordinaryVariable>
-                    <ordinaryVariable>
-                        <ovId>1</ovId>
-                        <ovInstance>enterprise</ovInstance>
-                        <entityId>3</entityId>
-                    </ordinaryVariable>
-                    <ordinaryVariable>
-                        <ovId>2</ovId>
-                        <ovInstance>procurement</ovInstance>
-                        <entityId>2</entityId>
-                    </ordinaryVariable>
-                </ordinaryVariableList>
-                <necessaryConditionList>
-                    <necessaryCondition>
-                        <ncId>0</ncId>
-                        <ncNodeFormulaTreeUMP>
-                            <ncNode>
-                                <ncNodeName>isResponsibleFor(person, enterprise)</ncNodeName>
-                                <ncNodeVariable>
-                                    <ncNodeVariableEventId>11</ncNodeVariableEventId>
-                                    <ncNodeVariableEventType>OTHER</ncNodeVariableEventType>
-                                    <ncNodeVariableEventOVList>
-                                        <ncNodeVariableEventOVId>0</ncNodeVariableEventOVId>
-                                        <ncNodeVariableEventOVId>1</ncNodeVariableEventOVId>
-                                    </ncNodeVariableEventOVList>
-                                </ncNodeVariable>
-                                <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                <ncNodeSubTypeNode>NODE</ncNodeSubTypeNode>
-                            </ncNode>
-                        </ncNodeFormulaTreeUMP>
-                    </necessaryCondition>
-                    <necessaryCondition>
-                        <ncId>1</ncId>
-                        <ncNodeFormulaTreeUMP>
-                            <ncNode>
-                                <ncNodeName>isParticipantIn(enterprise, procurement)</ncNodeName>
-                                <ncNodeVariable>
-                                    <ncNodeVariableEventId>6</ncNodeVariableEventId>
-                                    <ncNodeVariableEventType>OTHER</ncNodeVariableEventType>
-                                    <ncNodeVariableEventOVList>
-                                        <ncNodeVariableEventOVId>1</ncNodeVariableEventOVId>
-                                        <ncNodeVariableEventOVId>2</ncNodeVariableEventOVId>
-                                    </ncNodeVariableEventOVList>
-                                </ncNodeVariable>
-                                <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                <ncNodeSubTypeNode>NODE</ncNodeSubTypeNode>
-                            </ncNode>
-                        </ncNodeFormulaTreeUMP>
-                    </necessaryCondition>
-                </necessaryConditionList>
-                <causeVariableList>
-                    <causeVariable>
-                        <causeId>0</causeId>
-                        <causeRelationship>ownsSuspendedEnterprise</causeRelationship>
-                        <causeArgumentList>
-                            <causeArgument>person</causeArgument>
-                        </causeArgumentList>
-                        <causeRelationshipModel>
-                            <relationshipId>17</relationshipId>
-                        </causeRelationshipModel>
-                    </causeVariable>
-                    <causeVariable>
-                        <causeId>1</causeId>
-                        <causeRelationship>hasSuspiciousCommitee</causeRelationship>
-                        <causeArgumentList>
-                            <causeArgument>procurement</causeArgument>
-                        </causeArgumentList>
-                        <causeRelationshipModel>
-                            <relationshipId>22</relationshipId>
-                        </causeRelationshipModel>
-                    </causeVariable>
-                    <causeVariable>
-                        <causeId>2</causeId>
-                        <causeRelationship>isCompetitionCompromised</causeRelationship>
-                        <causeArgumentList>
-                            <causeArgument>procurement</causeArgument>
-                        </causeArgumentList>
-                        <causeRelationshipModel>
-                            <relationshipId>16</relationshipId>
-                        </causeRelationshipModel>
-                    </causeVariable>
-                </causeVariableList>
-                <effectVariableList>
-                    <effectVariable>
-                        <effectId>0</effectId>
-                        <effectRelationship>isSuspendedProcurement</effectRelationship>
-                        <effectArgumentList>
-                            <effectArgument>procurement</effectArgument>
-                        </effectArgumentList>
-                        <effectRelationshipModel>
-                            <relationshipId>23</relationshipId>
-                        </effectRelationshipModel>
-                    </effectVariable>
-                </effectVariableList>
-            </implementation>
+            <implementation/>
         </rule>
         <rule>
             <ruleId>2</ruleId>
-            <name>If the member of commitee in a procurement is related to a person that is responsible for an enterprise that participates in the same procurement, then this procurement has a member related to participant.</name>
+            <name>2- If the member of commitee in a procurement is related to a person that is responsible for an enterprise that participates in the same procurement, then this procurement has a member related to participant.</name>
             <comments/>
             <author>Diego Marques</author>
             <date>24/09/2015</date>
-            <ruleType>Deterministic</ruleType>
+            <ruleType>Not Deterministic</ruleType>
             <entityList>
                 <entityId>1</entityId>
                 <entityId>2</entityId>
                 <entityId>3</entityId>
             </entityList>
             <relationshipList>
-                <relationshipId>7</relationshipId>
-                <relationshipId>11</relationshipId>
-                <relationshipId>6</relationshipId>
                 <relationshipId>2</relationshipId>
                 <relationshipId>15</relationshipId>
+                <relationshipId>11</relationshipId>
+                <relationshipId>6</relationshipId>
+                <relationshipId>7</relationshipId>
             </relationshipList>
-            <childrenRuleList>
-                <ruleId>1</ruleId>
-            </childrenRuleList>
             <backtrackingGoalsList>
                 <goalId>1.1</goalId>
                 <goalId>2.2</goalId>
@@ -862,156 +683,15 @@
                 <hypothesisId>1</hypothesisId>
                 <hypothesisId>10</hypothesisId>
             </backtrackingHypothesisList>
-            <implementation>
-                <ordinaryVariableList>
-                    <ordinaryVariable>
-                        <ovId>0</ovId>
-                        <ovInstance>member</ovInstance>
-                        <entityId>1</entityId>
-                    </ordinaryVariable>
-                    <ordinaryVariable>
-                        <ovId>1</ovId>
-                        <ovInstance>person</ovInstance>
-                        <entityId>1</entityId>
-                    </ordinaryVariable>
-                    <ordinaryVariable>
-                        <ovId>2</ovId>
-                        <ovInstance>enterprise</ovInstance>
-                        <entityId>3</entityId>
-                    </ordinaryVariable>
-                    <ordinaryVariable>
-                        <ovId>3</ovId>
-                        <ovInstance>procurement</ovInstance>
-                        <entityId>2</entityId>
-                    </ordinaryVariable>
-                </ordinaryVariableList>
-                <necessaryConditionList>
-                    <necessaryCondition>
-                        <ncId>0</ncId>
-                        <ncNodeFormulaTreeUMP>
-                            <ncNode>
-                                <ncNodeName>not</ncNodeName>
-                                <ncNodeMnemonic>&#172;</ncNodeMnemonic>
-                                <ncNodeVariable>BuiltInRV</ncNodeVariable>
-                                <ncNodeVariableNumOperands>1</ncNodeVariableNumOperands>
-                                <ncNodeTypeNode>SIMPLE_OPERATOR</ncNodeTypeNode>
-                                <ncNodeSubTypeNode>NOT</ncNodeSubTypeNode>
-                                <ncNode>
-                                    <ncNodeName>equalto</ncNodeName>
-                                    <ncNodeMnemonic>=</ncNodeMnemonic>
-                                    <ncNodeVariable>BuiltInRV</ncNodeVariable>
-                                    <ncNodeVariableNumOperands>2</ncNodeVariableNumOperands>
-                                    <ncNodeTypeNode>SIMPLE_OPERATOR</ncNodeTypeNode>
-                                    <ncNodeSubTypeNode>EQUALTO</ncNodeSubTypeNode>
-                                    <ncNode>
-                                        <ncNodeName>member</ncNodeName>
-                                        <ncNodeVariable>
-                                            <ncNodeVariableOV>Person</ncNodeVariableOV>
-                                        </ncNodeVariable>
-                                        <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                        <ncNodeSubTypeNode>VARIABLE</ncNodeSubTypeNode>
-                                    </ncNode>
-                                    <ncNode>
-                                        <ncNodeName>person</ncNodeName>
-                                        <ncNodeVariable>
-                                            <ncNodeVariableOV>Person</ncNodeVariableOV>
-                                        </ncNodeVariable>
-                                        <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                        <ncNodeSubTypeNode>VARIABLE</ncNodeSubTypeNode>
-                                    </ncNode>
-                                </ncNode>
-                            </ncNode>
-                        </ncNodeFormulaTreeUMP>
-                    </necessaryCondition>
-                    <necessaryCondition>
-                        <ncId>1</ncId>
-                        <ncNodeFormulaTreeUMP>
-                            <ncNode>
-                                <ncNodeName>isMemberOfCommitee(member, procurement)</ncNodeName>
-                                <ncNodeVariable>
-                                    <ncNodeVariableEventId>7</ncNodeVariableEventId>
-                                    <ncNodeVariableEventType>OTHER</ncNodeVariableEventType>
-                                    <ncNodeVariableEventOVList>
-                                        <ncNodeVariableEventOVId>0</ncNodeVariableEventOVId>
-                                        <ncNodeVariableEventOVId>3</ncNodeVariableEventOVId>
-                                    </ncNodeVariableEventOVList>
-                                </ncNodeVariable>
-                                <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                <ncNodeSubTypeNode>NODE</ncNodeSubTypeNode>
-                            </ncNode>
-                        </ncNodeFormulaTreeUMP>
-                    </necessaryCondition>
-                    <necessaryCondition>
-                        <ncId>2</ncId>
-                        <ncNodeFormulaTreeUMP>
-                            <ncNode>
-                                <ncNodeName>isResponsibleFor(member, enterprise)</ncNodeName>
-                                <ncNodeVariable>
-                                    <ncNodeVariableEventId>11</ncNodeVariableEventId>
-                                    <ncNodeVariableEventType>OTHER</ncNodeVariableEventType>
-                                    <ncNodeVariableEventOVList>
-                                        <ncNodeVariableEventOVId>0</ncNodeVariableEventOVId>
-                                        <ncNodeVariableEventOVId>2</ncNodeVariableEventOVId>
-                                    </ncNodeVariableEventOVList>
-                                </ncNodeVariable>
-                                <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                <ncNodeSubTypeNode>NODE</ncNodeSubTypeNode>
-                            </ncNode>
-                        </ncNodeFormulaTreeUMP>
-                    </necessaryCondition>
-                    <necessaryCondition>
-                        <ncId>3</ncId>
-                        <ncNodeFormulaTreeUMP>
-                            <ncNode>
-                                <ncNodeName>isParticipantIn(enterprise, procurement)</ncNodeName>
-                                <ncNodeVariable>
-                                    <ncNodeVariableEventId>6</ncNodeVariableEventId>
-                                    <ncNodeVariableEventType>OTHER</ncNodeVariableEventType>
-                                    <ncNodeVariableEventOVList>
-                                        <ncNodeVariableEventOVId>2</ncNodeVariableEventOVId>
-                                        <ncNodeVariableEventOVId>3</ncNodeVariableEventOVId>
-                                    </ncNodeVariableEventOVList>
-                                </ncNodeVariable>
-                                <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                <ncNodeSubTypeNode>NODE</ncNodeSubTypeNode>
-                            </ncNode>
-                        </ncNodeFormulaTreeUMP>
-                    </necessaryCondition>
-                </necessaryConditionList>
-                <causeVariableList>
-                    <causeVariable>
-                        <causeId>0</causeId>
-                        <causeRelationship>isRelated</causeRelationship>
-                        <causeArgumentList>
-                            <causeArgument>member</causeArgument>
-                            <causeArgument>person</causeArgument>
-                        </causeArgumentList>
-                        <causeRelationshipModel>
-                            <relationshipId>2</relationshipId>
-                        </causeRelationshipModel>
-                    </causeVariable>
-                </causeVariableList>
-                <effectVariableList>
-                    <effectVariable>
-                        <effectId>0</effectId>
-                        <effectRelationship>hasMemberRelatedToParticipant</effectRelationship>
-                        <effectArgumentList>
-                            <effectArgument>procurement</effectArgument>
-                        </effectArgumentList>
-                        <effectRelationshipModel>
-                            <relationshipId>15</relationshipId>
-                        </effectRelationshipModel>
-                    </effectVariable>
-                </effectVariableList>
-            </implementation>
+            <implementation/>
         </rule>
         <rule>
             <ruleId>3</ruleId>
-            <name>If a person is responsible for a winner enterprise in a finished procurement with high value and this person has low education level or/and has low annual income, then he/she is likely to be a front for the enterprise.</name>
+            <name>3- If a person is responsible for a winner enterprise in a finished procurement with high value and this person has low education level or/and has low annual income, then he/she is likely to be a front for the enterprise.</name>
             <comments>hasCleanHistory relationship needs to be deleted</comments>
             <author>Diego Marques</author>
             <date>24/09/2015</date>
-            <ruleType>Deterministic</ruleType>
+            <ruleType>Not Deterministic</ruleType>
             <entityList>
                 <entityId>1</entityId>
                 <entityId>2</entityId>
@@ -1038,13 +718,13 @@
                 <ordinaryVariableList>
                     <ordinaryVariable>
                         <ovId>0</ovId>
-                        <ovInstance>person</ovInstance>
-                        <entityId>1</entityId>
+                        <ovInstance>enterprise</ovInstance>
+                        <entityId>3</entityId>
                     </ordinaryVariable>
                     <ordinaryVariable>
                         <ovId>1</ovId>
-                        <ovInstance>enterprise</ovInstance>
-                        <entityId>3</entityId>
+                        <ovInstance>person</ovInstance>
+                        <entityId>1</entityId>
                     </ordinaryVariable>
                     <ordinaryVariable>
                         <ovId>2</ovId>
@@ -1055,24 +735,6 @@
                 <necessaryConditionList>
                     <necessaryCondition>
                         <ncId>0</ncId>
-                        <ncNodeFormulaTreeUMP>
-                            <ncNode>
-                                <ncNodeName>isResponsibleFor(person, enterprise)</ncNodeName>
-                                <ncNodeVariable>
-                                    <ncNodeVariableEventId>11</ncNodeVariableEventId>
-                                    <ncNodeVariableEventType>OTHER</ncNodeVariableEventType>
-                                    <ncNodeVariableEventOVList>
-                                        <ncNodeVariableEventOVId>0</ncNodeVariableEventOVId>
-                                        <ncNodeVariableEventOVId>1</ncNodeVariableEventOVId>
-                                    </ncNodeVariableEventOVList>
-                                </ncNodeVariable>
-                                <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                <ncNodeSubTypeNode>NODE</ncNodeSubTypeNode>
-                            </ncNode>
-                        </ncNodeFormulaTreeUMP>
-                    </necessaryCondition>
-                    <necessaryCondition>
-                        <ncId>1</ncId>
                         <ncNodeFormulaTreeUMP>
                             <ncNode>
                                 <ncNodeName>and</ncNodeName>
@@ -1106,7 +768,7 @@
                                             <ncNodeVariableOV>Enterprise</ncNodeVariableOV>
                                         </ncNodeVariable>
                                         <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                        <ncNodeSubTypeNode>VARIABLE</ncNodeSubTypeNode>
+                                        <ncNodeSubTypeNode>OVARIABLE</ncNodeSubTypeNode>
                                     </ncNode>
                                     <ncNode>
                                         <ncNodeName>hasWinnerOfProcurement(procurement)</ncNodeName>
@@ -1124,6 +786,24 @@
                             </ncNode>
                         </ncNodeFormulaTreeUMP>
                     </necessaryCondition>
+                    <necessaryCondition>
+                        <ncId>1</ncId>
+                        <ncNodeFormulaTreeUMP>
+                            <ncNode>
+                                <ncNodeName>isResponsibleFor(person, enterprise)</ncNodeName>
+                                <ncNodeVariable>
+                                    <ncNodeVariableEventId>11</ncNodeVariableEventId>
+                                    <ncNodeVariableEventType>OTHER</ncNodeVariableEventType>
+                                    <ncNodeVariableEventOVList>
+                                        <ncNodeVariableEventOVId>1</ncNodeVariableEventOVId>
+                                        <ncNodeVariableEventOVId>0</ncNodeVariableEventOVId>
+                                    </ncNodeVariableEventOVList>
+                                </ncNodeVariable>
+                                <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
+                                <ncNodeSubTypeNode>NODE</ncNodeSubTypeNode>
+                            </ncNode>
+                        </ncNodeFormulaTreeUMP>
+                    </necessaryCondition>
                 </necessaryConditionList>
                 <causeVariableList>
                     <causeVariable>
@@ -1138,22 +818,22 @@
                     </causeVariable>
                     <causeVariable>
                         <causeId>1</causeId>
-                        <causeRelationship>hasEducationLevel</causeRelationship>
-                        <causeArgumentList>
-                            <causeArgument>person</causeArgument>
-                        </causeArgumentList>
-                        <causeRelationshipModel>
-                            <relationshipId>4</relationshipId>
-                        </causeRelationshipModel>
-                    </causeVariable>
-                    <causeVariable>
-                        <causeId>2</causeId>
                         <causeRelationship>hasAnnualIncome</causeRelationship>
                         <causeArgumentList>
                             <causeArgument>person</causeArgument>
                         </causeArgumentList>
                         <causeRelationshipModel>
                             <relationshipId>3</relationshipId>
+                        </causeRelationshipModel>
+                    </causeVariable>
+                    <causeVariable>
+                        <causeId>2</causeId>
+                        <causeRelationship>hasEducationLevel</causeRelationship>
+                        <causeArgumentList>
+                            <causeArgument>person</causeArgument>
+                        </causeArgumentList>
+                        <causeRelationshipModel>
+                            <relationshipId>4</relationshipId>
                         </causeRelationshipModel>
                     </causeVariable>
                 </causeVariableList>
@@ -1174,11 +854,11 @@
         </rule>
         <rule>
             <ruleId>4</ruleId>
-            <name>If a person responsible for an enterprise is front for this enterprise, then exists front in enterprise.</name>
+            <name>4- If a person responsible for an enterprise is front for this enterprise, then exists front in enterprise.</name>
             <comments/>
             <author>Diego Marques</author>
             <date>24/09/2015</date>
-            <ruleType>Deterministic</ruleType>
+            <ruleType>Not Deterministic</ruleType>
             <entityList>
                 <entityId>1</entityId>
                 <entityId>3</entityId>
@@ -1188,9 +868,6 @@
                 <relationshipId>12</relationshipId>
                 <relationshipId>13</relationshipId>
             </relationshipList>
-            <childrenRuleList>
-                <ruleId>3</ruleId>
-            </childrenRuleList>
             <backtrackingGoalsList>
                 <goalId>1.2</goalId>
                 <goalId>1</goalId>
@@ -1257,11 +934,11 @@
         </rule>
         <rule>
             <ruleId>5</ruleId>
-            <name>If the responsible person of an enterprise is also responsible for another enterprise which is suspended, then is more likely that this person owns suspended enterprise.</name>
+            <name>5- If the responsible person of an enterprise is also responsible for another enterprise which is suspended, then is more likely that this person owns suspended enterprise.</name>
             <comments/>
             <author>Diego Marques</author>
             <date>24/09/2015</date>
-            <ruleType>Deterministic</ruleType>
+            <ruleType>Not Deterministic</ruleType>
             <entityList>
                 <entityId>1</entityId>
                 <entityId>3</entityId>
@@ -1278,72 +955,15 @@
             <backtrackingHypothesisList>
                 <hypothesisId>6</hypothesisId>
             </backtrackingHypothesisList>
-            <implementation>
-                <ordinaryVariableList>
-                    <ordinaryVariable>
-                        <ovId>0</ovId>
-                        <ovInstance>person</ovInstance>
-                        <entityId>1</entityId>
-                    </ordinaryVariable>
-                    <ordinaryVariable>
-                        <ovId>1</ovId>
-                        <ovInstance>enterprise</ovInstance>
-                        <entityId>3</entityId>
-                    </ordinaryVariable>
-                </ordinaryVariableList>
-                <necessaryConditionList>
-                    <necessaryCondition>
-                        <ncId>0</ncId>
-                        <ncNodeFormulaTreeUMP>
-                            <ncNode>
-                                <ncNodeName>isResponsibleFor(person, enterprise)</ncNodeName>
-                                <ncNodeVariable>
-                                    <ncNodeVariableEventId>11</ncNodeVariableEventId>
-                                    <ncNodeVariableEventType>OTHER</ncNodeVariableEventType>
-                                    <ncNodeVariableEventOVList>
-                                        <ncNodeVariableEventOVId>0</ncNodeVariableEventOVId>
-                                        <ncNodeVariableEventOVId>1</ncNodeVariableEventOVId>
-                                    </ncNodeVariableEventOVList>
-                                </ncNodeVariable>
-                                <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                <ncNodeSubTypeNode>NODE</ncNodeSubTypeNode>
-                            </ncNode>
-                        </ncNodeFormulaTreeUMP>
-                    </necessaryCondition>
-                </necessaryConditionList>
-                <causeVariableList>
-                    <causeVariable>
-                        <causeId>0</causeId>
-                        <causeRelationship>isSuspended</causeRelationship>
-                        <causeArgumentList>
-                            <causeArgument>enterprise</causeArgument>
-                        </causeArgumentList>
-                        <causeRelationshipModel>
-                            <relationshipId>10</relationshipId>
-                        </causeRelationshipModel>
-                    </causeVariable>
-                </causeVariableList>
-                <effectVariableList>
-                    <effectVariable>
-                        <effectId>0</effectId>
-                        <effectRelationship>ownsSuspendedEnterprise</effectRelationship>
-                        <effectArgumentList>
-                            <effectArgument>person</effectArgument>
-                        </effectArgumentList>
-                        <effectRelationshipModel>
-                            <relationshipId>17</relationshipId>
-                        </effectRelationshipModel>
-                    </effectVariable>
-                </effectVariableList>
-            </implementation>
+            <implementation/>
         </rule>
         <rule>
             <ruleId>6</ruleId>
-            <name>If two different people who is responsible for two different enterprises which are participant in the same procurement are related, then this procurement has related participants.</name>
+            <name>6- If two different people who is responsible for two different enterprises which are participant in the same procurement are related, then this procurement has related participants.</name>
             <comments/>
             <author>Diego Marques</author>
             <date>24/09/2015</date>
-            <ruleType>Deterministic</ruleType>
+            <ruleType>Not Deterministic</ruleType>
             <entityList>
                 <entityId>1</entityId>
                 <entityId>3</entityId>
@@ -1355,9 +975,6 @@
                 <relationshipId>2</relationshipId>
                 <relationshipId>14</relationshipId>
             </relationshipList>
-            <childrenRuleList>
-                <ruleId>1</ruleId>
-            </childrenRuleList>
             <backtrackingGoalsList>
                 <goalId>1.4</goalId>
                 <goalId>1</goalId>
@@ -1369,23 +986,23 @@
                 <ordinaryVariableList>
                     <ordinaryVariable>
                         <ovId>0</ovId>
-                        <ovInstance>person1</ovInstance>
-                        <entityId>1</entityId>
-                    </ordinaryVariable>
-                    <ordinaryVariable>
-                        <ovId>1</ovId>
-                        <ovInstance>person2</ovInstance>
-                        <entityId>1</entityId>
-                    </ordinaryVariable>
-                    <ordinaryVariable>
-                        <ovId>2</ovId>
                         <ovInstance>enterprise1</ovInstance>
                         <entityId>3</entityId>
                     </ordinaryVariable>
                     <ordinaryVariable>
-                        <ovId>3</ovId>
+                        <ovId>1</ovId>
                         <ovInstance>enterprise2</ovInstance>
                         <entityId>3</entityId>
+                    </ordinaryVariable>
+                    <ordinaryVariable>
+                        <ovId>2</ovId>
+                        <ovInstance>person1</ovInstance>
+                        <entityId>1</entityId>
+                    </ordinaryVariable>
+                    <ordinaryVariable>
+                        <ovId>3</ovId>
+                        <ovInstance>person2</ovInstance>
+                        <entityId>1</entityId>
                     </ordinaryVariable>
                     <ordinaryVariable>
                         <ovId>4</ovId>
@@ -1412,20 +1029,20 @@
                                     <ncNodeTypeNode>SIMPLE_OPERATOR</ncNodeTypeNode>
                                     <ncNodeSubTypeNode>EQUALTO</ncNodeSubTypeNode>
                                     <ncNode>
-                                        <ncNodeName>person1</ncNodeName>
+                                        <ncNodeName>enterprise1</ncNodeName>
                                         <ncNodeVariable>
-                                            <ncNodeVariableOV>Person</ncNodeVariableOV>
+                                            <ncNodeVariableOV>Enterprise</ncNodeVariableOV>
                                         </ncNodeVariable>
                                         <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                        <ncNodeSubTypeNode>VARIABLE</ncNodeSubTypeNode>
+                                        <ncNodeSubTypeNode>OVARIABLE</ncNodeSubTypeNode>
                                     </ncNode>
                                     <ncNode>
-                                        <ncNodeName>person2</ncNodeName>
+                                        <ncNodeName>enterprise2</ncNodeName>
                                         <ncNodeVariable>
-                                            <ncNodeVariableOV>Person</ncNodeVariableOV>
+                                            <ncNodeVariableOV>Enterprise</ncNodeVariableOV>
                                         </ncNodeVariable>
                                         <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                        <ncNodeSubTypeNode>VARIABLE</ncNodeSubTypeNode>
+                                        <ncNodeSubTypeNode>OVARIABLE</ncNodeSubTypeNode>
                                     </ncNode>
                                 </ncNode>
                             </ncNode>
@@ -1449,20 +1066,20 @@
                                     <ncNodeTypeNode>SIMPLE_OPERATOR</ncNodeTypeNode>
                                     <ncNodeSubTypeNode>EQUALTO</ncNodeSubTypeNode>
                                     <ncNode>
-                                        <ncNodeName>enterprise1</ncNodeName>
+                                        <ncNodeName>person1</ncNodeName>
                                         <ncNodeVariable>
-                                            <ncNodeVariableOV>Enterprise</ncNodeVariableOV>
+                                            <ncNodeVariableOV>Person</ncNodeVariableOV>
                                         </ncNodeVariable>
                                         <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                        <ncNodeSubTypeNode>VARIABLE</ncNodeSubTypeNode>
+                                        <ncNodeSubTypeNode>OVARIABLE</ncNodeSubTypeNode>
                                     </ncNode>
                                     <ncNode>
-                                        <ncNodeName>enterprise2</ncNodeName>
+                                        <ncNodeName>person2</ncNodeName>
                                         <ncNodeVariable>
-                                            <ncNodeVariableOV>Enterprise</ncNodeVariableOV>
+                                            <ncNodeVariableOV>Person</ncNodeVariableOV>
                                         </ncNodeVariable>
                                         <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                        <ncNodeSubTypeNode>VARIABLE</ncNodeSubTypeNode>
+                                        <ncNodeSubTypeNode>OVARIABLE</ncNodeSubTypeNode>
                                     </ncNode>
                                 </ncNode>
                             </ncNode>
@@ -1472,13 +1089,13 @@
                         <ncId>2</ncId>
                         <ncNodeFormulaTreeUMP>
                             <ncNode>
-                                <ncNodeName>isResponsibleFor(person1, enterprise1)</ncNodeName>
+                                <ncNodeName>isResponsibleFor(person2, enterprise2)</ncNodeName>
                                 <ncNodeVariable>
                                     <ncNodeVariableEventId>11</ncNodeVariableEventId>
                                     <ncNodeVariableEventType>OTHER</ncNodeVariableEventType>
                                     <ncNodeVariableEventOVList>
-                                        <ncNodeVariableEventOVId>0</ncNodeVariableEventOVId>
-                                        <ncNodeVariableEventOVId>2</ncNodeVariableEventOVId>
+                                        <ncNodeVariableEventOVId>3</ncNodeVariableEventOVId>
+                                        <ncNodeVariableEventOVId>1</ncNodeVariableEventOVId>
                                     </ncNodeVariableEventOVList>
                                 </ncNodeVariable>
                                 <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
@@ -1490,13 +1107,13 @@
                         <ncId>3</ncId>
                         <ncNodeFormulaTreeUMP>
                             <ncNode>
-                                <ncNodeName>isParticipantIn(enterprise1, procurement)</ncNodeName>
+                                <ncNodeName>isResponsibleFor(person1, enterprise1)</ncNodeName>
                                 <ncNodeVariable>
-                                    <ncNodeVariableEventId>6</ncNodeVariableEventId>
+                                    <ncNodeVariableEventId>11</ncNodeVariableEventId>
                                     <ncNodeVariableEventType>OTHER</ncNodeVariableEventType>
                                     <ncNodeVariableEventOVList>
                                         <ncNodeVariableEventOVId>2</ncNodeVariableEventOVId>
-                                        <ncNodeVariableEventOVId>4</ncNodeVariableEventOVId>
+                                        <ncNodeVariableEventOVId>0</ncNodeVariableEventOVId>
                                     </ncNodeVariableEventOVList>
                                 </ncNodeVariable>
                                 <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
@@ -1508,13 +1125,13 @@
                         <ncId>4</ncId>
                         <ncNodeFormulaTreeUMP>
                             <ncNode>
-                                <ncNodeName>isResponsibleFor(person2, enterprise2)</ncNodeName>
+                                <ncNodeName>isParticipantIn(enterprise1, procurement)</ncNodeName>
                                 <ncNodeVariable>
-                                    <ncNodeVariableEventId>11</ncNodeVariableEventId>
+                                    <ncNodeVariableEventId>6</ncNodeVariableEventId>
                                     <ncNodeVariableEventType>OTHER</ncNodeVariableEventType>
                                     <ncNodeVariableEventOVList>
-                                        <ncNodeVariableEventOVId>1</ncNodeVariableEventOVId>
-                                        <ncNodeVariableEventOVId>3</ncNodeVariableEventOVId>
+                                        <ncNodeVariableEventOVId>0</ncNodeVariableEventOVId>
+                                        <ncNodeVariableEventOVId>4</ncNodeVariableEventOVId>
                                     </ncNodeVariableEventOVList>
                                 </ncNodeVariable>
                                 <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
@@ -1531,7 +1148,7 @@
                                     <ncNodeVariableEventId>6</ncNodeVariableEventId>
                                     <ncNodeVariableEventType>OTHER</ncNodeVariableEventType>
                                     <ncNodeVariableEventOVList>
-                                        <ncNodeVariableEventOVId>3</ncNodeVariableEventOVId>
+                                        <ncNodeVariableEventOVId>1</ncNodeVariableEventOVId>
                                         <ncNodeVariableEventOVId>4</ncNodeVariableEventOVId>
                                     </ncNodeVariableEventOVList>
                                 </ncNodeVariable>
@@ -1570,11 +1187,11 @@
         </rule>
         <rule>
             <ruleId>7</ruleId>
-            <name>If an enterprise is participant in a procurement which has related participants or/and has member related to participant or/and exists front in enterprise, then this procurement has its competition compromised.</name>
+            <name>7- If an enterprise is participant in a procurement which has related participants or/and has member related to participant or/and exists front in enterprise, then this procurement has its competition compromised.</name>
             <comments>Goals 1.4, 1.1 and 1.2 can be deleted, because the dependency rules already have its.</comments>
             <author>Diego Marques</author>
             <date>24/09/2015</date>
-            <ruleType>Deterministic</ruleType>
+            <ruleType>Not Deterministic</ruleType>
             <entityList>
                 <entityId>3</entityId>
                 <entityId>2</entityId>
@@ -1584,13 +1201,8 @@
                 <relationshipId>14</relationshipId>
                 <relationshipId>13</relationshipId>
                 <relationshipId>16</relationshipId>
+                <relationshipId>15</relationshipId>
             </relationshipList>
-            <childrenRuleList>
-                <ruleId>2</ruleId>
-                <ruleId>4</ruleId>
-                <ruleId>6</ruleId>
-                <ruleId>2</ruleId>
-            </childrenRuleList>
             <backtrackingGoalsList>
                 <goalId>1</goalId>
                 <goalId>1.4</goalId>
@@ -1601,13 +1213,13 @@
                 <ordinaryVariableList>
                     <ordinaryVariable>
                         <ovId>0</ovId>
-                        <ovInstance>procurement</ovInstance>
-                        <entityId>2</entityId>
+                        <ovInstance>enterprise</ovInstance>
+                        <entityId>3</entityId>
                     </ordinaryVariable>
                     <ordinaryVariable>
                         <ovId>1</ovId>
-                        <ovInstance>enterprise</ovInstance>
-                        <entityId>3</entityId>
+                        <ovInstance>procurement</ovInstance>
+                        <entityId>2</entityId>
                     </ordinaryVariable>
                 </ordinaryVariableList>
                 <necessaryConditionList>
@@ -1620,8 +1232,8 @@
                                     <ncNodeVariableEventId>6</ncNodeVariableEventId>
                                     <ncNodeVariableEventType>OTHER</ncNodeVariableEventType>
                                     <ncNodeVariableEventOVList>
-                                        <ncNodeVariableEventOVId>1</ncNodeVariableEventOVId>
                                         <ncNodeVariableEventOVId>0</ncNodeVariableEventOVId>
+                                        <ncNodeVariableEventOVId>1</ncNodeVariableEventOVId>
                                     </ncNodeVariableEventOVList>
                                 </ncNodeVariable>
                                 <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
@@ -1633,22 +1245,22 @@
                 <causeVariableList>
                     <causeVariable>
                         <causeId>0</causeId>
-                        <causeRelationship>hasRelatedParticipants</causeRelationship>
-                        <causeArgumentList>
-                            <causeArgument>procurement</causeArgument>
-                        </causeArgumentList>
-                        <causeRelationshipModel>
-                            <relationshipId>14</relationshipId>
-                        </causeRelationshipModel>
-                    </causeVariable>
-                    <causeVariable>
-                        <causeId>1</causeId>
                         <causeRelationship>existsFrontInEnterprise</causeRelationship>
                         <causeArgumentList>
                             <causeArgument>enterprise</causeArgument>
                         </causeArgumentList>
                         <causeRelationshipModel>
                             <relationshipId>13</relationshipId>
+                        </causeRelationshipModel>
+                    </causeVariable>
+                    <causeVariable>
+                        <causeId>1</causeId>
+                        <causeRelationship>hasRelatedParticipants</causeRelationship>
+                        <causeArgumentList>
+                            <causeArgument>procurement</causeArgument>
+                        </causeArgumentList>
+                        <causeRelationshipModel>
+                            <relationshipId>14</relationshipId>
                         </causeRelationshipModel>
                     </causeVariable>
                     <causeVariable>
@@ -1678,11 +1290,11 @@
         </rule>
         <rule>
             <ruleId>8</ruleId>
-            <name>If a person has criminal history or/and has administrative history, then this person has not a clean history</name>
+            <name>8- If a person has criminal history or/and has administrative history, then this person has not a clean history</name>
             <comments/>
             <author>Diego Marques</author>
             <date>24/09/2015</date>
-            <ruleType>Deterministic</ruleType>
+            <ruleType>Not Deterministic</ruleType>
             <entityList>
                 <entityId>1</entityId>
             </entityList>
@@ -1699,57 +1311,15 @@
                 <hypothesisId>8</hypothesisId>
                 <hypothesisId>9</hypothesisId>
             </backtrackingHypothesisList>
-            <implementation>
-                <ordinaryVariableList>
-                    <ordinaryVariable>
-                        <ovId>0</ovId>
-                        <ovInstance>person</ovInstance>
-                        <entityId>1</entityId>
-                    </ordinaryVariable>
-                </ordinaryVariableList>
-                <causeVariableList>
-                    <causeVariable>
-                        <causeId>0</causeId>
-                        <causeRelationship>hasCriminalHistory</causeRelationship>
-                        <causeArgumentList>
-                            <causeArgument>person</causeArgument>
-                        </causeArgumentList>
-                        <causeRelationshipModel>
-                            <relationshipId>19</relationshipId>
-                        </causeRelationshipModel>
-                    </causeVariable>
-                    <causeVariable>
-                        <causeId>1</causeId>
-                        <causeRelationship>hasAdministrativeHistory</causeRelationship>
-                        <causeArgumentList>
-                            <causeArgument>person</causeArgument>
-                        </causeArgumentList>
-                        <causeRelationshipModel>
-                            <relationshipId>18</relationshipId>
-                        </causeRelationshipModel>
-                    </causeVariable>
-                </causeVariableList>
-                <effectVariableList>
-                    <effectVariable>
-                        <effectId>0</effectId>
-                        <effectRelationship>hasCleanHistory</effectRelationship>
-                        <effectArgumentList>
-                            <effectArgument>person</effectArgument>
-                        </effectArgumentList>
-                        <effectRelationshipModel>
-                            <relationshipId>20</relationshipId>
-                        </effectRelationshipModel>
-                    </effectVariable>
-                </effectVariableList>
-            </implementation>
+            <implementation/>
         </rule>
         <rule>
             <ruleId>9</ruleId>
-            <name>If a member of commitee in a previous procurement is related to a person responsible for an enterprise which is participant in a finished previous procurement, then this member was related to previous participants.</name>
+            <name>9- If a member of commitee in a previous procurement is related to a person responsible for an enterprise which is participant in a finished previous procurement, then this member was related to previous participants.</name>
             <comments/>
             <author>Diego Marques</author>
             <date>25/09/2015</date>
-            <ruleType>Deterministic</ruleType>
+            <ruleType>Not Deterministic</ruleType>
             <entityList>
                 <entityId>1</entityId>
                 <entityId>2</entityId>
@@ -1763,9 +1333,6 @@
                 <relationshipId>2</relationshipId>
                 <relationshipId>21</relationshipId>
             </relationshipList>
-            <childrenRuleList>
-                <ruleId>1</ruleId>
-            </childrenRuleList>
             <backtrackingGoalsList>
                 <goalId>2.2</goalId>
                 <goalId>2</goalId>
@@ -1773,128 +1340,7 @@
             <backtrackingHypothesisList>
                 <hypothesisId>10</hypothesisId>
             </backtrackingHypothesisList>
-            <implementation>
-                <ordinaryVariableList>
-                    <ordinaryVariable>
-                        <ovId>0</ovId>
-                        <ovInstance>member</ovInstance>
-                        <entityId>1</entityId>
-                    </ordinaryVariable>
-                    <ordinaryVariable>
-                        <ovId>1</ovId>
-                        <ovInstance>person</ovInstance>
-                        <entityId>1</entityId>
-                    </ordinaryVariable>
-                    <ordinaryVariable>
-                        <ovId>2</ovId>
-                        <ovInstance>previous_procurement</ovInstance>
-                        <entityId>2</entityId>
-                    </ordinaryVariable>
-                    <ordinaryVariable>
-                        <ovId>3</ovId>
-                        <ovInstance>enterprise</ovInstance>
-                        <entityId>3</entityId>
-                    </ordinaryVariable>
-                </ordinaryVariableList>
-                <necessaryConditionList>
-                    <necessaryCondition>
-                        <ncId>0</ncId>
-                        <ncNodeFormulaTreeUMP>
-                            <ncNode>
-                                <ncNodeName>isMemberOfCommitee(member, previous_procurement)</ncNodeName>
-                                <ncNodeVariable>
-                                    <ncNodeVariableEventId>7</ncNodeVariableEventId>
-                                    <ncNodeVariableEventType>OTHER</ncNodeVariableEventType>
-                                    <ncNodeVariableEventOVList>
-                                        <ncNodeVariableEventOVId>0</ncNodeVariableEventOVId>
-                                        <ncNodeVariableEventOVId>2</ncNodeVariableEventOVId>
-                                    </ncNodeVariableEventOVList>
-                                </ncNodeVariable>
-                                <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                <ncNodeSubTypeNode>NODE</ncNodeSubTypeNode>
-                            </ncNode>
-                        </ncNodeFormulaTreeUMP>
-                    </necessaryCondition>
-                    <necessaryCondition>
-                        <ncId>1</ncId>
-                        <ncNodeFormulaTreeUMP>
-                            <ncNode>
-                                <ncNodeName>isResponsibleFor(person, enterprise)</ncNodeName>
-                                <ncNodeVariable>
-                                    <ncNodeVariableEventId>11</ncNodeVariableEventId>
-                                    <ncNodeVariableEventType>OTHER</ncNodeVariableEventType>
-                                    <ncNodeVariableEventOVList>
-                                        <ncNodeVariableEventOVId>1</ncNodeVariableEventOVId>
-                                        <ncNodeVariableEventOVId>3</ncNodeVariableEventOVId>
-                                    </ncNodeVariableEventOVList>
-                                </ncNodeVariable>
-                                <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                <ncNodeSubTypeNode>NODE</ncNodeSubTypeNode>
-                            </ncNode>
-                        </ncNodeFormulaTreeUMP>
-                    </necessaryCondition>
-                    <necessaryCondition>
-                        <ncId>2</ncId>
-                        <ncNodeFormulaTreeUMP>
-                            <ncNode>
-                                <ncNodeName>isParticipantIn(enterprise, previous_procurement)</ncNodeName>
-                                <ncNodeVariable>
-                                    <ncNodeVariableEventId>6</ncNodeVariableEventId>
-                                    <ncNodeVariableEventType>OTHER</ncNodeVariableEventType>
-                                    <ncNodeVariableEventOVList>
-                                        <ncNodeVariableEventOVId>3</ncNodeVariableEventOVId>
-                                        <ncNodeVariableEventOVId>2</ncNodeVariableEventOVId>
-                                    </ncNodeVariableEventOVList>
-                                </ncNodeVariable>
-                                <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                <ncNodeSubTypeNode>NODE</ncNodeSubTypeNode>
-                            </ncNode>
-                        </ncNodeFormulaTreeUMP>
-                    </necessaryCondition>
-                    <necessaryCondition>
-                        <ncId>3</ncId>
-                        <ncNodeFormulaTreeUMP>
-                            <ncNode>
-                                <ncNodeName>isProcurementFinished(previous_procurement)</ncNodeName>
-                                <ncNodeVariable>
-                                    <ncNodeVariableEventId>9</ncNodeVariableEventId>
-                                    <ncNodeVariableEventType>OTHER</ncNodeVariableEventType>
-                                    <ncNodeVariableEventOVList>
-                                        <ncNodeVariableEventOVId>2</ncNodeVariableEventOVId>
-                                    </ncNodeVariableEventOVList>
-                                </ncNodeVariable>
-                                <ncNodeTypeNode>OPERAND</ncNodeTypeNode>
-                                <ncNodeSubTypeNode>NODE</ncNodeSubTypeNode>
-                            </ncNode>
-                        </ncNodeFormulaTreeUMP>
-                    </necessaryCondition>
-                </necessaryConditionList>
-                <causeVariableList>
-                    <causeVariable>
-                        <causeId>0</causeId>
-                        <causeRelationship>isRelated</causeRelationship>
-                        <causeArgumentList>
-                            <causeArgument>member</causeArgument>
-                            <causeArgument>person</causeArgument>
-                        </causeArgumentList>
-                        <causeRelationshipModel>
-                            <relationshipId>2</relationshipId>
-                        </causeRelationshipModel>
-                    </causeVariable>
-                </causeVariableList>
-                <effectVariableList>
-                    <effectVariable>
-                        <effectId>0</effectId>
-                        <effectRelationship>wasRelatedToPreviousParticipants</effectRelationship>
-                        <effectArgumentList>
-                            <effectArgument>member</effectArgument>
-                        </effectArgumentList>
-                        <effectRelationshipModel>
-                            <relationshipId>21</relationshipId>
-                        </effectRelationshipModel>
-                    </effectVariable>
-                </effectVariableList>
-            </implementation>
+            <implementation/>
         </rule>
         <group>
             <groupId>1</groupId>

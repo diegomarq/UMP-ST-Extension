@@ -139,9 +139,8 @@ public class MappingController {
 		try {
 			Debug.println("[PLUG-IN EXT] Second Criterion of Condition");
 			secondCriterion = new SecondCriterionOfSelection(this, mebn, umpstProject);
-			// Context Nodes
-			
-			Debug.println("[PLUG-IN EXT] Mapping ContextNodes");
+			// Context Nodes			
+
 //			createAllContextNodes(mebn);
 			
 		} catch (IncompatibleRuleForGroupException e) {
@@ -171,7 +170,8 @@ public class MappingController {
 		System.out.println(getUndefinedNodeList().size());
 		System.out.println(getHypothesisListCase().size());
 		
-		if(getUndefinedNodeList().size() == getHypothesisListCase().size()) {			
+		if(getUndefinedNodeList().size() == getHypothesisListCase().size()) {
+			Debug.println("[PLUG-IN EXT] Mapping ContextNodes");
 			createAllContextNodes(mebn);
 			testMTheory(mebn);
 		}
@@ -961,8 +961,8 @@ public class MappingController {
 		 ResidentNode residentNodeRelated = getResidentNodeRelatedToAny(eventPointer);
 		 if(residentNodeRelated != null) {
 			 
-			 // Add the arguments related to the residentNodePointer
-			 ResidentNodePointer residentNodePointer = new ResidentNodePointer(residentNodeRelated, contextNodeExtension);
+			 // Add the arguments related to the residentNodePointer			 
+			 ResidentNodePointer residentNodePointer = new ResidentNodePointer(residentNodeRelated, (ContextNode)contextNodeExtension);
 			 try { 
 				 residentNodePointer = mapResidentNodePointerArgument(eventPointer, residentNodePointer, mfragExtension);
 			 } catch (OVDontIsOfTypeExpected e) {

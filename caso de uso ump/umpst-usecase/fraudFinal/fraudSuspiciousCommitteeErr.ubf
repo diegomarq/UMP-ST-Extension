@@ -1,13 +1,13 @@
 % Cabeçalho UBF
 Version=2.0
-PrOwl="test-fraud.owl"
+PrOwl="fraud
 
 % Declaração de MTheory - UBF
-MTheory=prowl
-NextMFrag=14
-NextResident=26
-NextInput=17
-NextContext=24
+MTheory=fraudSuspiciousCommittee
+NextMFrag=11
+NextResident=22
+NextInput=10
+NextContext=17
 NextEntity=1
 
 % Declaração de MFrags e nós UBF
@@ -140,25 +140,25 @@ Color=-2302756
 % Nós de Contexto
 
 
-Node=CX20
+Node=CX13
 Type=ContextNode
 Position=0.0,0.0
 Size=100,60
 Color=-5178237
 
-Node=CX21
+Node=CX14
 Type=ContextNode
 Position=0.0,0.0
 Size=100,60
 Color=-5178237
 
-Node=CX22
+Node=CX15
 Type=ContextNode
 Position=0.0,0.0
 Size=100,60
 Color=-5178237
 
-Node=CX23
+Node=CX16
 Type=ContextNode
 Position=0.0,0.0
 Size=100,60
@@ -173,13 +173,7 @@ Position=0.0,0.0
 Size=80,60
 Color=-5178237
 
-Node=person
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-Node=previous_procurement
+Node=previousProcurement
 Type=OrdinalVar
 Position=0.0,0.0
 Size=80,60
@@ -191,8 +185,14 @@ Position=0.0,0.0
 Size=80,60
 Color=-5178237
 
+Node=person
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
 % MFrag
-MFrag=Suspicious_Commitee
+MFrag=Suspicious_Committee
 NextOrdinaryVar=3
 
 % Nós Residentes
@@ -233,77 +233,6 @@ Color=-5178237
 
 
 Node=member
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-Node=procurement
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-% MFrag
-MFrag=Suspicious_Procurement
-NextOrdinaryVar=4
-
-% Nós Residentes
-
-
-Node=isSuspendedProcurement
-Type=DomainResidentNode
-Position=0.0,0.0
-Size=80,60
-Color=-66914
-PossibleValuesOrder=
-
-% nós Input
-
-
-Node=IX4
-Type=GenerativeInputNode
-Position=0.0,0.0
-Size=100,60
-Color=-2302756
-
-Node=IX9
-Type=GenerativeInputNode
-Position=0.0,0.0
-Size=100,60
-Color=-2302756
-
-Node=IX10
-Type=GenerativeInputNode
-Position=0.0,0.0
-Size=100,60
-Color=-2302756
-
-% Nós de Contexto
-
-
-Node=CX3
-Type=ContextNode
-Position=0.0,0.0
-Size=100,60
-Color=-5178237
-
-Node=CX4
-Type=ContextNode
-Position=0.0,0.0
-Size=100,60
-Color=-5178237
-
-% Variáveis Ordinárias
-
-
-Node=person
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-Node=enterprise
 Type=OrdinalVar
 Position=0.0,0.0
 Size=80,60
@@ -438,19 +367,19 @@ PossibleValuesOrder=
 % nós Input
 
 
-Node=IX11
+Node=IX5
 Type=GenerativeInputNode
 Position=0.0,0.0
 Size=100,60
 Color=-2302756
 
-Node=IX12
+Node=IX6
 Type=GenerativeInputNode
 Position=0.0,0.0
 Size=100,60
 Color=-2302756
 
-Node=IX13
+Node=IX7
 Type=GenerativeInputNode
 Position=0.0,0.0
 Size=100,60
@@ -459,13 +388,13 @@ Color=-2302756
 % Nós de Contexto
 
 
-Node=CX9
+Node=CX3
 Type=ContextNode
 Position=0.0,0.0
 Size=100,60
 Color=-5178237
 
-Node=CX10
+Node=CX4
 Type=ContextNode
 Position=0.0,0.0
 Size=100,60
@@ -474,13 +403,13 @@ Color=-5178237
 % Variáveis Ordinárias
 
 
-Node=person
+Node=enterprise
 Type=OrdinalVar
 Position=0.0,0.0
 Size=80,60
 Color=-5178237
 
-Node=enterprise
+Node=person
 Type=OrdinalVar
 Position=0.0,0.0
 Size=80,60
@@ -509,7 +438,7 @@ PossibleValuesOrder=
 % nós Input
 
 
-Node=IX14
+Node=IX8
 Type=GenerativeInputNode
 Position=0.0,0.0
 Size=100,60
@@ -518,7 +447,7 @@ Color=-2302756
 % Nós de Contexto
 
 
-Node=CX11
+Node=CX5
 Type=ContextNode
 Position=0.0,0.0
 Size=100,60
@@ -556,7 +485,7 @@ PossibleValuesOrder=
 % nós Input
 
 
-Node=IX5
+Node=IX4
 Type=GenerativeInputNode
 Position=0.0,0.0
 Size=100,60
@@ -564,113 +493,6 @@ Color=-2302756
 
 % Nós de Contexto
 
-
-Node=CX13
-Type=ContextNode
-Position=0.0,0.0
-Size=100,60
-Color=-5178237
-
-Node=CX14
-Type=ContextNode
-Position=0.0,0.0
-Size=100,60
-Color=-5178237
-
-Node=CX15
-Type=ContextNode
-Position=0.0,0.0
-Size=100,60
-Color=-5178237
-
-Node=CX16
-Type=ContextNode
-Position=0.0,0.0
-Size=100,60
-Color=-5178237
-
-Node=CX17
-Type=ContextNode
-Position=0.0,0.0
-Size=100,60
-Color=-5178237
-
-Node=CX18
-Type=ContextNode
-Position=0.0,0.0
-Size=100,60
-Color=-5178237
-
-% Variáveis Ordinárias
-
-
-Node=person1
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-Node=person2
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-Node=enterprise1
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-Node=enterprise2
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-Node=procurement
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-% MFrag
-MFrag=Member_Related_to_Participant
-NextOrdinaryVar=5
-
-% Nós Residentes
-
-
-Node=hasMemberRelatedToParticipant
-Type=DomainResidentNode
-Position=0.0,0.0
-Size=80,60
-Color=-66914
-PossibleValuesOrder=
-
-% nós Input
-
-
-Node=IX6
-Type=GenerativeInputNode
-Position=0.0,0.0
-Size=100,60
-Color=-2302756
-
-% Nós de Contexto
-
-
-Node=CX5
-Type=ContextNode
-Position=0.0,0.0
-Size=100,60
-Color=-5178237
-
-Node=CX6
-Type=ContextNode
-Position=0.0,0.0
-Size=100,60
-Color=-5178237
 
 Node=CX7
 Type=ContextNode
@@ -684,79 +506,25 @@ Position=0.0,0.0
 Size=100,60
 Color=-5178237
 
-% Variáveis Ordinárias
-
-
-Node=member
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-Node=person
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-Node=enterprise
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-Node=procurement
-Type=OrdinalVar
-Position=0.0,0.0
-Size=80,60
-Color=-5178237
-
-% MFrag
-MFrag=Competition_Compromised
-NextOrdinaryVar=3
-
-% Nós Residentes
-
-
-Node=isCompetitionCompromised
-Type=DomainResidentNode
-Position=0.0,0.0
-Size=80,60
-Color=-66914
-PossibleValuesOrder=
-
-Node=hasMemberRelatedToParticipant
-Type=DomainResidentNode
-Position=0.0,0.0
-Size=80,60
-Color=-66914
-PossibleValuesOrder=
-
-% nós Input
-
-
-Node=IX7
-Type=GenerativeInputNode
+Node=CX9
+Type=ContextNode
 Position=0.0,0.0
 Size=100,60
-Color=-2302756
+Color=-5178237
 
-Node=IX8
-Type=GenerativeInputNode
+Node=CX10
+Type=ContextNode
 Position=0.0,0.0
 Size=100,60
-Color=-2302756
+Color=-5178237
 
-Node=IX15
-Type=GenerativeInputNode
+Node=CX11
+Type=ContextNode
 Position=0.0,0.0
 Size=100,60
-Color=-2302756
+Color=-5178237
 
-% Nós de Contexto
-
-
-Node=CX19
+Node=CX12
 Type=ContextNode
 Position=0.0,0.0
 Size=100,60
@@ -765,13 +533,31 @@ Color=-5178237
 % Variáveis Ordinárias
 
 
-Node=procurement
+Node=enterprise1
 Type=OrdinalVar
 Position=0.0,0.0
 Size=80,60
 Color=-5178237
 
-Node=enterprise
+Node=enterprise2
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+Node=person1
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+Node=person2
+Type=OrdinalVar
+Position=0.0,0.0
+Size=80,60
+Color=-5178237
+
+Node=procurement
 Type=OrdinalVar
 Position=0.0,0.0
 Size=80,60
@@ -794,7 +580,7 @@ PossibleValuesOrder=
 % nós Input
 
 
-Node=IX16
+Node=IX9
 Type=GenerativeInputNode
 Position=0.0,0.0
 Size=100,60
@@ -803,7 +589,7 @@ Color=-2302756
 % Nós de Contexto
 
 
-Node=CX12
+Node=CX6
 Type=ContextNode
 Position=0.0,0.0
 Size=100,60

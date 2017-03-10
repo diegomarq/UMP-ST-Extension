@@ -53,7 +53,6 @@ public class FirstCriterionOfSelection {
 			for (int i = 0; i < relationshipList.size(); i++) {
 				
 				RelationshipModel relationship = relationshipList.get(i);
-				
 				if (relationship.getFowardtrackingGroups().size() == 1) {
 					
 					ResidentNodeExtension residentNodeExtension = mappingController.mapToResidentNode(

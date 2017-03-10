@@ -1,6 +1,6 @@
 % Cabeçalho UBF
 Version=2.0
-PrOwl="test-fraud.owl"
+PrOwl="fraudTest.owl"
 
 % Declaração de MTheory - UBF
 MTheory=prowl
